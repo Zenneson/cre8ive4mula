@@ -1,5 +1,6 @@
 import { ColorSchemeScript } from "@mantine/core";
 import "@mantine/core/styles.css";
+import "@mantine/tiptap/styles.css";
 import { Assistant, Montserrat } from "next/font/google";
 import localFont from "next/font/local";
 import AppWrapper from "./appWrapper";

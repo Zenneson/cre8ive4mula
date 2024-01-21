@@ -6,7 +6,7 @@ body {
   align-items: center;
   overflow: hidden;
   perspective: 500px;
-  background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+  background-image: linear-gradient(to top, #209cff 0%, #68e0cf 100%);
   font-family: var(--font-assistant);
 }
 
