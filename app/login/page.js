@@ -4,7 +4,7 @@ import Editor from "../editor/editor";
 
 export default function LoginPage() {
   return (
-    <Stack p={50} w={1000} gap={50} align="flex-start">
+    <Stack p={50} gap={50} align="flex-start">
       <Button className="linkBtn" component={Link} href={"/"}>
         HOMEPAGE
       </Button>

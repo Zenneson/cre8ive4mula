@@ -1,0 +1,28 @@
+div.logoFrame {
+  z-index: 10;
+  position: relative;
+  width: 520px;
+  height: 520px;
+  display: flex;
+  place-content: center;
+  overflow: hidden;
+  backdrop-filter: blur(2rem);
+  border-radius: 25px;
+  box-shadow: 6px 6px 20px rgba(122, 122, 122, 0.212);
+
+  background: linear-gradient(
+    to left top,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.25)
+  );
+}
+
+.item {
+  width: 500px;
+  overflow: visible;
+  stroke: #fff;
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  filter: drop-shadow(6px 6px 20px rgba(122, 122, 122, 0.212));
+}
