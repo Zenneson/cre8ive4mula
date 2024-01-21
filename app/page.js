@@ -1,5 +1,9 @@
-import Logo from "./logo/logo";
+import NumbersBg from "./numbersBg/numbersBg";
 
 export default function Home() {
-  return <Logo />;
+  return (
+    <>
+      <NumbersBg />
+    </>
+  );
 }
