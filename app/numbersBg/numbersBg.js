@@ -28,10 +28,10 @@ const RandomModel = ({ path, position }) => {
   return <primitive ref={ref} object={gltf.scene} position={position} />;
 };
 
-const randomPosition = () => [
+const randomPosition = (leaving) => [
   (Math.random() - 0.5) * 5,
   (Math.random() - 0.5) * 5,
-  1,
+  (leaving = true ? 10 : 1),
 ];
 
 const modelsWithPositions = models.map((model) => ({
@@ -46,20 +46,30 @@ const Scene = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % modelsWithPositions.length);
-    }, 5000);
+    }, 7500);
     return () => clearInterval(interval);
   }, []);
 
+  const time = { duration: 30000 };
+  const exitSpot = randomPosition(true);
   const transitions = useTransition(currentItem, {
     key: (item) => item.path, // Unique key for each item
-    from: { position: [1, 1, -100] }, // Starting position
-    enter: { position: [1, 1, 100] }, // Enter position
-    leave: { position: [1, 1, 100] }, // Leaving position
-    config: { duration: 30000 },
+    from: { position: [1, 1, -5], scale: 0 },
+    enter: {
+      scale: 1,
+      position: exitSpot,
+      config: { duration: 30000, delay: 250 },
+    },
+    leave: {
+      position: exitSpot,
+      scale: 1,
+      config: time,
+    },
+    config: time,
   });
 
   return transitions((props, item) => (
-    <animated.group position={props.position}>
+    <animated.group position={props.position} scale={props.scale}>
       <RandomModel path={item.path} position={item.position} />
     </animated.group>
   ));
@@ -70,7 +80,7 @@ export default function NumbersBg() {
     <Canvas className={classes.bgCanvas}>
       <ambientLight
         castShadow={true}
-        intensity={0.15}
+        intensity={0.5}
         position={[-10, 10, 10]}
       />
       <pointLight castShadow={true} power={10} position={[-10, -10, 10]} />

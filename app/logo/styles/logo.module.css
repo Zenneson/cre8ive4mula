@@ -12,8 +12,8 @@ div.logoFrame {
 
   background: linear-gradient(
     to left top,
-    rgba(255, 255, 255, 0.4),
-    rgba(255, 255, 255, 0.25)
+    rgba(255, 255, 255, 0.25),
+    rgba(255, 255, 255, 0.1)
   );
 }
 
