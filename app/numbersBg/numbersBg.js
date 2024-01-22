@@ -50,7 +50,6 @@ const Scene = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const time = { duration: 30000 };
   const exitSpot = randomPosition(true);
   const transitions = useTransition(currentItem, {
     key: (item) => item.path, // Unique key for each item
@@ -63,9 +62,9 @@ const Scene = () => {
     leave: {
       position: exitSpot,
       scale: 1,
-      config: time,
+      config: { duration: 30000, delay: 250 },
     },
-    config: time,
+    config: { duration: 30250 },
   });
 
   return transitions((props, item) => (
@@ -80,7 +79,7 @@ export default function NumbersBg() {
     <Canvas className={classes.bgCanvas}>
       <ambientLight
         castShadow={true}
-        intensity={0.5}
+        intensity={0.8}
         position={[-10, 10, 10]}
       />
       <pointLight castShadow={true} power={10} position={[-10, -10, 10]} />

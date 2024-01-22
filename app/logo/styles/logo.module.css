@@ -1,19 +1,18 @@
 div.logoFrame {
   z-index: 10;
   position: relative;
-  width: 520px;
-  height: 520px;
+  width: 400px;
+  height: 400px;
   display: flex;
   place-content: center;
   overflow: hidden;
   backdrop-filter: blur(2rem);
-  border-radius: 25px;
-  box-shadow: 6px 6px 20px rgba(122, 122, 122, 0.212);
+  box-shadow: 6px 6px 20px rgba(122, 122, 122, 0.15);
 
   background: linear-gradient(
     to left top,
-    rgba(255, 255, 255, 0.25),
-    rgba(255, 255, 255, 0.1)
+    rgba(255, 255, 255, 0.65),
+    rgba(255, 255, 255, 0.3)
   );
 }
 
@@ -24,5 +23,5 @@ div.logoFrame {
   stroke-width: 2.5;
   stroke-linejoin: round;
   stroke-linecap: round;
-  filter: drop-shadow(6px 6px 20px rgba(122, 122, 122, 0.212));
+  filter: drop-shadow(6px 6px 20px rgba(122, 122, 122, 0.15));
 }

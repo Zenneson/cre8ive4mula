@@ -8,6 +8,7 @@ import TextAlign from "@tiptap/extension-text-align";
 import Underline from "@tiptap/extension-underline";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import { FaPencilAlt } from "react-icons/fa";
 import classes from "./styles/editor.module.css";
 
 export default function Editor() {
@@ -47,6 +48,9 @@ export default function Editor() {
       editor={editor}
     >
       <RichTextEditor.Toolbar sticky stickyOffset={60}>
+        <RichTextEditor.ControlsGroup ml={10} c={"#fff"}>
+          <FaPencilAlt size={25} />
+        </RichTextEditor.ControlsGroup>
         <RichTextEditor.ControlsGroup>
           <RichTextEditor.Bold />
           <RichTextEditor.Italic />

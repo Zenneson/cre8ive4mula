@@ -12,9 +12,9 @@ export const metadata = {
     "Cre8ive 4mula offers bespoke web design, content management, graphic design, and website management services. Elevate your brand with our innovative, client-focused solutions. Whether you're an artist, content creator, or business, we transform your vision into creative reality.",
 };
 
-const hand = localFont({
-  src: "../public/fonts/hand.woff2",
-  variable: "--font-hand",
+const pixel = localFont({
+  src: "../public/fonts/pixel.woff2",
+  variable: "--font-pixel",
   display: "swap",
 });
 
@@ -33,7 +33,7 @@ const montserrat = Montserrat({
 export default function RootLayout({ children }) {
   return (
     <html
-      className={`${hand.variable} ${assistant.variable} ${montserrat.variable}`}
+      className={`${pixel.variable} ${assistant.variable} ${montserrat.variable}`}
       lang="en"
     >
       <head>

@@ -1,14 +1,13 @@
 div.editorRoot {
-  background: linear-gradient(
-    to top,
-    rgba(240, 249, 251, 0.8),
-    rgba(243, 249, 251, 0.8)
-  );
   backdrop-filter: blur(10px);
-  border-radius: 25px;
   padding: 10px;
   border: none;
   border-top: 1px solid #daf4fa;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.3)
+  );
 }
 
 div.editorRoot button {
@@ -21,6 +20,7 @@ div.editorRoot button {
 div.editorToolbar,
 div.editorContent {
   background: transparent;
+  padding: 0px;
 }
 
 div.editorToolbar {
@@ -29,9 +29,7 @@ div.editorToolbar {
 
 div.editorContent {
   background: linear-gradient(to top, #f0f9fb, #f3f9fb);
-  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
-  max-width: 718px;
-  border-radius: 25px;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 2px 4px 0px inset;
   margin: 10px;
 }
 

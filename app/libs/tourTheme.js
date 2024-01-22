@@ -1,11 +1,13 @@
-import { createTheme } from "@mantine/core";
+import { LoadingOverlay, Tooltip, createTheme } from "@mantine/core";
 
 export const tourTheme = createTheme({
   colorScheme: "light",
   focusRing: "never",
   cursorType: "pointer",
+  defaultRadius: "0px",
+  autoContrast: true,
   components: {
-    Tooltip: {
+    Tooltip: Tooltip.extend({
       defaultProps: {
         className: "tooltip",
         withArrow: true,
@@ -13,17 +15,13 @@ export const tourTheme = createTheme({
         closeDelay: 0,
         events: { hover: true, focus: true, touch: false },
       },
-    },
-    LoadingOverlay: {
-      classNames: {
-        root: "loadingOverlayDefault",
-        loader: "loadingOverlayDefaultLoader",
-      },
+    }),
+    LoadingOverlay: LoadingOverlay.extend({
       defaultProps: {
         loaderProps: {
           type: "bars",
         },
       },
-    },
+    }),
   },
 });
