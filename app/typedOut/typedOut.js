@@ -10,14 +10,15 @@ export default function TypedOut() {
   useEffect(() => {
     const typed = new Typed(el.current, {
       strings: [
-        "( Diversity of Perspectives + Collaboration ) × Openness",
-        "( Curiosity + Experience ) × Divergent Thinking × Persistence",
-        "( Self-awareness + Life Experiences ) × Adaptability",
-        "( Inspiration + Intuition ) × Critical Thinking",
-        "&fnof; ( Knowledge, Imagination, Environment, Personality, Motivation )",
+        "Cre8ive 4mula",
+        "Cre8ive 4mula = ( Diversity of Perspectives + Collaboration ) × Openness",
+        "Cre8ive 4mula = ( Curiosity + Experience ) × Divergent Thinking × Persistence",
+        "Cre8ive 4mula = ( Self-awareness + Life Experiences ) × Adaptability",
+        "Cre8ive 4mula = ( Inspiration + Intuition ) × Critical Thinking",
+        "Cre8ive 4mula = &fnof; ( Knowledge, Imagination, Environment, Personality, Motivation )",
       ],
       typeSpeed: 40,
-      backDelay: 5000,
+      backDelay: 3500,
       backSpeed: 10,
       loop: true,
     });

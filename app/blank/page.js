@@ -9,7 +9,7 @@ export default function Blank() {
       gap={30}
       align="flex-start"
       ml={"15%"}
-      mt={100}
+      my={50}
       w={"70%"}
     >
       <Button component={Link} href={"/"}>

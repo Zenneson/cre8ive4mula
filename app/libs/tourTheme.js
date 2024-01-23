@@ -4,7 +4,7 @@ export const tourTheme = createTheme({
   colorScheme: "light",
   focusRing: "never",
   cursorType: "pointer",
-  defaultRadius: "0px",
+  defaultRadius: "3px",
   autoContrast: true,
   components: {
     Tooltip: Tooltip.extend({

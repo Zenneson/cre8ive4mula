@@ -1,8 +1,6 @@
 "use client";
-import { ActionIcon, Box, Center, Stack } from "@mantine/core";
+import { Box, Center, Image, Stack } from "@mantine/core";
 import { useState } from "react";
-import { FaArrowAltCircleUp } from "react-icons/fa";
-import { GoTriangleDown } from "react-icons/go";
 import HomeStepper from "./homeStepper/homeStepper";
 import Logo from "./logo/logo";
 import classes from "./page.module.css";
@@ -10,6 +8,42 @@ import TypedOut from "./typedOut/typedOut";
 
 export default function Home() {
   const [isUp, setIsUp] = useState(false);
+  const [active, setActive] = useState(0);
+  const nextStep = () =>
+    setActive((current) => (current < 3 ? current + 1 : current));
+  const prevStep = () =>
+    setActive((current) => (current > 0 ? current - 1 : current));
+
+  const PanelSwitch = () => {
+    return (
+      <Stack
+        align="center"
+        justify="center"
+        w={"100%"}
+        pos={"fixed"}
+        bottom="10px"
+      >
+        <Image
+          className={classes.upArrow}
+          onClick={() => {
+            isUp && active !== 0 ? prevStep() : setIsUp(false);
+          }}
+          src={"/img/upArrow.svg"}
+          w={isUp ? "40px" : "0px"}
+          alt="up arrow"
+        />
+        <Image
+          className={classes.downArrow}
+          onClick={() => {
+            isUp ? nextStep() : setIsUp(true);
+          }}
+          src={"/img/downArrow.svg"}
+          w={"40px"}
+          alt="down arrow"
+        />
+      </Stack>
+    );
+  };
 
   return (
     <Box
@@ -20,31 +54,15 @@ export default function Home() {
       top={isUp ? "-100vh" : "0px"}
     >
       <Center w={"100vw"} h={"100vh"} pos={"relative"}>
-        <Stack direction={"column"} w={"100%"} align="center" spacing={"lg"}>
+        <Stack direction={"column"} w={"100%"} align="center">
           <Logo />
           <TypedOut />
         </Stack>
-        <Center
-          w={"100%"}
-          pos={"absolute"}
-          bottom={0}
-          left={0}
-          onClick={() => setIsUp(true)}
-        >
-          <GoTriangleDown className={classes.learnMore} size={80} />
-        </Center>
       </Center>
       <Center w={"100vw"} h={"100vh"} pos={"relative"}>
-        <HomeStepper />
-        <ActionIcon
-          className={classes.upArrow}
-          variant="transparent"
-          c={"#fff"}
-          onClick={() => setIsUp(false)}
-        >
-          <FaArrowAltCircleUp />
-        </ActionIcon>
+        <HomeStepper active={active} setActive={setActive} />
       </Center>
+      <PanelSwitch />
     </Box>
   );
 }

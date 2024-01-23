@@ -1,13 +1,9 @@
 "use client";
 import { Button, Group, Stepper } from "@mantine/core";
-import { useState } from "react";
+import Link from "next/link";
 
-export default function HomeStepper() {
-  const [active, setActive] = useState(1);
-  const nextStep = () =>
-    setActive((current) => (current < 3 ? current + 1 : current));
-  const prevStep = () =>
-    setActive((current) => (current > 0 ? current - 1 : current));
+export default function HomeStepper(porps) {
+  const { isUp, active, setActive, nextStep, prevStep } = porps;
 
   return (
     <>
@@ -18,7 +14,10 @@ export default function HomeStepper() {
         allowNextStepsSelect={false}
       >
         <Stepper.Step label="First step" description="Create an account">
-          Step 1 content: Create an account
+          Step 1 content: Create an account{" "}
+          <Button component={Link} href={"/blank"}>
+            Blank Page
+          </Button>
         </Stepper.Step>
         <Stepper.Step label="Second step" description="Verify email">
           Step 2 content: Verify email
