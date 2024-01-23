@@ -10,7 +10,7 @@ export default function Home() {
   const [isUp, setIsUp] = useState(false);
   const [active, setActive] = useState(0);
   const nextStep = () =>
-    setActive((current) => (current < 3 ? current + 1 : current));
+    setActive((current) => (current < 4 ? current + 1 : current));
   const prevStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
 
@@ -33,7 +33,9 @@ export default function Home() {
           alt="up arrow"
         />
         <Image
-          className={classes.downArrow}
+          className={`${classes.downArrow} ${
+            active === 4 && classes.disabledArrow
+          }`}
           onClick={() => {
             isUp ? nextStep() : setIsUp(true);
           }}

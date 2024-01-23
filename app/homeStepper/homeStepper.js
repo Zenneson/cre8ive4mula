@@ -1,9 +1,9 @@
 "use client";
-import { Button, Group, Stepper } from "@mantine/core";
+import { Button, Stepper } from "@mantine/core";
 import Link from "next/link";
 
 export default function HomeStepper(porps) {
-  const { isUp, active, setActive, nextStep, prevStep } = porps;
+  const { active, setActive } = porps;
 
   return (
     <>
@@ -13,29 +13,31 @@ export default function HomeStepper(porps) {
         onStepClick={setActive}
         allowNextStepsSelect={false}
       >
-        <Stepper.Step label="First step" description="Create an account">
+        <Stepper.Step label="Company Intro" description="Brief explanation">
           Step 1 content: Create an account{" "}
           <Button component={Link} href={"/blank"}>
             Blank Page
           </Button>
         </Stepper.Step>
-        <Stepper.Step label="Second step" description="Verify email">
+        <Stepper.Step
+          label="List of Services and Features"
+          description="In depth explantation"
+        >
           Step 2 content: Verify email
         </Stepper.Step>
-        <Stepper.Step label="Final step" description="Get full access">
+        <Stepper.Step label="Recent Work" description="List of recent work...">
           Step 3 content: Get full access
         </Stepper.Step>
-        <Stepper.Completed>
-          Completed, click back button to get to previous step
-        </Stepper.Completed>
+        <Stepper.Step label="Plans" description="Price and Package Breakdown">
+          Step 3 content: Get full access
+        </Stepper.Step>
+        <Stepper.Step
+          label="Contact Information"
+          description="Contact Information"
+        >
+          Step 3 content: Get full access
+        </Stepper.Step>
       </Stepper>
-
-      <Group justify="center" mt="xl">
-        <Button variant="default" onClick={prevStep}>
-          Back
-        </Button>
-        <Button onClick={nextStep}>Next step</Button>
-      </Group>
     </>
   );
 }

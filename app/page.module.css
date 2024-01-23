@@ -18,14 +18,17 @@ div.centerFrame {
   top: 40px;
 }
 
-.downArrow {
-  transform: rotate(180deg);
-}
-
 .upArrow:active,
 .downArrow:active {
   transform: scale(0.95);
   animation: none;
+}
+
+.disabledArrow {
+  opacity: 0.05;
+  cursor: default;
+  animation: none;
+  pointer-events: none;
 }
 
 /* KEYFRAMES ----------------------------- */
