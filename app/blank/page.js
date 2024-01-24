@@ -12,7 +12,11 @@ export default function Blank() {
       my={50}
       w={"70%"}
     >
-      <Button component={Link} href={"/"}>
+      <Button
+        component={Link}
+        scroll={false} // disable scroll to top, needed fir homepage
+        href={"/"}
+      >
         HOMEPAGE
       </Button>
       <Input placeholder="Username" />

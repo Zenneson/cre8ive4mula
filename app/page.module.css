@@ -11,6 +11,7 @@ div.centerFrame {
   cursor: pointer;
   overflow: visible;
   width: 35px;
+  user-select: none;
 }
 
 .upArrow {

@@ -1,7 +1,7 @@
 "use client";
 import classes from "./styles/dotsBg.module.css";
 
-export default function NumbersBg() {
+export default function DotsBg() {
   return (
     <div className={classes.scene}>
       <div className={classes.backdrop}></div>

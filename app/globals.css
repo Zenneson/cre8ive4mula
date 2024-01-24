@@ -13,9 +13,17 @@ h6 {
   font-family: var(--font-montserrat);
 }
 
+.appPixelated {
+  filter: url(#pixel);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
 .panel {
   background: linear-gradient(to left top, #030303, rgba(0, 0, 0, 0.4));
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 3px;
   backdrop-filter: blur(3px);
 
   /* PLACEHOLDER  */
@@ -23,7 +31,7 @@ h6 {
 }
 
 .innerPanel {
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.04) !important;
   background: #000;
   border-radius: 3px;
   color: #fff;
@@ -45,7 +53,7 @@ input.mantine-Input-input {
 
 a.mantine-Button-root,
 button.mantine-Button-root {
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.04) !important;
   background: #000;
   transition: all 150ms ease;
   font-weight: 900;
