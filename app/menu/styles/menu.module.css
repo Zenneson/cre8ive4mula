@@ -1,5 +1,5 @@
-.menuBtn {
-  z-index: 9999;
+.menuBurger {
+  z-index: 99;
   position: fixed;
   top: 20px;
   right: 20px;
@@ -7,15 +7,30 @@
 
 div.menuCenterFrame {
   transition: all 250ms ease-in-out;
-  z-index: 9998;
   position: fixed;
+  z-index: 98;
   top: 50%;
   left: 50%;
   width: 0vw;
   height: 0vh;
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0);
   backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0);
+}
+
+img.menuLogo {
+  height: 30px;
+}
+
+p.menuTitle {
+  font-family: var(--font-pixel);
+}
+
+a.menuLink {
+  color: white;
+  font-size: 12px;
+  margin-right: 5px;
+  text-decoration: none;
 }
 
 div.menuOpened {
@@ -23,4 +38,14 @@ div.menuOpened {
   height: 100vh;
   top: 0;
   left: 0;
+}
+
+button.menuBtnWide {
+  height: 150px !important;
+  width: 320px !important;
+}
+
+button.menuBtn {
+  height: 150px !important;
+  width: 150px !important;
 }

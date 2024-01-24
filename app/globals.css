@@ -14,7 +14,7 @@ h6 {
 }
 
 .appPixelated {
-  filter: url(#pixel);
+  filter: url(#pixel) grayscale(1);
   width: 100vw;
   height: 100vh;
   overflow: hidden;
