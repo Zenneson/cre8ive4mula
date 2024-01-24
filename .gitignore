@@ -37,3 +37,8 @@ next-env.d.ts
 
 # VS Code
 .vscode/*
+
+# 3D files
+*.glb
+*.gltf
+```
