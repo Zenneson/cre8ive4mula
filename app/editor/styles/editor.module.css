@@ -1,10 +1,14 @@
 div.editorRoot {
-  border: 1px solid rgba(255, 255, 255, 0.04) !important;
-  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.01) !important;
+  background: linear-gradient(145deg, #040404, #090909);
   backdrop-filter: blur(10px);
   padding: 10px;
   border-radius: 3px;
   border: none;
+  border: 1px solid rgba(255, 255, 255, 0.01);
+  box-shadow:
+    2px 2px 5px rgba(0, 0, 0, 0.3),
+    -2px -2px 5px rgba(41, 41, 41, 0.15);
 }
 
 div.editorRoot button {

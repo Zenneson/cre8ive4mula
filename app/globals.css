@@ -21,20 +21,22 @@ h6 {
 }
 
 .panel {
-  background: linear-gradient(to left top, #030303, rgba(0, 0, 0, 0.4));
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: radial-gradient(rgba(4, 4, 4, 0.97), #040404);
+  border: 1px solid rgba(255, 255, 255, 0.02);
   border-radius: 3px;
-  backdrop-filter: blur(3px);
 
   /* PLACEHOLDER  */
-  padding: 50px;
+  padding: 30px;
 }
 
 .innerPanel {
-  border: 1px solid rgba(255, 255, 255, 0.04) !important;
-  background: #000;
+  background: linear-gradient(145deg, #040404, #090909);
   border-radius: 3px;
   color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.01);
+  box-shadow:
+    2px 2px 5px rgba(0, 0, 0, 0.3),
+    -2px -2px 5px rgba(41, 41, 41, 0.15);
 
   /* PLACEHOLDER  */
   padding: 100px;
@@ -42,19 +44,24 @@ h6 {
 
 input,
 input.mantine-Input-input {
-  background: #090909;
+  background: linear-gradient(145deg, #5f5f5f, #9e9e9e);
   transition: all 150ms ease;
   padding: 10px 20px;
   height: auto;
   border: none;
   outline: none;
-  color: #fff;
+  color: #000;
+  border: 1px solid rgba(255, 255, 255, 0.01);
+
+  &::placeholder {
+    color: #444;
+  }
 }
 
 a.mantine-Button-root,
 button.mantine-Button-root {
-  border: 1px solid rgba(255, 255, 255, 0.04) !important;
-  background: #000;
+  border-radius: 3px;
+  background: linear-gradient(145deg, #040404, #090909);
   transition: all 150ms ease;
   font-weight: 900;
   height: auto;
@@ -64,6 +71,10 @@ button.mantine-Button-root {
   cursor: pointer;
   color: #fff;
   text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.01);
+  box-shadow:
+    2px 2px 5px rgba(0, 0, 0, 0.3),
+    -2px -2px 5px rgba(41, 41, 41, 0.15);
 }
 
 button:hover,

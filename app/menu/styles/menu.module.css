@@ -15,7 +15,7 @@ div.menuCenterFrame {
   height: 0vh;
   overflow: hidden;
   backdrop-filter: blur(3px);
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 img.menuLogo {
@@ -50,6 +50,21 @@ button.menuBtn {
   width: 150px !important;
 }
 
+.btnText {
+  word-wrap: break-word;
+  vertical-align: middle;
+}
+
+.shine {
+  transition: all 250ms ease-in-out;
+  filter: drop-shadow(0 0 3px rgb(255, 255, 255, 0.12));
+}
+
+.grayed {
+  transition: all 250ms ease-in-out;
+  filter: grayscale(100%);
+}
+
 /* SWITCH ------------------------------------------------------------- */
 
 .switchOverlay {
@@ -70,8 +85,11 @@ button.menuBtn {
   background-color: black;
   width: 140px;
   height: 195px;
-  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2), 0 0 1px 2px white,
-    inset 0 2px 2px -2px white, inset 0 0 2px 3px rgb(26, 26, 26),
+  box-shadow:
+    0 0 10px 2px rgba(0, 0, 0, 0.2),
+    0 0 1px 2px white,
+    inset 0 2px 2px -2px white,
+    inset 0 0 2px 3px rgb(26, 26, 26),
     inset 0 0 2px 4px white;
   border-radius: 5px;
   padding: 5px;
@@ -114,7 +132,8 @@ button.menuBtn {
 }
 .switch .button::before {
   content: "";
-  background: linear-gradient(
+  background:
+    linear-gradient(
         rgba(255, 255, 255, 0.8) 10%,
         rgba(255, 255, 255, 0.3) 30%,
         #650000 75%,
@@ -139,7 +158,9 @@ button.menuBtn {
   transform: translateY(50px) rotateX(-90deg);
   position: absolute;
   bottom: 0;
-  box-shadow: 0 50px 8px 0px black, 0 80px 20px 0px rgba(0, 0, 0, 0.5);
+  box-shadow:
+    0 50px 8px 0px black,
+    0 80px 20px 0px rgba(0, 0, 0, 0.5);
 }
 .switch .light {
   opacity: 0;
@@ -160,7 +181,8 @@ button.menuBtn {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: linear-gradient(white, white) 50% 20%/5% 20%,
+  background:
+    linear-gradient(white, white) 50% 20%/5% 20%,
     radial-gradient(
         circle,
         transparent 50%,
@@ -177,7 +199,8 @@ button.menuBtn {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: linear-gradient(white, transparent 3%) 50% 50%/97% 97%,
+  background:
+    linear-gradient(white, transparent 3%) 50% 50%/97% 97%,
     linear-gradient(
         rgba(255, 255, 255, 0.5),
         transparent 50%,
