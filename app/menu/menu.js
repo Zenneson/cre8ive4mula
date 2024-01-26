@@ -12,8 +12,6 @@ import support from "/public/img/menu/support.json";
 const MenuBtnItem = ({ animation, text }) => {
   const [play, setPlay] = useState(false);
 
-  console.log("🚀 ~ MenuBtnItem ~ play:", play);
-
   return (
     <Button
       className={`${
