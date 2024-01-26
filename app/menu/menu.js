@@ -1,17 +1,15 @@
-import { Burger, Button, Center, Group, Stack, Text } from "@mantine/core";
+import { Button, Center, Group, Stack, Text } from "@mantine/core";
 import classes from "./styles/menu.module.css";
+import Switch from "./switch";
 
 export default function Menu(props) {
   const { mainMenuOpened, setMainMenuOpened } = props;
 
   return (
     <>
-      <Burger
-        className={classes.menuBurger}
-        opened={mainMenuOpened}
-        size={"xl"}
-        color={"#fff"}
-        onClick={() => setMainMenuOpened(!mainMenuOpened)}
+      <Switch
+        mainMenuOpened={mainMenuOpened}
+        setMainMenuOpened={setMainMenuOpened}
       />
       <Center
         className={`${classes.menuCenterFrame} ${

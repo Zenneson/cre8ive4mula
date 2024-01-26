@@ -13,12 +13,15 @@ export const useHomeState = create((set) => ({
   setHomePageTabs: (value) => set({ homePageTabs: value }),
 }));
 
+export const useAppState = create((set) => ({
+  mainMenuOpened: false,
+  setMainMenuOpened: (value) => set({ mainMenuOpened: value }),
+}));
+
 // App State
-export const useAppState = create(
+export const useChatState = create(
   persist(
     (set) => ({
-      mainMenuOpened: false,
-      setMainMenuOpened: (value) => set({ mainMenuOpened: value }),
       chatOpened: false,
       setChatOpened: (value) => set({ chatOpened: value }),
     }),

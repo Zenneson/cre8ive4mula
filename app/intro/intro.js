@@ -1,8 +1,9 @@
 "use client";
-import { Center, Group, Image, Stack, Text } from "@mantine/core";
+import { Button, Center, Group, Image, Stack, Text } from "@mantine/core";
+import Link from "next/link";
 import { useState } from "react";
-import HashBg from "../hashBg/hashBg";
 import Logo from "../logo/logo";
+import ModelScene from "../modelScene/modelScene";
 import TypedOut from "../typedOut/typedOut";
 import classes from "./styles/intro.module.css";
 
@@ -80,10 +81,12 @@ export default function Intro() {
           <Logo />
           <TypedOut />
         </Stack>
-        <HashBg />
       </Center>
       <Center id="1" w={"100vw"} h={"100vh"} pos={"relative"}>
-        <Text>Company Intro</Text>
+        <Button className={classes.blank} component={Link} href="/blank">
+          Blank Page
+        </Button>
+        <ModelScene />
       </Center>
       <Center id="2" w={"100vw"} h={"100vh"} pos={"relative"}>
         <Text>Services Breakdown</Text>

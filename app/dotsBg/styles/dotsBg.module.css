@@ -46,3 +46,50 @@
     mask-position: 50% 50%, 0 50%;
   }
 }
+
+.dotsMask .canvas {
+  mask: radial-gradient(
+      circle at 50% 50%,
+      white calc(1 * 1px),
+      transparent calc((1 * 1px) + 0.5px)
+    )
+    50% 50% / calc(15 * 1px) calc(15 * 1px);
+}
+.noiseMask .canvas {
+  mask: url("/img/noise-mask.png") calc(256 * 1px) 50% / calc(256 * 1px)
+    calc(256 * 1px);
+}
+
+.noise::before {
+  content: "";
+  background: conic-gradient(
+    from 180deg at 50% 70%,
+    hsla(0, 0%, 98%, 1) 0deg,
+    #eec32d 72.0000010728836deg,
+    #ec4b4b 144.0000021457672deg,
+    #709ab9 216.00000858306885deg,
+    #4dffbf 288.0000042915344deg,
+    hsla(0, 0%, 98%, 1) 1turn
+  );
+  position: absolute;
+  inset: 0;
+  mask: url("/img/noise-mask.png") calc(256 * 1px) 50% / calc(256 * 1px)
+    calc(256 * 1px);
+  animation: flicker calc(20 * 1s) infinite linear;
+}
+
+.dots,
+.noise,
+.backdrop {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.scene {
+  transition: transform 1s 2.5s, background 1s 2.5s;
+}
+
+.canvas {
+  transition: transform 1s 1.5s;
+}

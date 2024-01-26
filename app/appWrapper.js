@@ -2,7 +2,7 @@
 import { useAppState } from "@libs/store";
 import { AppShell, MantineProvider } from "@mantine/core";
 import { usePathname } from "next/navigation";
-import DotsBg from "./dotsBg/dotsBg";
+import Clouds from "./clouds/clouds";
 import { tourTheme } from "./libs/tourTheme";
 import Menu from "./menu/menu";
 
@@ -34,7 +34,7 @@ export default function AppWrapper({ children }) {
         <AppShell pos={"relative"} className={mainMenuOpened && "appPixelated"}>
           {children}
         </AppShell>
-        <DotsBg />
+        <Clouds />
       </MantineProvider>
     </>
   );
