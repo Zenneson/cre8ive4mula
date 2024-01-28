@@ -9,10 +9,10 @@ div.menuCenterFrame {
   transition: all 250ms ease-in-out;
   position: fixed;
   z-index: 98;
-  top: 50%;
-  left: 50%;
+  top: 0;
+  left: 0;
   width: 0vw;
-  height: 0vh;
+  height: 100vh;
   overflow: hidden;
   backdrop-filter: blur(3px);
   background-color: rgba(0, 0, 0, 0.7);
@@ -23,7 +23,7 @@ img.menuLogo {
 }
 
 p.menuTitle {
-  font-family: var(--font-pixel);
+  font-family: var(--font-arcade);
 }
 
 a.menuLink {
@@ -35,19 +35,11 @@ a.menuLink {
 
 div.menuOpened {
   width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-}
-
-button.menuBtnWide {
-  height: 150px !important;
-  width: 320px !important;
 }
 
 button.menuBtn {
-  height: 150px !important;
-  width: 150px !important;
+  height: 80px !important;
+  width: 250px;
 }
 
 .btnText {

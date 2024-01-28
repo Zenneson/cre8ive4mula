@@ -1,4 +1,4 @@
-import { LoadingOverlay, Tooltip, createTheme } from "@mantine/core";
+import { Divider, LoadingOverlay, Tooltip, createTheme } from "@mantine/core";
 
 export const tourTheme = createTheme({
   colorScheme: "light",
@@ -21,6 +21,12 @@ export const tourTheme = createTheme({
         loaderProps: {
           type: "bars",
         },
+      },
+    }),
+    Divider: Divider.extend({
+      defaultProps: {
+        variant: "solid",
+        margins: "xs",
       },
     }),
   },

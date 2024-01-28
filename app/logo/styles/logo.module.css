@@ -1,6 +1,7 @@
 div.logoFrame {
   z-index: 10;
   position: relative;
+  bottom: -30px;
   width: 400px;
   height: 400px;
   display: flex;

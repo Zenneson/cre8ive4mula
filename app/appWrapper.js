@@ -25,7 +25,7 @@ export default function AppWrapper({ children }) {
       </svg>
 
       <MantineProvider defaultColorScheme="light" theme={tourTheme}>
-        {pathname !== "/" && (
+        {pathname !== "/" && pathname !== "/login" && (
           <Menu
             mainMenuOpened={mainMenuOpened}
             setMainMenuOpened={setMainMenuOpened}
