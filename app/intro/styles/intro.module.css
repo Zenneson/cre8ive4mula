@@ -27,6 +27,54 @@ img.rightArrow:active {
   animation: none;
 }
 
+a.loginBtn {
+  transition: all 150ms ease;
+  position: fixed;
+  top: 20px;
+  right: 15px;
+  padding: 0;
+  background: transparent;
+  z-index: 999;
+  color: #000;
+  perspective: 300px;
+  transform-style: preserve-3d;
+  overflow: visible;
+  padding: 10px 20px;
+  font-weight: 700;
+  height: auto;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: none;
+  border-radius: 10px;
+  opacity: 0.2;
+
+  &:hover {
+    opacity: 1;
+    color: #fff;
+  }
+
+  &:after {
+    border-radius: 10px;
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: -1;
+    transform-origin: center bottom;
+    transform: rotateX(0);
+    transition: all 0.3s ease;
+  }
+
+  &:hover:after {
+    transform: rotateX(-180deg);
+    opacity: 0.3;
+  }
+}
+
 /* KEYFRAMES ----------------------------- */
 
 @keyframes pulse {

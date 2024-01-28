@@ -19,7 +19,7 @@ export default function Clouds(props) {
           gyroControls: false,
           minHeight: 200.0,
           minWidth: 200.0,
-          skyColor: "#0871bc",
+          skyColor: "#47b6ff",
           cloudColor: "#ffffff",
           lightColor: "#47b6ff",
           speed: 1.5,

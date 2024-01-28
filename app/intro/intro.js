@@ -42,6 +42,14 @@ export default function Intro() {
     );
   };
 
+  const LoginBtn = () => {
+    return (
+      <Button className={classes.loginBtn} component={Link} href={"/login"}>
+        Client Portal
+      </Button>
+    );
+  };
+
   const leftFunc = () => {
     switch (active) {
       case 0:
@@ -64,12 +72,13 @@ export default function Intro() {
   return (
     <Group
       className={classes.centerFrame}
+      pos={"fixed"}
       w={"600vw"}
       h={"100vh"}
-      pos={"fixed"}
       gap={"0px"}
       left={leftFunc()}
     >
+      <LoginBtn />
       <Center
         id="0"
         className={classes.homePanel}

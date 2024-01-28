@@ -34,7 +34,7 @@ h6 {
   /* box-shadow: inset -25px -25px 50px #6ea5e1; */
   box-shadow:
     10px 10px 15px #528cce,
-    -10px -10px 15px #79b3f6;
+    -10px -10px 15px #67a2e6;
 }
 
 .lightShadow {
@@ -43,8 +43,8 @@ h6 {
 
 .innerPanel {
   color: #fff;
+  padding: 30px;
   border-radius: 10px;
-  padding: 100px;
   background: linear-gradient(145deg, #3f70a8, #75acee);
   box-shadow:
     10px 10px 15px #528cce,
@@ -109,6 +109,11 @@ a {
   text-decoration: none;
 
   &:hover {
-    text-decoration: underline;
+    text-decoration: none;
   }
+}
+
+.removeDetails {
+  box-shadow: none !important;
+  background: transparent !important;
 }

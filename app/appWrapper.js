@@ -9,7 +9,6 @@ import {
 import { usePathname } from "next/navigation";
 import Clouds from "./clouds/clouds";
 import { tourTheme } from "./libs/tourTheme";
-import Menu from "./menu/menu";
 
 export default function AppWrapper({ children }) {
   const { mainMenuOpened, setMainMenuOpened } = useAppState();
@@ -31,12 +30,6 @@ export default function AppWrapper({ children }) {
 
       <ColorSchemeScript forceColorScheme="light" />
       <MantineProvider forceColorScheme="light" theme={tourTheme}>
-        {pathname !== "/" && pathname !== "/login" && (
-          <Menu
-            mainMenuOpened={mainMenuOpened}
-            setMainMenuOpened={setMainMenuOpened}
-          />
-        )}
         <AppShell
           pos={"relative"}
           component={ScrollArea}

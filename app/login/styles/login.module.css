@@ -23,3 +23,20 @@
   font-size: 12px;
   margin-bottom: 20px;
 }
+
+div.loginBtns {
+  transition: all 150ms ease-in-out;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #3f70a8, #75acee);
+  box-shadow:
+    10px 10px 15px #528cce,
+    -10px -10px 15px #79b3f6;
+
+  button {
+    opacity: 0.5;
+  }
+}
+
+.loginBtns button:hover {
+  opacity: 1;
+}
