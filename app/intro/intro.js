@@ -84,7 +84,7 @@ export default function Intro() {
       </Center>
       <Center id="1" w={"100vw"} h={"100vh"} pos={"relative"}>
         <Button className={classes.blank} component={Link} href="/blank">
-          Blank Page
+          Map Panel&apos;s Content Out
         </Button>
         <ModelScene />
       </Center>

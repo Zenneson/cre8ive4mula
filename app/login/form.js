@@ -31,12 +31,6 @@ export default function Form() {
           <Button w={"25%"}>
             <FaGoogle />
           </Button>
-          <Button w={"25%"}>
-            <FaFacebookF />
-          </Button>
-          <Button w={"25%"}>
-            <GrInstagram />
-          </Button>
           <Button w={"25%"} pos={"relative"}>
             <FaTwitter
               className={classes.twitterBird}
@@ -46,6 +40,12 @@ export default function Form() {
             <Group>
               <FaXTwitter />
             </Group>
+          </Button>
+          <Button w={"25%"}>
+            <FaFacebookF />
+          </Button>
+          <Button w={"25%"}>
+            <GrInstagram />
           </Button>
         </Button.Group>
         <Box mb={3}>
@@ -95,7 +95,7 @@ export default function Form() {
               <Text fz={12}>Forgot Password?</Text>
             </Group>
           </Link>
-          <Button w={"50%"}>Submit</Button>
+          <Button w={"40%"}>Submit</Button>
         </Group>
       </Stack>
     </form>

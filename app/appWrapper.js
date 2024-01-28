@@ -34,7 +34,7 @@ export default function AppWrapper({ children }) {
         <AppShell pos={"relative"} className={mainMenuOpened && "appPixelated"}>
           {children}
         </AppShell>
-        <Clouds />
+        {(pathname === "/" || pathname === "/login") && <Clouds />}
       </MantineProvider>
     </>
   );
