@@ -1,6 +1,5 @@
 import { Box, Button, Text } from "@mantine/core";
 import { useState } from "react";
-import Lottie from "react-lottie";
 import classes from "./styles/menu.module.css";
 import Switch from "./switch";
 import archive from "/public/img/menu/archive.json";
@@ -18,19 +17,7 @@ const MenuBtnItem = ({ animation, text }) => {
       onMouseLeave={() => setPlay(false)}
       justify="flex-start"
       leftSection={
-        <div className={play ? classes.shine : classes.grayed}>
-          <Lottie
-            options={{
-              animationData: animation,
-              rendererSettings: {
-                preserveAspectRatio: "xMidYMid slice",
-              },
-            }}
-            isStopped={!play}
-            height={60}
-            width={60}
-          />
-        </div>
+        <div className={play ? classes.shine : classes.grayed}></div>
       }
     >
       <Text>{text}</Text>

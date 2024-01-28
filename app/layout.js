@@ -1,4 +1,3 @@
-import { ColorSchemeScript } from "@mantine/core";
 import "@mantine/core/styles.css";
 import "@mantine/tiptap/styles.css";
 import { Assistant, Montserrat } from "next/font/google";
@@ -36,9 +35,7 @@ export default function RootLayout({ children }) {
       className={`${arcade.variable} ${assistant.variable} ${montserrat.variable}`}
       lang="en"
     >
-      <head>
-        <ColorSchemeScript defaultColorScheme="light" />
-      </head>
+      <head></head>
       <body>
         <AppWrapper>{children}</AppWrapper>
       </body>

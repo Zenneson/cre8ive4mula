@@ -3,12 +3,11 @@ import { Box, Button, Group, Input, Stack, Text } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useHover } from "@mantine/hooks";
 import Link from "next/link";
-import { FaAsterisk, FaGoogle, FaTwitter } from "react-icons/fa";
+import { FaAsterisk, FaGoogle } from "react-icons/fa";
 import { FaFacebookF, FaXTwitter } from "react-icons/fa6";
 import { GrInstagram } from "react-icons/gr";
+import { IoIosHelpBuoy } from "react-icons/io";
 import { MdAlternateEmail } from "react-icons/md";
-import { TfiEmail } from "react-icons/tfi";
-import classes from "./styles/login.module.css";
 
 export default function Form() {
   const { hovered, ref } = useHover();
@@ -31,15 +30,8 @@ export default function Form() {
           <Button w={"25%"}>
             <FaGoogle />
           </Button>
-          <Button w={"25%"} pos={"relative"}>
-            <FaTwitter
-              className={classes.twitterBird}
-              opacity={0.02}
-              size={32}
-            />
-            <Group>
-              <FaXTwitter />
-            </Group>
+          <Button w={"25%"}>
+            <FaXTwitter />
           </Button>
           <Button w={"25%"}>
             <FaFacebookF />
@@ -90,8 +82,8 @@ export default function Form() {
         </Box>
         <Group justify="space-between">
           <Link href="#">
-            <Group gap={5} ref={ref} opacity={hovered ? 1 : 0.3}>
-              <TfiEmail size={15} opacity={0.3} />
+            <Group gap={5} ref={ref} opacity={hovered ? 1 : 0.8}>
+              <IoIosHelpBuoy size={20} />
               <Text fz={12}>Forgot Password?</Text>
             </Group>
           </Link>

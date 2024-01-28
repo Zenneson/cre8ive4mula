@@ -1,10 +1,16 @@
-import { Divider, LoadingOverlay, Tooltip, createTheme } from "@mantine/core";
+import {
+  Divider,
+  LoadingOverlay,
+  ScrollArea,
+  Tooltip,
+  createTheme,
+} from "@mantine/core";
 
 export const tourTheme = createTheme({
   colorScheme: "light",
   focusRing: "never",
   cursorType: "pointer",
-  defaultRadius: "3px",
+  defaultRadius: "10px",
   autoContrast: true,
   components: {
     Tooltip: Tooltip.extend({
@@ -27,6 +33,11 @@ export const tourTheme = createTheme({
       defaultProps: {
         variant: "solid",
         margins: "xs",
+      },
+    }),
+    ScrollArea: ScrollArea.extend({
+      defaultProps: {
+        type: "hover",
       },
     }),
   },

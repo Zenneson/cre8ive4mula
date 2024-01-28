@@ -19,7 +19,7 @@ export default function Login() {
           <Divider mb={5} opacity={0.3} />
           <Title className={classes.subtitle}>Client Portal</Title>
         </Stack>
-        <Box className="panel" w={400}>
+        <Box className="panel lightShadow" w={400}>
           <Form />
         </Box>
       </Stack>

@@ -1,6 +1,11 @@
 "use client";
 import { useAppState } from "@libs/store";
-import { AppShell, MantineProvider } from "@mantine/core";
+import {
+  AppShell,
+  ColorSchemeScript,
+  MantineProvider,
+  ScrollArea,
+} from "@mantine/core";
 import { usePathname } from "next/navigation";
 import Clouds from "./clouds/clouds";
 import { tourTheme } from "./libs/tourTheme";
@@ -24,14 +29,25 @@ export default function AppWrapper({ children }) {
         </defs>
       </svg>
 
-      <MantineProvider defaultColorScheme="light" theme={tourTheme}>
+      <ColorSchemeScript forceColorScheme="light" />
+      <MantineProvider forceColorScheme="light" theme={tourTheme}>
         {pathname !== "/" && pathname !== "/login" && (
           <Menu
             mainMenuOpened={mainMenuOpened}
             setMainMenuOpened={setMainMenuOpened}
           />
         )}
-        <AppShell pos={"relative"} className={mainMenuOpened && "appPixelated"}>
+        <AppShell
+          pos={"relative"}
+          component={ScrollArea}
+          type="hover"
+          style={{
+            position: "absolute",
+            height: "100vh",
+            width: "100vw",
+          }}
+          className={mainMenuOpened && "appPixelated"}
+        >
           {children}
         </AppShell>
         {(pathname === "/" || pathname === "/login") && <Clouds />}

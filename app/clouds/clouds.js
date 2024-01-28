@@ -19,10 +19,9 @@ export default function Clouds(props) {
           gyroControls: false,
           minHeight: 200.0,
           minWidth: 200.0,
-          scale: 1.0,
-          skyColor: 0x0,
-          cloudColor: 0x0,
-          lightColor: 0x5c5c5c,
+          skyColor: "#0871bc",
+          cloudColor: "#ffffff",
+          lightColor: "#47b6ff",
           speed: 1.5,
           texturePath: "/img/noise.png",
         })
