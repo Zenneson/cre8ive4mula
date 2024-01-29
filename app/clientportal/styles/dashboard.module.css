@@ -1,12 +1,42 @@
-div.dashPanel {
-  position: fixed;
-  top: 0;
-  right: 0px;
-  width: calc(100vw - rem(110px));
-  height: 100vh;
-  padding: 20px;
+.topRightBtns {
+  opacity: 0.4;
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
-div.boards {
+.boards {
+  border-radius: 10px;
   height: calc(100vh - 100px);
+  padding: 10px 0;
+}
+
+.boardsHeader {
+  margin: 0 0 -30px 30px;
+}
+
+.boardsInner {
+  overflow: auto;
+  padding: 30px;
+  padding-top: 20px;
+}
+
+.boardsInner::-webkit-scrollbar {
+  cursor: pointer;
+  width: 8px;
+}
+
+.boardsInner::-webkit-scrollbar-track {
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0);
+}
+
+.boardsInner::-webkit-scrollbar-thumb {
+  background: #3d5585;
+  border-radius: 10px;
+}
+
+.boardsInner::-webkit-scrollbar-thumb:hover {
+  background: #01143b;
 }

@@ -28,12 +28,12 @@ img.rightArrow:active {
 }
 
 a.loginBtn {
+  background: transparent !important;
   transition: all 150ms ease;
   position: fixed;
   top: 20px;
   right: 15px;
   padding: 0;
-  background: transparent;
   z-index: 999;
   color: #000;
   perspective: 300px;
@@ -45,7 +45,7 @@ a.loginBtn {
   outline: none;
   border: none;
   cursor: pointer;
-  box-shadow: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   opacity: 0.2;
 

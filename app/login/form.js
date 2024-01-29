@@ -81,7 +81,9 @@ export default function Form() {
           <Link href="#">
             <Group gap={5} ref={ref} opacity={hovered ? 1 : 0.8}>
               <IoIosHelpBuoy size={20} />
-              <Text fz={12}>Forgot Password?</Text>
+              <Text fz={12} td={hovered && "underline"}>
+                Forgot Password?
+              </Text>
             </Group>
           </Link>
           <Button w={"40%"}>Submit</Button>

@@ -1,0 +1,8 @@
+div.dashPanel {
+  position: fixed;
+  top: 0;
+  right: 0px;
+  width: calc(100vw - rem(110px));
+  height: 100vh;
+  padding: 20px;
+}

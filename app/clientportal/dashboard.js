@@ -1,14 +1,14 @@
 "use client";
 import {
-  ActionIcon,
-  Badge,
-  Box,
-  Flex,
-  Group,
-  Image,
-  Stack,
-  Title,
-  Tooltip,
+	ActionIcon,
+	Badge,
+	Box,
+	Flex,
+	Group,
+	Image,
+	Stack,
+	Title,
+	Tooltip,
 } from "@mantine/core";
 import classes from "./styles/dashboard.module.css";
 
@@ -37,6 +37,7 @@ export default function Dashboard(props) {
             <ActionIcon
               size="xl"
               variant="transparent"
+							className={classes.topRightBtns}
               onClick={() => setActive(1)}
             >
               <Image
@@ -55,6 +56,7 @@ export default function Dashboard(props) {
             <ActionIcon
               size="xl"
               variant="transparent"
+							className={classes.topRightBtns}
               onClick={() => setActive(2)}
             >
               <Image
@@ -73,6 +75,7 @@ export default function Dashboard(props) {
             <ActionIcon
               size="xl"
               variant="transparent"
+							className={classes.topRightBtns}
               onClick={() => setActive(3)}
             >
               <Image
@@ -85,8 +88,8 @@ export default function Dashboard(props) {
         </Group>
       </Group>
       <Flex gap={20}>
-        <Stack w="33%" className={`panel  ${classes.boards}`} gap={20}>
-          <Group gap={5} mt={-15} mb={-15}>
+        <Stack w="33%" className={`panel ${classes.boards}`}>
+          <Group gap={5} className={classes.boardsHeader}>
             <Title order={2} fw={900}>
               7
             </Title>
@@ -94,16 +97,18 @@ export default function Dashboard(props) {
               Submitted Tasks
             </Title>
           </Group>
-          <Box className="innerPanel">Column 1</Box>
-          <Box className="innerPanel">Column 1</Box>
-          <Box className="innerPanel">Column 1</Box>
-          <Box className="innerPanel">Column 1</Box>
-          <Box className="innerPanel">Column 1</Box>
-          <Box className="innerPanel">Column 1</Box>
-          <Box className="innerPanel">Column 1</Box>
+          <Stack className={classes.boardsInner}>
+            <Box className="innerPanel">Column 1</Box>
+            <Box className="innerPanel">Column 1</Box>
+            <Box className="innerPanel">Column 1</Box>
+            <Box className="innerPanel">Column 1</Box>
+            <Box className="innerPanel">Column 1</Box>
+            <Box className="innerPanel">Column 1</Box>
+            <Box className="innerPanel">Column 1</Box>
+          </Stack>
         </Stack>
-        <Stack w="33%" className={`panel  ${classes.boards}`} gap={20}>
-          <Group gap={5} mt={-15} mb={-15}>
+        <Stack w="33%" className={`panel ${classes.boards}`}>
+          <Group gap={5} className={classes.boardsHeader}>
             <Title order={2} fw={900}>
               3
             </Title>
@@ -111,12 +116,14 @@ export default function Dashboard(props) {
               Tasks In-Progress
             </Title>
           </Group>
-          <Box className="innerPanel">Column 2</Box>
-          <Box className="innerPanel">Column 2</Box>
-          <Box className="innerPanel">Column 2</Box>
+          <Stack className={classes.boardsInner}>
+            <Box className="innerPanel">Column 2</Box>
+            <Box className="innerPanel">Column 2</Box>
+            <Box className="innerPanel">Column 2</Box>
+          </Stack>
         </Stack>
-        <Stack w="33%" className={`panel  ${classes.boards}`} gap={20}>
-          <Group gap={5} mt={-15} mb={-15}>
+        <Stack w="33%" className={`panel ${classes.boards}`}>
+          <Group gap={5} className={classes.boardsHeader}>
             <Title order={2} fw={900}>
               4
             </Title>
@@ -124,10 +131,12 @@ export default function Dashboard(props) {
               Tasks Ready To Review
             </Title>
           </Group>
-          <Box className="innerPanel">Column 3</Box>
-          <Box className="innerPanel">Column 3</Box>
-          <Box className="innerPanel">Column 3</Box>
-          <Box className="innerPanel">Column 3</Box>
+          <Stack className={classes.boardsInner}>
+            <Box className="innerPanel">Column 3</Box>
+            <Box className="innerPanel">Column 3</Box>
+            <Box className="innerPanel">Column 3</Box>
+            <Box className="innerPanel">Column 3</Box>
+          </Stack>
         </Stack>
       </Flex>
     </>
