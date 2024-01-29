@@ -2,8 +2,8 @@ div.editorRoot {
   backdrop-filter: blur(10px);
   padding: 10px;
   padding-bottom: 20px;
-  border: none;
-  background: linear-gradient(145deg, #3f70a8, #75acee);
+  border: 1px solid transparent;
+  background: linear-gradient(145deg, #538ccd, #75acee);
   box-shadow:
     10px 10px 15px #528cce,
     -10px -10px 15px #79b3f6;

@@ -44,8 +44,21 @@ export default function Intro() {
 
   const LoginBtn = () => {
     return (
-      <Button className={classes.loginBtn} component={Link} href={"/login"}>
-        Client Portal
+      <Button
+        className={classes.loginBtn}
+        component={Link}
+        href={"/login"}
+        w={138}
+        h={36}
+        leftSection={
+          <Image
+            className={classes.loginBtnImg}
+            src={"/img/login.svg"}
+            alt={"Login"}
+          />
+        }
+      >
+        <Text className={classes.loginBtnText}>Login</Text>
       </Button>
     );
   };

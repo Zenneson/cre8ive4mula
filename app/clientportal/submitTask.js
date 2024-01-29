@@ -48,12 +48,13 @@ const MentBtn = ({ svg1, svg2, text }) => {
   return (
     <Button
       className={classes.submitType}
-      pt={"lg"}
+      p={0}
+      pb={20}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <Stack gap={10} justify="center" align="center">
-        <Group grow gap={0}>
+        <Group mb={-20} grow gap={0}>
           <DotLottiePlayer ref={lottieRef1} src={svg1} loop />
           <DotLottiePlayer ref={lottieRef2} src={svg2} loop />
         </Group>

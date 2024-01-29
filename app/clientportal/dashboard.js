@@ -1,14 +1,14 @@
 "use client";
 import {
-	ActionIcon,
-	Badge,
-	Box,
-	Flex,
-	Group,
-	Image,
-	Stack,
-	Title,
-	Tooltip,
+  ActionIcon,
+  Badge,
+  Box,
+  Flex,
+  Group,
+  Image,
+  Stack,
+  Title,
+  Tooltip,
 } from "@mantine/core";
 import classes from "./styles/dashboard.module.css";
 
@@ -33,17 +33,18 @@ export default function Dashboard(props) {
             withArrow
             label={"Submit Task"}
             openDelay={0}
+            offset={-3}
           >
             <ActionIcon
               size="xl"
               variant="transparent"
-							className={classes.topRightBtns}
+              className={classes.topRightBtns}
               onClick={() => setActive(1)}
             >
               <Image
                 src={"/img/menu/submitTask.svg"}
                 alt={"Submit Task"}
-                height={30}
+                height={25}
               />
             </ActionIcon>
           </Tooltip>
@@ -52,17 +53,18 @@ export default function Dashboard(props) {
             withArrow
             label={"Task Archive"}
             openDelay={0}
+            offset={-3}
           >
             <ActionIcon
               size="xl"
               variant="transparent"
-							className={classes.topRightBtns}
+              className={classes.topRightBtns}
               onClick={() => setActive(2)}
             >
               <Image
                 src={"/img/menu/taskArchive.svg"}
                 alt={"Task Archive"}
-                height={30}
+                height={25}
               />
             </ActionIcon>
           </Tooltip>
@@ -71,23 +73,24 @@ export default function Dashboard(props) {
             withArrow
             label={"File Repository"}
             openDelay={0}
+            offset={-3}
           >
             <ActionIcon
               size="xl"
               variant="transparent"
-							className={classes.topRightBtns}
+              className={classes.topRightBtns}
               onClick={() => setActive(3)}
             >
               <Image
                 src={"/img/menu/fileRepo.svg"}
                 alt={"File Repository"}
-                height={30}
+                height={25}
               />
             </ActionIcon>
           </Tooltip>
         </Group>
       </Group>
-      <Flex gap={20}>
+      <Flex gap={20} className={classes.boardsFrame}>
         <Stack w="33%" className={`panel ${classes.boards}`}>
           <Group gap={5} className={classes.boardsHeader}>
             <Title order={2} fw={900}>
@@ -98,12 +101,6 @@ export default function Dashboard(props) {
             </Title>
           </Group>
           <Stack className={classes.boardsInner}>
-            <Box className="innerPanel">Column 1</Box>
-            <Box className="innerPanel">Column 1</Box>
-            <Box className="innerPanel">Column 1</Box>
-            <Box className="innerPanel">Column 1</Box>
-            <Box className="innerPanel">Column 1</Box>
-            <Box className="innerPanel">Column 1</Box>
             <Box className="innerPanel">Column 1</Box>
           </Stack>
         </Stack>
@@ -132,6 +129,10 @@ export default function Dashboard(props) {
             </Title>
           </Group>
           <Stack className={classes.boardsInner}>
+            <Box className="innerPanel">Column 3</Box>
+            <Box className="innerPanel">Column 3</Box>
+            <Box className="innerPanel">Column 3</Box>
+            <Box className="innerPanel">Column 3</Box>
             <Box className="innerPanel">Column 3</Box>
             <Box className="innerPanel">Column 3</Box>
             <Box className="innerPanel">Column 3</Box>

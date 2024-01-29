@@ -7,7 +7,7 @@ import {
 } from "@mantine/core";
 
 export const tourTheme = createTheme({
-  colorScheme: "light",
+  colorScheme: "dark",
   focusRing: "never",
   cursorType: "pointer",
   defaultRadius: "10px",
@@ -17,6 +17,9 @@ export const tourTheme = createTheme({
       defaultProps: {
         className: "tooltip",
         withArrow: true,
+        arrowSize: 10,
+        arrowRadius: 3,
+        radius: 5,
         openDelay: 1500,
         closeDelay: 0,
         events: { hover: true, focus: true, touch: false },

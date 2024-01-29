@@ -1,3 +1,6 @@
+// blue: #3d5585
+// dark blue: #01143b
+
 :root {
   --divider-color: #444;
 }
@@ -8,6 +11,24 @@ body {
   overflow: hidden;
   font-family: var(--font-assistant);
   color: #fff;
+}
+
+body *::-webkit-scrollbar {
+  width: 7.5px;
+}
+
+body *::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0) !important;
+  border-radius: 25px;
+}
+
+body *::-webkit-scrollbar-thumb {
+  background: #3d5585;
+  border-radius: 10px;
+}
+
+body *::-webkit-scrollbar-thumb:hover {
+  background: #01143b;
 }
 
 h1,
@@ -45,7 +66,7 @@ h6 {
 
 .innerPanel {
   color: #fff;
-  padding: 30px;
+  padding: 10px 20px;
   border-radius: 10px;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;

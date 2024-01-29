@@ -6,37 +6,34 @@
   }
 }
 
+.boardsFrame {
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
 .boards {
   border-radius: 10px;
-  height: calc(100vh - 100px);
+  height: auto;
+  max-height: calc(100vh - 100px);
   padding: 10px 0;
 }
 
 .boardsHeader {
-  margin: 0 0 -30px 30px;
+  position: relative;
+  z-index: 100;
+  margin: 0 0 -5px 20px;
 }
 
 .boardsInner {
-  overflow: auto;
-  padding: 30px;
-  padding-top: 20px;
-}
-
-.boardsInner::-webkit-scrollbar {
-  cursor: pointer;
-  width: 8px;
-}
-
-.boardsInner::-webkit-scrollbar-track {
-  border-radius: 25px;
-  background: rgba(255, 255, 255, 0);
-}
-
-.boardsInner::-webkit-scrollbar-thumb {
-  background: #3d5585;
   border-radius: 10px;
-}
+  overflow: auto;
+  padding: 20px;
+  margin: 0;
+  margin-top: -25px;
 
-.boardsInner::-webkit-scrollbar-thumb:hover {
-  background: #01143b;
+  div.innerPanel {
+    box-shadow:
+      10px 10px 15px rgba(82, 140, 206, 0.2),
+      -10px -10px 15px rgba(121, 179, 246, 0.2) !important;
+  }
 }
