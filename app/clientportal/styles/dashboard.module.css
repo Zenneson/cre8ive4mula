@@ -6,3 +6,7 @@ div.dashPanel {
   height: 100vh;
   padding: 20px;
 }
+
+div.boards {
+  height: calc(100vh - 100px);
+}

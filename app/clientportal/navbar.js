@@ -24,7 +24,7 @@ const NavbarLink = ({ icon, label, active, onClick }) => {
         data-active={active || undefined}
       >
         <Image
-          src={`/img/${icon}.svg`}
+          src={`/img/menu/${icon}.svg`}
           style={{ width: rem(40), height: rem(40) }}
           alt={label}
         />
