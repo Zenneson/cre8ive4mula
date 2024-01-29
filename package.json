@@ -9,6 +9,7 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
+		"@dotlottie/react-player": "^1.6.15",
 		"@mantine/carousel": "^7.5.0",
 		"@mantine/charts": "^7.5.0",
 		"@mantine/core": "^7.5.0",
@@ -32,6 +33,7 @@
 		"@tiptap/react": "^2.1.16",
 		"@tiptap/starter-kit": "^2.1.16",
 		"@types/three": "^0.160.0",
+		"core-js": "^3.35.1",
 		"dayjs": "^1.11.10",
 		"embla-carousel-react": "^7.1.0",
 		"framer-motion": "^10.18.0",

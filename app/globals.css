@@ -17,6 +17,8 @@ h4,
 h5,
 h6 {
   font-family: var(--font-montserrat);
+  color: #b9d5f6 !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.07);
 }
 
 .appPixelated {
@@ -45,7 +47,9 @@ h6 {
   color: #fff;
   padding: 30px;
   border-radius: 10px;
-  background: linear-gradient(145deg, #3f70a8, #75acee);
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  background: linear-gradient(145deg, #538ccd, #75acee);
   box-shadow:
     10px 10px 15px #528cce,
     -10px -10px 15px #79b3f6;

@@ -1,0 +1,27 @@
+.submitType {
+  transition: all 250ms ease-in-out;
+
+  h5 {
+    font-weight: 400;
+    font-size: 14px;
+    opacity: 0.25;
+  }
+
+  svg {
+    width: 120px !important;
+    filter: grayscale(1) opacity(0.4);
+  }
+
+  &:hover {
+    transform: scale(1.05);
+
+    svg {
+      filter: grayscale(0%);
+    }
+
+    h5 {
+      color: #124073 !important;
+      opacity: 1;
+    }
+  }
+}
