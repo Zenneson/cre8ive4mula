@@ -2,6 +2,7 @@ import {
   Avatar,
   Badge,
   Box,
+  Button,
   ColorSwatch,
   Flex,
   Group,
@@ -9,12 +10,16 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import { useClickOutside } from "@mantine/hooks";
+import { useState } from "react";
 import { CgAttachment } from "react-icons/cg";
+import { FaRegTrashCan } from "react-icons/fa6";
 import classes from "./styles/boardTask.module.css";
 
 export default function BoardTask(props) {
-  const { taskData } = props;
+  const { taskData, boardType } = props;
+  const [viewTask, setViewTask] = useState(false);
+  const ref = useClickOutside(() => setViewTask(false));
 
   const taskColor = (type) => {
     switch (type) {
@@ -40,7 +45,15 @@ export default function BoardTask(props) {
   );
 
   return (
-    <Box className="innerPanel" pos={"relative"} pb={10}>
+    <Box
+      className={`innerPanel ${classes.taskFrame} ${
+        boardType === "Ready For Review" && classes.reviewReady
+      }`}
+      onClick={() => setViewTask(!viewTask)}
+      pos={"relative"}
+      pb={10}
+      ref={ref}
+    >
       <Group justify="space-between" mb={5}>
         <Badge
           color={taskColor(taskData.type)}
@@ -49,12 +62,9 @@ export default function BoardTask(props) {
         >
           {taskData.type}
         </Badge>
-        <Group gap={5} mr={-7}>
-          <Text fz={12} fw={600} c={"#fff"} opacity={0.4}>
-            JAN 10th, 2024
-          </Text>
-          <BsThreeDotsVertical className={classes.taskMenuBtn} size={18} />
-        </Group>
+        <Text fz={12} fw={600} c={"#fff"} opacity={0.4}>
+          JAN 10th, 2024
+        </Text>
       </Group>
       <Title className={classes.title} truncate="end" lineClamp={2}>
         {taskData.title}
@@ -90,6 +100,17 @@ export default function BoardTask(props) {
         )}
         <Text className={classes.tagsList}>{tagsList}</Text>
       </Flex>
+      <Group
+        className={`${classes.viewTaskFrame} ${viewTask && classes.opened}`}
+        justify="flex-end"
+      >
+        <Box className={classes.taskBtnsFrame}>
+          <FaRegTrashCan className={classes.deleteTaskBtn} size={16} />
+          <Button className={classes.viewTaskBtn} variant="light">
+            View
+          </Button>
+        </Box>
+      </Group>
     </Box>
   );
 }

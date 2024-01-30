@@ -5,4 +5,5 @@ div.dashPanel {
   width: calc(100vw - rem(110px));
   height: 100vh;
   padding: 20px;
+  padding-top: 5px;
 }

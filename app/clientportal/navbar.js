@@ -49,6 +49,7 @@ export default function Navbar(props) {
         <Image
           src="/img/svgLogo.svg"
           style={{ paddingLeft: "2px", width: rem(50), height: rem(50) }}
+          opacity={0.2}
           alt="Logo"
         />
       </Center>
@@ -58,7 +59,11 @@ export default function Navbar(props) {
         </Stack>
       </div>
       <Stack justify="center" gap={0}>
-        <NavbarLink icon={"settings"} label="Account Settings" />
+        <NavbarLink
+          icon={"settings"}
+          onClick={() => setActive(4)}
+          label="Account Settings"
+        />
         <NavbarLink icon={"logout"} label="Logout" />
       </Stack>
     </nav>

@@ -1,3 +1,14 @@
+.userBadge {
+  transition: opacity 150ms ease-in-out;
+  opacity: 0.3;
+  margin-top: 7px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
 .topRightBtns {
   opacity: 0.4;
 
@@ -12,6 +23,7 @@
 }
 
 .boards {
+  background: linear-gradient(145deg, #6198d7, #77abe7);
   border-radius: 10px;
   height: auto;
   max-height: calc(100vh - 100px);
@@ -21,19 +33,25 @@
 .boardsHeader {
   position: relative;
   z-index: 100;
-  margin: 0 0 -5px 20px;
+  margin: 0 0 -27px 15px;
+}
+
+.scrollSpace {
+  margin: 0 0 -12px 15px;
 }
 
 .boardsInner {
   border-radius: 10px;
   overflow: auto;
   padding: 20px;
-  margin: 0;
-  margin-top: -25px;
+  padding-bottom: 20px;
+  margin: 0 5px;
+}
 
-  div.innerPanel {
-    box-shadow:
-      10px 10px 15px rgba(82, 140, 206, 0.2),
-      -10px -10px 15px rgba(121, 179, 246, 0.2) !important;
-  }
+.boardsShadow {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px 0px inset;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 15px;
+  margin: 5px 10px;
 }

@@ -41,6 +41,11 @@ export default function ClientPortal() {
           <Title>File Repository</Title>
         </motion.div>
       )}
+      {active === 4 && (
+        <motion.div {...animation} className={classes.dashPanel}>
+          <Title>Account Settings</Title>
+        </motion.div>
+      )}
     </>
   );
 }

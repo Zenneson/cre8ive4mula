@@ -1,62 +1,58 @@
 "use client";
-import { Box, Flex, Group, Stack, Title } from "@mantine/core";
+import { Flex, Group, Stack, Title } from "@mantine/core";
+import { useEffect, useRef, useState } from "react";
+import { taskData } from "../../../public/data/taskData";
 import BoardTask from "./boardTask";
 import DashHeader from "./dashHeader";
 import classes from "./styles/dashboard.module.css";
 
-const taskData = [
-  {
-    id: 1,
-    type: "Design",
-    service: "Logo Design",
-    title: "Drawing for the March Event",
-    date: "JAN 10th, 2024",
-    tags: ["Modern", "Classic", "Bright", "Realistic", "Bold", "Engaging"],
-    files: ["file1.docx", "file2.docx", "file3.docx", "file4.docx"],
-    colors: [
-      "#FFCDB2",
-      "#FFB4A2",
-      "#E5989B",
-      "#B5838D",
-      "#6D6875",
-      "#FFCDB2",
-      "#FFB4A2",
-      "#E5989B",
-      "#B5838D",
-      "#6D6875",
-    ],
-  },
-  {
-    id: 2,
-    type: "Content",
-    service: "Content Editing",
-    title: "Changing Page Content",
-    date: "JAN 12th, 2024",
-    files: ["file1.docx", "file2.docx"],
-  },
-  {
-    id: 3,
-    type: "Web Dev",
-    service: "Add Feature",
-    title: "Adding New Page",
-    date: "JAN 10th, 2024",
-    files: ["file1.docx", "file2.docx", "file3.docx"],
-  },
-  {
-    id: 4,
-    type: "Design",
-    service: "Event Flyer Design",
-    title: "Drawing for the Wedding Event",
-    date: "JAN 10th, 2024",
-    tags: ["Elegant", "Stylish", "Vibrant", "Creative", "Eye-catching, Formal"],
-    files: ["file1.docx"],
-    colors: ["#F9A826", "#F48C06", "#E85D04", "#DC2F02", "#9D0208"],
-  },
-];
+const isOverflown = (element) => {
+  return (
+    element.scrollHeight > element.clientHeight ||
+    element.scrollWidth > element.clientWidth
+  );
+};
 
-const taskList = taskData.map((task) => (
-  <BoardTask key={task.id} taskData={task} />
-));
+const Board = ({ taskData, boardType }) => {
+  const tasks = taskData;
+  const taskFrameRef = useRef(null);
+  const [addSpace, setAddSpace] = useState(false);
+
+  useEffect(() => {
+    const taskFrame = taskFrameRef.current;
+    if (isOverflown(taskFrame)) {
+      setAddSpace(true);
+    } else {
+      setAddSpace(false);
+    }
+  }, []);
+
+  const taskList = tasks.map((task) => (
+    <BoardTask key={task.id} taskData={task} boardType={boardType} />
+  ));
+
+  return (
+    <Stack w="33%" className={`panel ${classes.boards}`}>
+      <Group
+        gap={5}
+        className={`${classes.boardsHeader} ${addSpace && classes.scrollSpace}`}
+      >
+        <Title order={4} fw={900}>
+          {tasks.length}
+        </Title>
+        <Title order={6} fw={400}>
+          {boardType}
+        </Title>
+      </Group>
+      <Stack
+        ref={taskFrameRef}
+        className={`${classes.boardsInner} ${addSpace && classes.boardsShadow}`}
+      >
+        {taskList}
+      </Stack>
+    </Stack>
+  );
+};
 
 export default function Dashboard(props) {
   const { setActive } = props;
@@ -65,52 +61,15 @@ export default function Dashboard(props) {
     <>
       <DashHeader setActive={setActive} />
       <Flex gap={20} className={classes.boardsFrame}>
-        <Stack w="33%" className={`panel ${classes.boards}`}>
-          <Group gap={5} className={classes.boardsHeader}>
-            <Title order={3} fw={900}>
-              {taskData.length}
-            </Title>
-            <Title order={6} fw={400}>
-              Submitted Tasks
-            </Title>
-          </Group>
-          <Stack className={classes.boardsInner}>{taskList}</Stack>
-        </Stack>
-        <Stack w="33%" className={`panel ${classes.boards}`}>
-          <Group gap={5} className={classes.boardsHeader}>
-            <Title order={3} fw={900}>
-              3
-            </Title>
-            <Title order={6} fw={400}>
-              Tasks In-Progress
-            </Title>
-          </Group>
-          <Stack className={classes.boardsInner}>
-            <Box className="innerPanel">Column 2</Box>
-            <Box className="innerPanel">Column 2</Box>
-            <Box className="innerPanel">Column 2</Box>
-          </Stack>
-        </Stack>
-        <Stack w="33%" className={`panel ${classes.boards}`}>
-          <Group gap={5} className={classes.boardsHeader}>
-            <Title order={3} fw={900}>
-              4
-            </Title>
-            <Title order={6} fw={400}>
-              Tasks Ready To Review
-            </Title>
-          </Group>
-          <Stack className={classes.boardsInner}>
-            <Box className="innerPanel">Column 3</Box>
-            <Box className="innerPanel">Column 3</Box>
-            <Box className="innerPanel">Column 3</Box>
-            <Box className="innerPanel">Column 3</Box>
-            <Box className="innerPanel">Column 3</Box>
-            <Box className="innerPanel">Column 3</Box>
-            <Box className="innerPanel">Column 3</Box>
-            <Box className="innerPanel">Column 3</Box>
-          </Stack>
-        </Stack>
+        <Board boardType={"Submitted Tasks"} taskData={taskData} />
+        <Board
+          boardType={"Tasks In-Progress"}
+          taskData={[taskData[0], taskData[6]]}
+        />
+        <Board
+          boardType={"Ready For Review"}
+          taskData={[taskData[2], taskData[7], taskData[8]]}
+        />
       </Flex>
     </>
   );
