@@ -35,6 +35,10 @@ export default function BoardTask(props) {
     </Avatar>
   ));
 
+  const tagsList = taskData.tags?.map((tag, index) =>
+    index < taskData.tags.length - 1 ? `${tag}, ` : tag
+  );
+
   return (
     <Box className="innerPanel" pos={"relative"} pb={10}>
       <Group justify="space-between" mb={5}>
@@ -84,12 +88,7 @@ export default function BoardTask(props) {
             w={20}
           />
         )}
-        {taskData.tags?.map((tag, index) => (
-          <Text key={index}>
-            {tag}
-            {index < taskData.tags.length - 1 && ", "}
-          </Text>
-        ))}
+        <Text className={classes.tagsList}>{tagsList}</Text>
       </Flex>
     </Box>
   );

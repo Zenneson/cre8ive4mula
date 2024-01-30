@@ -48,7 +48,7 @@ const taskData = [
     service: "Event Flyer Design",
     title: "Drawing for the Wedding Event",
     date: "JAN 10th, 2024",
-    tags: ["Elegant", "Stylish", "Vibrant", "Creative", "Eye-catching"],
+    tags: ["Elegant", "Stylish", "Vibrant", "Creative", "Eye-catching, Formal"],
     files: ["file1.docx"],
     colors: ["#F9A826", "#F48C06", "#E85D04", "#DC2F02", "#9D0208"],
   },
