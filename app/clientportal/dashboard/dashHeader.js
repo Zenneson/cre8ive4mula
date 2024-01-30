@@ -16,10 +16,10 @@ export default function DashHeader(props) {
   return (
     <Group justify="space-between">
       <Flex align={"center"} gap={10}>
-        <Title className={classes.header} mb={"10px"} tt={"uppercase"}>
+        <Title fz={35} mb={"10px"} tt={"uppercase"}>
           Company Name
         </Title>
-        <Badge size="md" mt={-7}>
+        <Badge size="md" mt={-8}>
           Pro
         </Badge>
       </Flex>
