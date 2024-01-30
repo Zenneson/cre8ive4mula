@@ -37,3 +37,10 @@
 .typeColor {
   opacity: 0.3;
 }
+
+.nextPrev {
+  z-index: 999;
+  position: fixed;
+  top: 30px;
+  right: 30px;
+}

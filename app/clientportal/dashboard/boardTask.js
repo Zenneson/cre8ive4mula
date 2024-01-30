@@ -13,6 +13,7 @@ import {
 import { useClickOutside } from "@mantine/hooks";
 import { useState } from "react";
 import { CgAttachment } from "react-icons/cg";
+import { FaRegComments } from "react-icons/fa";
 import { FaRegTrashCan } from "react-icons/fa6";
 import classes from "./styles/boardTask.module.css";
 
@@ -48,7 +49,7 @@ export default function BoardTask(props) {
     <Box
       className={`innerPanel ${classes.taskFrame} ${
         boardType === "Ready For Review" && classes.reviewReady
-      }`}
+      } ${viewTask && classes.active}`}
       onClick={() => setViewTask(!viewTask)}
       pos={"relative"}
       pb={10}
@@ -102,12 +103,16 @@ export default function BoardTask(props) {
       </Flex>
       <Group
         className={`${classes.viewTaskFrame} ${viewTask && classes.opened}`}
-        justify="flex-end"
+        justify="space-between"
       >
+        <Group gap={5} ml={7} opacity={0.4} c="#fff">
+          <Text fw="700">3</Text>
+          <FaRegComments />
+        </Group>
         <Box className={classes.taskBtnsFrame}>
           <FaRegTrashCan className={classes.deleteTaskBtn} size={16} />
           <Button className={classes.viewTaskBtn} variant="light">
-            View
+            Open
           </Button>
         </Box>
       </Group>

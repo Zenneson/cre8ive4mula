@@ -5,7 +5,10 @@
 }
 
 .opened {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   height: 100% !important;
+  margin-top: 10px;
+  padding-top: 7px;
 }
 
 .taskFrame {
@@ -14,13 +17,19 @@
   cursor: pointer;
 
   & > * {
-    opacity: 0.7;
+    opacity: 0.6;
   }
 
   &:hover {
     & > * {
       opacity: 1;
     }
+  }
+}
+
+.active {
+  & > * {
+    opacity: 1 !important;
   }
 }
 

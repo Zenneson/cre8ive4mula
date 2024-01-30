@@ -19,7 +19,7 @@ export default function DashHeader(props) {
     <Group justify="space-between" mb={"2px"}>
       <Stack gap={0}>
         <Flex align={"center"} gap={10}>
-          <Title fz={32} tt={"uppercase"}>
+          <Title className={classes.companyName}>
             Sheaperd&rsquo;s Valley, LLC
           </Title>
           <Badge size="md">Pro</Badge>
