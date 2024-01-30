@@ -35,7 +35,6 @@ const NavbarLink = ({ icon, label, active, onClick }) => {
 
 export default function Navbar(props) {
   const { active, setActive } = props;
-
   const links = linkData.map((link, index) => (
     <NavbarLink
       {...link}
@@ -49,18 +48,15 @@ export default function Navbar(props) {
       <Center>
         <Image
           src="/img/svgLogo.svg"
-          style={{ width: rem(70), height: rem(70) }}
-          opacity={0.25}
+          style={{ paddingLeft: "2px", width: rem(50), height: rem(50) }}
           alt="Logo"
         />
       </Center>
-
       <div className={classes.navbarMain}>
         <Stack justify="center" gap={0}>
           {links}
         </Stack>
       </div>
-
       <Stack justify="center" gap={0}>
         <NavbarLink icon={"settings"} label="Account Settings" />
         <NavbarLink icon={"logout"} label="Logout" />

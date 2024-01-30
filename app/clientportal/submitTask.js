@@ -4,8 +4,9 @@ import "@dotlottie/react-player/dist/index.css";
 import {
   Button,
   Center,
-  Divider,
+  ColorSwatch,
   Group,
+  Image,
   SimpleGrid,
   Stack,
   Title,
@@ -17,21 +18,24 @@ const buttons = [
   {
     svg1: "/img/submit/psd.json",
     svg2: "/img/submit/ai.json",
-    text: "Web or Graphic Design",
+    color: "#ea5335",
+    text: "Design",
   },
   {
     svg1: "/img/submit/docx.json",
     svg2: "/img/submit/pdf.json",
-    text: "Content Management",
+    color: "#f80800",
+    text: "Content",
   },
   {
     svg1: "/img/submit/css.json",
     svg2: "/img/submit/js.json",
-    text: "Web Development",
+    color: "#ffd941",
+    text: "Web Dev",
   },
 ];
 
-const MentBtn = ({ svg1, svg2, text }) => {
+const MentBtn = ({ button }) => {
   const lottieRef1 = useRef();
   const lottieRef2 = useRef();
 
@@ -48,35 +52,48 @@ const MentBtn = ({ svg1, svg2, text }) => {
   return (
     <Button
       className={classes.submitType}
-      p={0}
-      pb={20}
+      p={5}
+      pt={15}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <Stack gap={10} justify="center" align="center">
-        <Group mb={-20} grow gap={0}>
-          <DotLottiePlayer ref={lottieRef1} src={svg1} loop />
-          <DotLottiePlayer ref={lottieRef2} src={svg2} loop />
+      <Stack gap={0} justify="center" align="center">
+        <Group w={"87%"} gap={5} mb={-20}>
+          <ColorSwatch
+            className={classes.typeColor}
+            size={10}
+            color={button.color}
+          />
+          <Title order={5} ta={"left"}>
+            {button.text}
+          </Title>
         </Group>
-        <Title order={5}>{text}</Title>
+        <Group grow gap={0}>
+          <DotLottiePlayer ref={lottieRef1} src={button.svg1} loop />
+          <DotLottiePlayer ref={lottieRef2} src={button.svg2} loop />
+        </Group>
       </Stack>
     </Button>
   );
 };
 
 const buttonsList = buttons.map((button, i) => (
-  <MentBtn key={i} svg1={button.svg1} svg2={button.svg2} text={button.text} />
+  <MentBtn key={i} button={button} />
 ));
 
 export default function SubmitTask() {
   return (
     <Center h="60%">
-      <Stack gap={20}>
-        <Divider
-          label={"CHOOSE TASK TYPE"}
-          labelPosition="left"
-          opacity={0.4}
-        />
+      <Stack gap={5}>
+        <Group className={classes.chooseTypeTitle} gap="7">
+          <Image
+            src={"/img/task.svg"}
+            alt={"Task Type"}
+            height={30}
+            opacity={0.5}
+          />
+          <Title order={4}>Task Type:</Title>
+        </Group>
         <SimpleGrid cols={3} spacing={"xl"}>
           {buttonsList}
         </SimpleGrid>

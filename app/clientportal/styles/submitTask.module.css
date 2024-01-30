@@ -8,7 +8,8 @@
   }
 
   svg {
-    width: 120px !important;
+    width: 100px !important;
+    height: 120px !important;
     filter: grayscale(1) opacity(0.4);
   }
 
@@ -19,9 +20,20 @@
       filter: grayscale(0%);
     }
 
-    h5 {
-      color: #01143b !important;
+    h5,
+    .typeColor {
+      color: #fff !important;
       opacity: 1;
     }
   }
+}
+
+.chooseTypeTitle {
+  margin-left: -38px;
+  font-family: var(--font-montserrat);
+  text-transform: uppercase;
+}
+
+.typeColor {
+  opacity: 0.3;
 }

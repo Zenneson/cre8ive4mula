@@ -34,6 +34,7 @@ export const tourTheme = createTheme({
     }),
     Divider: Divider.extend({
       defaultProps: {
+        color: "#fff",
         variant: "solid",
         margins: "xs",
       },

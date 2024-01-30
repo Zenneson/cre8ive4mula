@@ -48,7 +48,7 @@ export default function Intro() {
         className={classes.loginBtn}
         component={Link}
         href={"/login"}
-        w={138}
+        w={130}
         h={36}
         leftSection={
           <Image

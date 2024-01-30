@@ -1,0 +1,44 @@
+.title {
+  font-family: var(--font-montserrat);
+  width: 100%;
+  font-weight: 500;
+  font-size: 15px;
+  color: #fff;
+}
+
+.taskMenuBtn {
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.addedTags {
+  opacity: 0.4;
+
+  p {
+    margin-top: 10px;
+  }
+}
+
+.taskService {
+  background: transparent;
+  border: none;
+}
+
+.taskType {
+  text-transform: uppercase;
+  font-family: var(--font-montserrat);
+  filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+.filesAttached {
+  filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2));
+  font-family: var(--font-montserrat);
+}
+
+.colorSwatch {
+  filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2));
+  border: none;
+}

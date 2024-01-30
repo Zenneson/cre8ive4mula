@@ -2,7 +2,7 @@
 import { Title } from "@mantine/core";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import Dashboard from "./dashboard";
+import Dashboard from "./dashboard/dashboard";
 import Navbar from "./navbar";
 import classes from "./styles/clientPortal.module.css";
 import SubmitTask from "./submitTask";

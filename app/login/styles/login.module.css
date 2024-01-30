@@ -8,7 +8,7 @@
 .title {
   font-family: var(--font-arcade);
   text-align: center;
-  font-size: 3rem;
+  font-size: 58px;
   height: 52px;
 
   &:hover {
@@ -17,11 +17,13 @@
 }
 
 .subtitle {
-  text-align: center;
+  text-align: right;
   text-transform: uppercase;
   font-weight: 100;
   font-size: 12px;
+  margin-right: 7px;
   margin-bottom: 20px;
+  color: #fff;
 }
 
 div.loginBtns {

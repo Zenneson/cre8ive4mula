@@ -39,7 +39,6 @@ a.loginBtn {
   perspective: 300px;
   transform-style: preserve-3d;
   overflow: visible;
-  padding: 10px 20px;
   font-weight: 700;
   height: auto;
   outline: none;
@@ -86,14 +85,15 @@ a.loginBtn {
 }
 
 img.loginBtnImg {
+  margin-right: -3px;
+  width: 17px;
   opacity: 0;
-  width: 20px;
 }
 
 .loginBtnText {
   font-family: var(--font-montserrat);
-  font-weight: 900;
-  font-size: 16px;
+  font-weight: 700;
+  font-size: 12px;
 }
 
 /* KEYFRAMES ----------------------------- */
