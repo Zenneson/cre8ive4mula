@@ -4,7 +4,7 @@ import "@dotlottie/react-player/dist/index.css";
 import { Button, ColorSwatch, Group, Stack, Title } from "@mantine/core";
 import { useDidUpdate, useSessionStorage } from "@mantine/hooks";
 import { useRef } from "react";
-import classes from "./styles/submitTask.module.css";
+import classes from "./styles/typeBtns.module.css";
 
 const buttons = [
   {

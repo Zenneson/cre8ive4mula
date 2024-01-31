@@ -48,7 +48,7 @@ export default function BoardTask(props) {
 
   return (
     <Indicator
-      size={6}
+      size={8}
       disabled={boardType !== "Tasks In-Progress" ? true : false}
     >
       <Box
@@ -65,12 +65,11 @@ export default function BoardTask(props) {
             color={taskColor(taskData.type)}
             className={classes.taskType}
             size="xs"
+            ml={-5}
           >
             {taskData.type}
           </Badge>
-          <Text fz={12} fw={600} c={"#fff"} opacity={0.4}>
-            JAN 10th, 2024
-          </Text>
+          <Text className={classes.taskDate}>JAN 10th, 2024</Text>
         </Group>
         <Title className={classes.title} truncate="end" lineClamp={2}>
           {taskData.title}
@@ -87,32 +86,41 @@ export default function BoardTask(props) {
           <Badge
             className={classes.filesAttached}
             rightSection={<CgAttachment size={10} />}
+            variant="dot"
             size="sm"
-            mr={10}
+            mr={5}
           >
             {taskData.files.length}
           </Badge>
           <Avatar.Group>{colorWay}</Avatar.Group>
         </Group>
-        <Flex className={classes.addedTags} gap={5}>
-          {taskData.tags && taskData.tags.length > 0 && (
-            <Image
-              src="/img/hashtag.svg"
-              alt={"Task Tags"}
-              fit="contain"
-              mt={7}
-              w={20}
-            />
-          )}
-          <Text className={classes.tagsList}>{tagsList}</Text>
-        </Flex>
+        {viewTask && (
+          <Flex className={classes.addedTags} gap={5}>
+            {taskData.tags && taskData.tags.length > 0 && (
+              <Image
+                src="/img/hashtag.svg"
+                alt={"Task Tags"}
+                fit="contain"
+                mt={7}
+                w={20}
+              />
+            )}
+            <Text className={classes.tagsList}>{tagsList}</Text>
+          </Flex>
+        )}
         <Group
           className={`${classes.viewTaskFrame} ${viewTask && classes.opened}`}
           justify="space-between"
         >
-          <Group gap={5} ml={7} opacity={1} c="#fff">
-            <Text fw="700">3</Text>
-            <FaRegComments />
+          <div className={classes.customDivider} />
+          <Group gap={5} opacity={1} c="#fff">
+            <Badge
+              className={classes.commentNum}
+              rightSection={<FaRegComments size={12} />}
+              size="sm"
+            >
+              3
+            </Badge>
             <Badge fw="700" size="xs" ml={2} color="#e23e3e">
               1 NEW
             </Badge>

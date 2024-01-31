@@ -1,0 +1,8 @@
+.taskFormTitle {
+  margin-left: -33px;
+
+  h4 {
+    font-family: var(--font-montserrat);
+    text-transform: uppercase;
+  }
+}

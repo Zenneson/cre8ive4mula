@@ -7,68 +7,6 @@ div.centerFrame {
   animation-delay: 300ms;
   animation-fill-mode: both;
 }
-
-button.submitType {
-  transition: all 250ms ease-in-out;
-  background: linear-gradient(145deg, #5084bf, #679cdc) !important;
-  box-shadow:
-    10px 10px 15px rgba(82, 140, 206, 0.7),
-    -10px -10px 15px rgba(121, 179, 246, 0.3);
-
-  h5 {
-    font-weight: 400;
-    font-size: 14px;
-    opacity: 0.25;
-  }
-
-  svg {
-    width: 100px !important;
-    height: 120px !important;
-    filter: grayscale(1) opacity(0.4);
-  }
-
-  &:hover {
-    transform: scale(1.02);
-    box-shadow:
-      10px 10px 15px #4a80bd,
-      -10px -10px 15px #79b3f6;
-
-    svg {
-      filter: grayscale(0%);
-    }
-
-    h5,
-    .typeColor {
-      color: #fff !important;
-      opacity: 1;
-    }
-  }
-
-  &:active {
-    transform: scale(1);
-  }
-}
-
-button.buttonActive {
-  box-shadow:
-    10px 10px 15px #4a80bd,
-    -10px -10px 15px #79b3f6;
-
-  svg {
-    filter: grayscale(0%);
-  }
-
-  h5,
-  .typeColor {
-    color: #fff !important;
-    opacity: 1;
-  }
-}
-
-.typeColor {
-  opacity: 0.3;
-}
-
 div.nextPrev {
   z-index: 999;
 }

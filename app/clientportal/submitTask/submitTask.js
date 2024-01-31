@@ -5,6 +5,7 @@ import { useSessionStorage } from "@mantine/hooks";
 import { useState } from "react";
 import ChooseTypePanel from "./chooseTypePanel";
 import classes from "./styles/submitTask.module.css";
+import TaskForm from "./taskForm";
 
 export default function SubmitTask() {
   const [activePage, setActivePage] = useState(0);
@@ -35,13 +36,14 @@ export default function SubmitTask() {
   const services = {
     design: [
       "Logo Design",
-      "Brand Design",
+      "UX / UI Design",
+      "Brand Identity",
+      "Print Design",
+      "Infographic Design",
+      "Photoshop Editing",
       "Website / App Wireframing",
       "Social Media Posts",
-      "Infographics",
-      "Promo and Ad Material",
-      "User Interface ",
-      "Custom Illustration",
+      "Promotion Material",
       "CMS Theme Customization",
     ],
     content: [
@@ -52,31 +54,36 @@ export default function SubmitTask() {
     ],
     webdev: [
       "Performance Optimization",
-      "Security Optimization",
-      "API Development and Integration",
-      "CMS Management",
-      "Bug Fixes and Troubleshooting",
       "Feature Development",
+      "API Development",
+      "CMS Management",
+      "Database Management",
+      "Website Migration",
+      "Security Optimization",
+      "Bug Fixes and Troubleshooting",
       "Payment Gateway Integration",
     ],
   };
 
-  const color = () => {
-    if (choosenType && choosenType.title === "Design") return "#ff4d28";
-    if (choosenType && choosenType.title === "Content") return "#f80800";
-    if (choosenType && choosenType.title === "Web Dev") return "#ffd941";
+  const setup = () => {
+    if (choosenType && choosenType.title === "Design")
+      return { color: "#ff4d28", service: services.design, size: "xs" };
+    if (choosenType && choosenType.title === "Content")
+      return { color: "#f80800", service: services.content, size: "sm" };
+    if (choosenType && choosenType.title === "Web Dev")
+      return { color: "#ffd941", service: services.webdev, size: "xs" };
   };
 
-  const serviceList = () => {
-    if (choosenType && choosenType.title === "Design") return services.design;
-    if (choosenType && choosenType.title === "Content") return services.content;
-    if (choosenType && choosenType.title === "Web Dev") return services.webdev;
-  };
-
-  const typeColor = color();
-  const serviceBadges = serviceList()?.map((service, i) => {
+  const setupData = setup();
+  const serviceList = setupData?.service;
+  const serviceBadges = serviceList?.map((service, i) => {
     return (
-      <Badge key={i} color={typeColor} variant="filled" size="md">
+      <Badge
+        key={i}
+        color={setupData.color}
+        size={setupData.size}
+        variant="filled"
+      >
         {service}
       </Badge>
     );
@@ -111,7 +118,7 @@ export default function SubmitTask() {
         />
       </Center>
       <Center id="1" w={"calc(100vw - 110px)"} pos={"relative"} ml={"110px"}>
-        <Text>Task Details</Text>
+        <TaskForm />
       </Center>
       <Center id="2" w={"calc(100vw - 110px)"} pos={"relative"} ml={"110px"}>
         <Text>Review Details</Text>

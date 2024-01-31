@@ -21,7 +21,7 @@ export const tourTheme = createTheme({
         arrowSize: 10,
         arrowRadius: 3,
         radius: 5,
-        openDelay: 1500,
+        openDelay: 0,
         closeDelay: 0,
         events: { hover: true, focus: true, touch: false },
       },

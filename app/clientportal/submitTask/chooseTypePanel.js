@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Grid,
   Group,
@@ -7,6 +8,7 @@ import {
   Stack,
   Text,
   Title,
+  Transition,
 } from "@mantine/core";
 import {} from "react";
 import { TypeBtnsCache } from "../page";
@@ -17,7 +19,7 @@ export default function ChooseTypePanel(props) {
 
   return (
     <Stack pt={200} gap={5}>
-      <Group className={classes.chooseTypeTitle} gap="7">
+      <Group className={classes.chooseTypeTitleFrame} gap="7">
         <Image
           src={"/img/task.svg"}
           alt={"Task Type"}
@@ -29,26 +31,32 @@ export default function ChooseTypePanel(props) {
       <SimpleGrid cols={3} spacing={"xl"}>
         <TypeBtnsCache />
       </SimpleGrid>
-      {choosenType && (
-        <>
-          <Grid className={`panel ${classes.typeDescFrame}`}>
-            <Grid.Col span="content">
-              <Title tt={"uppercase"} order={2}>
-                {choosenType.title}
-              </Title>
-            </Grid.Col>
-            <Grid.Col span="auto">
-              <Text>{choosenType.desc}</Text>
-            </Grid.Col>
-          </Grid>
-          <Group justify="center" align="center" w={700} mt={20} gap={15}>
-            {serviceBadges}
-          </Group>
-          <Group justify="flex-end" mt={15}>
-            <Button onClick={() => setActivePage(1)}>Continue</Button>
-          </Group>
-        </>
-      )}
+      <Transition
+        mounted={choosenType}
+        transition="scale-y"
+        timingFunction="ease"
+      >
+        {(styles) => (
+          <Box style={styles}>
+            <Grid className={`panel ${classes.typeDescFrame}`}>
+              <Grid.Col span="content">
+                <Title tt={"uppercase"} order={2}>
+                  {choosenType.title}
+                </Title>
+              </Grid.Col>
+              <Grid.Col span="auto">
+                <Text>{choosenType.desc}</Text>
+              </Grid.Col>
+            </Grid>
+            <Group className={`panel ${classes.serviceBadgesFrame}`}>
+              {serviceBadges}
+            </Group>
+            <Group justify="flex-end" mt={20}>
+              <Button onClick={() => setActivePage(1)}>Continue</Button>
+            </Group>
+          </Box>
+        )}
+      </Transition>
     </Stack>
   );
 }

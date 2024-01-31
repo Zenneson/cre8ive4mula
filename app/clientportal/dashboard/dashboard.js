@@ -1,5 +1,5 @@
 "use client";
-import { Flex, Group, Stack, Title } from "@mantine/core";
+import { Flex, Group, Image, Stack, Title, Tooltip } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
 import { taskData } from "../../../public/data/taskData";
 import BoardTask from "./boardTask";
@@ -35,14 +35,25 @@ const Board = ({ taskData, boardType }) => {
     <Stack w="33%" className={`panel ${classes.boards}`}>
       <Group
         className={`${classes.boardsHeader} ${addSpace && classes.scrollSpace}`}
-        gap={5}
+        justify="space-between"
       >
-        <Title order={4} fw={900}>
-          {tasks.length}
-        </Title>
-        <Title order={6} fw={400}>
-          {boardType}
-        </Title>
+        <Group gap={5}>
+          <Title order={4} fw={900}>
+            {tasks.length}
+          </Title>
+          <Title order={6} fw={400}>
+            {boardType}
+          </Title>
+        </Group>
+        {boardType === "Submitted Tasks" && (
+          <Tooltip label="Reorder" position="bottom">
+            <Image
+              className={classes.reorder}
+              src={"/img/reorder.svg"}
+              alt="Reorder"
+            />
+          </Tooltip>
+        )}
       </Group>
       <Stack
         className={`${classes.boardsInner} ${addSpace && classes.boardsShadow}`}
@@ -61,7 +72,7 @@ export default function Dashboard(props) {
     <>
       <DashHeader setActive={setActive} />
       <Flex gap={20} className={classes.boardsFrame}>
-        <Board boardType={"Submitted Tasks"} taskData={taskData.slice(0, 5)} />
+        <Board boardType={"Submitted Tasks"} taskData={taskData.slice(0, 6)} />
         <Board
           boardType={"Tasks In-Progress"}
           taskData={[taskData[0], taskData[4]]}

@@ -34,7 +34,6 @@ export default function DashHeader(props) {
           position={"bottom"}
           withArrow
           label={"Account Settings"}
-          openDelay={0}
           offset={5}
         >
           <Badge
@@ -53,7 +52,6 @@ export default function DashHeader(props) {
             position={"bottom"}
             withArrow
             label={"Submit Task"}
-            openDelay={0}
             offset={-3}
           >
             <ActionIcon
@@ -73,7 +71,6 @@ export default function DashHeader(props) {
             position={"bottom"}
             withArrow
             label={"Task Archive"}
-            openDelay={0}
             offset={-3}
           >
             <ActionIcon
@@ -93,7 +90,6 @@ export default function DashHeader(props) {
             position={"bottom"}
             withArrow
             label={"File Repository"}
-            openDelay={0}
             offset={-3}
           >
             <ActionIcon
