@@ -7,6 +7,7 @@ import {
   Flex,
   Group,
   Image,
+  Indicator,
   Text,
   Title,
 } from "@mantine/core";
@@ -46,76 +47,93 @@ export default function BoardTask(props) {
   );
 
   return (
-    <Box
-      className={`innerPanel ${classes.taskFrame} ${
-        boardType === "Ready For Review" && classes.reviewReady
-      } ${viewTask && classes.active}`}
-      onClick={() => setViewTask(!viewTask)}
-      pos={"relative"}
-      pb={10}
-      ref={ref}
+    <Indicator
+      size={6}
+      disabled={boardType !== "Tasks In-Progress" ? true : false}
     >
-      <Group justify="space-between" mb={5}>
-        <Badge
-          color={taskColor(taskData.type)}
-          className={classes.taskType}
-          size="xs"
-        >
-          {taskData.type}
-        </Badge>
-        <Text fz={12} fw={600} c={"#fff"} opacity={0.4}>
-          JAN 10th, 2024
-        </Text>
-      </Group>
-      <Title className={classes.title} truncate="end" lineClamp={2}>
-        {taskData.title}
-      </Title>
-      <Group gap={0} mt={10}>
-        <Badge
-          className={classes.taskService}
-          color={taskColor(taskData.type)}
-          variant="dot"
-          size="sm"
-        >
-          {taskData.service}
-        </Badge>
-        <Badge
-          className={classes.filesAttached}
-          rightSection={<CgAttachment size={10} />}
-          size="sm"
-          mr={10}
-        >
-          {taskData.files.length}
-        </Badge>
-        <Avatar.Group>{colorWay}</Avatar.Group>
-      </Group>
-      <Flex className={classes.addedTags} gap={5}>
-        {taskData.tags && taskData.tags.length > 0 && (
-          <Image
-            src="/img/hashtag.svg"
-            alt={"Task Tags"}
-            fit="contain"
-            mt={7}
-            w={20}
-          />
-        )}
-        <Text className={classes.tagsList}>{tagsList}</Text>
-      </Flex>
-      <Group
-        className={`${classes.viewTaskFrame} ${viewTask && classes.opened}`}
-        justify="space-between"
+      <Box
+        className={`innerPanel ${classes.taskFrame} ${
+          boardType === "Ready For Review" && classes.reviewReady
+        } ${viewTask && classes.active}`}
+        onClick={() => setViewTask(!viewTask)}
+        pos={"relative"}
+        pb={10}
+        ref={ref}
       >
-        <Group gap={5} ml={7} opacity={0.4} c="#fff">
-          <Text fw="700">3</Text>
-          <FaRegComments />
+        <Group justify="space-between" mb={5}>
+          <Badge
+            color={taskColor(taskData.type)}
+            className={classes.taskType}
+            size="xs"
+          >
+            {taskData.type}
+          </Badge>
+          <Text fz={12} fw={600} c={"#fff"} opacity={0.4}>
+            JAN 10th, 2024
+          </Text>
         </Group>
-        <Box className={classes.taskBtnsFrame}>
-          <FaRegTrashCan className={classes.deleteTaskBtn} size={16} />
-          <Button className={classes.viewTaskBtn} variant="light">
-            Open
-          </Button>
-        </Box>
-      </Group>
-    </Box>
+        <Title className={classes.title} truncate="end" lineClamp={2}>
+          {taskData.title}
+        </Title>
+        <Group gap={0} mt={10}>
+          <Badge
+            className={classes.taskService}
+            color={taskColor(taskData.type)}
+            variant="dot"
+            size="sm"
+          >
+            {taskData.service}
+          </Badge>
+          <Badge
+            className={classes.filesAttached}
+            rightSection={<CgAttachment size={10} />}
+            size="sm"
+            mr={10}
+          >
+            {taskData.files.length}
+          </Badge>
+          <Avatar.Group>{colorWay}</Avatar.Group>
+        </Group>
+        <Flex className={classes.addedTags} gap={5}>
+          {taskData.tags && taskData.tags.length > 0 && (
+            <Image
+              src="/img/hashtag.svg"
+              alt={"Task Tags"}
+              fit="contain"
+              mt={7}
+              w={20}
+            />
+          )}
+          <Text className={classes.tagsList}>{tagsList}</Text>
+        </Flex>
+        <Group
+          className={`${classes.viewTaskFrame} ${viewTask && classes.opened}`}
+          justify="space-between"
+        >
+          <Group gap={5} ml={7} opacity={1} c="#fff">
+            <Text fw="700">3</Text>
+            <FaRegComments />
+            <Badge fw="700" size="xs" ml={2} color="#e23e3e">
+              1 NEW
+            </Badge>
+          </Group>
+          {boardType === "Ready For Review" ? (
+            <Button
+              className={`${classes.viewTaskBtn} ${classes.reviewBtn}`}
+              variant="light"
+            >
+              Review
+            </Button>
+          ) : (
+            <Box className={classes.taskBtnsFrame}>
+              <FaRegTrashCan className={classes.deleteTaskBtn} size={16} />
+              <Button className={classes.viewTaskBtn} variant="light">
+                Open
+              </Button>
+            </Box>
+          )}
+        </Group>
+      </Box>
+    </Indicator>
   );
 }

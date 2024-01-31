@@ -25,17 +25,17 @@ const Board = ({ taskData, boardType }) => {
     } else {
       setAddSpace(false);
     }
-  }, []);
+  }, [taskData]);
 
-  const taskList = tasks.map((task) => (
-    <BoardTask key={task.id} taskData={task} boardType={boardType} />
+  const taskList = tasks.map((task, i) => (
+    <BoardTask key={i} taskData={task} boardType={boardType} />
   ));
 
   return (
     <Stack w="33%" className={`panel ${classes.boards}`}>
       <Group
-        gap={5}
         className={`${classes.boardsHeader} ${addSpace && classes.scrollSpace}`}
+        gap={5}
       >
         <Title order={4} fw={900}>
           {tasks.length}
@@ -45,8 +45,8 @@ const Board = ({ taskData, boardType }) => {
         </Title>
       </Group>
       <Stack
-        ref={taskFrameRef}
         className={`${classes.boardsInner} ${addSpace && classes.boardsShadow}`}
+        ref={taskFrameRef}
       >
         {taskList}
       </Stack>
@@ -61,14 +61,14 @@ export default function Dashboard(props) {
     <>
       <DashHeader setActive={setActive} />
       <Flex gap={20} className={classes.boardsFrame}>
-        <Board boardType={"Submitted Tasks"} taskData={taskData} />
+        <Board boardType={"Submitted Tasks"} taskData={taskData.slice(0, 5)} />
         <Board
           boardType={"Tasks In-Progress"}
-          taskData={[taskData[0], taskData[6]]}
+          taskData={[taskData[0], taskData[4]]}
         />
         <Board
           boardType={"Ready For Review"}
-          taskData={[taskData[2], taskData[7], taskData[8]]}
+          taskData={[taskData[2], taskData[3], taskData[4]]}
         />
       </Flex>
     </>

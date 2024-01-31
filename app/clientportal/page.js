@@ -1,11 +1,14 @@
 "use client";
 import { Title } from "@mantine/core";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { cache, useState } from "react";
 import Dashboard from "./dashboard/dashboard";
 import Navbar from "./navbar";
 import classes from "./styles/clientPortal.module.css";
 import SubmitTask from "./submitTask";
+import TypeBtns from "./typeBtns";
+
+export const TypeBtnsCache = cache(() => <TypeBtns />);
 
 const animation = {
   initial: { y: -50, duration: 500 },

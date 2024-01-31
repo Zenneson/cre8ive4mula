@@ -1,9 +1,9 @@
 "use client";
+import ModelScene from "@libs/modelScene";
 import { Button, Center, Group, Image, Stack, Text } from "@mantine/core";
 import Link from "next/link";
 import { useState } from "react";
 import Logo from "../logo/logo";
-import ModelScene from "../modelScene/modelScene";
 import TypedOut from "../typedOut/typedOut";
 import classes from "./styles/intro.module.css";
 

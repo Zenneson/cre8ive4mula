@@ -1,5 +1,6 @@
 import {
   Divider,
+  Indicator,
   LoadingOverlay,
   ScrollArea,
   Tooltip,
@@ -42,6 +43,12 @@ export const tourTheme = createTheme({
     ScrollArea: ScrollArea.extend({
       defaultProps: {
         type: "hover",
+      },
+    }),
+    Indicator: Indicator.extend({
+      defaultProps: {
+        color: "#e23e3e",
+        offset: 3,
       },
     }),
   },

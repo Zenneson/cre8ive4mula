@@ -1,23 +1,27 @@
 .viewTaskFrame {
-  transition: all 300ms ease-in-out;
+  transition: all 150ms ease-in-out;
   overflow: hidden;
   height: 0px;
 }
 
 .opened {
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 3px solid rgba(255, 255, 255, 0.15);
   height: 100% !important;
   margin-top: 10px;
   padding-top: 7px;
+  overflow: visible;
 }
 
 .taskFrame {
   transition: all 250ms ease-in-out;
   user-select: none !important;
   cursor: pointer;
+  box-shadow:
+    10px 10px 15px rgba(82, 140, 206, 0.5),
+    -10px -10px 15px rgba(121, 179, 246, 0.5);
 
   & > * {
-    opacity: 0.6;
+    opacity: 0.5;
   }
 
   &:hover {
@@ -28,6 +32,8 @@
 }
 
 .active {
+  transform: scale(1.02);
+
   & > * {
     opacity: 1 !important;
   }
@@ -81,10 +87,14 @@
 
 div.taskBtnsFrame {
   transition: all 250ms ease-in-out !important;
-  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.05);
   border-radius: 5px;
   margin: 7px 0;
   padding: 0;
+  box-shadow:
+    10px 10px 15px rgba(82, 140, 206, 0.4),
+    -10px -10px 15px rgba(82, 140, 206, 0.1);
 }
 
 button.viewTaskBtn {
@@ -117,6 +127,15 @@ button.viewTaskBtn {
     transform: scale(1.02);
     opacity: 1;
   }
+}
+
+button.reviewBtn {
+  background: linear-gradient(180deg, #6bcf3d, #62bc37) !important;
+  padding: 10px 15px !important;
+  margin: 6px 0;
+  box-shadow:
+    10px 10px 15px rgba(82, 140, 206, 0.8),
+    -10px -10px 15px rgba(82, 140, 206, 0.5);
 }
 
 .reviewReady {

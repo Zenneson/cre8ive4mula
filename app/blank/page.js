@@ -4,24 +4,26 @@ import Editor from "../editor/editor";
 
 export default function Blank() {
   return (
-    <Stack
-      className="panel"
-      gap={30}
-      align="flex-start"
-      ml={"15%"}
-      my={50}
-      w={"70%"}
-    >
-      <Button
-        component={Link}
-        scroll={false} // disable scroll to top, needed fir homepage
-        href={"/"}
+    <>
+      <Stack
+        className="panel"
+        gap={30}
+        align="flex-start"
+        ml={"15%"}
+        my={50}
+        w={"70%"}
       >
-        HOMEPAGE
-      </Button>
-      <Input placeholder="Username" />
-      <Box className="innerPanel">Content Area</Box>
-      <Editor />
-    </Stack>
+        <Button
+          component={Link}
+          scroll={false} // disable scroll to top, needed fir homepage
+          href={"/"}
+        >
+          HOMEPAGE
+        </Button>
+        <Input placeholder="Username" />
+        <Box className="innerPanel">Content Area</Box>
+        <Editor />
+      </Stack>
+    </>
   );
 }

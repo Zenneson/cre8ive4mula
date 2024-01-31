@@ -1,11 +1,13 @@
 import {
   Center,
   Image,
+  Indicator,
   Stack,
   Tooltip,
   UnstyledButton,
   rem,
 } from "@mantine/core";
+import { useRouter } from "next/navigation";
 import classes from "./styles/navbar.module.css";
 
 const linkData = [
@@ -18,22 +20,29 @@ const linkData = [
 const NavbarLink = ({ icon, label, active, onClick }) => {
   return (
     <Tooltip label={label} position="right" openDelay={0} withArrow={false}>
-      <UnstyledButton
-        onClick={onClick}
-        className={`${classes.link} ${active && classes.linkActive}`}
-        data-active={active || undefined}
+      <Indicator
+        size={active ? "8" : "5"}
+        offset={active ? "2" : "17"}
+        disabled={icon === "dashboard" ? false : true}
       >
-        <Image
-          src={`/img/menu/${icon}.svg`}
-          style={{ width: rem(40), height: rem(40) }}
-          alt={label}
-        />
-      </UnstyledButton>
+        <UnstyledButton
+          onClick={onClick}
+          className={`${classes.link} ${active && classes.linkActive}`}
+          data-active={active || undefined}
+        >
+          <Image
+            src={`/img/menu/${icon}.svg`}
+            style={{ width: rem(40), height: rem(40) }}
+            alt={label}
+          />
+        </UnstyledButton>
+      </Indicator>
     </Tooltip>
   );
 };
 
 export default function Navbar(props) {
+  const router = useRouter();
   const { active, setActive } = props;
   const links = linkData.map((link, index) => (
     <NavbarLink
@@ -47,10 +56,10 @@ export default function Navbar(props) {
     <nav className={classes.navbar}>
       <Center>
         <Image
+          className={classes.mainLogo}
           src="/img/svgLogo.svg"
-          style={{ paddingLeft: "2px", width: rem(50), height: rem(50) }}
-          opacity={0.2}
           alt="Logo"
+          onClick={() => router.push("/")}
         />
       </Center>
       <div className={classes.navbarMain}>

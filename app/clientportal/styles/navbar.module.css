@@ -1,3 +1,11 @@
+.mainLogo {
+  opacity: 0.2;
+  width: rem(50px);
+  height: rem(50px);
+  padding-left: 2px;
+  cursor: pointer;
+}
+
 .navbar {
   position: fixed;
   z-index: 100;
