@@ -17,9 +17,7 @@
   padding: var(--mantine-spacing-md);
   background: linear-gradient(145deg, #6291c8, #75acee);
   flex-direction: column;
-  box-shadow:
-    10px 10px 15px #528cce,
-    -10px -10px 15px #79b3f6;
+  box-shadow: 5px 0px 15px rgba(50, 95, 146, 0.4);
 }
 
 .navbarMain {

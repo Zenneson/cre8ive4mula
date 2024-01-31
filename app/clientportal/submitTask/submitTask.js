@@ -1,20 +1,9 @@
 "use client";
 import "@dotlottie/react-player/dist/index.css";
-import {
-  Affix,
-  Button,
-  Center,
-  Grid,
-  Group,
-  Image,
-  SimpleGrid,
-  Stack,
-  Text,
-  Title,
-} from "@mantine/core";
+import { Affix, Badge, Button, Center, Group, Text } from "@mantine/core";
 import { useSessionStorage } from "@mantine/hooks";
 import { useState } from "react";
-import { TypeBtnsCache } from "../page";
+import ChooseTypePanel from "./chooseTypePanel";
 import classes from "./styles/submitTask.module.css";
 
 export default function SubmitTask() {
@@ -43,6 +32,56 @@ export default function SubmitTask() {
     }
   };
 
+  const services = {
+    design: [
+      "Logo Design",
+      "Brand Design",
+      "Website / App Wireframing",
+      "Social Media Posts",
+      "Infographics",
+      "Promo and Ad Material",
+      "User Interface ",
+      "Custom Illustration",
+      "CMS Theme Customization",
+    ],
+    content: [
+      "Editing and Proofreading",
+      "Marketing Copywriting",
+      "SEO Optimization",
+      "Content Transcribing ",
+    ],
+    webdev: [
+      "Performance Optimization",
+      "Security Optimization",
+      "API Development and Integration",
+      "CMS Management",
+      "Bug Fixes and Troubleshooting",
+      "Feature Development",
+      "Payment Gateway Integration",
+    ],
+  };
+
+  const color = () => {
+    if (choosenType && choosenType.title === "Design") return "#ff4d28";
+    if (choosenType && choosenType.title === "Content") return "#f80800";
+    if (choosenType && choosenType.title === "Web Dev") return "#ffd941";
+  };
+
+  const serviceList = () => {
+    if (choosenType && choosenType.title === "Design") return services.design;
+    if (choosenType && choosenType.title === "Content") return services.content;
+    if (choosenType && choosenType.title === "Web Dev") return services.webdev;
+  };
+
+  const typeColor = color();
+  const serviceBadges = serviceList()?.map((service, i) => {
+    return (
+      <Badge key={i} color={typeColor} variant="filled" size="md">
+        {service}
+      </Badge>
+    );
+  });
+
   return (
     <Group className={classes.centerFrame} left={submitPage()} gap={"0px"}>
       <Affix position={{ top: 30, right: 30 }}>
@@ -65,37 +104,11 @@ export default function SubmitTask() {
       </Affix>
 
       <Center id="0" w={"calc(100vw - 110px)"} pos={"relative"} ml={"110px"}>
-        <Stack pt={200} gap={5}>
-          <Group className={classes.chooseTypeTitle} gap="7">
-            <Image
-              src={"/img/task.svg"}
-              alt={"Task Type"}
-              height={25}
-              opacity={0.5}
-            />
-            <Title order={4}>Task Type:</Title>
-          </Group>
-          <SimpleGrid cols={3} spacing={"xl"}>
-            <TypeBtnsCache />
-          </SimpleGrid>
-          {choosenType && (
-            <>
-              <Grid className={`panel ${classes.typeDescFrame}`}>
-                <Grid.Col span="content">
-                  <Title tt={"uppercase"} order={2}>
-                    {choosenType.title}
-                  </Title>
-                </Grid.Col>
-                <Grid.Col span="auto">
-                  <Text>{choosenType.desc}</Text>
-                </Grid.Col>
-              </Grid>
-              <Group justify="flex-end" mt={15}>
-                <Button onClick={() => setActivePage(1)}>Continue</Button>
-              </Group>
-            </>
-          )}
-        </Stack>
+        <ChooseTypePanel
+          choosenType={choosenType}
+          serviceBadges={serviceBadges}
+          setActivePage={setActivePage}
+        />
       </Center>
       <Center id="1" w={"calc(100vw - 110px)"} pos={"relative"} ml={"110px"}>
         <Text>Task Details</Text>
