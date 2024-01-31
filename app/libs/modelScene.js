@@ -8,7 +8,6 @@ export default function ModelScene({ children, controls = false }) {
     <Box pos={"absolute"} top={0} left={0} w={"100%"} h={"100%"}>
       <Canvas
         style={{
-          zIndex: 999,
           position: "fixed",
           width: "100vw",
           height: "100vh",

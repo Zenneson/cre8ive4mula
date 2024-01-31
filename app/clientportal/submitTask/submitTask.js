@@ -11,14 +11,19 @@ import {
   Text,
   Title,
 } from "@mantine/core";
+import { useSessionStorage } from "@mantine/hooks";
 import { useState } from "react";
-import { TypeBtnsCache } from "./page";
+import { TypeBtnsCache } from "../page";
 import classes from "./styles/submitTask.module.css";
 
 export default function SubmitTask() {
   const [activePage, setActivePage] = useState(0);
+  const [choosenType, setChoosenType] = useSessionStorage({
+    key: "submitData",
+    defaultValue: null,
+  });
 
-  console.log("🚀 ~ SubmitTask ~ activePage:", activePage);
+  console.log("🚀 ~ SubmitTask ~ choosenType:", choosenType);
 
   const submitPage = () => {
     switch (activePage) {
@@ -74,6 +79,12 @@ export default function SubmitTask() {
           <SimpleGrid cols={3} spacing={"xl"}>
             <TypeBtnsCache />
           </SimpleGrid>
+          {choosenType && (
+            <Group className={classes.typeDescFrame} gap="10px">
+              <Title order={4}>{choosenType.title}</Title>
+              <Text>{choosenType.desc}</Text>
+            </Group>
+          )}
         </Stack>
       </Center>
       <Center id="1" w={"calc(100vw - 110px)"} pos={"relative"} ml={"110px"}>

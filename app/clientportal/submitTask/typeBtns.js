@@ -2,6 +2,7 @@
 import { DotLottiePlayer } from "@dotlottie/react-player";
 import "@dotlottie/react-player/dist/index.css";
 import { Button, ColorSwatch, Group, Stack, Title } from "@mantine/core";
+import { useSessionStorage } from "@mantine/hooks";
 import { useRef } from "react";
 import classes from "./styles/submitTask.module.css";
 
@@ -26,7 +27,21 @@ const buttons = [
   },
 ];
 
+const typeDef = {
+  Design:
+    "Design services encompass all aspects of graphic and web design. This includes the creation of visual elements, website layout design, and other design-related tasks, ensuring a cohesive and aesthetically pleasing visual identity.",
+  Content:
+    "Content services involve SEO, editing, and management of digital content. The focus is on optimizing content for search engines, refining the clarity and effectiveness of the text, and managing content to align with strategic goals.",
+  "Web Dev":
+    "Web Development services cover the addition of new features, maintenance, and overall management of websites. This includes ensuring website functionality, responsiveness, and security, as well as implementing updates and improvements.",
+};
+
 const MentBtn = ({ button }) => {
+  const [choosenType, setChoosenType] = useSessionStorage({
+    key: "submitData",
+    defaultValue: null,
+  });
+
   const lottieRef1 = useRef();
   const lottieRef2 = useRef();
 
@@ -40,6 +55,15 @@ const MentBtn = ({ button }) => {
     lottieRef2.current.stop();
   };
 
+  const selectType = (buttonText) => {
+    const desc = typeDef[buttonText];
+    if (desc) {
+      setChoosenType({ title: buttonText, desc });
+    } else {
+      console.log("No matching type found");
+    }
+  };
+
   return (
     <Button
       className={classes.submitType}
@@ -47,6 +71,7 @@ const MentBtn = ({ button }) => {
       pt={15}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={() => selectType(button.text)}
     >
       <Stack gap={0} justify="center" align="center">
         <Group w={"87%"} gap={5} mb={-20}>

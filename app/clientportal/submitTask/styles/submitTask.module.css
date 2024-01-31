@@ -55,6 +55,10 @@ button.submitType {
   opacity: 0.3;
 }
 
+.typeDescFrame {
+  width: 700px;
+}
+
 div.nextPrev {
   z-index: 999;
 }

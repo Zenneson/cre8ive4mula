@@ -1,12 +1,12 @@
 "use client";
 import { Title } from "@mantine/core";
 import { motion } from "framer-motion";
-import { cache, useState } from "react";
+import { cache, useEffect, useState } from "react";
 import Dashboard from "./dashboard/dashboard";
 import Navbar from "./navbar";
 import classes from "./styles/clientPortal.module.css";
-import SubmitTask from "./submitTask";
-import TypeBtns from "./typeBtns";
+import SubmitTask from "./submitTask/submitTask";
+import TypeBtns from "./submitTask/typeBtns";
 
 export const TypeBtnsCache = cache(() => <TypeBtns />);
 
@@ -19,6 +19,9 @@ const animation = {
 
 export default function ClientPortal() {
   const [active, setActive] = useState(0);
+  useEffect(() => {
+    sessionStorage.removeItem("submitData");
+  }, []);
 
   return (
     <>
