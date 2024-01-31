@@ -2,7 +2,7 @@
 import { DotLottiePlayer } from "@dotlottie/react-player";
 import "@dotlottie/react-player/dist/index.css";
 import { Button, ColorSwatch, Group, Stack, Title } from "@mantine/core";
-import { useSessionStorage } from "@mantine/hooks";
+import { useDidUpdate, useSessionStorage } from "@mantine/hooks";
 import { useRef } from "react";
 import classes from "./styles/submitTask.module.css";
 
@@ -42,6 +42,7 @@ const MentBtn = ({ button }) => {
     defaultValue: null,
   });
 
+  const active = choosenType && choosenType.title === button.text;
   const lottieRef1 = useRef();
   const lottieRef2 = useRef();
 
@@ -51,6 +52,7 @@ const MentBtn = ({ button }) => {
   };
 
   const handleMouseLeave = () => {
+    if (active) return;
     lottieRef1.current.stop();
     lottieRef2.current.stop();
   };
@@ -64,9 +66,16 @@ const MentBtn = ({ button }) => {
     }
   };
 
+  useDidUpdate(() => {
+    if (!active) {
+      lottieRef1.current.stop();
+      lottieRef2.current.stop();
+    }
+  }, [active]);
+
   return (
     <Button
-      className={classes.submitType}
+      className={`${classes.submitType} ${active && classes.buttonActive}`}
       p={5}
       pt={15}
       onMouseEnter={handleMouseEnter}

@@ -20,8 +20,8 @@ const animation = {
 export default function ClientPortal() {
   const [active, setActive] = useState(0);
   useEffect(() => {
-    sessionStorage.removeItem("submitData");
-  }, []);
+    if (active !== 1) sessionStorage.removeItem("submitData");
+  }, [active]);
 
   return (
     <>

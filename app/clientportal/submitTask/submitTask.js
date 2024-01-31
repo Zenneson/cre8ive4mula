@@ -4,6 +4,7 @@ import {
   Affix,
   Button,
   Center,
+  Grid,
   Group,
   Image,
   SimpleGrid,
@@ -22,8 +23,6 @@ export default function SubmitTask() {
     key: "submitData",
     defaultValue: null,
   });
-
-  console.log("🚀 ~ SubmitTask ~ choosenType:", choosenType);
 
   const submitPage = () => {
     switch (activePage) {
@@ -80,10 +79,21 @@ export default function SubmitTask() {
             <TypeBtnsCache />
           </SimpleGrid>
           {choosenType && (
-            <Group className={classes.typeDescFrame} gap="10px">
-              <Title order={4}>{choosenType.title}</Title>
-              <Text>{choosenType.desc}</Text>
-            </Group>
+            <>
+              <Grid className={`panel ${classes.typeDescFrame}`}>
+                <Grid.Col span="content">
+                  <Title tt={"uppercase"} order={2}>
+                    {choosenType.title}
+                  </Title>
+                </Grid.Col>
+                <Grid.Col span="auto">
+                  <Text>{choosenType.desc}</Text>
+                </Grid.Col>
+              </Grid>
+              <Group justify="flex-end" mt={15}>
+                <Button onClick={() => setActivePage(1)}>Continue</Button>
+              </Group>
+            </>
           )}
         </Stack>
       </Center>
