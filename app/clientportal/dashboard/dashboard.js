@@ -1,7 +1,9 @@
 "use client";
-import { Flex, Group, Image, Stack, Title, Tooltip } from "@mantine/core";
+import { Box, Flex, Group, Image, Stack, Title, Tooltip } from "@mantine/core";
+import { Reorder, useDragControls } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { taskData } from "../../../public/data/taskData";
+import { usePortalState } from "../portalStore";
 import BoardTask from "./boardTask";
 import DashHeader from "./dashHeader";
 import classes from "./styles/dashboard.module.css";
@@ -17,6 +19,8 @@ const Board = ({ taskData, boardType }) => {
   const tasks = taskData;
   const taskFrameRef = useRef(null);
   const [addSpace, setAddSpace] = useState(false);
+  const { allowReorder, setAllowReorder } = usePortalState();
+  const controls = useDragControls();
 
   useEffect(() => {
     const taskFrame = taskFrameRef.current;
@@ -28,8 +32,40 @@ const Board = ({ taskData, boardType }) => {
   }, [taskData]);
 
   const taskList = tasks.map((task, i) => (
-    <BoardTask key={i} taskData={task} boardType={boardType} />
+    <BoardTask
+      key={i}
+      controls={controls}
+      taskData={task}
+      boardType={boardType}
+    />
   ));
+
+  const [items, setItems] = useState(taskList);
+  const DragTaskList = () => {
+    return (
+      <Reorder.Group
+        className={`${classes.boardsInner} ${addSpace && classes.boardsShadow}`}
+        ref={taskFrameRef}
+        values={items}
+        layoutScroll
+        axis="y"
+        style={{ overflowY: "auto" }}
+        onReorder={setItems}
+      >
+        {items.map((item, index) => (
+          <Reorder.Item
+            key={index}
+            value={item}
+            pos={"relative"}
+            dragListener={false}
+            dragControls={controls}
+          >
+            {item}
+          </Reorder.Item>
+        ))}
+      </Reorder.Group>
+    );
+  };
 
   return (
     <Stack w="33%" className={`panel ${classes.boards}`}>
@@ -37,7 +73,7 @@ const Board = ({ taskData, boardType }) => {
         className={`${classes.boardsHeader} ${addSpace && classes.scrollSpace}`}
         justify="space-between"
       >
-        <Group gap={5}>
+        <Group pos={"relative"} gap={5}>
           <Title order={4} fw={900}>
             {tasks.length}
           </Title>
@@ -46,21 +82,19 @@ const Board = ({ taskData, boardType }) => {
           </Title>
         </Group>
         {boardType === "Submitted Tasks" && (
-          <Tooltip label="Reorder" position="bottom">
-            <Image
-              className={classes.reorder}
-              src={"/img/reorder.svg"}
-              alt="Reorder"
-            />
-          </Tooltip>
+          <Box className={classes.reorderBtnFrame}>
+            <Tooltip label="Reorder" position="bottom">
+              <Image
+                className={classes.reorder}
+                src={"/img/reorder.svg"}
+                alt="Reorder"
+                onClick={() => setAllowReorder(!allowReorder)}
+              />
+            </Tooltip>
+          </Box>
         )}
       </Group>
-      <Stack
-        className={`${classes.boardsInner} ${addSpace && classes.boardsShadow}`}
-        ref={taskFrameRef}
-      >
-        {taskList}
-      </Stack>
+      <DragTaskList />
     </Stack>
   );
 };
@@ -72,7 +106,7 @@ export default function Dashboard(props) {
     <>
       <DashHeader setActive={setActive} />
       <Flex gap={20} className={classes.boardsFrame}>
-        <Board boardType={"Submitted Tasks"} taskData={taskData.slice(0, 6)} />
+        <Board boardType={"Submitted Tasks"} taskData={taskData.slice(2, 5)} />
         <Board
           boardType={"Tasks In-Progress"}
           taskData={[taskData[0], taskData[4]]}

@@ -76,14 +76,16 @@ const MentBtn = ({ button }) => {
   return (
     <Button
       className={`${classes.submitType} ${active && classes.buttonActive}`}
-      p={5}
+      p={0}
       pt={15}
+      mt={5}
+      w={182}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={() => selectType(button.text)}
     >
       <Stack gap={0} justify="center" align="center">
-        <Group w={"87%"} gap={5} mb={-20}>
+        <Group pos={"relative"} w={"87%"} gap={5} mb={-10}>
           <ColorSwatch
             className={classes.typeColor}
             size={10}

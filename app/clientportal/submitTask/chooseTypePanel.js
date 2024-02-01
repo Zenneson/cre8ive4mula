@@ -18,7 +18,7 @@ export default function ChooseTypePanel(props) {
   const { choosenType, serviceBadges, setActivePage } = props;
 
   return (
-    <Stack pt={200} gap={5}>
+    <Stack mih={"700px"} gap={5}>
       <Group className={classes.chooseTypeTitleFrame} gap="7">
         <Image
           src={"/img/task.svg"}
@@ -28,7 +28,7 @@ export default function ChooseTypePanel(props) {
         />
         <Title order={4}>Task Type:</Title>
       </Group>
-      <SimpleGrid cols={3} spacing={"xl"}>
+      <SimpleGrid cols={3} spacing={20}>
         <TypeBtnsCache />
       </SimpleGrid>
       <Transition

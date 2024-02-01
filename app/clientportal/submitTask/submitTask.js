@@ -38,13 +38,12 @@ export default function SubmitTask() {
       "Logo Design",
       "UX / UI Design",
       "Brand Identity",
+      "Website / App Wireframing",
       "Print Design",
       "Infographic Design",
       "Photoshop Editing",
-      "Website / App Wireframing",
       "Social Media Posts",
       "Promotion Material",
-      "CMS Theme Customization",
     ],
     content: [
       "Editing and Proofreading",
@@ -56,34 +55,29 @@ export default function SubmitTask() {
       "Performance Optimization",
       "Feature Development",
       "API Development",
-      "CMS Management",
       "Database Management",
       "Website Migration",
       "Security Optimization",
       "Bug Fixes and Troubleshooting",
       "Payment Gateway Integration",
+      "CMS Management",
     ],
   };
 
   const setup = () => {
     if (choosenType && choosenType.title === "Design")
-      return { color: "#ff4d28", service: services.design, size: "xs" };
+      return { color: "#ff4d28", service: services.design };
     if (choosenType && choosenType.title === "Content")
-      return { color: "#f80800", service: services.content, size: "sm" };
+      return { color: "#f80800", service: services.content };
     if (choosenType && choosenType.title === "Web Dev")
-      return { color: "#ffd941", service: services.webdev, size: "xs" };
+      return { color: "#ffd941", service: services.webdev };
   };
 
   const setupData = setup();
   const serviceList = setupData?.service;
   const serviceBadges = serviceList?.map((service, i) => {
     return (
-      <Badge
-        key={i}
-        color={setupData.color}
-        size={setupData.size}
-        variant="filled"
-      >
+      <Badge key={i} color={setupData.color} size={"xs"} variant="filled">
         {service}
       </Badge>
     );
@@ -110,17 +104,35 @@ export default function SubmitTask() {
         </Button.Group>
       </Affix>
 
-      <Center id="0" w={"calc(100vw - 110px)"} pos={"relative"} ml={"110px"}>
+      <Center
+        id="0"
+        w={"calc(100vw - 110px)"}
+        h={"100vh"}
+        pos={"relative"}
+        ml={"110px"}
+      >
         <ChooseTypePanel
           choosenType={choosenType}
           serviceBadges={serviceBadges}
           setActivePage={setActivePage}
         />
       </Center>
-      <Center id="1" w={"calc(100vw - 110px)"} pos={"relative"} ml={"110px"}>
+      <Center
+        id="1"
+        w={"calc(100vw - 110px)"}
+        h={"100vh"}
+        pos={"relative"}
+        ml={"110px"}
+      >
         <TaskForm />
       </Center>
-      <Center id="2" w={"calc(100vw - 110px)"} pos={"relative"} ml={"110px"}>
+      <Center
+        id="2"
+        w={"calc(100vw - 110px)"}
+        h={"100vh"}
+        pos={"relative"}
+        ml={"110px"}
+      >
         <Text>Review Details</Text>
       </Center>
     </Group>
