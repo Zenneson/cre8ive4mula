@@ -90,6 +90,7 @@ export default function BoardTask(props) {
             className={classes.taskService}
             color={taskColor(taskData.type)}
             variant="dot"
+            c={"#fff"}
             size="sm"
           >
             {taskData.service}
@@ -99,6 +100,7 @@ export default function BoardTask(props) {
             rightSection={<CgAttachment size={10} />}
             variant="dot"
             size="sm"
+            c={"#fff"}
             mr={5}
           >
             {taskData.files.length}

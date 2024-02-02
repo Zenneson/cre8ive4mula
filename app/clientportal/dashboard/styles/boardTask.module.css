@@ -18,8 +18,8 @@ div.opened {
   user-select: none !important;
   cursor: pointer;
   box-shadow:
-    10px 10px 15px rgba(82, 140, 206, 0.5),
-    -10px -10px 15px rgba(121, 179, 246, 0.5);
+    3px 3px 7px rgba(82, 140, 206, 0.5),
+    -3px -3px 7px rgba(121, 179, 246, 0.5);
 
   & > * {
     transition: all 150ms ease-in-out;

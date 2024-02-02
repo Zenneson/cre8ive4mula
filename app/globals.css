@@ -103,7 +103,8 @@ h6 {
     -9px -9px 29px #79b3f6;
 
   input,
-  textarea {
+  textarea,
+  .mantine-Input-input {
     background-color: transparent;
     border: none;
     color: #444;

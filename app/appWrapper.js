@@ -28,8 +28,8 @@ export default function AppWrapper({ children }) {
         </defs>
       </svg>
 
-      <ColorSchemeScript forceColorScheme="dark" />
-      <MantineProvider forceColorScheme="dark" theme={tourTheme}>
+      <ColorSchemeScript forceColorScheme="light" />
+      <MantineProvider forceColorScheme="light" theme={tourTheme}>
         <AppShell
           pos={"relative"}
           component={ScrollArea}

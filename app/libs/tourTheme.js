@@ -8,7 +8,7 @@ import {
 } from "@mantine/core";
 
 export const tourTheme = createTheme({
-  colorScheme: "dark",
+  colorScheme: "light",
   focusRing: "never",
   cursorType: "pointer",
   defaultRadius: "10px",
@@ -24,6 +24,12 @@ export const tourTheme = createTheme({
         openDelay: 0,
         closeDelay: 0,
         events: { hover: true, focus: true, touch: false },
+      },
+      styles: {
+        tooltip: {
+          background: "linear-gradient(0deg, #efefef, #ffffff)",
+          color: "#444",
+        },
       },
     }),
     LoadingOverlay: LoadingOverlay.extend({

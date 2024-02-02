@@ -74,6 +74,43 @@ input.colorInput {
 
 .addLinkBtn,
 .addColorBtn,
-.addKeywordBtn {
-  border-radius: 15px;
+.addKeywordBtn,
+.tagsInput {
+  color: #fff;
+  cursor: pointer;
+  border-radius: 100px;
+}
+
+.addColorBtn {
+  color: #ccc;
+}
+
+.deliverInfoDialog {
+  background: linear-gradient(0deg, #efefef, #ffffff);
+  color: #444;
+  box-shadow: 0px 2px 8px 0px rgba(110, 110, 110, 0.3);
+  overflow: hidden;
+}
+
+.dialogIcon {
+  background: linear-gradient(0deg, #f7f7f7, #ffffff);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 40px;
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.dialogInfoEnter {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 7px;
+  padding: 10px 0;
+  margin-top: 5px;
+  margin-left: 15%;
+  width: 70%;
+  text-align: center;
+  font-weight: 700;
+  font-size: 10px;
+  box-shadow: inset 0px 1px 3px 0px rgba(83, 140, 205, 0.25);
 }

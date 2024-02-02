@@ -5,14 +5,18 @@ import {
   Badge,
   Box,
   Button,
+  Center,
   ColorPicker,
+  Dialog,
   FileButton,
   Grid,
   Group,
   Image,
+  Kbd,
   Popover,
   Select,
   Stack,
+  TagsInput,
   Text,
   TextInput,
   Textarea,
@@ -20,11 +24,12 @@ import {
 } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { FaHashtag, FaPlay } from "react-icons/fa";
-import { FaPlus } from "react-icons/fa6";
+import { FaCirclePlus, FaPlus } from "react-icons/fa6";
 import { IoGlobeOutline } from "react-icons/io5";
 import { LuPaintBucket } from "react-icons/lu";
 import { MdAttachment } from "react-icons/md";
 import { PiUploadSimpleBold } from "react-icons/pi";
+import { TbHelpSmall, TbHelpSquareFilled } from "react-icons/tb";
 import classes from "./styles/taskFrom.module.css";
 
 export default function TaskForm(props) {
@@ -35,6 +40,7 @@ export default function TaskForm(props) {
   const [selectedColor, setSelectedColor] = useState("#0000FF");
   const [choosenService, setChoosenService] = useState("");
   const [typeColor, setTypeColor] = useState();
+  const [deliverInfo, setDeliverInfo] = useState(false);
 
   useEffect(() => {
     if (!choosenType || !choosenType.title) return;
@@ -92,6 +98,9 @@ export default function TaskForm(props) {
             />
           </Grid.Col>
         </Grid>
+        <Box hidden={choosenType?.title !== "Web Dev"}>
+          <Textarea autosize minRows={2} placeholder="Intended Goal..." />
+        </Box>
         <Textarea
           autosize
           minRows={7}
@@ -99,15 +108,24 @@ export default function TaskForm(props) {
           value={description}
           onChange={(event) => setDescription(event.currentTarget.value)}
         />
-      </Stack>
-      <Stack mt={20} gap={20}>
-        <Box hidden={choosenType?.title !== "Web Dev"} className="panel">
-          <Textarea
-            autosize
-            minRows={2}
-            placeholder="Task's Intended Goal..."
+        <Box hidden={choosenType?.title !== "Design"}>
+          <TagsInput
+            rightSection={
+              <ActionIcon
+                variant="transparent"
+                color="#777"
+                onClick={() => setDeliverInfo(!deliverInfo)}
+              >
+                <TbHelpSquareFilled className={classes.tagsInput} size={30} />
+              </ActionIcon>
+            }
+            rightSectionWidth={50}
+            rightSectionPointerEvents="all"
+            placeholder="Accepted File Types..."
           />
         </Box>
+      </Stack>
+      <Stack mt={20} gap={20}>
         <Box hidden={choosenType?.title !== "Design"}>
           <Group align="flex-start" grow>
             <Stack className={`innerPanel ${classes.addColors}`} p={20}>
@@ -148,10 +166,10 @@ export default function TaskForm(props) {
                     rightSection={
                       <ActionIcon
                         className={classes.addColorBtn}
-                        variant="light"
+                        variant="subtle"
                         color="#777"
                       >
-                        <FaPlus size={12} />
+                        <FaCirclePlus size={30} />
                       </ActionIcon>
                     }
                   />
@@ -174,10 +192,10 @@ export default function TaskForm(props) {
                 rightSection={
                   <ActionIcon
                     className={classes.addKeywordBtn}
-                    variant="light"
+                    variant="subtle"
                     color="#777"
                   >
-                    <FaPlus size={20} />
+                    <FaCirclePlus size={30} />
                   </ActionIcon>
                 }
               />
@@ -221,10 +239,10 @@ export default function TaskForm(props) {
               rightSection={
                 <ActionIcon
                   className={classes.addLinkBtn}
-                  variant="light"
+                  variant="subtle"
                   color="#777"
                 >
-                  <FaPlus size={20} />
+                  <FaCirclePlus size={30} />
                 </ActionIcon>
               }
             />
@@ -247,6 +265,31 @@ export default function TaskForm(props) {
           </Button>
         </Group>
       </Stack>
+      <Dialog
+        className={classes.deliverInfoDialog}
+        opened={deliverInfo}
+        withCloseButton
+        onClose={() => setDeliverInfo(false)}
+        size={340}
+        p={"20px 25px"}
+      >
+        <Center className={classes.dialogIcon}>
+          <TbHelpSmall size={30} />
+        </Center>
+        <Box w={375} pr={55}>
+          <Text fz={13} ta={"center"}>
+            Add your perfered file types, such as <br />
+            <Text component="span" fw={700} opacity={0.5} fz={17}>
+              JPG, PNG, SVG, EPS, PDF, PSD,
+            </Text>
+            <br />
+            or any other formats relevant to your needs.
+          </Text>
+          <Text className={classes.dialogInfoEnter}>
+            Press <Kbd size="xs">Enter</Kbd> to add file type to the list.
+          </Text>
+        </Box>
+      </Dialog>
     </Box>
   );
 }
