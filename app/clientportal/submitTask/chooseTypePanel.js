@@ -11,6 +11,7 @@ import {
   Transition,
 } from "@mantine/core";
 import {} from "react";
+import { FaPlay } from "react-icons/fa";
 import { TypeBtnsCache } from "../page";
 import classes from "./styles/chooseTypePanel.module.css";
 
@@ -26,7 +27,7 @@ export default function ChooseTypePanel(props) {
           height={25}
           opacity={0.5}
         />
-        <Title order={4}>Task Type:</Title>
+        <Title order={4}>Task Type</Title>
       </Group>
       <SimpleGrid cols={3} spacing={20}>
         <TypeBtnsCache />
@@ -52,7 +53,12 @@ export default function ChooseTypePanel(props) {
               {serviceBadges}
             </Group>
             <Group justify="flex-end" mt={20}>
-              <Button onClick={() => setActivePage(1)}>Continue</Button>
+              <Button
+                leftSection={<FaPlay size={10} />}
+                onClick={() => setActivePage(1)}
+              >
+                Continue
+              </Button>
             </Group>
           </Box>
         )}

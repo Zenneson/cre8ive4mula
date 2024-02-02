@@ -19,7 +19,7 @@ import {
   Title,
 } from "@mantine/core";
 import { useEffect, useState } from "react";
-import { FaHashtag } from "react-icons/fa";
+import { FaHashtag, FaPlay } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { IoGlobeOutline } from "react-icons/io5";
 import { LuPaintBucket } from "react-icons/lu";
@@ -42,8 +42,8 @@ export default function TaskForm(props) {
   }, [choosenType]);
 
   return (
-    <Box h={900}>
-      <Group className={classes.taskFormTitle} justify="space-between" gap="7">
+    <Box h={800}>
+      <Group className={classes.taskFormTitle} justify="space-between">
         <Group gap="7">
           <Image
             src={"/img/task.svg"}
@@ -51,7 +51,7 @@ export default function TaskForm(props) {
             height={25}
             opacity={0.5}
           />
-          <Title order={4}>Add Details:</Title>
+          <Title order={4}>Add Details</Title>
         </Group>
         <Badge
           className={classes.taskType}
@@ -101,12 +101,96 @@ export default function TaskForm(props) {
         />
       </Stack>
       <Stack mt={20} gap={20}>
-        <Box className="panel">
+        <Box hidden={choosenType?.title !== "Web Dev"} className="panel">
           <Textarea
             autosize
             minRows={2}
             placeholder="Task's Intended Goal..."
           />
+        </Box>
+        <Box hidden={choosenType?.title !== "Design"}>
+          <Group align="flex-start" grow>
+            <Stack className={`innerPanel ${classes.addColors}`} p={20}>
+              <Popover
+                classNames={{ dropdown: classes.colorPopoverDropdown }}
+                width="target"
+              >
+                <Popover.Target>
+                  <Button>
+                    <Group gap={5}>
+                      <FaPlus />
+                      Color
+                    </Group>
+                  </Button>
+                </Popover.Target>
+                <Popover.Dropdown>
+                  <ColorPicker
+                    size="lg"
+                    fullWidth
+                    value={selectedColor}
+                    onChange={setSelectedColor}
+                    classNames={{
+                      saturationOverlay: classes.pickerArea,
+                      sliderOverlay: classes.pickerSlider,
+                    }}
+                  />
+                  <TextInput
+                    classNames={{
+                      wrapper: classes.colorInputWrapper,
+                      input: classes.colorInput,
+                    }}
+                    value={addAtSymbol(selectedColor, "#")}
+                    onChange={(event) =>
+                      setSelectedColor(event.currentTarget.value)
+                    }
+                    maxLength={7}
+                    rightSectionPointerEvents="all"
+                    rightSection={
+                      <ActionIcon
+                        className={classes.addColorBtn}
+                        variant="light"
+                        color="#777"
+                      >
+                        <FaPlus size={12} />
+                      </ActionIcon>
+                    }
+                  />
+                </Popover.Dropdown>
+              </Popover>
+              <Box className="altPanel">
+                <Group gap={10} opacity={0.25}>
+                  <LuPaintBucket size={15} />
+                  <Text fz={11} fw={700} tt={"uppercase"}>
+                    Colors Added
+                  </Text>
+                </Group>
+              </Box>
+            </Stack>
+            <Stack className={`innerPanel ${classes.styleKeywords}`} p={20}>
+              <TextInput
+                placeholder="Style Keywords..."
+                rightSectionWidth={50}
+                rightSectionPointerEvents="all"
+                rightSection={
+                  <ActionIcon
+                    className={classes.addKeywordBtn}
+                    variant="light"
+                    color="#777"
+                  >
+                    <FaPlus size={20} />
+                  </ActionIcon>
+                }
+              />
+              <Box className="altPanel">
+                <Group gap={10} opacity={0.25}>
+                  <FaHashtag size={15} />
+                  <Text fz={11} fw={700} tt={"uppercase"}>
+                    Keywords Added
+                  </Text>
+                </Group>
+              </Box>
+            </Stack>
+          </Group>
         </Box>
         <Group align="flex-start" grow>
           <Stack className={`innerPanel ${classes.relatedFiles}`} p={20}>
@@ -154,91 +238,13 @@ export default function TaskForm(props) {
             </Box>
           </Stack>
         </Group>
-        <Group align="flex-start" grow>
-          <Stack className={`innerPanel ${classes.addColors}`} p={20}>
-            <Popover
-              classNames={{ dropdown: classes.colorPopoverDropdown }}
-              width="target"
-              position="top"
-            >
-              <Popover.Target>
-                <Button>
-                  <Group gap={5}>
-                    <FaPlus />
-                    Color
-                  </Group>
-                </Button>
-              </Popover.Target>
-              <Popover.Dropdown>
-                <ColorPicker
-                  size="lg"
-                  fullWidth
-                  value={selectedColor}
-                  onChange={setSelectedColor}
-                  classNames={{
-                    saturationOverlay: classes.pickerArea,
-                    sliderOverlay: classes.pickerSlider,
-                  }}
-                />
-                <TextInput
-                  classNames={{
-                    wrapper: classes.colorInputWrapper,
-                    input: classes.colorInput,
-                  }}
-                  value={addAtSymbol(selectedColor, "#")}
-                  onChange={(event) =>
-                    setSelectedColor(event.currentTarget.value)
-                  }
-                  maxLength={7}
-                  rightSectionPointerEvents="all"
-                  rightSection={
-                    <ActionIcon
-                      className={classes.addColorBtn}
-                      variant="light"
-                      color="#777"
-                    >
-                      <FaPlus size={12} />
-                    </ActionIcon>
-                  }
-                />
-              </Popover.Dropdown>
-            </Popover>
-            <Box className="altPanel">
-              <Group gap={10} opacity={0.25}>
-                <LuPaintBucket size={15} />
-                <Text fz={11} fw={700} tt={"uppercase"}>
-                  Colors Added
-                </Text>
-              </Group>
-            </Box>
-          </Stack>
-          <Stack className={`innerPanel ${classes.styleKeywords}`} p={20}>
-            <TextInput
-              placeholder="Style Keywords..."
-              rightSectionWidth={50}
-              rightSectionPointerEvents="all"
-              rightSection={
-                <ActionIcon
-                  className={classes.addKeywordBtn}
-                  variant="light"
-                  color="#777"
-                >
-                  <FaPlus size={20} />
-                </ActionIcon>
-              }
-            />
-            <Box className="altPanel">
-              <Group gap={10} opacity={0.25}>
-                <FaHashtag size={15} />
-                <Text fz={11} fw={700} tt={"uppercase"}>
-                  Keywords Added
-                </Text>
-              </Group>
-            </Box>
-          </Stack>
-        </Group>
         <Group justify="flex-end">
-          <Button onClick={() => setActivePage(2)}>Review</Button>
+          <Button
+            leftSection={<FaPlay size={10} />}
+            onClick={() => setActivePage(2)}
+          >
+            Review
+          </Button>
         </Group>
       </Stack>
     </Box>

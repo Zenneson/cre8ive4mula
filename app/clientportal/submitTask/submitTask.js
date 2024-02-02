@@ -3,6 +3,7 @@ import "@dotlottie/react-player/dist/index.css";
 import { Affix, Badge, Button, Center, Group, Text } from "@mantine/core";
 import { useSessionStorage } from "@mantine/hooks";
 import { useState } from "react";
+import { FaPlay } from "react-icons/fa";
 import ChooseTypePanel from "./chooseTypePanel";
 import classes from "./styles/submitTask.module.css";
 import TaskForm from "./taskForm";
@@ -94,6 +95,9 @@ export default function SubmitTask() {
       {activePage > 0 && (
         <Affix position={{ top: 30, right: 30 }}>
           <Button
+            leftSection={
+              <FaPlay size={10} style={{ transform: "scaleX(-1)" }} />
+            }
             onClick={() =>
               setActivePage((current) => (current > 0 ? current - 1 : current))
             }

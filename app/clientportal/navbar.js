@@ -59,7 +59,7 @@ export default function Navbar(props) {
           className={classes.mainLogo}
           src="/img/svgLogo.svg"
           alt="Logo"
-          onClick={() => router.push("/")}
+          onClick={() => router.push("/", { scroll: false })}
         />
       </Center>
       <div className={classes.navbarMain}>
