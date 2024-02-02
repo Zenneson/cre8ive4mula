@@ -1,3 +1,4 @@
+import { taskColor } from "@libs/custom";
 import {
   Avatar,
   Badge,
@@ -27,19 +28,6 @@ export default function BoardTask(props) {
   const [brightDetails, setBrightDetails] = useState(false);
   const ref = useClickOutside(() => setViewTask(false));
   const { allowReorder } = usePortalState();
-
-  const taskColor = (type) => {
-    switch (type) {
-      case "Design":
-        return "#f66345";
-      case "Content":
-        return "#f80800";
-      case "Web Dev":
-        return "#ffd941";
-      default:
-        return "#f66345";
-    }
-  };
 
   const colorWay = taskData.colors?.map((color, index) => (
     <Avatar key={index} size={16} className={classes.colorSwatch}>

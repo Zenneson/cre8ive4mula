@@ -56,17 +56,13 @@ h6 {
 
 .panel {
   border-radius: 10px;
-  padding: 30px;
+  padding: 20px;
   overflow: hidden;
   background: linear-gradient(145deg, #6ea4df, #6ea4df);
   border: 1px solid rgba(122, 174, 238, 0.5);
   box-shadow:
     10px 10px 15px #528cce,
     -10px -10px 15px #67a2e6;
-}
-
-.lightShadow {
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .innerPanel {
@@ -81,6 +77,18 @@ h6 {
     -10px -10px 15px #79b3f6;
 }
 
+.altPanel {
+  box-shadow: inset 0px 2px 4px 0px rgba(83, 140, 205, 0.75);
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  border-radius: 10px;
+  padding: 10px 15px;
+}
+
+.lightShadow {
+  box-shadow: rgba(99, 99, 99, 0.4) 0px 2px 8px 0px;
+}
+
 .mantine-Input-wrapper {
   transition: all 150ms ease;
   height: auto;
@@ -89,17 +97,19 @@ h6 {
   color: #000;
   padding: 7px 0;
   border-radius: 10px;
-  background: linear-gradient(145deg, #a7b9cc, #c7dbf3);
+  background: linear-gradient(145deg, #d6e1ed, #c7dbf3);
   box-shadow:
     9px 9px 29px #618fc6,
     -9px -9px 29px #79b3f6;
 
-  input {
+  input,
+  textarea {
     background-color: transparent;
     border: none;
+    color: #444;
 
     &::placeholder {
-      color: #444;
+      color: #aaa;
     }
   }
 }
@@ -115,11 +125,13 @@ button.mantine-Button-root {
   cursor: pointer;
   color: #fff;
   text-transform: uppercase;
-  border: 1px solid transparent;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
   background: linear-gradient(145deg, #3f70a8, #75acee) !important;
   box-shadow:
-    10px 10px 15px #528cce,
-    -10px -10px 15px #79b3f6;
+    5px 5px 10px #528cce,
+    5px -5px 10px rgba(139, 190, 249, 0.3),
+    -5px -5px 10px #79b3f6;
 }
 
 button:hover,

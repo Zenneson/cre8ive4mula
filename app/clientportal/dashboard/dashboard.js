@@ -56,7 +56,6 @@ const Board = ({ taskData, boardType }) => {
           <Reorder.Item
             key={index}
             value={item}
-            pos={"relative"}
             dragListener={false}
             dragControls={controls}
           >
@@ -73,7 +72,7 @@ const Board = ({ taskData, boardType }) => {
         className={`${classes.boardsHeader} ${addSpace && classes.scrollSpace}`}
         justify="space-between"
       >
-        <Group pos={"relative"} gap={5}>
+        <Group gap={5}>
           <Title order={4} fw={900}>
             {tasks.length}
           </Title>
@@ -106,14 +105,14 @@ export default function Dashboard(props) {
     <>
       <DashHeader setActive={setActive} />
       <Flex gap={20} className={classes.boardsFrame}>
-        <Board boardType={"Submitted Tasks"} taskData={taskData.slice(2, 5)} />
+        <Board boardType={"Submitted Tasks"} taskData={taskData.slice(0, 4)} />
         <Board
           boardType={"Tasks In-Progress"}
           taskData={[taskData[0], taskData[4]]}
         />
         <Board
           boardType={"Ready For Review"}
-          taskData={[taskData[2], taskData[3], taskData[4]]}
+          taskData={[taskData[2], taskData[3]]}
         />
       </Flex>
     </>

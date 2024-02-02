@@ -77,7 +77,13 @@ export default function SubmitTask() {
   const serviceList = setupData?.service;
   const serviceBadges = serviceList?.map((service, i) => {
     return (
-      <Badge key={i} color={setupData.color} size={"xs"} variant="filled">
+      <Badge
+        className={classes.serviceBadges}
+        key={i}
+        color={setupData.color}
+        size={"xs"}
+        variant="filled"
+      >
         {service}
       </Badge>
     );
@@ -85,24 +91,17 @@ export default function SubmitTask() {
 
   return (
     <Group className={classes.centerFrame} left={submitPage()} gap={"0px"}>
-      <Affix position={{ top: 30, right: 30 }}>
-        <Button.Group className={classes.nextPrev}>
+      {activePage > 0 && (
+        <Affix position={{ top: 30, right: 30 }}>
           <Button
             onClick={() =>
               setActivePage((current) => (current > 0 ? current - 1 : current))
             }
           >
-            Prev
+            Back
           </Button>
-          <Button
-            onClick={() =>
-              setActivePage((current) => (current < 2 ? current + 1 : current))
-            }
-          >
-            Next
-          </Button>
-        </Button.Group>
-      </Affix>
+        </Affix>
+      )}
 
       <Center
         id="0"
@@ -117,14 +116,12 @@ export default function SubmitTask() {
           setActivePage={setActivePage}
         />
       </Center>
-      <Center
-        id="1"
-        w={"calc(100vw - 110px)"}
-        h={"100vh"}
-        pos={"relative"}
-        ml={"110px"}
-      >
-        <TaskForm />
+      <Center id="1" w={"calc(100vw - 110px)"} pos={"relative"} ml={"110px"}>
+        <TaskForm
+          setActivePage={setActivePage}
+          choosenType={choosenType}
+          service={serviceList}
+        />
       </Center>
       <Center
         id="2"

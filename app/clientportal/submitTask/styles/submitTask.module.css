@@ -22,3 +22,7 @@ div.nextPrev {
     transform: translate3d(0, 0, 0);
   }
 }
+
+.serviceBadges {
+  box-shadow: 0px 2px 8px 0px rgba(110, 110, 110, 0.6);
+}
