@@ -24,7 +24,7 @@ export default function DashHeader(props) {
           </Title>
           <Badge size="md">Pro</Badge>
         </Flex>
-        <Text mt={-8} fz={12} tt={"uppercase"}>
+        <Text mt={-8} fz={12} c={"#fff"} tt={"uppercase"}>
           Task Dashboard
         </Text>
       </Stack>
