@@ -18,16 +18,15 @@ import { useState } from "react";
 import { CgAttachment } from "react-icons/cg";
 import { FaRegComments } from "react-icons/fa";
 import { FaRegTrashCan } from "react-icons/fa6";
-import { MdDragIndicator } from "react-icons/md";
 import { usePortalState } from "../portalStore";
 import classes from "./styles/boardTask.module.css";
 
 export default function BoardTask(props) {
-  const { taskData, boardType, controls } = props;
+  const { taskData, boardType, order } = props;
   const [viewTask, setViewTask] = useState(false);
   const [brightDetails, setBrightDetails] = useState(false);
-  const ref = useClickOutside(() => setViewTask(false));
   const { allowReorder } = usePortalState();
+  const ref = useClickOutside(() => setViewTask(false));
 
   const colorWay = taskData.colors?.map((color, index) => (
     <Avatar key={index} size={16} className={classes.colorSwatch}>
@@ -47,9 +46,22 @@ export default function BoardTask(props) {
     >
       <Box
         className={`innerPanel ${classes.taskFrame} ${
-          boardType === "Ready For Review" && classes.reviewReady
-        } ${viewTask && classes.active}`}
-        onClick={() => !allowReorder && setViewTask(!viewTask)}
+          allowReorder &&
+          order % 2 !== 0 &&
+          boardType === "Submitted Tasks" &&
+          classes.allowGrab
+        } ${boardType === "Ready For Review" && classes.reviewReady} ${
+          viewTask && classes.active
+        } ${
+          allowReorder &&
+          order % 2 === 0 &&
+          boardType === "Submitted Tasks" &&
+          classes.evenAllowGrab
+        }`}
+        onClick={() => {
+          if (boardType === "Submitted Tasks" && allowReorder) return;
+          setViewTask(!viewTask);
+        }}
         pos={"relative"}
         pb={10}
         ref={ref}
@@ -62,15 +74,13 @@ export default function BoardTask(props) {
               allowReorder && classes.grabHandleShowing
             }`}
           >
-            <MdDragIndicator
-              onPointerDown={(e) => controls.start(e)}
-              size={30}
-            />
+            <Title className={classes.orderNum}>{order}</Title>
           </Center>
         )}
         <Group justify="space-between" mb={5}>
           <Badge
             color={taskColor(taskData.type)}
+            c={viewTask && taskData.type === "Web Dev" ? "#000" : ""}
             className={classes.taskType}
             size="xs"
             ml={-5}

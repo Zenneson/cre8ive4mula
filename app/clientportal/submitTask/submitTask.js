@@ -79,9 +79,10 @@ export default function SubmitTask() {
   const serviceBadges = serviceList?.map((service, i) => {
     return (
       <Badge
-        className={classes.serviceBadges}
         key={i}
+        className={classes.serviceBadges}
         color={setupData.color}
+        c={choosenType.title === "Web Dev" ? "#000" : "#fff"}
         size={"xs"}
         variant="filled"
       >
@@ -95,6 +96,7 @@ export default function SubmitTask() {
       {activePage > 0 && (
         <Affix position={{ top: 30, right: 30 }}>
           <Button
+            className={classes.backButton}
             leftSection={
               <FaPlay size={10} style={{ transform: "scaleX(-1)" }} />
             }

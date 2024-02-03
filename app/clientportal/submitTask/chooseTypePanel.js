@@ -10,7 +10,6 @@ import {
   Title,
   Transition,
 } from "@mantine/core";
-import {} from "react";
 import { FaPlay } from "react-icons/fa";
 import { TypeBtnsCache } from "../page";
 import classes from "./styles/chooseTypePanel.module.css";

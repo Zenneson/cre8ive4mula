@@ -1,6 +1,7 @@
 "use client";
+import { generateId } from "@libs/custom";
 import { Box, Flex, Group, Image, Stack, Title, Tooltip } from "@mantine/core";
-import { Reorder, useDragControls } from "framer-motion";
+import { Reorder } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { taskData } from "../../../public/data/taskData";
 import { usePortalState } from "../portalStore";
@@ -20,7 +21,6 @@ const Board = ({ taskData, boardType }) => {
   const taskFrameRef = useRef(null);
   const [addSpace, setAddSpace] = useState(false);
   const { allowReorder, setAllowReorder } = usePortalState();
-  const controls = useDragControls();
 
   useEffect(() => {
     const taskFrame = taskFrameRef.current;
@@ -31,16 +31,7 @@ const Board = ({ taskData, boardType }) => {
     }
   }, [taskData]);
 
-  const taskList = tasks.map((task, i) => (
-    <BoardTask
-      key={i}
-      controls={controls}
-      taskData={task}
-      boardType={boardType}
-    />
-  ));
-
-  const [items, setItems] = useState(taskList);
+  const [items, setItems] = useState(tasks);
   const DragTaskList = () => {
     return (
       <Reorder.Group
@@ -50,16 +41,19 @@ const Board = ({ taskData, boardType }) => {
         layoutScroll
         axis="y"
         style={{ overflowY: "auto" }}
-        onReorder={setItems}
+        onReorder={(e) => setItems(e)}
       >
         {items.map((item, index) => (
           <Reorder.Item
-            key={index}
+            key={`item-${generateId()}`}
             value={item}
-            dragListener={false}
-            dragControls={controls}
+            dragListener={allowReorder && boardType === "Submitted Tasks"}
           >
-            {item}
+            <BoardTask
+              order={index + 1}
+              taskData={item}
+              boardType={boardType}
+            />
           </Reorder.Item>
         ))}
       </Reorder.Group>

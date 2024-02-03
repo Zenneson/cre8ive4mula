@@ -11,6 +11,8 @@ const sessionStore = {
 export const usePortalState = create((set) => ({
   allowReorder: false,
   setAllowReorder: (value) => set({ allowReorder: value }),
+  reorderHovered: false,
+  setReorderHovered: (value) => set({ reorderHovered: value }),
 }));
 
 // App State

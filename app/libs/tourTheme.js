@@ -13,6 +13,7 @@ export const tourTheme = createTheme({
   cursorType: "pointer",
   defaultRadius: "10px",
   autoContrast: true,
+  luminanceThreshold: 1,
   components: {
     Tooltip: Tooltip.extend({
       defaultProps: {

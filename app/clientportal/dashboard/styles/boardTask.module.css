@@ -15,7 +15,6 @@ div.opened {
   position: relative;
   overflow: hidden;
   transition: all 200ms ease-in-out;
-  user-select: none !important;
   cursor: pointer;
   box-shadow:
     3px 3px 7px rgba(82, 140, 206, 0.5),
@@ -29,8 +28,29 @@ div.opened {
     transform: scale(1.01);
 
     & > * {
-      filter: contrast(1.5) brightness(0.9);
+      filter: contrast(1.2) brightness(0.98);
     }
+  }
+}
+
+div.allowGrab {
+  animation: wobble1 3s ease-in-out infinite;
+}
+
+.evenAllowGrab {
+  animation: wobble2 3s ease-in-out infinite;
+}
+
+div.allowGrab,
+div.evenAllowGrab {
+  animation-fill-mode: both;
+  transform-origin: 0 0%;
+  cursor: grab;
+
+  &:active {
+    transform: scale(1.02) !important;
+    animation: none;
+    cursor: grabbing;
   }
 }
 
@@ -70,7 +90,7 @@ h1.title {
 }
 
 div.taskType {
-  filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2)) !important;
+  box-shadow: 0px 2px 3px -1px rgba(110, 110, 110, 0.3);
   text-transform: uppercase;
   font-family: var(--font-montserrat);
 }
@@ -186,25 +206,27 @@ div.grabHandleFrame {
   width: 0px;
   height: 100%;
   opacity: 1 !important;
-  cursor: default;
+  overflow: hidden;
 
-  &:hover,
-  &:active {
-    filter: brightness(1.4);
-  }
-
-  svg {
-    cursor: grab;
-
-    &:active {
-      cursor: grabbing !important;
-    }
+  .orderNum {
+    font-weight: 900;
+    font-size: 25px;
   }
 }
 
 div.grabHandleShowing {
   animation: handleShow 250ms cubic-bezier(0.075, 0.82, 0.165, 1);
   animation-fill-mode: both;
+}
+
+div.noClickArea {
+  z-index: 90;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: default;
 }
 
 /* KEYFRAMES --------------------------------------------------------------- */
@@ -243,5 +265,37 @@ div.grabHandleShowing {
   }
   100% {
     height: 100%;
+  }
+}
+
+@keyframes wobble1 {
+  100%,
+  0% {
+    transform: skewX(-4deg) scale(0.95) translate(2.5%, 0);
+  }
+  25% {
+    transform: skewX(4deg) scale(0.95) translate(2.5%, 0);
+  }
+  50% {
+    transform: skewX(-4deg) scale(0.95) translate(2.5%, 0);
+  }
+  75% {
+    transform: skewX(4deg) scale(0.95) translate(2.5%, 0);
+  }
+}
+
+@keyframes wobble2 {
+  100%,
+  0% {
+    transform: skewX(4deg) scale(0.95) translate(2.5%, 0);
+  }
+  25% {
+    transform: skewX(-4deg) scale(0.95) translate(2.5%, 0);
+  }
+  50% {
+    transform: skewX(4deg) scale(0.95) translate(2.5%, 0);
+  }
+  75% {
+    transform: skewX(-4deg) scale(0.95) translate(2.5%, 0);
   }
 }

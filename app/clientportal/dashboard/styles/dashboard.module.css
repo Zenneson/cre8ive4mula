@@ -36,6 +36,7 @@ div.boardsFrame {
     li {
       position: relative;
       margin: 20px 10px;
+      flex-shrink: 0;
 
       &:active {
         z-index: 200 !important;

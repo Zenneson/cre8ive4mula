@@ -14,7 +14,6 @@ import {
   Image,
   Kbd,
   Popover,
-  Select,
   Stack,
   TagsInput,
   Text,
@@ -30,6 +29,7 @@ import { LuPaintBucket } from "react-icons/lu";
 import { MdAttachment } from "react-icons/md";
 import { PiUploadSimpleBold } from "react-icons/pi";
 import { TbHelpSmall, TbHelpSquareFilled } from "react-icons/tb";
+import ServiceSelect from "./serviceSelect";
 import classes from "./styles/taskFrom.module.css";
 
 export default function TaskForm(props) {
@@ -62,6 +62,7 @@ export default function TaskForm(props) {
         <Badge
           className={classes.taskType}
           color={typeColor}
+          c={choosenType?.title === "Web Dev" ? "#000" : "#fff"}
           size="md"
           variant={"filled"}
         >
@@ -78,23 +79,10 @@ export default function TaskForm(props) {
             />
           </Grid.Col>
           <Grid.Col span="content">
-            <Select
-              placeholder="Project Type..."
-              clearable
-              w={245}
-              data={service}
-              value={choosenService}
-              onChange={setChoosenService}
-              checkIconPosition="right"
-              classNames={{
-                dropdown: classes.selectDropdown,
-                option: classes.selectOption,
-                options: classes.options,
-              }}
-              comboboxProps={{
-                position: "bottom",
-                offset: 13,
-              }}
+            <ServiceSelect
+              service={service}
+              choosenService={choosenService}
+              setChoosenService={setChoosenService}
             />
           </Grid.Col>
         </Grid>
@@ -121,7 +109,7 @@ export default function TaskForm(props) {
             }
             rightSectionWidth={50}
             rightSectionPointerEvents="all"
-            placeholder="Accepted File Types..."
+            placeholder="Perfered File Types..."
           />
         </Box>
       </Stack>
