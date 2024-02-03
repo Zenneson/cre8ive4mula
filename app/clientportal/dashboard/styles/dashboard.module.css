@@ -26,23 +26,6 @@
 div.boardsFrame {
   align-items: flex-start;
   align-content: flex-start;
-
-  ul {
-    position: relative;
-    overflow: visible;
-    list-style: none;
-    margin: 5px;
-
-    li {
-      position: relative;
-      margin: 20px 10px;
-      flex-shrink: 0;
-
-      &:active {
-        z-index: 200 !important;
-      }
-    }
-  }
 }
 
 div.boards {
@@ -51,45 +34,55 @@ div.boards {
   height: auto;
   max-height: calc(100vh - 100px);
   padding: 0px !important;
-  padding-top: 5px !important;
 }
 
 .boardsHeader {
+  padding: 5px 15px;
   position: relative;
   z-index: 100;
-  margin: 5px 0 -27px 15px;
-}
-
-.scrollSpace {
-  margin: 5px 0 -12px 15px;
-}
-
-ul.boardsInner {
-  border-radius: 10px;
-  padding: 0;
-  margin-bottom: -5px !important;
-}
-
-ul.boardsShadow {
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 4px 0px inset;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  margin: 10px !important;
+  margin-top: 5px;
 }
 
 div.reorderBtnFrame {
   top: 0px;
-  right: 10px;
-  margin-right: 5px;
-  padding: 0 7px;
   cursor: pointer;
   opacity: 0.4;
 
   &:hover {
     opacity: 1;
+    transform: scale(1.1) !important;
   }
 
   img.reorder {
     width: 17px;
   }
+}
+
+.mantine-ScrollArea-scrollbar {
+  &,
+  &:hover {
+    background-color: transparent !important;
+  }
+}
+
+div.scrollAtTop,
+div.scrollAtMiddle,
+div.scrollAtBottom {
+  transition: all 100ms ease-in-out;
+  border-radius: 10px !important;
+  margin: 5px;
+}
+
+div.scrollAtTop {
+  box-shadow: inset 0 -2px 5px -3px rgba(0, 0, 0, 0.7);
+}
+
+div.scrollAtMiddle {
+  box-shadow:
+    inset 0 2px 5px -3px rgba(0, 0, 0, 0.7),
+    inset 0 -2px 5px -3px rgba(0, 0, 0, 0.7);
+}
+
+div.scrollAtBottom {
+  box-shadow: inset 0 2px 5px -3px rgba(0, 0, 0, 0.7);
 }

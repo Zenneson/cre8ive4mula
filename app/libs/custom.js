@@ -37,3 +37,29 @@ export const generateId = () => {
 
   return result;
 };
+
+// Returns the current scroll position of a given element.
+export const checkScrollPosition = (ref) => {
+  if (!ref.current) {
+    return;
+  }
+
+  const element = ref.current;
+  const hasYAxisScrollbar = element.scrollHeight > element.clientHeight;
+
+  if (!hasYAxisScrollbar) {
+    return false;
+  }
+
+  const isAtTop = element.scrollTop === 0;
+  const isAtBottom =
+    element.scrollTop + element.clientHeight === element.scrollHeight;
+
+  if (isAtTop) {
+    return "top";
+  } else if (isAtBottom) {
+    return "bottom";
+  } else {
+    return "middle";
+  }
+};

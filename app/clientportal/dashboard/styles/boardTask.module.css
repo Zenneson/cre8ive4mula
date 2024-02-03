@@ -16,6 +16,7 @@ div.opened {
   overflow: hidden;
   transition: all 200ms ease-in-out;
   cursor: pointer;
+  user-select: none;
   box-shadow:
     3px 3px 7px rgba(82, 140, 206, 0.5),
     -3px -3px 7px rgba(121, 179, 246, 0.5);
@@ -26,31 +27,6 @@ div.opened {
 
   &:hover {
     transform: scale(1.01);
-
-    & > * {
-      filter: contrast(1.2) brightness(0.98);
-    }
-  }
-}
-
-div.allowGrab {
-  animation: wobble1 3s ease-in-out infinite;
-}
-
-.evenAllowGrab {
-  animation: wobble2 3s ease-in-out infinite;
-}
-
-div.allowGrab,
-div.evenAllowGrab {
-  animation-fill-mode: both;
-  transform-origin: 0 0%;
-  cursor: grab;
-
-  &:active {
-    transform: scale(1.02) !important;
-    animation: none;
-    cursor: grabbing;
   }
 }
 
@@ -90,7 +66,6 @@ h1.title {
 }
 
 div.taskType {
-  box-shadow: 0px 2px 3px -1px rgba(110, 110, 110, 0.3);
   text-transform: uppercase;
   font-family: var(--font-montserrat);
 }
@@ -150,11 +125,6 @@ button.viewTaskBtn {
   box-shadow:
     10px 10px 15px rgba(82, 140, 206, 0.3),
     -10px -10px 15px rgba(82, 140, 206, 0.2);
-
-  &:hover {
-    transform: scale(1.02);
-    opacity: 1;
-  }
 }
 
 .deleteTaskBtn {
@@ -162,12 +132,6 @@ button.viewTaskBtn {
   margin: 0 5px -4px 8px !important;
   opacity: 0.2;
   color: #fff;
-
-  &:hover {
-    color: #f80808;
-    transform: scale(1.02);
-    opacity: 1;
-  }
 }
 
 button.reviewBtn {
@@ -207,11 +171,6 @@ div.grabHandleFrame {
   height: 100%;
   opacity: 1 !important;
   overflow: hidden;
-
-  .orderNum {
-    font-weight: 900;
-    font-size: 25px;
-  }
 }
 
 div.grabHandleShowing {
@@ -219,33 +178,27 @@ div.grabHandleShowing {
   animation-fill-mode: both;
 }
 
-div.noClickArea {
-  z-index: 90;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  cursor: default;
+.grabHandleIcon {
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
 }
 
 /* KEYFRAMES --------------------------------------------------------------- */
 
 @keyframes shinyBtn {
   0% {
-    -webkit-transform: scale(0) rotate(45deg);
     opacity: 0;
   }
   80% {
-    -webkit-transform: scale(0) rotate(45deg);
     opacity: 0.5;
   }
   81% {
-    -webkit-transform: scale(4) rotate(45deg);
     opacity: 1;
   }
   100% {
-    -webkit-transform: scale(50) rotate(45deg);
     opacity: 0;
   }
 }
@@ -265,37 +218,5 @@ div.noClickArea {
   }
   100% {
     height: 100%;
-  }
-}
-
-@keyframes wobble1 {
-  100%,
-  0% {
-    transform: skewX(-4deg) scale(0.95) translate(2.5%, 0);
-  }
-  25% {
-    transform: skewX(4deg) scale(0.95) translate(2.5%, 0);
-  }
-  50% {
-    transform: skewX(-4deg) scale(0.95) translate(2.5%, 0);
-  }
-  75% {
-    transform: skewX(4deg) scale(0.95) translate(2.5%, 0);
-  }
-}
-
-@keyframes wobble2 {
-  100%,
-  0% {
-    transform: skewX(4deg) scale(0.95) translate(2.5%, 0);
-  }
-  25% {
-    transform: skewX(-4deg) scale(0.95) translate(2.5%, 0);
-  }
-  50% {
-    transform: skewX(4deg) scale(0.95) translate(2.5%, 0);
-  }
-  75% {
-    transform: skewX(-4deg) scale(0.95) translate(2.5%, 0);
   }
 }
