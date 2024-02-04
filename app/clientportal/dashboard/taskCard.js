@@ -14,6 +14,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
+import { useClickOutside } from "@mantine/hooks";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { CgAttachment } from "react-icons/cg";
@@ -23,10 +24,11 @@ import { usePortalState } from "../portalStore";
 import classes from "./styles/taskCard.module.css";
 
 export default function TaskCard(props) {
-  const { taskData, boardType, index, draggableId } = props;
+  const { taskData, boardType, index, draggableId, scrollToElement } = props;
   const [viewTask, setViewTask] = useState(false);
   const [brightDetails, setBrightDetails] = useState(false);
   const { allowReorder } = usePortalState();
+  const frameRef = useClickOutside(() => setViewTask(false));
 
   const animationProps = {
     initial: { x: 0, opacity: 1 },
@@ -62,9 +64,11 @@ export default function TaskCard(props) {
                 onClick={() => {
                   if (boardType === "Submitted Tasks" && allowReorder) return;
                   setViewTask(!viewTask);
+                  scrollToElement(frameRef.current);
                 }}
                 pos={"relative"}
                 pb={10}
+                ref={frameRef}
                 onMouseEnter={() => setBrightDetails(true)}
                 onMouseLeave={() => setBrightDetails(false)}
               >

@@ -1,14 +1,14 @@
 div.viewTaskFrame {
+  animation: showLess 300ms linear;
+  animation-fill-mode: both;
   transition: all 200ms ease-in-out;
   position: relative;
   overflow: visible;
-  height: 0px;
 }
 
 div.opened {
-  animation: showMore 250ms ease-in-out;
+  animation: showMore 150ms linear;
   animation-fill-mode: both;
-  height: 100% !important;
 }
 
 .taskFrame {
@@ -21,10 +21,6 @@ div.opened {
   box-shadow:
     3px 3px 7px rgba(82, 140, 206, 0.5),
     -3px -3px 7px rgba(121, 179, 246, 0.5);
-
-  & > * {
-    transition: all 150ms ease-in-out;
-  }
 
   &:hover {
     transform: scale(1.01);
@@ -186,6 +182,11 @@ div.reordering {
   cursor: default;
 }
 
+div.reordering {
+  max-height: 91px !important;
+  overflow: hidden !important;
+}
+
 /* KEYFRAMES --------------------------------------------------------------- */
 
 @keyframes shinyBtn {
@@ -217,6 +218,15 @@ div.reordering {
     height: 0;
   }
   100% {
-    height: 100%;
+    height: 117px;
+  }
+}
+
+@keyframes showLess {
+  0% {
+    height: 117px;
+  }
+  100% {
+    height: 0;
   }
 }

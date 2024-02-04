@@ -63,3 +63,26 @@ export const checkScrollPosition = (ref) => {
     return "middle";
   }
 };
+
+// Allows for smooth scrolling when hovering over the edge of a scrollable element.
+export const scrollToward = {
+  interval: null,
+  scrollSpeed: 2.5, // Adjust scroll speed as needed
+
+  start: function (frameRef, direction, scrollSpot) {
+    const sp = checkScrollPosition(frameRef);
+    const step = direction === "up" ? -this.scrollSpeed : this.scrollSpeed;
+    this.interval = setInterval(() => {
+      if (frameRef.current) {
+        frameRef.current.scrollTop += step;
+      }
+    }, 10); // Adjust interval timing for smoother or faster scrolling
+    if (scrollSpot === sp) {
+      clearInterval(this.interval);
+    }
+  },
+
+  stop: function () {
+    clearInterval(this.interval);
+  },
+};
