@@ -16,9 +16,9 @@ import { AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { taskData } from "../../../public/data/taskData";
 import { usePortalState } from "../portalStore";
-import BoardTask from "./boardTask";
 import DashHeader from "./dashHeader";
 import classes from "./styles/dashboard.module.css";
+import BoardTask from "./taskCard";
 
 const Board = ({ taskData, boardType }) => {
   const [tasks, setTasks] = useState(taskData);

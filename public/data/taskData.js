@@ -5,6 +5,7 @@ export const taskData = [
     service: "Logo Design",
     title: "Drawing for the March Event",
     date: "JAN 10th, 2024",
+    alerts: 3,
     tags: ["Modern", "Classic", "Bright", "Realistic", "Bold", "Engaging"],
     files: ["file1.docx", "file2.docx", "file3.docx", "file4.docx"],
     colors: [
@@ -26,6 +27,7 @@ export const taskData = [
     service: "Content Editing",
     title: "Changing Page Content",
     date: "JAN 12th, 2024",
+    alerts: 0,
     files: ["file1.docx", "file2.docx"],
   },
   {
@@ -34,6 +36,7 @@ export const taskData = [
     service: "Add Feature",
     title: "Adding New Page",
     date: "JAN 15th, 2024",
+    alerts: 0,
     files: ["file1.docx", "file2.docx", "file3.docx"],
   },
   {
@@ -42,6 +45,7 @@ export const taskData = [
     service: "Event Flyer Design",
     title: "Drawing for the Wedding Event",
     date: "JAN 17th, 2024",
+    alerts: 1,
     tags: ["Elegant", "Stylish", "Vibrant", "Creative", "Eye-catching, Formal"],
     files: ["file1.docx"],
     colors: ["#F9A826", "#F48C06", "#E85D04", "#DC2F02", "#9D0208"],
@@ -52,6 +56,7 @@ export const taskData = [
     service: "UI/UX Design",
     title: "Redesign Homepage",
     date: "JAN 20th, 2024",
+    alerts: 5,
     tags: ["User-Friendly", "Modern", "Interactive", "Responsive"],
     files: ["homepage_sketches.pdf", "wireframe_v1.pdf"],
     colors: ["#005F73", "#0A9396", "#94D2BD", "#E9D8A6", "#EE9B00"],
@@ -62,6 +67,7 @@ export const taskData = [
     service: "Blog Writing",
     title: "Travel Tips Article",
     date: "JAN 22nd, 2024",
+    alerts: 0,
     files: ["travel_tips_draft.docx"],
   },
   {
@@ -70,6 +76,7 @@ export const taskData = [
     service: "Backend Development",
     title: "Database Optimization",
     date: "JAN 25th, 2024",
+    alerts: 0,
     files: ["db_report.pdf", "optimization_plan.docx"],
   },
   {
@@ -78,6 +85,7 @@ export const taskData = [
     service: "Graphic Design",
     title: "New Marketing Collaterals",
     date: "JAN 28th, 2024",
+    alerts: 0,
     tags: ["Eye-Catching", "Branded", "Informative"],
     files: ["brochure_draft.pdf", "poster_design.psd"],
     colors: ["#264653", "#2A9D8F", "#E9C46A", "#F4A261", "#E76F51"],
@@ -88,6 +96,7 @@ export const taskData = [
     service: "Copywriting",
     title: "Landing Page Copy",
     date: "FEB 1st, 2024",
+    alerts: 1,
     files: ["landing_page_text.docx"],
   },
   {
@@ -96,6 +105,7 @@ export const taskData = [
     service: "Frontend Development",
     title: "Implement New Features",
     date: "FEB 5th, 2024",
+    alerts: 1,
     files: ["feature_list.docx", "implementation_plan.docx"],
   },
 ];

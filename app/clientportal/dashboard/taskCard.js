@@ -14,21 +14,19 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { useClickOutside } from "@mantine/hooks";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { CgAttachment } from "react-icons/cg";
 import { FaRegComments } from "react-icons/fa";
 import { MdDragIndicator } from "react-icons/md";
 import { usePortalState } from "../portalStore";
-import classes from "./styles/boardTask.module.css";
+import classes from "./styles/taskCard.module.css";
 
-export default function BoardTask(props) {
+export default function TaskCard(props) {
   const { taskData, boardType, index, draggableId } = props;
   const [viewTask, setViewTask] = useState(false);
   const [brightDetails, setBrightDetails] = useState(false);
   const { allowReorder } = usePortalState();
-  const frameRef = useClickOutside(() => setViewTask(false));
 
   const animationProps = {
     initial: { x: 0, opacity: 1 },
@@ -67,7 +65,6 @@ export default function BoardTask(props) {
                 }}
                 pos={"relative"}
                 pb={10}
-                ref={frameRef}
                 onMouseEnter={() => setBrightDetails(true)}
                 onMouseLeave={() => setBrightDetails(false)}
               >
@@ -85,15 +82,32 @@ export default function BoardTask(props) {
                   />
                 </Center>
                 <Group justify="space-between" mb={5}>
-                  <Badge
-                    color={taskColor(taskData.type)}
-                    className={classes.taskType}
-                    size="xs"
-                    ml={-5}
-                    variant={viewTask ? "filled" : "light"}
-                  >
-                    {taskData.type}
-                  </Badge>
+                  <Group gap={3}>
+                    <Badge
+                      color={taskColor(taskData.type)}
+                      className={classes.taskType}
+                      size="xs"
+                      ml={-5}
+                      variant={viewTask ? "filled" : "light"}
+                    >
+                      {taskData.type}
+                    </Badge>
+                    {taskData.alerts && (
+                      <Badge
+                        fw="700"
+                        size={viewTask ? "sm" : "xs"}
+                        ml={2}
+                        variant={"filled"}
+                        color={"blue.7"}
+                        circle={!viewTask}
+                      >
+                        <Group gap={2}>
+                          {taskData.alerts} {viewTask && "NEW"}{" "}
+                          {viewTask && <FaRegComments size={12} />}
+                        </Group>
+                      </Badge>
+                    )}
+                  </Group>
                   <Text
                     className={classes.taskDate}
                     opacity={viewTask ? 1 : 0.25}
@@ -153,12 +167,11 @@ export default function BoardTask(props) {
                       <Badge
                         className={classes.commentNum}
                         rightSection={<FaRegComments size={12} />}
+                        color="gray.4"
+                        variant="outline"
                         size="sm"
                       >
-                        3
-                      </Badge>
-                      <Badge fw="700" size="xs" ml={2} color="#e23e3e">
-                        1 NEW
+                        12
                       </Badge>
                     </Group>
                     {boardType === "Ready For Review" ? (
