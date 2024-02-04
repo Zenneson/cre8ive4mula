@@ -35,9 +35,9 @@ export default function AppWrapper({ children }) {
           component={ScrollArea}
           type="hover"
           style={{
-            position: "absolute",
-            height: "100vh",
+            position: "fixed",
             width: "100vw",
+            height: "100%",
           }}
           className={mainMenuOpened && "appPixelated"}
         >

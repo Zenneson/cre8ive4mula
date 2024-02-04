@@ -82,7 +82,6 @@ export default function SubmitTask() {
         key={i}
         className={classes.serviceBadges}
         color={setupData.color}
-        c={choosenType.title === "Web Dev" ? "#000" : "#fff"}
         size={"xs"}
         variant="filled"
       >

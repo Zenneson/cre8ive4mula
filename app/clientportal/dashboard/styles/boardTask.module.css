@@ -17,6 +17,7 @@ div.opened {
   transition: all 200ms ease-in-out;
   cursor: pointer;
   user-select: none;
+  margin: 0 10px;
   box-shadow:
     3px 3px 7px rgba(82, 140, 206, 0.5),
     -3px -3px 7px rgba(121, 179, 246, 0.5);
@@ -27,12 +28,6 @@ div.opened {
 
   &:hover {
     transform: scale(1.01);
-  }
-}
-
-div.active {
-  & > * {
-    filter: contrast(1.5) brightness(0.9);
   }
 }
 
@@ -184,6 +179,11 @@ div.grabHandleShowing {
   &:active {
     cursor: grabbing;
   }
+}
+
+div.active,
+div.reordering {
+  cursor: default;
 }
 
 /* KEYFRAMES --------------------------------------------------------------- */

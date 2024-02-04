@@ -12,6 +12,7 @@ export default function Login() {
             className={classes.title}
             component={Link}
             scroll={false}
+            c="#fff"
             href="/"
           >
             CRE8IVE 4MULA

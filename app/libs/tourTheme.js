@@ -8,12 +8,13 @@ import {
 } from "@mantine/core";
 
 export const tourTheme = createTheme({
+  white: "#fff",
+  black: "#000",
   colorScheme: "light",
   focusRing: "never",
   cursorType: "pointer",
   defaultRadius: "10px",
   autoContrast: true,
-  luminanceThreshold: 1,
   components: {
     Tooltip: Tooltip.extend({
       defaultProps: {

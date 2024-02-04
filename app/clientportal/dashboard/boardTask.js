@@ -1,3 +1,5 @@
+"use client";
+import { Draggable } from "@hello-pangea/dnd";
 import { taskColor } from "@libs/custom";
 import {
   Avatar,
@@ -16,10 +18,8 @@ import {
 import { useClickOutside } from "@mantine/hooks";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Draggable } from "react-beautiful-dnd";
 import { CgAttachment } from "react-icons/cg";
 import { FaRegComments } from "react-icons/fa";
-import { FaRegTrashCan } from "react-icons/fa6";
 import { MdDragIndicator } from "react-icons/md";
 import { usePortalState } from "../portalStore";
 import classes from "./styles/boardTask.module.css";
@@ -49,9 +49,9 @@ export default function BoardTask(props) {
   );
 
   return (
-    <Draggable key={taskData} draggableId={draggableId} index={index}>
+    <Draggable key={taskData} draggableId={`${draggableId}`} index={index}>
       {(provided) => (
-        <div {...provided.draggableProps} ref={provided.innerRef}>
+        <div ref={provided.innerRef} {...provided.draggableProps}>
           <motion.div {...animationProps}>
             <Box mx={5} mb={5} mt={index !== 0 ? 15 : 5}>
               <Indicator
@@ -62,6 +62,10 @@ export default function BoardTask(props) {
                 <Box
                   className={`innerPanel ${classes.taskFrame} ${
                     boardType === "Ready For Review" && classes.reviewReady
+                  } ${viewTask && classes.active} ${
+                    allowReorder &&
+                    boardType === "Submitted Tasks" &&
+                    classes.reordering
                   }`}
                   onClick={() => {
                     if (boardType === "Submitted Tasks" && allowReorder) return;
@@ -73,24 +77,22 @@ export default function BoardTask(props) {
                   onMouseEnter={() => setBrightDetails(true)}
                   onMouseLeave={() => setBrightDetails(false)}
                 >
-                  <div {...provided.dragHandleProps}>
-                    {boardType === "Submitted Tasks" && (
-                      <Center
-                        className={`${classes.grabHandleFrame} ${
-                          allowReorder && classes.grabHandleShowing
-                        }`}
-                      >
-                        <MdDragIndicator
-                          className={classes.grabHandleIcon}
-                          size={30}
-                        />
-                      </Center>
-                    )}
-                  </div>
+                  <Center
+                    {...provided.dragHandleProps}
+                    className={`${classes.grabHandleFrame} ${
+                      boardType === "Submitted Tasks" &&
+                      allowReorder &&
+                      classes.grabHandleShowing
+                    }`}
+                  >
+                    <MdDragIndicator
+                      className={classes.grabHandleIcon}
+                      size={30}
+                    />
+                  </Center>
                   <Group justify="space-between" mb={5}>
                     <Badge
                       color={taskColor(taskData.type)}
-                      c={viewTask && taskData.type === "Web Dev" ? "#000" : ""}
                       className={classes.taskType}
                       size="xs"
                       ml={-5}
@@ -173,18 +175,9 @@ export default function BoardTask(props) {
                           Review
                         </Button>
                       ) : (
-                        <Box>
-                          <FaRegTrashCan
-                            className={classes.deleteTaskBtn}
-                            size={16}
-                          />
-                          <Button
-                            className={classes.viewTaskBtn}
-                            variant="light"
-                          >
-                            Open
-                          </Button>
-                        </Box>
+                        <Button className={classes.viewTaskBtn} variant="light">
+                          Open
+                        </Button>
                       )}
                     </Group>
                   </Group>

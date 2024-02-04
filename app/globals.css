@@ -12,28 +12,27 @@
 
 body {
   background: linear-gradient(145deg, #6291c8, #75acee);
-  height: 100%;
+  height: 100vh;
   overflow: hidden;
   font-family: var(--font-assistant);
-  color: #fff;
+  color: #b9d5f6;
 }
 
 body *::-webkit-scrollbar {
-  width: 7.5px;
+  width: 10px;
 }
 
-body *::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0) !important;
-  border-radius: 25px;
-}
+div.mantine-ScrollArea-scrollbar {
+  &,
+  &:hover {
+    background-color: rgba(98, 146, 200, 0.5);
+    cursor: pointer;
+  }
 
-body *::-webkit-scrollbar-thumb {
-  background: rgba(49, 126, 202, 0.5);
-  border-radius: 10px;
-}
-
-body *::-webkit-scrollbar-thumb:hover {
-  background: #1971c2;
+  &[data-orientation="vertical"] .mantine-ScrollArea-thumb {
+    background-color: var(--mantine-color-blue-7);
+    border-radius: 25px;
+  }
 }
 
 h1,
@@ -45,6 +44,10 @@ h6 {
   font-family: var(--font-montserrat);
   color: #b9d5f6;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.07);
+}
+
+p {
+  color: #b9d5f6;
 }
 
 .appPixelated {

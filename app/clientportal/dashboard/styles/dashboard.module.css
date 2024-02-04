@@ -33,7 +33,6 @@ div.boards {
   border-radius: 10px;
   height: auto;
   max-height: calc(100vh - 100px);
-  padding: 0px !important;
 }
 
 .boardsHeader {
@@ -55,13 +54,6 @@ div.reorderBtnFrame {
 
   img.reorder {
     width: 17px;
-  }
-}
-
-.mantine-ScrollArea-scrollbar {
-  &,
-  &:hover {
-    background-color: transparent !important;
   }
 }
 

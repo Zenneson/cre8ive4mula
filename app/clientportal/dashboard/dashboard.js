@@ -1,4 +1,5 @@
 "use client";
+import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { checkScrollPosition } from "@libs/custom";
 import {
   Box,
@@ -12,8 +13,7 @@ import {
 } from "@mantine/core";
 import { useWindowEvent } from "@mantine/hooks";
 import { AnimatePresence } from "framer-motion";
-import { useRef, useState } from "react";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { useEffect, useRef, useState } from "react";
 import { taskData } from "../../../public/data/taskData";
 import { usePortalState } from "../portalStore";
 import BoardTask from "./boardTask";
@@ -41,18 +41,6 @@ const Board = ({ taskData, boardType }) => {
     setTasks(items);
   };
 
-  const DragTaskList = ({ tasks }) => {
-    return tasks.map((task, index) => (
-      <BoardTask
-        key={index}
-        index={index}
-        taskData={task}
-        boardType={boardType}
-        draggableId={"task-" + index}
-      />
-    ));
-  };
-
   const [scrollClass, setScrollClass] = useState("");
   const handleScroll = () => {
     const sp = checkScrollPosition(frameRef);
@@ -68,59 +56,76 @@ const Board = ({ taskData, boardType }) => {
     }
   };
 
+  useEffect(() => {
+    handleScroll();
+  }, []);
+
   useWindowEvent("resize", () => {
     handleScroll();
   });
 
   return (
-    <Stack w="33%" className={`panel ${classes.boards}`} gap={0}>
-      <Group className={classes.boardsHeader} justify="space-between">
-        <Group gap={5}>
-          <Title order={4} fw={900}>
-            {tasks.length}
-          </Title>
-          <Title order={6} fw={400}>
-            {boardType}
-          </Title>
-        </Group>
-        {boardType === "Submitted Tasks" && (
-          <Box className={classes.reorderBtnFrame}>
-            <Tooltip label="Reorder" position="bottom">
-              <Image
-                className={classes.reorder}
-                src={"/img/reorder.svg"}
-                alt="Reorder"
-                onClick={() => setAllowReorder(!allowReorder)}
-              />
-            </Tooltip>
-          </Box>
-        )}
-      </Group>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="tasks">
-          {(provided) => (
-            <Box
-              type="hover"
-              viewportRef={frameRef}
-              scrollbarSize={7}
-              className={`classes.taskFrame ${scrollClass}`}
-              component={ScrollArea.Autosize}
-              onScrollPositionChange={handleScroll}
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-              py={5}
-              px={7}
-            >
-              {console.log("🚀 ~ Board ~ provided:", provided)}
-              <AnimatePresence>
-                <DragTaskList tasks={tasks} />
-              </AnimatePresence>
-              {provided.placeholder}
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Stack w="33%" className={`panel ${classes.boards}`} gap={0} p={0}>
+        <Group className={classes.boardsHeader} justify="space-between">
+          <Group gap={5}>
+            <Title order={4} fw={900}>
+              {tasks.length}
+            </Title>
+            <Title order={6} fw={400}>
+              {boardType}
+            </Title>
+          </Group>
+          {boardType === "Submitted Tasks" && (
+            <Box className={classes.reorderBtnFrame}>
+              <Tooltip label="Reorder" position="bottom">
+                <Image
+                  className={classes.reorder}
+                  src={"/img/reorder.svg"}
+                  alt="Reorder"
+                  onClick={() => setAllowReorder(!allowReorder)}
+                />
+              </Tooltip>
             </Box>
           )}
-        </Droppable>
-      </DragDropContext>
-    </Stack>
+        </Group>
+        <Box
+          type="hover"
+          viewportRef={frameRef}
+          scrollbarSize={7}
+          className={`classes.taskFrame ${scrollClass}`}
+          component={ScrollArea.Autosize}
+          onScrollPositionChange={handleScroll}
+          py={5}
+          px={0}
+        >
+          <Droppable
+            droppableId="tasks"
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            {(provided) => (
+              <div ref={provided.innerRef} {...provided.droppableProps}>
+                <AnimatePresence>
+                  {tasks.map((task) => (
+                    <BoardTask
+                      index={task.id}
+                      draggableId={task.id}
+                      key={task.id}
+                      taskData={task}
+                      boardType={boardType}
+                    />
+                  ))}
+                </AnimatePresence>
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </Box>
+      </Stack>
+    </DragDropContext>
   );
 };
 
@@ -144,11 +149,3 @@ export default function Dashboard(props) {
     </>
   );
 }
-
-// This is a hack to prevent the following error from showing up in the console:
-// Warning: Connect(Droppable): Support for defaultProps will be removed from memo components in a future major release. Use JavaScript default parameters instead.
-const error = console.error;
-console.error = (...args) => {
-  if (/defaultProps/.test(args[0])) return;
-  error(...args);
-};
