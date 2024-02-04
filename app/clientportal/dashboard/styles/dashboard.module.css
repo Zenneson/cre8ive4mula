@@ -37,6 +37,7 @@ div.boards {
 
 .boardsHeader {
   padding: 5px 15px;
+  padding-bottom: 2px;
   position: relative;
   z-index: 100;
   margin-top: 5px;
@@ -57,12 +58,20 @@ div.reorderBtnFrame {
   }
 }
 
+div.noScroll,
 div.scrollAtTop,
 div.scrollAtMiddle,
 div.scrollAtBottom {
+  background-color: transparent;
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   transition: all 100ms ease-in-out;
   border-radius: 10px !important;
-  margin: 5px;
+  pointer-events: none;
 }
 
 div.scrollAtTop {

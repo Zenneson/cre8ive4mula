@@ -25,7 +25,7 @@ body *::-webkit-scrollbar {
 div.mantine-ScrollArea-scrollbar {
   &,
   &:hover {
-    background-color: rgba(98, 146, 200, 0.5);
+    background-color: transparent;
     cursor: pointer;
   }
 

@@ -44,7 +44,7 @@ const Board = ({ taskData, boardType }) => {
   const [scrollClass, setScrollClass] = useState("");
   const handleScroll = () => {
     const sp = checkScrollPosition(frameRef);
-    if (sp === false) setScrollClass("");
+    if (sp === false) setScrollClass(classes.noScroll);
     if (sp === "top") {
       setScrollClass(classes.scrollAtTop);
     }
@@ -67,7 +67,7 @@ const Board = ({ taskData, boardType }) => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Stack w="33%" className={`panel ${classes.boards}`} gap={0} p={0}>
-        <Group className={classes.boardsHeader} justify="space-between">
+        <Group className={classes.boardsHeader} justify="space-between" mb={-3}>
           <Group gap={5}>
             <Title order={4} fw={900}>
               {tasks.length}
@@ -93,12 +93,15 @@ const Board = ({ taskData, boardType }) => {
           type="hover"
           viewportRef={frameRef}
           scrollbarSize={7}
-          className={`classes.taskFrame ${scrollClass}`}
+          className={classes.taskFrame}
           component={ScrollArea.Autosize}
           onScrollPositionChange={handleScroll}
-          py={5}
-          px={0}
+          p={0}
+          pb={5}
+          mx={5}
+          mb={5}
         >
+          <Box className={scrollClass} />
           <Droppable
             droppableId="tasks"
             style={{

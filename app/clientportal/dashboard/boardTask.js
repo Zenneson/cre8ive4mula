@@ -11,7 +11,6 @@ import {
   Flex,
   Group,
   Image,
-  Indicator,
   Text,
   Title,
 } from "@mantine/core";
@@ -53,136 +52,130 @@ export default function BoardTask(props) {
       {(provided) => (
         <div ref={provided.innerRef} {...provided.draggableProps}>
           <motion.div {...animationProps}>
-            <Box mx={5} mb={5} mt={index !== 0 ? 15 : 5}>
-              <Indicator
-                zIndex={500}
-                size={8}
-                disabled={boardType !== "Tasks In-Progress" ? true : false}
+            <Box mx={0} mb={5} mt={index !== 0 ? 15 : 5}>
+              <Box
+                className={`innerPanel ${classes.taskFrame} ${
+                  boardType === "Ready For Review" && classes.reviewReady
+                } ${viewTask && classes.active} ${
+                  allowReorder &&
+                  boardType === "Submitted Tasks" &&
+                  classes.reordering
+                }`}
+                onClick={() => {
+                  if (boardType === "Submitted Tasks" && allowReorder) return;
+                  setViewTask(!viewTask);
+                }}
+                pos={"relative"}
+                pb={10}
+                ref={frameRef}
+                onMouseEnter={() => setBrightDetails(true)}
+                onMouseLeave={() => setBrightDetails(false)}
               >
-                <Box
-                  className={`innerPanel ${classes.taskFrame} ${
-                    boardType === "Ready For Review" && classes.reviewReady
-                  } ${viewTask && classes.active} ${
-                    allowReorder &&
+                <Center
+                  {...provided.dragHandleProps}
+                  className={`${classes.grabHandleFrame} ${
                     boardType === "Submitted Tasks" &&
-                    classes.reordering
+                    allowReorder &&
+                    classes.grabHandleShowing
                   }`}
-                  onClick={() => {
-                    if (boardType === "Submitted Tasks" && allowReorder) return;
-                    setViewTask(!viewTask);
-                  }}
-                  pos={"relative"}
-                  pb={10}
-                  ref={frameRef}
-                  onMouseEnter={() => setBrightDetails(true)}
-                  onMouseLeave={() => setBrightDetails(false)}
                 >
-                  <Center
-                    {...provided.dragHandleProps}
-                    className={`${classes.grabHandleFrame} ${
-                      boardType === "Submitted Tasks" &&
-                      allowReorder &&
-                      classes.grabHandleShowing
-                    }`}
+                  <MdDragIndicator
+                    className={classes.grabHandleIcon}
+                    size={30}
+                  />
+                </Center>
+                <Group justify="space-between" mb={5}>
+                  <Badge
+                    color={taskColor(taskData.type)}
+                    className={classes.taskType}
+                    size="xs"
+                    ml={-5}
+                    variant={viewTask ? "filled" : "light"}
                   >
-                    <MdDragIndicator
-                      className={classes.grabHandleIcon}
-                      size={30}
-                    />
-                  </Center>
-                  <Group justify="space-between" mb={5}>
-                    <Badge
-                      color={taskColor(taskData.type)}
-                      className={classes.taskType}
-                      size="xs"
-                      ml={-5}
-                      variant={viewTask ? "filled" : "light"}
-                    >
-                      {taskData.type}
-                    </Badge>
-                    <Text
-                      className={classes.taskDate}
-                      opacity={viewTask ? 1 : 0.25}
-                    >
-                      {taskData.date}
-                    </Text>
-                  </Group>
-                  <Title className={classes.title} truncate="end" lineClamp={2}>
-                    {taskData.title}
-                  </Title>
-                  <Group
-                    gap={0}
-                    mt={10}
-                    opacity={viewTask || brightDetails ? 1 : 0.25}
+                    {taskData.type}
+                  </Badge>
+                  <Text
+                    className={classes.taskDate}
+                    opacity={viewTask ? 1 : 0.25}
                   >
-                    <Badge
-                      className={classes.taskService}
-                      color={taskColor(taskData.type)}
-                      variant="dot"
-                      c={"#fff"}
-                      size="sm"
-                    >
-                      {taskData.service}
-                    </Badge>
-                    <Badge
-                      className={classes.filesAttached}
-                      rightSection={<CgAttachment size={10} />}
-                      variant="dot"
-                      size="sm"
-                      c={"#fff"}
-                      mr={5}
-                    >
-                      {taskData.files.length}
-                    </Badge>
-                    <Avatar.Group>{colorWay}</Avatar.Group>
-                  </Group>
-                  <Group
-                    className={`${classes.viewTaskFrame} ${
-                      viewTask && classes.opened
-                    }`}
-                    justify="space-between"
+                    {taskData.date}
+                  </Text>
+                </Group>
+                <Title className={classes.title} truncate="end" lineClamp={2}>
+                  {taskData.title}
+                </Title>
+                <Group
+                  gap={0}
+                  mt={10}
+                  opacity={viewTask || brightDetails ? 1 : 0.25}
+                >
+                  <Badge
+                    className={classes.taskService}
+                    color={taskColor(taskData.type)}
+                    variant="dot"
+                    c={"#fff"}
+                    size="sm"
                   >
-                    <Flex className={classes.addedTags} gap={5}>
-                      {taskData.tags && taskData.tags.length > 0 && (
-                        <Image
-                          src="/img/hashtag.svg"
-                          alt={"Task Tags"}
-                          fit="contain"
-                          mt={7}
-                          w={20}
-                        />
-                      )}
-                      <Text className={classes.tagsList}>{tagsList}</Text>
-                    </Flex>
-                    <Group className={classes.taskBtnsFrame}>
-                      <Group gap={5} ml={5} opacity={1} c="#fff">
-                        <Badge
-                          className={classes.commentNum}
-                          rightSection={<FaRegComments size={12} />}
-                          size="sm"
-                        >
-                          3
-                        </Badge>
-                        <Badge fw="700" size="xs" ml={2} color="#e23e3e">
-                          1 NEW
-                        </Badge>
-                      </Group>
-                      {boardType === "Ready For Review" ? (
-                        <Button
-                          className={`${classes.viewTaskBtn} ${classes.reviewBtn}`}
-                          variant="light"
-                        >
-                          Review
-                        </Button>
-                      ) : (
-                        <Button className={classes.viewTaskBtn} variant="light">
-                          Open
-                        </Button>
-                      )}
+                    {taskData.service}
+                  </Badge>
+                  <Badge
+                    className={classes.filesAttached}
+                    rightSection={<CgAttachment size={10} />}
+                    variant="dot"
+                    size="sm"
+                    c={"#fff"}
+                    mr={5}
+                  >
+                    {taskData.files.length}
+                  </Badge>
+                  <Avatar.Group>{colorWay}</Avatar.Group>
+                </Group>
+                <Group
+                  className={`${classes.viewTaskFrame} ${
+                    viewTask && classes.opened
+                  }`}
+                  justify="space-between"
+                >
+                  <Flex className={classes.addedTags} gap={5}>
+                    {taskData.tags && taskData.tags.length > 0 && (
+                      <Image
+                        src="/img/hashtag.svg"
+                        alt={"Task Tags"}
+                        fit="contain"
+                        mt={7}
+                        w={20}
+                      />
+                    )}
+                    <Text className={classes.tagsList}>{tagsList}</Text>
+                  </Flex>
+                  <Group className={classes.taskBtnsFrame}>
+                    <Group gap={5} ml={5} opacity={1} c="#fff">
+                      <Badge
+                        className={classes.commentNum}
+                        rightSection={<FaRegComments size={12} />}
+                        size="sm"
+                      >
+                        3
+                      </Badge>
+                      <Badge fw="700" size="xs" ml={2} color="#e23e3e">
+                        1 NEW
+                      </Badge>
                     </Group>
+                    {boardType === "Ready For Review" ? (
+                      <Button
+                        className={`${classes.viewTaskBtn} ${classes.reviewBtn}`}
+                        variant="light"
+                      >
+                        Review
+                      </Button>
+                    ) : (
+                      <Button className={classes.viewTaskBtn} variant="light">
+                        Open
+                      </Button>
+                    )}
                   </Group>
-                </Box>
-              </Indicator>
+                </Group>
+              </Box>
             </Box>
           </motion.div>
         </div>
