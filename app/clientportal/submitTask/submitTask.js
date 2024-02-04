@@ -67,9 +67,9 @@ export default function SubmitTask() {
 
   const setup = () => {
     if (choosenType && choosenType.title === "Design")
-      return { color: "#ff4d28", service: services.design };
+      return { color: "deeporange.5", service: services.design };
     if (choosenType && choosenType.title === "Content")
-      return { color: "#f80800", service: services.content };
+      return { color: "deepred.8", service: services.content };
     if (choosenType && choosenType.title === "Web Dev")
       return { color: "#ffd941", service: services.webdev };
   };

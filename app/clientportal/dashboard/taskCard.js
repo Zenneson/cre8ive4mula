@@ -88,11 +88,12 @@ export default function TaskCard(props) {
                 <Group justify="space-between" mb={5}>
                   <Group gap={3}>
                     <Badge
-                      color={taskColor(taskData.type)}
                       className={classes.taskType}
-                      size="xs"
-                      ml={-5}
+                      color={taskColor(taskData.type)}
+                      bg={viewTask ? taskColor(taskData.type) : "transparent"}
                       variant={viewTask ? "filled" : "light"}
+                      size={viewTask ? "xs" : "sm"}
+                      ml={-5}
                     >
                       {taskData.type}
                     </Badge>
@@ -100,15 +101,13 @@ export default function TaskCard(props) {
                       <Badge
                         fw="700"
                         size={viewTask ? "sm" : "xs"}
-                        ml={2}
+                        ml={viewTask ? 2 : -2}
+                        rightSection={viewTask && <FaRegComments size={12} />}
                         variant={"filled"}
                         color={"blue.7"}
                         circle={!viewTask}
                       >
-                        <Group gap={2}>
-                          {taskData.alerts} {viewTask && "NEW"}{" "}
-                          {viewTask && <FaRegComments size={12} />}
-                        </Group>
+                        {taskData.alerts}
                       </Badge>
                     )}
                   </Group>

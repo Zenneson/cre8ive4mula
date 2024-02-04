@@ -15,6 +15,32 @@ export const tourTheme = createTheme({
   cursorType: "pointer",
   defaultRadius: "10px",
   autoContrast: true,
+  colors: {
+    deepred: [
+      "#ffe9f0",
+      "#ffd0dd",
+      "#fd9db8",
+      "#fc6791",
+      "#fb3d70",
+      "#fb255b",
+      "#fc1851",
+      "#e10c42",
+      "#c9003a",
+      "#b00031",
+    ],
+    deeporange: [
+      "#ffede5",
+      "#ffdace",
+      "#fcb49f",
+      "#f88d6b",
+      "#f56a40",
+      "#f35424",
+      "#f34815",
+      "#d83908",
+      "#c23004",
+      "#aa2500",
+    ],
+  },
   components: {
     Tooltip: Tooltip.extend({
       defaultProps: {

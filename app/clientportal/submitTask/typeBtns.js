@@ -1,6 +1,7 @@
 "use client";
 import { DotLottiePlayer } from "@dotlottie/react-player";
 import "@dotlottie/react-player/dist/index.css";
+import { tourTheme } from "@libs/tourTheme";
 import { Button, ColorSwatch, Group, Stack, Title } from "@mantine/core";
 import { useDidUpdate, useSessionStorage } from "@mantine/hooks";
 import { useRef } from "react";
@@ -9,13 +10,13 @@ import classes from "./styles/typeBtns.module.css";
 const buttons = [
   {
     text: "Design",
-    color: "#ea5335",
+    color: tourTheme.colors.deeporange[5],
     svg1: "/img/submit/psd.json",
     svg2: "/img/submit/ai.json",
   },
   {
     text: "Content",
-    color: "#f80800",
+    color: tourTheme.colors.deepred[8],
     svg1: "/img/submit/docx.json",
     svg2: "/img/submit/pdf.json",
   },

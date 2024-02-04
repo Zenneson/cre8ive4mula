@@ -14,13 +14,13 @@ export const addAtSymbol = (inputStr, symbol) => {
 export const taskColor = (type) => {
   switch (type) {
     case "Design":
-      return "#f66345";
+      return "deeporange.5";
     case "Content":
-      return "#f80800";
+      return "deepred.8";
     case "Web Dev":
       return "#ffd941";
     default:
-      return "#f66345";
+      return "#F5454A";
   }
 };
 
