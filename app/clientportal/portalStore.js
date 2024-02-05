@@ -13,8 +13,6 @@ export const usePortalState = create((set) => ({
   setAllowReorder: (value) => set({ allowReorder: value }),
   activePanel: 0,
   setActivePanel: (value) => set({ activePanel: value }),
-  activePage: 0,
-  setActivePage: (value) => set({ activePage: value }),
 }));
 
 // App State

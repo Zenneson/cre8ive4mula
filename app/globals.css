@@ -1,11 +1,6 @@
 // blue: #3d5585
 // dark blue: #01143b
 
-// Design Orange: #ff4d28
-// Content Management Red: #f80800
-// Web Dev Yellow: #ffd941
-
-
 :root {
   --divider-color: #444;
 }
@@ -30,7 +25,7 @@ div.mantine-ScrollArea-scrollbar {
   }
 
   &[data-orientation="vertical"] .mantine-ScrollArea-thumb {
-    background-color: var(--mantine-color-blue-7);
+    background-color: var(--mantine-color-deepblue-7);
     border-radius: 25px;
   }
 }

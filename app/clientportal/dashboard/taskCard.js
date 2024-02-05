@@ -104,7 +104,6 @@ export default function TaskCard(props) {
                         ml={viewTask ? 2 : -2}
                         rightSection={viewTask && <FaRegComments size={12} />}
                         variant={"filled"}
-                        color={"blue.7"}
                         circle={!viewTask}
                       >
                         {taskData.alerts}

@@ -13,10 +13,10 @@ import {
 import classes from "./styles/dashboard.module.css";
 
 export default function DashHeader(props) {
-  const { setActive } = props;
+  const { setActivePanel } = props;
 
   return (
-    <Group justify="space-between" mb={"2px"}>
+    <Group justify="space-between" mb={"2px"} pr={13} pl={125}>
       <Stack gap={0}>
         <Flex align={"center"} gap={10}>
           <Title className={classes.companyName}>
@@ -42,7 +42,7 @@ export default function DashHeader(props) {
             color={"#fff"}
             size="md"
             tt={"inherit"}
-            onClick={() => setActive(4)}
+            onClick={() => setActivePanel(3)}
           >
             useremail@gmail.com
           </Badge>
@@ -58,7 +58,7 @@ export default function DashHeader(props) {
               size="xl"
               variant="transparent"
               className={classes.topRightBtns}
-              onClick={() => setActive(1)}
+              onClick={() => setActivePanel(1)}
             >
               <Image
                 src={"/img/menu/submitTask.svg"}
@@ -67,40 +67,16 @@ export default function DashHeader(props) {
               />
             </ActionIcon>
           </Tooltip>
-          <Tooltip
-            position={"bottom"}
-            withArrow
-            label={"Task Archive"}
-            offset={-3}
-          >
+          <Tooltip position={"bottom"} withArrow label={"Archive"} offset={-3}>
             <ActionIcon
               size="xl"
               variant="transparent"
               className={classes.topRightBtns}
-              onClick={() => setActive(2)}
-            >
-              <Image
-                src={"/img/menu/taskArchive.svg"}
-                alt={"Task Archive"}
-                height={25}
-              />
-            </ActionIcon>
-          </Tooltip>
-          <Tooltip
-            position={"bottom"}
-            withArrow
-            label={"File Repository"}
-            offset={-3}
-          >
-            <ActionIcon
-              size="xl"
-              variant="transparent"
-              className={classes.topRightBtns}
-              onClick={() => setActive(3)}
+              onClick={() => setActivePanel(2)}
             >
               <Image
                 src={"/img/menu/fileRepo.svg"}
-                alt={"File Repository"}
+                alt={"Archive"}
                 height={25}
               />
             </ActionIcon>

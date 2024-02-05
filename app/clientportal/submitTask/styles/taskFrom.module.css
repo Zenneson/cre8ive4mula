@@ -114,3 +114,13 @@ input.colorInput {
   font-size: 10px;
   box-shadow: inset 0px 1px 3px 0px rgba(83, 140, 205, 0.25);
 }
+
+button.backBtn {
+  background: none !important;
+  box-shadow: none !important;
+  opacity: 0.3;
+
+  &:hover {
+    opacity: 1;
+  }
+}

@@ -22,9 +22,8 @@ import {
   Title,
 } from "@mantine/core";
 import { useEffect, useState } from "react";
-import { FaHashtag, FaPlay } from "react-icons/fa";
+import { FaPlay } from "react-icons/fa";
 import { FaCirclePlus, FaPlus } from "react-icons/fa6";
-import { IoGlobeOutline } from "react-icons/io5";
 import { LuPaintBucket } from "react-icons/lu";
 import { MdAttachment } from "react-icons/md";
 import { PiUploadSimpleBold } from "react-icons/pi";
@@ -47,8 +46,28 @@ export default function TaskForm(props) {
     setTypeColor(taskColor(choosenType.title));
   }, [choosenType]);
 
+  const AddTags = (props) => {
+    const { placeholder } = props;
+    return (
+      <TagsInput
+        leftSection={
+          <ActionIcon
+            variant="transparent"
+            color="#777"
+            onClick={() => setDeliverInfo(!deliverInfo)}
+          >
+            <TbHelpSquareFilled className={classes.tagsInput} size={30} />
+          </ActionIcon>
+        }
+        leftSectionWidth={50}
+        leftSectionPointerEvents="all"
+        placeholder={placeholder}
+      />
+    );
+  };
+
   return (
-    <Box h={800}>
+    <Box h={900}>
       <Group className={classes.taskFormTitle} justify="space-between">
         <Group gap="7">
           <Image
@@ -98,60 +117,29 @@ export default function TaskForm(props) {
           onChange={(event) => setDescription(event.currentTarget.value)}
         />
         <Stack hidden={choosenType?.title !== "Design"} gap={20}>
-          <TagsInput
-            leftSection={
-              <ActionIcon
-                variant="transparent"
-                color="#777"
-                onClick={() => setDeliverInfo(!deliverInfo)}
-              >
-                <TbHelpSquareFilled className={classes.tagsInput} size={30} />
-              </ActionIcon>
-            }
-            leftSectionWidth={50}
-            leftSectionPointerEvents="all"
-            placeholder="Style Defining Keywords..."
-          />
-          <TagsInput
-            leftSection={
-              <ActionIcon
-                variant="transparent"
-                color="#777"
-                onClick={() => setDeliverInfo(!deliverInfo)}
-              >
-                <TbHelpSquareFilled className={classes.tagsInput} size={30} />
-              </ActionIcon>
-            }
-            leftSectionWidth={50}
-            leftSectionPointerEvents="all"
-            placeholder="Related URLs..."
-          />
-          <TagsInput
-            leftSection={
-              <ActionIcon
-                variant="transparent"
-                color="#777"
-                onClick={() => setDeliverInfo(!deliverInfo)}
-              >
-                <TbHelpSquareFilled className={classes.tagsInput} size={30} />
-              </ActionIcon>
-            }
-            leftSectionWidth={50}
-            leftSectionPointerEvents="all"
-            placeholder="Perfered File Types..."
-          />
+          {choosenType?.title === "Design" && (
+            <>
+              <AddTags placeholder="Style Defining Keywords..." />
+              <AddTags placeholder="Perfered File Types..." />
+            </>
+          )}
+          <AddTags placeholder="Related URLs..." />
         </Stack>
       </Stack>
       <Stack mt={20} gap={20}>
         <Box hidden={choosenType?.title !== "Design"}>
-          <Group align="flex-start" grow>
-            <Stack className={`innerPanel ${classes.addColors}`} p={20}>
+          <Grid
+            gutter={20}
+            className={`innerPanel ${classes.addColors}`}
+            p={20}
+          >
+            <Grid.Col span="3">
               <Popover
                 classNames={{ dropdown: classes.colorPopoverDropdown }}
                 width="target"
               >
                 <Popover.Target>
-                  <Button>
+                  <Button w={"100%"}>
                     <Group gap={5}>
                       <FaPlus />
                       Color
@@ -192,6 +180,8 @@ export default function TaskForm(props) {
                   />
                 </Popover.Dropdown>
               </Popover>
+            </Grid.Col>
+            <Grid.Col span="auto">
               <Box className="altPanel">
                 <Group gap={10} opacity={0.25}>
                   <LuPaintBucket size={15} />
@@ -200,45 +190,28 @@ export default function TaskForm(props) {
                   </Text>
                 </Group>
               </Box>
-            </Stack>
-            <Stack className={`innerPanel ${classes.styleKeywords}`} p={20}>
-              <TextInput
-                placeholder="Style Keywords..."
-                rightSectionWidth={50}
-                rightSectionPointerEvents="all"
-                rightSection={
-                  <ActionIcon
-                    className={classes.addKeywordBtn}
-                    variant="subtle"
-                    color="#777"
-                  >
-                    <FaCirclePlus size={30} />
-                  </ActionIcon>
-                }
-              />
-              <Box className="altPanel">
-                <Group gap={10} opacity={0.25}>
-                  <FaHashtag size={15} />
-                  <Text fz={11} fw={700} tt={"uppercase"}>
-                    Keywords Added
-                  </Text>
-                </Group>
-              </Box>
-            </Stack>
-          </Group>
+            </Grid.Col>
+          </Grid>
         </Box>
-        <Group align="flex-start" grow>
-          <Stack className={`innerPanel ${classes.relatedFiles}`} p={20}>
+        <Grid
+          gutter={20}
+          className={`innerPanel ${classes.relatedFiles}`}
+          p={20}
+        >
+          <Grid.Col span="3">
             <FileButton onChange={setFile} accept="image/png,image/jpeg">
               {(props) => (
                 <Button
                   {...props}
+                  w={"100%"}
                   leftSection={<PiUploadSimpleBold size={17} />}
                 >
                   Related Files
                 </Button>
               )}
             </FileButton>
+          </Grid.Col>
+          <Grid.Col span="auto">
             <Box className="altPanel">
               <Group gap={10} opacity={0.25}>
                 <MdAttachment />
@@ -247,33 +220,23 @@ export default function TaskForm(props) {
                 </Text>
               </Group>
             </Box>
-          </Stack>
-          <Stack className={`innerPanel ${classes.addLinks}`} p={20}>
-            <TextInput
-              placeholder="Related Webpage URL"
-              rightSectionWidth={50}
-              rightSectionPointerEvents="all"
-              rightSection={
-                <ActionIcon
-                  className={classes.addLinkBtn}
-                  variant="subtle"
-                  color="#777"
-                >
-                  <FaCirclePlus size={30} />
-                </ActionIcon>
-              }
-            />
-            <Box className="altPanel">
-              <Group gap={10} opacity={0.25}>
-                <IoGlobeOutline size={15} />
-                <Text fz={11} fw={700} tt={"uppercase"}>
-                  Webpages Added
-                </Text>
-              </Group>
-            </Box>
-          </Stack>
-        </Group>
+          </Grid.Col>
+        </Grid>
         <Group justify="flex-end">
+          <Button
+            className={classes.backBtn}
+            leftSection={
+              <FaPlay
+                size={10}
+                style={{
+                  transform: "rotate(180deg)",
+                }}
+              />
+            }
+            onClick={() => setActivePage(0)}
+          >
+            Back
+          </Button>
           <Button
             leftSection={<FaPlay size={10} />}
             onClick={() => setActivePage(2)}

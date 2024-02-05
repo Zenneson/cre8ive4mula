@@ -6,12 +6,12 @@ import DashHeader from "./dashHeader";
 import classes from "./styles/dashboard.module.css";
 
 export default function Dashboard(props) {
-  const { setActive } = props;
+  const { setActivePanel } = props;
 
   return (
     <>
-      <DashHeader setActive={setActive} />
-      <Flex gap={20} className={classes.boardsFrame}>
+      <DashHeader setActivePanel={setActivePanel} />
+      <Flex pl={125} py={0} gap={20} className={classes.boardsFrame}>
         <Board boardType={"Submitted Tasks"} taskData={taskData.slice(0, 5)} />
         <Board
           boardType={"Tasks In-Progress"}

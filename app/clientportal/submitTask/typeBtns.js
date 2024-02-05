@@ -4,6 +4,7 @@ import "@dotlottie/react-player/dist/index.css";
 import { tourTheme } from "@libs/tourTheme";
 import { Button, ColorSwatch, Group, Stack, Title } from "@mantine/core";
 import { useDidUpdate, useSessionStorage } from "@mantine/hooks";
+import { motion } from "framer-motion";
 import { useRef } from "react";
 import classes from "./styles/typeBtns.module.css";
 
@@ -105,9 +106,20 @@ const MentBtn = ({ button }) => {
   );
 };
 
-const buttonsList = buttons.map((button, i) => (
-  <MentBtn key={i} button={button} />
-));
+const buttonsList = buttons.map((button, i) => {
+  const animation = {
+    initial: { y: -50, opacity: 0 },
+    animate: { y: 1, opacity: 1 },
+    exit: { y: -50, opacity: 0 },
+    transition: { duration: 1, delay: i * 0.1 },
+  };
+
+  return (
+    <motion.div key={i} {...animation}>
+      <MentBtn index={i} button={button} />
+    </motion.div>
+  );
+});
 
 export default function TypeBtns() {
   return buttonsList;

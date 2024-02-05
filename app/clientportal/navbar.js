@@ -13,8 +13,7 @@ import classes from "./styles/navbar.module.css";
 const linkData = [
   { icon: "dashboard", label: "Dashbaord" },
   { icon: "submitTask", label: "Submit Task" },
-  { icon: "taskArchive", label: "Task Archive" },
-  { icon: "fileRepo", label: "File Repository" },
+  { icon: "fileRepo", label: "Archive" },
 ];
 
 const NavbarLink = ({ icon, label, activePanel, onClick }) => {
@@ -70,7 +69,7 @@ export default function Navbar(props) {
       <Stack justify="center" gap={0}>
         <NavbarLink
           icon={"settings"}
-          onClick={() => setActivePanel(4)}
+          onClick={() => setActivePanel(3)}
           label="Account Settings"
         />
         <NavbarLink icon={"logout"} label="Logout" />

@@ -31,7 +31,7 @@ export default function Board({ taskData, boardType }) {
       maxHeight: "calc(100vh - 100px)",
     },
     exit: { x: -50, opacity: 0, height: 0 },
-    transition: { duration: 1.5, delay: taskData.id * 0.1 },
+    transition: { duration: 2, delay: taskData.id * 0.1 },
   };
 
   const onDragEnd = (result) => {

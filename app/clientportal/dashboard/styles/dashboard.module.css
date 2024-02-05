@@ -1,6 +1,8 @@
 div.boardsFrame {
   align-items: flex-start;
   align-content: flex-start;
+  padding: 20px;
+  padding-left: 125px;
 }
 
 .companyName {

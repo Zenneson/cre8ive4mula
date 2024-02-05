@@ -1,5 +1,5 @@
 "use client";
-import { Box, Title } from "@mantine/core";
+import { Box, ScrollArea, Title } from "@mantine/core";
 import { motion } from "framer-motion";
 import { cache, useEffect } from "react";
 import { usePortalState } from "../clientportal/portalStore";
@@ -29,53 +29,54 @@ export default function ClientPortal() {
       <Navbar activePanel={activePanel} setActivePanel={setActivePanel} />
 
       {activePanel === 0 && (
-        <Box
-          component={motion.div}
-          {...animation}
-          className={classes.dashPanel}
-          pl={125}
-        >
-          <Dashboard setActivePanel={setActivePanel} />
-        </Box>
+        <motion.div {...animation}>
+          <Box
+            component={ScrollArea}
+            type="hover"
+            {...animation}
+            className={classes.dashPanel}
+          >
+            <Dashboard setActivePanel={setActivePanel} />
+          </Box>
+        </motion.div>
       )}
       {activePanel === 1 && (
-        <Box
-          component={motion.div}
-          {...animation}
-          className={classes.dashPanel}
-        >
-          <SubmitTask />
-        </Box>
+        <motion.div {...animation}>
+          <Box
+            component={ScrollArea}
+            type="hover"
+            {...animation}
+            className={classes.dashPanel}
+          >
+            <SubmitTask />
+          </Box>
+        </motion.div>
       )}
       {activePanel === 2 && (
-        <Box
-          component={motion.div}
-          {...animation}
-          className={classes.dashPanel}
-          pl={125}
-        >
-          <Title>Archive</Title>
-        </Box>
+        <motion.div {...animation}>
+          <Box
+            component={ScrollArea}
+            type="hover"
+            {...animation}
+            className={classes.dashPanel}
+            pl={125}
+          >
+            <Title>Archive</Title>
+          </Box>
+        </motion.div>
       )}
       {activePanel === 3 && (
-        <Box
-          component={motion.div}
-          {...animation}
-          className={classes.dashPanel}
-          pl={125}
-        >
-          <Title>File Repository</Title>
-        </Box>
-      )}
-      {activePanel === 4 && (
-        <Box
-          component={motion.div}
-          {...animation}
-          className={classes.dashPanel}
-          pl={125}
-        >
-          <Title>Account Settings</Title>
-        </Box>
+        <motion.div {...animation}>
+          <Box
+            component={ScrollArea}
+            type="hover"
+            {...animation}
+            className={classes.dashPanel}
+            pl={125}
+          >
+            <Title>Account Settings</Title>
+          </Box>
+        </motion.div>
       )}
     </>
   );

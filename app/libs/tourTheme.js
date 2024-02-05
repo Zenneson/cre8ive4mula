@@ -1,7 +1,6 @@
 import {
   Divider,
   Indicator,
-  LoadingOverlay,
   ScrollArea,
   Tooltip,
   createTheme,
@@ -14,8 +13,22 @@ export const tourTheme = createTheme({
   focusRing: "never",
   cursorType: "pointer",
   defaultRadius: "10px",
+  primaryColor: "deepblue",
   autoContrast: true,
+  primaryShade: 7,
   colors: {
+    deepblue: [
+      "#e4f5ff",
+      "#cde5ff",
+      "#9bc8ff",
+      "#64aaff",
+      "#3990fe",
+      "#1e80fe",
+      "#0978ff",
+      "#0066e4",
+      "#005acd",
+      "#004eb5",
+    ],
     deepred: [
       "#ffe9f0",
       "#ffd0dd",
@@ -51,19 +64,13 @@ export const tourTheme = createTheme({
         radius: 5,
         openDelay: 0,
         closeDelay: 0,
+        zIndex: 1000,
         events: { hover: true, focus: true, touch: false },
       },
       styles: {
         tooltip: {
           background: "linear-gradient(0deg, #efefef, #ffffff)",
           color: "#444",
-        },
-      },
-    }),
-    LoadingOverlay: LoadingOverlay.extend({
-      defaultProps: {
-        loaderProps: {
-          type: "bars",
         },
       },
     }),
