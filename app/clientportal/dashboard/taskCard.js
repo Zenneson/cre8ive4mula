@@ -31,10 +31,10 @@ export default function TaskCard(props) {
   const frameRef = useClickOutside(() => setViewTask(false));
 
   const animationProps = {
-    initial: { x: 0, opacity: 1 },
+    initial: { x: -50, opacity: 0 },
     animate: { x: 0, opacity: 1 },
     exit: { x: -50, opacity: 0 },
-    transition: { duration: 0.32 },
+    transition: { duration: 0.5, delay: index * 0.2 },
   };
 
   const colorWay = taskData.colors?.map((color, index) => (

@@ -40,7 +40,7 @@
     opacity: 1;
   }
 
-  &[data-active] {
+  &[data-activePanel="true"] {
     &,
     &:hover {
       background: linear-gradient(145deg, #6291c8, #75acee);

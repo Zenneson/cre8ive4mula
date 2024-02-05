@@ -12,7 +12,7 @@ export default function Dashboard(props) {
     <>
       <DashHeader setActive={setActive} />
       <Flex gap={20} className={classes.boardsFrame}>
-        <Board boardType={"Submitted Tasks"} taskData={taskData.slice(0, 8)} />
+        <Board boardType={"Submitted Tasks"} taskData={taskData.slice(0, 5)} />
         <Board
           boardType={"Tasks In-Progress"}
           taskData={[taskData[0], taskData[4]]}

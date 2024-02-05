@@ -2,14 +2,14 @@
 import "@dotlottie/react-player/dist/index.css";
 import { Affix, Badge, Button, Center, Group, Text } from "@mantine/core";
 import { useSessionStorage } from "@mantine/hooks";
-import { useState } from "react";
 import { FaPlay } from "react-icons/fa";
+import { usePortalState } from "../portalStore";
 import ChooseTypePanel from "./chooseTypePanel";
 import classes from "./styles/submitTask.module.css";
 import TaskForm from "./taskForm";
 
 export default function SubmitTask() {
-  const [activePage, setActivePage] = useState(0);
+  const { activePage, setActivePage } = usePortalState();
   const [choosenType, setChoosenType] = useSessionStorage({
     key: "submitData",
     defaultValue: null,

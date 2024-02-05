@@ -11,7 +11,7 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { useWindowEvent } from "@mantine/hooks";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { usePortalState } from "../portalStore";
 import classes from "./styles/board.module.css";
@@ -19,8 +19,20 @@ import TaskCard from "./taskCard";
 
 export default function Board({ taskData, boardType }) {
   const [tasks, setTasks] = useState(taskData);
+  const [showTasks, setShowTasks] = useState();
   const { allowReorder, setAllowReorder } = usePortalState();
   const frameRef = useRef();
+
+  const animationProps = {
+    initial: { x: -50, opacity: 0, maxHeight: 0 },
+    animate: {
+      x: 0,
+      opacity: 1,
+      maxHeight: "calc(100vh - 100px)",
+    },
+    exit: { x: -50, opacity: 0, height: 0 },
+    transition: { duration: 1.5, delay: taskData.id * 0.1 },
+  };
 
   const onDragEnd = (result) => {
     const { source, destination } = result;
@@ -41,7 +53,6 @@ export default function Board({ taskData, boardType }) {
   const [scrollSpot, setScrollSpot] = useState("");
   const handleScroll = () => {
     const sp = checkScrollPosition(frameRef);
-    if (sp === false) setScrollClass(classes.noScroll);
     if (sp === "top") {
       setScrollClass(classes.scrollAtTop);
       setScrollSpot("top");
@@ -54,10 +65,14 @@ export default function Board({ taskData, boardType }) {
       setScrollClass(classes.scrollAtBottom);
       setScrollSpot("bottom");
     }
+    if (sp === false) setScrollClass(classes.noScroll);
   };
 
   useEffect(() => {
-    handleScroll();
+    setTimeout(() => {
+      setShowTasks(true);
+      handleScroll();
+    }, 2000);
   }, []);
 
   useWindowEvent("resize", () => {
@@ -70,7 +85,14 @@ export default function Board({ taskData, boardType }) {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Stack w="33%" className={`panel ${classes.boards}`} gap={0} p={0}>
+      <Stack
+        component={motion.div}
+        {...animationProps}
+        w="33%"
+        className={`panel ${classes.boards}`}
+        gap={0}
+        p={0}
+      >
         <Group className={classes.boardsHeader} justify="space-between" mb={-3}>
           <Group gap={5}>
             <Title order={4} fw={900}>
@@ -138,6 +160,7 @@ export default function Board({ taskData, boardType }) {
                       taskData={task}
                       boardType={boardType}
                       scrollToElement={scrollToElement}
+                      showTasks={showTasks}
                     />
                   ))}
                 </AnimatePresence>

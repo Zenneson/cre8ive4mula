@@ -17,18 +17,18 @@ const linkData = [
   { icon: "fileRepo", label: "File Repository" },
 ];
 
-const NavbarLink = ({ icon, label, active, onClick }) => {
+const NavbarLink = ({ icon, label, activePanel, onClick }) => {
   return (
     <Tooltip label={label} position="right" openDelay={0} withArrow={false}>
       <Indicator
-        size={active ? "8" : "5"}
-        offset={active ? "2" : "17"}
+        size={activePanel ? "8" : "5"}
+        offset={activePanel ? "2" : "17"}
         disabled={icon === "dashboard" ? false : true}
       >
         <UnstyledButton
           onClick={onClick}
-          className={`${classes.link} ${active && classes.linkActive}`}
-          data-active={active || undefined}
+          className={`${classes.link} ${activePanel && classes.linkActive}`}
+          data-activePanel={activePanel || undefined}
         >
           <Image
             src={`/img/menu/${icon}.svg`}
@@ -43,13 +43,13 @@ const NavbarLink = ({ icon, label, active, onClick }) => {
 
 export default function Navbar(props) {
   const router = useRouter();
-  const { active, setActive } = props;
+  const { activePanel, setActivePanel } = props;
   const links = linkData.map((link, index) => (
     <NavbarLink
       {...link}
       key={link.label}
-      active={index === active}
-      onClick={() => setActive(index)}
+      activePanel={index === activePanel}
+      onClick={() => setActivePanel(index)}
     />
   ));
   return (
@@ -70,7 +70,7 @@ export default function Navbar(props) {
       <Stack justify="center" gap={0}>
         <NavbarLink
           icon={"settings"}
-          onClick={() => setActive(4)}
+          onClick={() => setActivePanel(4)}
           label="Account Settings"
         />
         <NavbarLink icon={"logout"} label="Logout" />

@@ -1,7 +1,8 @@
 "use client";
-import { Title } from "@mantine/core";
+import { Box, Title } from "@mantine/core";
 import { motion } from "framer-motion";
-import { cache, useEffect, useState } from "react";
+import { cache, useEffect } from "react";
+import { usePortalState } from "../clientportal/portalStore";
 import Dashboard from "./dashboard/dashboard";
 import Navbar from "./navbar";
 import classes from "./styles/clientPortal.module.css";
@@ -18,39 +19,63 @@ const animation = {
 };
 
 export default function ClientPortal() {
-  const [active, setActive] = useState(0);
+  const { activePanel, setActivePanel } = usePortalState();
   useEffect(() => {
-    if (active !== 1) sessionStorage.removeItem("submitData");
-  }, [active]);
+    if (activePanel !== 1) sessionStorage.removeItem("submitData");
+  }, [activePanel]);
 
   return (
     <>
-      <Navbar active={active} setActive={setActive} />
+      <Navbar activePanel={activePanel} setActivePanel={setActivePanel} />
 
-      {active === 0 && (
-        <motion.div {...animation} className={classes.dashPanel}>
-          <Dashboard setActive={setActive} />
-        </motion.div>
+      {activePanel === 0 && (
+        <Box
+          component={motion.div}
+          {...animation}
+          className={classes.dashPanel}
+          pl={125}
+        >
+          <Dashboard setActivePanel={setActivePanel} />
+        </Box>
       )}
-      {active === 1 && (
-        <motion.div {...animation} className={classes.dashPanel}>
+      {activePanel === 1 && (
+        <Box
+          component={motion.div}
+          {...animation}
+          className={classes.dashPanel}
+        >
           <SubmitTask />
-        </motion.div>
+        </Box>
       )}
-      {active === 2 && (
-        <motion.div {...animation} className={classes.dashPanel}>
+      {activePanel === 2 && (
+        <Box
+          component={motion.div}
+          {...animation}
+          className={classes.dashPanel}
+          pl={125}
+        >
           <Title>Archive</Title>
-        </motion.div>
+        </Box>
       )}
-      {active === 3 && (
-        <motion.div {...animation} className={classes.dashPanel}>
+      {activePanel === 3 && (
+        <Box
+          component={motion.div}
+          {...animation}
+          className={classes.dashPanel}
+          pl={125}
+        >
           <Title>File Repository</Title>
-        </motion.div>
+        </Box>
       )}
-      {active === 4 && (
-        <motion.div {...animation} className={classes.dashPanel}>
+      {activePanel === 4 && (
+        <Box
+          component={motion.div}
+          {...animation}
+          className={classes.dashPanel}
+          pl={125}
+        >
           <Title>Account Settings</Title>
-        </motion.div>
+        </Box>
       )}
     </>
   );

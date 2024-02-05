@@ -2,7 +2,6 @@ div.boards {
   background: linear-gradient(145deg, #6198d7, #77abe7);
   border-radius: 10px;
   height: auto;
-  max-height: calc(100vh - 100px);
 }
 
 .boardsHeader {
@@ -83,6 +82,10 @@ div.taskFrame {
 .scrollTowardBottom {
   cursor: s-resize;
   bottom: 0;
+}
+
+div.noScroll {
+  box-shadow: none !important;
 }
 
 div.shrunk {

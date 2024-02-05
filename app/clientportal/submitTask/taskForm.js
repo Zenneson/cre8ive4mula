@@ -92,13 +92,14 @@ export default function TaskForm(props) {
         <Textarea
           autosize
           minRows={7}
+          maxRows={7}
           placeholder="Description..."
           value={description}
           onChange={(event) => setDescription(event.currentTarget.value)}
         />
-        <Box hidden={choosenType?.title !== "Design"}>
+        <Stack hidden={choosenType?.title !== "Design"} gap={20}>
           <TagsInput
-            rightSection={
+            leftSection={
               <ActionIcon
                 variant="transparent"
                 color="#777"
@@ -107,11 +108,39 @@ export default function TaskForm(props) {
                 <TbHelpSquareFilled className={classes.tagsInput} size={30} />
               </ActionIcon>
             }
-            rightSectionWidth={50}
-            rightSectionPointerEvents="all"
+            leftSectionWidth={50}
+            leftSectionPointerEvents="all"
+            placeholder="Style Defining Keywords..."
+          />
+          <TagsInput
+            leftSection={
+              <ActionIcon
+                variant="transparent"
+                color="#777"
+                onClick={() => setDeliverInfo(!deliverInfo)}
+              >
+                <TbHelpSquareFilled className={classes.tagsInput} size={30} />
+              </ActionIcon>
+            }
+            leftSectionWidth={50}
+            leftSectionPointerEvents="all"
+            placeholder="Related URLs..."
+          />
+          <TagsInput
+            leftSection={
+              <ActionIcon
+                variant="transparent"
+                color="#777"
+                onClick={() => setDeliverInfo(!deliverInfo)}
+              >
+                <TbHelpSquareFilled className={classes.tagsInput} size={30} />
+              </ActionIcon>
+            }
+            leftSectionWidth={50}
+            leftSectionPointerEvents="all"
             placeholder="Perfered File Types..."
           />
-        </Box>
+        </Stack>
       </Stack>
       <Stack mt={20} gap={20}>
         <Box hidden={choosenType?.title !== "Design"}>

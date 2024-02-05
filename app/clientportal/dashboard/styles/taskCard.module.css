@@ -3,12 +3,13 @@ div.viewTaskFrame {
   animation-fill-mode: both;
   transition: all 200ms ease-in-out;
   position: relative;
-  overflow: visible;
+  overflow: hidden;
 }
 
 div.opened {
   animation: showMore 150ms linear;
   animation-fill-mode: both;
+  overflow: visible;
 }
 
 .taskFrame {
