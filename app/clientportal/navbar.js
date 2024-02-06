@@ -51,7 +51,7 @@ const MainLogo = () => {
   const logoAnimationProps = {
     initial: { scale: 0, opacity: 0 },
     animate: { scale: 1, opacity: 1 },
-    transition: { duration: 2, delay: 2 },
+    transition: { duration: 2, delay: 1 },
   };
 
   return (
@@ -70,14 +70,14 @@ export default function Navbar() {
   const { activePanel, setActivePanel } = usePortalState();
 
   const animationProps = {
-    initial: { x: -100, opacity: 0 },
+    initial: { x: -50, opacity: 0 },
     animate: { x: 0, opacity: 1 },
     transition: { duration: 1 },
   };
 
   const links = linkData.map((link, index) => {
     const btnAnimationProps = {
-      initial: { x: -100, opacity: 0 },
+      initial: { x: -50, opacity: 0 },
       animate: { x: 0, opacity: 1 },
       transition: { duration: 1, delay: index * 0.2 },
     };
