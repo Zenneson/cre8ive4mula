@@ -1,3 +1,4 @@
+"use client";
 import {
   Center,
   Image,
@@ -8,6 +9,7 @@ import {
   rem,
 } from "@mantine/core";
 import { useRouter } from "next/navigation";
+import { usePortalState } from "./portalStore";
 import classes from "./styles/navbar.module.css";
 
 const linkData = [
@@ -23,11 +25,14 @@ const NavbarLink = ({ icon, label, activePanel, onClick }) => {
         size={activePanel ? "8" : "5"}
         offset={activePanel ? "2" : "17"}
         disabled={icon === "dashboard" ? false : true}
+        style={{
+          "--indicator-translate-x": "6px",
+        }}
       >
         <UnstyledButton
           onClick={onClick}
           className={`${classes.link} ${activePanel && classes.linkActive}`}
-          data-activePanel={activePanel || undefined}
+          data-activepanel={activePanel || undefined}
         >
           <Image
             src={`/img/menu/${icon}.svg`}
@@ -40,9 +45,9 @@ const NavbarLink = ({ icon, label, activePanel, onClick }) => {
   );
 };
 
-export default function Navbar(props) {
+export default function Navbar() {
   const router = useRouter();
-  const { activePanel, setActivePanel } = props;
+  const { activePanel, setActivePanel } = usePortalState();
   const links = linkData.map((link, index) => (
     <NavbarLink
       {...link}

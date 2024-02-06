@@ -8,24 +8,22 @@ const sessionStore = {
 };
 
 // Portal State
-export const usePortalState = create((set) => ({
-  allowReorder: false,
-  setAllowReorder: (value) => set({ allowReorder: value }),
-  activePanel: 0,
-  setActivePanel: (value) => set({ activePanel: value }),
-}));
-
-// App State
-export const useChatState = create(
+export const usePortalState = create(
   persist(
     (set) => ({
-      chatOpened: false,
-      setChatOpened: (value) => set({ chatOpened: value }),
+      allowReorder: false,
+      setAllowReorder: (value) => set({ allowReorder: value }),
+      activePanel: 0,
+      setActivePanel: (value) => set({ activePanel: value }),
+      choosenType: "",
+      setChoosenType: (value) => set({ choosenType: value }),
     }),
     {
-      name: "appState",
+      name: "portalState",
       storage: sessionStore,
-      partialize: (state) => ({ chatOpened: state.chatOpened }),
+      partialize: (state) => ({
+        chosenType: state.chosenType,
+      }),
     }
   )
 );

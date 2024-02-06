@@ -120,10 +120,10 @@ export default function TaskForm(props) {
           {choosenType?.title === "Design" && (
             <>
               <AddTags placeholder="Style Defining Keywords..." />
-              <AddTags placeholder="Perfered File Types..." />
+              <AddTags placeholder="Delivery File Formats..." />
             </>
           )}
-          <AddTags placeholder="Related URLs..." />
+          <AddTags placeholder="Websites..." />
         </Stack>
       </Stack>
       <Stack mt={20} gap={20}>
@@ -136,6 +136,7 @@ export default function TaskForm(props) {
             <Grid.Col span="3">
               <Popover
                 classNames={{ dropdown: classes.colorPopoverDropdown }}
+                position="top"
                 width="target"
               >
                 <Popover.Target>
@@ -148,7 +149,7 @@ export default function TaskForm(props) {
                 </Popover.Target>
                 <Popover.Dropdown>
                   <ColorPicker
-                    size="lg"
+                    size="sm"
                     fullWidth
                     value={selectedColor}
                     onChange={setSelectedColor}
@@ -206,7 +207,7 @@ export default function TaskForm(props) {
                   w={"100%"}
                   leftSection={<PiUploadSimpleBold size={17} />}
                 >
-                  Related Files
+                  Files
                 </Button>
               )}
             </FileButton>

@@ -43,7 +43,8 @@ h1.title {
   color: #fff;
 }
 
-.addedTags {
+.addedTags,
+.addedWebsites {
   padding-left: 7px;
   opacity: 0.4;
 
@@ -52,6 +53,11 @@ h1.title {
   }
 }
 
+.taskAlerts {
+  cursor: pointer;
+}
+
+.taskAlertsNotViewwed,
 .taskService {
   background: transparent;
   border: none;
@@ -70,6 +76,7 @@ div.taskType {
 }
 
 .commentNum {
+  cursor: pointer;
   font-family: var(--font-montserrat);
 }
 
@@ -78,12 +85,12 @@ div.taskType {
   border: none;
 }
 
-p.tagsList {
+p.tagsList,
+p.websitesList {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
   font-size: 14px;
-  width: 260px;
 }
 
 div.taskBtnsFrame {
@@ -93,7 +100,7 @@ div.taskBtnsFrame {
   border-radius: 100px 100px 100px 100px;
   overflow: hidden;
   margin: 7px 0;
-  margin-top: 30px;
+  margin-top: 0px;
   padding: 0;
   width: 100%;
   justify-content: space-between;
@@ -192,15 +199,19 @@ div.reordering {
 
 @keyframes shinyBtn {
   0% {
+    transform: scale(0) rotate(45deg);
     opacity: 0;
   }
   80% {
+    transform: scale(0) rotate(45deg);
     opacity: 0.5;
   }
   81% {
+    transform: scale(4) rotate(45deg);
     opacity: 1;
   }
   100% {
+    transform: scale(50) rotate(45deg);
     opacity: 0;
   }
 }

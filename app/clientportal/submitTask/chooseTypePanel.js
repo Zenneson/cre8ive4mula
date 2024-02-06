@@ -11,8 +11,8 @@ import {
   Transition,
 } from "@mantine/core";
 import { FaPlay } from "react-icons/fa";
-import { TypeBtnsCache } from "../page";
 import classes from "./styles/chooseTypePanel.module.css";
+import { TypeBtnsCache } from "./submitTask";
 
 export default function ChooseTypePanel(props) {
   const { choosenType, serviceBadges, setActivePage } = props;

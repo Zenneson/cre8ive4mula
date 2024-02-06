@@ -26,7 +26,7 @@
 }
 
 .link {
-  transition: all 200ms ease;
+  transition: all 250ms ease;
   width: rem(80px);
   height: rem(80px);
   border-radius: 10px;
@@ -34,20 +34,27 @@
   align-items: center;
   justify-content: center;
   border: 1px solid transparent;
-  opacity: 0.5;
+  filter: brightness(1) contrast(1);
 
   &:hover {
-    opacity: 1;
+    img {
+      filter: invert(95%) sepia(0%) saturate(0%) hue-rotate(195deg)
+        brightness(105%) contrast(105%);
+    }
   }
 
   &[data-activePanel="true"] {
     &,
     &:hover {
       background: linear-gradient(145deg, #6291c8, #75acee);
-      opacity: 1;
+      filter: brightness(1.2) contrast(1.1);
       box-shadow:
         10px 10px 15px #528cce,
         -10px -10px 15px rgba(121, 179, 246, 0.35);
+    }
+    img {
+      filter: invert(95%) sepia(0%) saturate(0%) hue-rotate(195deg)
+        brightness(105%) contrast(105%);
     }
   }
 }

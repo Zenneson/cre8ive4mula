@@ -11,12 +11,13 @@ import {
   Flex,
   Group,
   Image,
+  Stack,
   Text,
   Title,
 } from "@mantine/core";
-import { useClickOutside } from "@mantine/hooks";
+import { useElementSize } from "@mantine/hooks";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { CgAttachment } from "react-icons/cg";
 import { FaRegComments } from "react-icons/fa";
 import { MdDragIndicator } from "react-icons/md";
@@ -28,7 +29,9 @@ export default function TaskCard(props) {
   const [viewTask, setViewTask] = useState(false);
   const [brightDetails, setBrightDetails] = useState(false);
   const { allowReorder } = usePortalState();
-  const frameRef = useClickOutside(() => setViewTask(false));
+  const frameRef = useRef();
+  const { ref, width } = useElementSize();
+  const infoListWidth = width;
 
   const animationProps = {
     initial: { x: -50, opacity: 0 },
@@ -45,6 +48,10 @@ export default function TaskCard(props) {
 
   const tagsList = taskData.tags?.map((tag, index) =>
     index < taskData.tags.length - 1 ? `${tag}, ` : tag
+  );
+
+  const websitesList = taskData.websites?.map((site, index) =>
+    index < taskData.websites.length - 1 ? `${site} | ` : site
   );
 
   return (
@@ -86,7 +93,7 @@ export default function TaskCard(props) {
                   />
                 </Center>
                 <Group justify="space-between" mb={5}>
-                  <Group gap={3}>
+                  <Group gap={viewTask ? 5 : 0}>
                     <Badge
                       className={classes.taskType}
                       color={taskColor(taskData.type)}
@@ -99,12 +106,13 @@ export default function TaskCard(props) {
                     </Badge>
                     {taskData.alerts && (
                       <Badge
-                        fw="700"
-                        size={viewTask ? "sm" : "xs"}
-                        ml={viewTask ? 2 : -2}
-                        rightSection={viewTask && <FaRegComments size={12} />}
-                        variant={"filled"}
+                        className={classes.taskAlerts}
+                        size={"xs"}
+                        color="red.8"
+                        c={viewTask ? "#fff" : "gray.5"}
                         circle={!viewTask}
+                        variant={viewTask ? "filled" : "light"}
+                        rightSection={viewTask && <FaRegComments size={12} />}
                       >
                         {taskData.alerts}
                       </Badge>
@@ -152,19 +160,35 @@ export default function TaskCard(props) {
                   }`}
                   justify="space-between"
                 >
-                  <Flex className={classes.addedTags} gap={5}>
+                  <Stack className={classes.infoList} gap={0} w={infoListWidth}>
                     {taskData.tags && taskData.tags.length > 0 && (
-                      <Image
-                        src="/img/hashtag.svg"
-                        alt={"Task Tags"}
-                        fit="contain"
-                        mt={7}
-                        w={20}
-                      />
+                      <Flex className={classes.addedTags} gap={5}>
+                        <Image
+                          src="/img/hashtag.svg"
+                          alt={"Task Tags"}
+                          fit="contain"
+                          mt={7}
+                          w={20}
+                        />
+                        <Text className={classes.tagsList}>{tagsList}</Text>
+                      </Flex>
                     )}
-                    <Text className={classes.tagsList}>{tagsList}</Text>
-                  </Flex>
-                  <Group className={classes.taskBtnsFrame}>
+                    {taskData.websites && taskData.websites.length > 0 && (
+                      <Flex className={classes.addedWebsites} gap={5}>
+                        <Image
+                          src="/img/website.svg"
+                          alt={"Task Tags"}
+                          fit="contain"
+                          mt={7}
+                          w={20}
+                        />
+                        <Text className={classes.websitesList}>
+                          {websitesList}
+                        </Text>
+                      </Flex>
+                    )}
+                  </Stack>
+                  <Group className={classes.taskBtnsFrame} ref={ref}>
                     <Group gap={5} ml={5} opacity={1} c="#fff">
                       <Badge
                         className={classes.commentNum}

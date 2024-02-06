@@ -3,9 +3,10 @@ import { DotLottiePlayer } from "@dotlottie/react-player";
 import "@dotlottie/react-player/dist/index.css";
 import { tourTheme } from "@libs/tourTheme";
 import { Button, ColorSwatch, Group, Stack, Title } from "@mantine/core";
-import { useDidUpdate, useSessionStorage } from "@mantine/hooks";
+import { useDidUpdate } from "@mantine/hooks";
 import { motion } from "framer-motion";
 import { useRef } from "react";
+import { usePortalState } from "../portalStore";
 import classes from "./styles/typeBtns.module.css";
 
 const buttons = [
@@ -17,7 +18,7 @@ const buttons = [
   },
   {
     text: "Content",
-    color: tourTheme.colors.deepred[8],
+    color: tourTheme.colors.deepred[6],
     svg1: "/img/submit/docx.json",
     svg2: "/img/submit/pdf.json",
   },
@@ -39,10 +40,7 @@ const typeDef = {
 };
 
 const MentBtn = ({ button }) => {
-  const [choosenType, setChoosenType] = useSessionStorage({
-    key: "submitData",
-    defaultValue: null,
-  });
+  const { choosenType, setChoosenType } = usePortalState();
 
   const active = choosenType && choosenType.title === button.text;
   const lottieRef1 = useRef();

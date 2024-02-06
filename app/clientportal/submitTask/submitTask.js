@@ -1,20 +1,19 @@
 "use client";
 import "@dotlottie/react-player/dist/index.css";
-import Loader from "@libs/loader/loader";
 import { Affix, Badge, Button, Center, Group, Text } from "@mantine/core";
-import { useSessionStorage } from "@mantine/hooks";
-import { useState } from "react";
+import { cache, useState } from "react";
 import { FaPlay } from "react-icons/fa";
+import { usePortalState } from "../portalStore";
+import TypeBtns from "../submitTask/typeBtns";
 import ChooseTypePanel from "./chooseTypePanel";
 import classes from "./styles/submitTask.module.css";
 import TaskForm from "./taskForm";
 
+export const TypeBtnsCache = cache(() => <TypeBtns />);
+
 export default function SubmitTask() {
   const [activePage, setActivePage] = useState(0);
-  const [choosenType, setChoosenType] = useSessionStorage({
-    key: "submitData",
-    defaultValue: null,
-  });
+  const { choosenType } = usePortalState();
 
   const submitPage = () => {
     switch (activePage) {
@@ -70,7 +69,7 @@ export default function SubmitTask() {
     if (choosenType && choosenType.title === "Design")
       return { color: "deeporange.5", service: services.design };
     if (choosenType && choosenType.title === "Content")
-      return { color: "deepred.8", service: services.content };
+      return { color: "deepred.6", service: services.content };
     if (choosenType && choosenType.title === "Web Dev")
       return { color: "#ffd941", service: services.webdev };
   };
@@ -109,7 +108,6 @@ export default function SubmitTask() {
         </Affix>
       )}
 
-      <Loader loaded={ChooseTypePanel} />
       <Center
         id="0"
         w={"calc(100vw - 110px)"}

@@ -1,12 +1,11 @@
 "use client";
 import { Flex } from "@mantine/core";
-import { taskData } from "../../../public/data/taskData";
 import Board from "./board";
 import DashHeader from "./dashHeader";
 import classes from "./styles/dashboard.module.css";
 
 export default function Dashboard(props) {
-  const { setActivePanel } = props;
+  const { setActivePanel, taskData } = props;
 
   return (
     <>

@@ -1,0 +1,74 @@
+"use client";
+import { Box, ScrollArea, Title } from "@mantine/core";
+import { motion } from "framer-motion";
+import Dashboard from "./dashboard/dashboard";
+import { usePortalState } from "./portalStore";
+import classes from "./styles/clientPortal.module.css";
+import SubmitTask from "./submitTask/submitTask";
+
+const animation = {
+  initial: { y: -50, opacity: 0, duration: 500 },
+  animate: { y: 0, opacity: 1, duration: 500 },
+  exit: { y: 50, opacity: 0, duration: 500 },
+  transition: { type: "ease-in-out" },
+};
+
+export default function Panels(props) {
+  const { taskData } = props;
+  const { activePanel, setActivePanel } = usePortalState();
+
+  return (
+    <>
+      {activePanel === 0 && (
+        <motion.div {...animation}>
+          <Box
+            component={ScrollArea}
+            type="hover"
+            {...animation}
+            className={classes.dashPanel}
+          >
+            <Dashboard taskData={taskData} setActivePanel={setActivePanel} />
+          </Box>
+        </motion.div>
+      )}
+      {activePanel === 1 && (
+        <motion.div {...animation}>
+          <Box
+            component={ScrollArea}
+            type="hover"
+            {...animation}
+            className={classes.dashPanel}
+          >
+            <SubmitTask />
+          </Box>
+        </motion.div>
+      )}
+      {activePanel === 2 && (
+        <motion.div {...animation}>
+          <Box
+            component={ScrollArea}
+            type="hover"
+            {...animation}
+            className={classes.dashPanel}
+            pl={125}
+          >
+            <Title>Archive</Title>
+          </Box>
+        </motion.div>
+      )}
+      {activePanel === 3 && (
+        <motion.div {...animation}>
+          <Box
+            component={ScrollArea}
+            type="hover"
+            {...animation}
+            className={classes.dashPanel}
+            pl={125}
+          >
+            <Title>Account Settings</Title>
+          </Box>
+        </motion.div>
+      )}
+    </>
+  );
+}

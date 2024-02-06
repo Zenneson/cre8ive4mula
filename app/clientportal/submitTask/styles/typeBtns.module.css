@@ -1,4 +1,6 @@
 button.submitType {
+  z-index: 500;
+  position: relative;
   transition: all 250ms ease-in-out;
   background: linear-gradient(145deg, #5084bf, #679cdc) !important;
   box-shadow:

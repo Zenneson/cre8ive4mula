@@ -16,7 +16,7 @@ export const taskColor = (type) => {
     case "Design":
       return "deeporange.5";
     case "Content":
-      return "deepred.8";
+      return "deepred.6";
     case "Web Dev":
       return "#ffd941";
     default:

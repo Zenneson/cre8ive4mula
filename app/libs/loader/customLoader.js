@@ -1,8 +1,9 @@
+"use client";
 import { Box, Center } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
-import classes from "./styles/loader.module.css";
+import classes from "./styles/customLoader.module.css";
 
-export default function Loader(props) {
+export default function CustomLoader(props) {
   const { loaded } = props;
   const frameRef = useRef();
   const [showing, setShowing] = useState(true);
@@ -12,7 +13,7 @@ export default function Loader(props) {
       const loaderContainer = frameRef.current;
       if (loaderContainer) {
         const bars = loaderContainer.children;
-        const time = 1.5 / bars.length;
+        const time = 2 / bars.length;
         let startTime = 0;
 
         for (let i = 0; i < bars.length; i++) {
@@ -42,9 +43,6 @@ export default function Loader(props) {
           <span>I</span>
           <span>N</span>
           <span>G</span>
-          <span>.</span>
-          <span>.</span>
-          <span>.</span>
         </Box>
       </Center>
     )
