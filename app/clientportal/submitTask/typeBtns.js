@@ -6,7 +6,7 @@ import { Button, ColorSwatch, Group, Stack, Title } from "@mantine/core";
 import { useDidUpdate } from "@mantine/hooks";
 import { motion } from "framer-motion";
 import { useRef } from "react";
-import { usePortalState } from "../portalStore";
+import { useSubissionData } from "../portalStore";
 import classes from "./styles/typeBtns.module.css";
 
 const buttons = [
@@ -40,7 +40,7 @@ const typeDef = {
 };
 
 const MentBtn = ({ button }) => {
-  const { choosenType, setChoosenType } = usePortalState();
+  const { choosenType, setChoosenType } = useSubissionData();
 
   const active = choosenType && choosenType.title === button.text;
   const lottieRef1 = useRef();

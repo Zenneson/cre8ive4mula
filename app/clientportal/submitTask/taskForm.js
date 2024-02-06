@@ -32,7 +32,7 @@ import ServiceSelect from "./serviceSelect";
 import classes from "./styles/taskFrom.module.css";
 
 export default function TaskForm(props) {
-  const { service, setActivePage, choosenType } = props;
+  const { service, setSubmissionPanel, choosenType } = props;
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -67,7 +67,7 @@ export default function TaskForm(props) {
   };
 
   return (
-    <Box h={900}>
+    <Box>
       <Group className={classes.taskFormTitle} justify="space-between">
         <Group gap="7">
           <Image
@@ -234,13 +234,13 @@ export default function TaskForm(props) {
                 }}
               />
             }
-            onClick={() => setActivePage(0)}
+            onClick={() => setSubmissionPanel(0)}
           >
             Back
           </Button>
           <Button
             leftSection={<FaPlay size={10} />}
-            onClick={() => setActivePage(2)}
+            onClick={() => setSubmissionPanel(2)}
           >
             Review
           </Button>

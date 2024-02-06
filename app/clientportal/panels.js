@@ -15,7 +15,7 @@ const animation = {
 
 export default function Panels(props) {
   const { taskData } = props;
-  const { activePanel, setActivePanel } = usePortalState();
+  const { activePanel } = usePortalState();
 
   return (
     <>
@@ -27,7 +27,7 @@ export default function Panels(props) {
             {...animation}
             className={classes.dashPanel}
           >
-            <Dashboard taskData={taskData} setActivePanel={setActivePanel} />
+            <Dashboard taskData={taskData} />
           </Box>
         </motion.div>
       )}
@@ -50,6 +50,7 @@ export default function Panels(props) {
             type="hover"
             {...animation}
             className={classes.dashPanel}
+            pt={60}
             pl={125}
           >
             <Title>Archive</Title>
@@ -63,6 +64,7 @@ export default function Panels(props) {
             type="hover"
             {...animation}
             className={classes.dashPanel}
+            pt={60}
             pl={125}
           >
             <Title>Account Settings</Title>

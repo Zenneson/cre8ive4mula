@@ -19,7 +19,6 @@ import TaskCard from "./taskCard";
 
 export default function Board({ taskData, boardType }) {
   const [tasks, setTasks] = useState(taskData);
-  const [showTasks, setShowTasks] = useState();
   const { allowReorder, setAllowReorder } = usePortalState();
   const frameRef = useRef();
 
@@ -56,21 +55,27 @@ export default function Board({ taskData, boardType }) {
     if (sp === "top") {
       setScrollClass(classes.scrollAtTop);
       setScrollSpot("top");
+      return;
     }
     if (sp === "middle") {
       setScrollClass(classes.scrollAtMiddle);
       setScrollSpot("middle");
+      return;
     }
     if (sp === "bottom") {
       setScrollClass(classes.scrollAtBottom);
       setScrollSpot("bottom");
+      return;
     }
-    if (sp === false) setScrollClass(classes.noScroll);
+    if (sp === false) {
+      setScrollClass(classes.noScroll);
+      setScrollSpot("none");
+      return;
+    }
   };
 
   useEffect(() => {
     setTimeout(() => {
-      setShowTasks(true);
       handleScroll();
     }, 2000);
   }, []);
@@ -132,14 +137,15 @@ export default function Board({ taskData, boardType }) {
             onMouseEnter={() => scrollToward.start(frameRef, "up")}
             onMouseLeave={() => scrollToward.stop()}
             className={`${classes.scrollTowardTop} ${
-              scrollSpot === "top" && classes.shrunk
+              (scrollSpot === "top" || scrollSpot === "none") && classes.shrunk
             }`}
           />
           <Box
             onMouseEnter={() => scrollToward.start(frameRef, "down")}
             onMouseLeave={() => scrollToward.stop()}
             className={`${classes.scrollTowardBottom} ${
-              scrollSpot === "bottom" && classes.shrunk
+              (scrollSpot === "bottom" || scrollSpot === "none") &&
+              classes.shrunk
             }`}
           />
           <Droppable
@@ -160,7 +166,6 @@ export default function Board({ taskData, boardType }) {
                       taskData={task}
                       boardType={boardType}
                       scrollToElement={scrollToElement}
-                      showTasks={showTasks}
                     />
                   ))}
                 </AnimatePresence>

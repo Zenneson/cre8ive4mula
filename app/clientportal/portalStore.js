@@ -1,29 +1,27 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-const sessionStore = {
-  getItem: (name) => sessionStorage.getItem(name),
-  setItem: (name, value) => sessionStorage.setItem(name, value),
-  removeItem: (name) => sessionStorage.removeItem(name),
-};
+const useSessionStorage = createJSONStorage(() => sessionStorage);
 
 // Portal State
-export const usePortalState = create(
+export const usePortalState = create((set) => ({
+  allowReorder: false,
+  setAllowReorder: (value) => set({ allowReorder: value }),
+  activePanel: 0,
+  setActivePanel: (value) => set({ activePanel: value }),
+}));
+
+export const useSubissionData = create(
   persist(
     (set) => ({
-      allowReorder: false,
-      setAllowReorder: (value) => set({ allowReorder: value }),
-      activePanel: 0,
-      setActivePanel: (value) => set({ activePanel: value }),
       choosenType: "",
       setChoosenType: (value) => set({ choosenType: value }),
+      submissionPanel: 0,
+      setSubmissionPanel: (value) => set({ submissionPanel: value }),
     }),
     {
-      name: "portalState",
-      storage: sessionStore,
-      partialize: (state) => ({
-        chosenType: state.chosenType,
-      }),
+      name: "submissionData",
+      storage: useSessionStorage,
     }
   )
 );

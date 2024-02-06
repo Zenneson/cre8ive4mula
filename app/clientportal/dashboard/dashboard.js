@@ -1,16 +1,14 @@
 "use client";
 import { Flex } from "@mantine/core";
 import Board from "./board";
-import DashHeader from "./dashHeader";
 import classes from "./styles/dashboard.module.css";
 
 export default function Dashboard(props) {
-  const { setActivePanel, taskData } = props;
+  const { taskData } = props;
 
   return (
     <>
-      <DashHeader setActivePanel={setActivePanel} />
-      <Flex pl={125} py={0} gap={20} className={classes.boardsFrame}>
+      <Flex pl={125} pt={75} py={0} gap={20} className={classes.boardsFrame}>
         <Board boardType={"Submitted Tasks"} taskData={taskData.slice(0, 5)} />
         <Board
           boardType={"Tasks In-Progress"}

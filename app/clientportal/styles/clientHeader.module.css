@@ -1,0 +1,41 @@
+.headerFrame {
+  z-index: 700;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+}
+
+.companyName {
+  font-family: var(--font-montserrat);
+  text-transform: uppercase;
+  font-size: 32px;
+}
+
+.userBadge {
+  transition: opacity 150ms ease-in-out;
+  opacity: 0.3;
+  margin-top: 7px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.topRightBtns {
+  opacity: 0.4;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.currentPanel {
+  pointer-events: none;
+
+  img {
+    filter: invert(95%) sepia(0%) saturate(0%) hue-rotate(195deg)
+      brightness(105%) contrast(105%);
+  }
+}

@@ -45,13 +45,6 @@ p {
   color: #b9d5f6;
 }
 
-.appPixelated {
-  filter: url(#pixel) grayscale(1);
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
-
 .panel {
   border-radius: 10px;
   padding: 20px;

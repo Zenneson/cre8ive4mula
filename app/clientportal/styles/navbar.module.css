@@ -46,8 +46,8 @@
   &[data-activePanel="true"] {
     &,
     &:hover {
-      background: linear-gradient(145deg, #6291c8, #75acee);
-      filter: brightness(1.2) contrast(1.1);
+      background: linear-gradient(145deg, #6a9cd5, #75acee);
+      filter: brightness(1.07) contrast(1.1);
       box-shadow:
         10px 10px 15px #528cce,
         -10px -10px 15px rgba(121, 179, 246, 0.35);

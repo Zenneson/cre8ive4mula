@@ -1,9 +1,9 @@
 "use client";
 import "@dotlottie/react-player/dist/index.css";
 import { Affix, Badge, Button, Center, Group, Text } from "@mantine/core";
-import { cache, useState } from "react";
+import { cache } from "react";
 import { FaPlay } from "react-icons/fa";
-import { usePortalState } from "../portalStore";
+import { useSubissionData } from "../portalStore";
 import TypeBtns from "../submitTask/typeBtns";
 import ChooseTypePanel from "./chooseTypePanel";
 import classes from "./styles/submitTask.module.css";
@@ -12,11 +12,11 @@ import TaskForm from "./taskForm";
 export const TypeBtnsCache = cache(() => <TypeBtns />);
 
 export default function SubmitTask() {
-  const [activePage, setActivePage] = useState(0);
-  const { choosenType } = usePortalState();
+  const { choosenType, submissionPanel, setSubmissionPanel } =
+    useSubissionData();
 
   const submitPage = () => {
-    switch (activePage) {
+    switch (submissionPanel) {
       case 0:
         return "0px";
       case 1:
@@ -92,16 +92,15 @@ export default function SubmitTask() {
 
   return (
     <Group className={classes.centerFrame} left={submitPage()} gap={"0px"}>
-      {activePage > 0 && (
-        <Affix position={{ top: 30, right: 30 }}>
+      {/* TODO: DELETE WHEN THE REVIEW PANEL IS DONE  */}
+      {submissionPanel > 1 && (
+        <Affix position={{ bottom: 30, right: 30 }}>
           <Button
             className={classes.backButton}
             leftSection={
               <FaPlay size={10} style={{ transform: "scaleX(-1)" }} />
             }
-            onClick={() =>
-              setActivePage((current) => (current > 0 ? current - 1 : current))
-            }
+            onClick={() => setSubmissionPanel(1)}
           >
             Back
           </Button>
@@ -118,12 +117,12 @@ export default function SubmitTask() {
         <ChooseTypePanel
           choosenType={choosenType}
           serviceBadges={serviceBadges}
-          setActivePage={setActivePage}
+          setSubmissionPanel={setSubmissionPanel}
         />
       </Center>
       <Center id="1" w={"calc(100vw - 110px)"} pos={"relative"} ml={"110px"}>
         <TaskForm
-          setActivePage={setActivePage}
+          setSubmissionPanel={setSubmissionPanel}
           choosenType={choosenType}
           service={serviceList}
         />

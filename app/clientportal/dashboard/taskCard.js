@@ -74,6 +74,7 @@ export default function TaskCard(props) {
                   scrollToElement(frameRef.current);
                 }}
                 pos={"relative"}
+                pt={5}
                 pb={10}
                 ref={frameRef}
                 onMouseEnter={() => setBrightDetails(true)}
@@ -92,7 +93,7 @@ export default function TaskCard(props) {
                     size={30}
                   />
                 </Center>
-                <Group justify="space-between" mb={5}>
+                <Group justify="space-between">
                   <Group gap={viewTask ? 5 : 0}>
                     <Badge
                       className={classes.taskType}
@@ -100,7 +101,7 @@ export default function TaskCard(props) {
                       bg={viewTask ? taskColor(taskData.type) : "transparent"}
                       variant={viewTask ? "filled" : "light"}
                       size={viewTask ? "xs" : "sm"}
-                      ml={-5}
+                      ml={viewTask ? -5 : -10}
                     >
                       {taskData.type}
                     </Badge>
@@ -118,12 +119,22 @@ export default function TaskCard(props) {
                       </Badge>
                     )}
                   </Group>
-                  <Text
-                    className={classes.taskDate}
-                    opacity={viewTask ? 1 : 0.25}
-                  >
-                    {taskData.date}
-                  </Text>
+                  <Flex align={"center"} gap={0}>
+                    <Text
+                      className={classes.taskDate}
+                      opacity={viewTask ? 1 : 0.25}
+                    >
+                      {taskData.date}
+                    </Text>
+                    <Image
+                      className={classes.closeIcon}
+                      src="/img/close.svg"
+                      alt={"Task Tags"}
+                      fit="contain"
+                      w={viewTask ? 20 : 0}
+                      mr={-5}
+                    />
+                  </Flex>
                 </Group>
                 <Title className={classes.title} truncate="end" lineClamp={2}>
                   {taskData.title}
@@ -159,6 +170,7 @@ export default function TaskCard(props) {
                     viewTask && classes.opened
                   }`}
                   justify="space-between"
+                  pos={"relative"}
                 >
                   <Stack className={classes.infoList} gap={0} w={infoListWidth}>
                     {taskData.tags && taskData.tags.length > 0 && (

@@ -15,7 +15,7 @@ import classes from "./styles/chooseTypePanel.module.css";
 import { TypeBtnsCache } from "./submitTask";
 
 export default function ChooseTypePanel(props) {
-  const { choosenType, serviceBadges, setActivePage } = props;
+  const { choosenType, serviceBadges, setSubmissionPanel } = props;
 
   return (
     <Stack mih={"700px"} gap={5}>
@@ -54,7 +54,7 @@ export default function ChooseTypePanel(props) {
             <Group justify="flex-end" mt={20}>
               <Button
                 leftSection={<FaPlay size={10} />}
-                onClick={() => setActivePage(1)}
+                onClick={() => setSubmissionPanel(1)}
               >
                 Continue
               </Button>

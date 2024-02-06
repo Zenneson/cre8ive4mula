@@ -1,5 +1,4 @@
 "use client";
-import { useAppState } from "@libs/store";
 import {
   AppShell,
   ColorSchemeScript,
@@ -11,7 +10,6 @@ import Clouds from "./clouds/clouds";
 import { tourTheme } from "./libs/tourTheme";
 
 export default function AppWrapper({ children }) {
-  const { mainMenuOpened, setMainMenuOpened } = useAppState();
   const pathname = usePathname();
 
   return (
@@ -39,7 +37,6 @@ export default function AppWrapper({ children }) {
             width: "100vw",
             height: "100%",
           }}
-          className={mainMenuOpened && "appPixelated"}
         >
           {children}
         </AppShell>

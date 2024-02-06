@@ -48,14 +48,18 @@ const NavbarLink = ({ icon, label, activePanel, onClick }) => {
 export default function Navbar() {
   const router = useRouter();
   const { activePanel, setActivePanel } = usePortalState();
+
   const links = linkData.map((link, index) => (
     <NavbarLink
       {...link}
       key={link.label}
       activePanel={index === activePanel}
-      onClick={() => setActivePanel(index)}
+      onClick={() => {
+        setActivePanel(index);
+      }}
     />
   ));
+
   return (
     <nav className={classes.navbar}>
       <Center>
@@ -74,7 +78,9 @@ export default function Navbar() {
       <Stack justify="center" gap={0}>
         <NavbarLink
           icon={"settings"}
-          onClick={() => setActivePanel(3)}
+          onClick={() => {
+            setActivePanel(3);
+          }}
           label="Account Settings"
         />
         <NavbarLink icon={"logout"} label="Logout" />
