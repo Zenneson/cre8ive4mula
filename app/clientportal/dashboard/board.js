@@ -10,7 +10,7 @@ import {
   Title,
   Tooltip,
 } from "@mantine/core";
-import { useWindowEvent } from "@mantine/hooks";
+import { useResizeObserver } from "@mantine/hooks";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { usePortalState } from "../portalStore";
@@ -21,6 +21,7 @@ export default function Board({ taskData, boardType }) {
   const [tasks, setTasks] = useState(taskData);
   const { allowReorder, setAllowReorder } = usePortalState();
   const frameRef = useRef();
+  const [ref, rect] = useResizeObserver();
 
   const animationProps = {
     initial: { x: -50, opacity: 0, maxHeight: 0 },
@@ -80,9 +81,12 @@ export default function Board({ taskData, boardType }) {
     }, 2000);
   }, []);
 
-  useWindowEvent("resize", () => {
-    handleScroll();
-  });
+  const boardHeight = rect.height;
+  useEffect(() => {
+    setTimeout(() => {
+      handleScroll();
+    }, 1000);
+  }, [boardHeight]);
 
   const scrollToElement = (element) => {
     element.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -97,6 +101,7 @@ export default function Board({ taskData, boardType }) {
         className={`panel ${classes.boards}`}
         gap={0}
         p={0}
+        ref={ref}
       >
         <Group className={classes.boardsHeader} justify="space-between" mb={-3}>
           <Group gap={5}>

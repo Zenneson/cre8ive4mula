@@ -63,6 +63,14 @@ h1.title {
   border: none;
 }
 
+.closeIcon {
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.07);
+  }
+}
+
 div.taskType {
   text-transform: uppercase;
   font-family: var(--font-montserrat);
@@ -89,6 +97,13 @@ div.infoList {
   position: absolute;
   top: 0;
   left: 0;
+  opacity: 0;
+}
+
+div.detailsShowing {
+  animation: fadeIn 300ms ease-in-out;
+  animation-fill-mode: both;
+  opacity: 1;
 }
 
 p.tagsList,
@@ -249,5 +264,14 @@ div.reordering {
   }
   100% {
     height: 0;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

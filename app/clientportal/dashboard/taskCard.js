@@ -27,6 +27,7 @@ import classes from "./styles/taskCard.module.css";
 export default function TaskCard(props) {
   const { taskData, boardType, index, draggableId, scrollToElement } = props;
   const [viewTask, setViewTask] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
   const [brightDetails, setBrightDetails] = useState(false);
   const { allowReorder } = usePortalState();
   const frameRef = useRef();
@@ -70,8 +71,11 @@ export default function TaskCard(props) {
                 }`}
                 onClick={() => {
                   if (boardType === "Submitted Tasks" && allowReorder) return;
-                  setViewTask(!viewTask);
                   scrollToElement(frameRef.current);
+                  setViewTask(true);
+                  setTimeout(() => {
+                    setShowDetails(true);
+                  }, 100);
                 }}
                 pos={"relative"}
                 pt={5}
@@ -133,6 +137,11 @@ export default function TaskCard(props) {
                       fit="contain"
                       w={viewTask ? 20 : 0}
                       mr={-5}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowDetails(false);
+                        setViewTask(false);
+                      }}
                     />
                   </Flex>
                 </Group>
@@ -172,7 +181,13 @@ export default function TaskCard(props) {
                   justify="space-between"
                   pos={"relative"}
                 >
-                  <Stack className={classes.infoList} gap={0} w={infoListWidth}>
+                  <Stack
+                    className={`${classes.infoList} ${
+                      showDetails && classes.detailsShowing
+                    }`}
+                    w={infoListWidth}
+                    gap={0}
+                  >
                     {taskData.tags && taskData.tags.length > 0 && (
                       <Flex className={classes.addedTags} gap={5}>
                         <Image
