@@ -32,12 +32,11 @@ import ServiceSelect from "./serviceSelect";
 import classes from "./styles/taskFrom.module.css";
 
 export default function TaskForm(props) {
-  const { service, setSubmissionPanel, choosenType } = props;
+  const { services, setSubmissionPanel, choosenType } = props;
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [selectedColor, setSelectedColor] = useState("#0000FF");
-  const [choosenService, setChoosenService] = useState("");
   const [typeColor, setTypeColor] = useState();
   const [deliverInfo, setDeliverInfo] = useState(false);
 
@@ -98,11 +97,7 @@ export default function TaskForm(props) {
             />
           </Grid.Col>
           <Grid.Col span="content">
-            <ServiceSelect
-              service={service}
-              choosenService={choosenService}
-              setChoosenService={setChoosenService}
-            />
+            <ServiceSelect services={services} />
           </Grid.Col>
         </Grid>
         <Box hidden={choosenType?.title !== "Web Dev"}>
@@ -138,6 +133,7 @@ export default function TaskForm(props) {
                 classNames={{ dropdown: classes.colorPopoverDropdown }}
                 position="top"
                 width="target"
+                py={10}
               >
                 <Popover.Target>
                   <Button w={"100%"}>
@@ -204,8 +200,9 @@ export default function TaskForm(props) {
               {(props) => (
                 <Button
                   {...props}
+                  leftSection={<PiUploadSimpleBold size={18} />}
                   w={"100%"}
-                  leftSection={<PiUploadSimpleBold size={17} />}
+                  py={8}
                 >
                   Files
                 </Button>

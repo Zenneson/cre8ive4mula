@@ -30,7 +30,6 @@ export default function Board({ taskData, boardType }) {
       opacity: 1,
       maxHeight: "calc(100vh - 100px)",
     },
-    exit: { x: -50, opacity: 0, height: 0 },
     transition: { duration: 2, delay: taskData.id * 0.1 },
   };
 

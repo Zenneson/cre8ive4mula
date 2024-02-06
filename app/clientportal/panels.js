@@ -7,9 +7,8 @@ import classes from "./styles/clientPortal.module.css";
 import SubmitTask from "./submitTask/submitTask";
 
 const animation = {
-  initial: { y: -50, opacity: 0, duration: 500 },
+  initial: { y: -100, opacity: 0, duration: 500 },
   animate: { y: 0, opacity: 1, duration: 500 },
-  exit: { y: 50, opacity: 0, duration: 500 },
   transition: { type: "ease-in-out" },
 };
 

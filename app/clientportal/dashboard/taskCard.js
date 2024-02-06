@@ -35,10 +35,10 @@ export default function TaskCard(props) {
   const infoListWidth = width;
 
   const animationProps = {
-    initial: { x: -50, opacity: 0 },
+    initial: { x: -25, opacity: 0 },
     animate: { x: 0, opacity: 1 },
-    exit: { x: -50, opacity: 0 },
-    transition: { duration: 0.5, delay: index * 0.2 },
+    exit: { x: -25, opacity: 0 },
+    transition: { duration: 1, delay: index * 0.2 },
   };
 
   const colorWay = taskData.colors?.map((color, index) => (

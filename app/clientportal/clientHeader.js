@@ -11,6 +11,7 @@ import {
   Title,
   Tooltip,
 } from "@mantine/core";
+import { motion } from "framer-motion";
 import { usePortalState } from "./portalStore";
 import classes from "./styles/clientHeader.module.css";
 
@@ -32,113 +33,121 @@ export default function ClientHeader() {
     }
   };
 
-  return (
-    <Group
-      className={classes.headerFrame}
-      justify="space-between"
-      mb={"2px"}
-      pr={13}
-      pl={125}
-    >
-      <Stack gap={0}>
-        <Flex align={"center"} gap={10}>
-          <Title className={classes.companyName}>
-            Sheaperd&rsquo;s Valley, LLC
-          </Title>
-          <Badge size="md">Pro</Badge>
-        </Flex>
-        <Text mt={-8} fw={700} fz={12} c={"#fff"} tt={"uppercase"}>
-          <Text c={"gray.4"} fz={12} component="span">
-            Cleint Portal -{" "}
-          </Text>
-          {panelLabel(activePanel)}
-        </Text>
-      </Stack>
+  const animationProps = {
+    initial: { y: -100, opacity: 0 },
+    animate: { y: 0, opacity: 1 },
+    transition: { duration: 1, delay: 0.5 },
+  };
 
-      <Stack gap={0} align="flex-end">
-        <Tooltip
-          position={"bottom"}
-          withArrow
-          label={"Account Settings"}
-          offset={5}
-        >
-          <Badge
-            className={classes.userBadge}
-            variant="light"
-            color={"#fff"}
-            size="md"
-            tt={"inherit"}
-            onClick={() => setActivePanel(3)}
+  return (
+    <motion.div {...animationProps}>
+      <Group
+        className={classes.headerFrame}
+        justify="space-between"
+        mb={"2px"}
+        pr={13}
+        pl={125}
+      >
+        <Stack gap={0}>
+          <Flex align={"center"} gap={10}>
+            <Title className={classes.companyName}>
+              Sheaperd&rsquo;s Valley, LLC
+            </Title>
+            <Badge size="md">Pro</Badge>
+          </Flex>
+          <Text mt={-8} fw={700} fz={12} c={"#fff"} tt={"uppercase"}>
+            <Text c={"gray.4"} fz={12} component="span">
+              Cleint Portal -{" "}
+            </Text>
+            {panelLabel(activePanel)}
+          </Text>
+        </Stack>
+
+        <Stack gap={0} align="flex-end">
+          <Tooltip
+            position={"bottom"}
+            withArrow
+            label={"Account Settings"}
+            offset={5}
           >
-            useremail@gmail.com
-          </Badge>
-        </Tooltip>
-        <Group gap={0}>
-          <Box className={activePanel === 0 && classes.currentPanel}>
-            <Tooltip
-              position={"bottom"}
-              withArrow
-              label={"Dashboard"}
-              offset={-3}
+            <Badge
+              className={classes.userBadge}
+              variant="light"
+              color={"#fff"}
+              size="md"
+              tt={"inherit"}
+              onClick={() => setActivePanel(3)}
             >
-              <ActionIcon
-                size="xl"
-                variant="transparent"
-                className={classes.topRightBtns}
-                onClick={() => setActivePanel(0)}
+              useremail@gmail.com
+            </Badge>
+          </Tooltip>
+          <Group gap={0}>
+            <Box className={activePanel === 0 && classes.currentPanel}>
+              <Tooltip
+                position={"bottom"}
+                withArrow
+                label={"Dashboard"}
+                offset={-3}
               >
-                <Image
-                  src={"/img/menu/dashboard.svg"}
-                  alt={"Submit Task"}
-                  height={25}
-                />
-              </ActionIcon>
-            </Tooltip>
-          </Box>
-          <Box className={activePanel === 1 && classes.currentPanel}>
-            <Tooltip
-              position={"bottom"}
-              withArrow
-              label={"Submit Task"}
-              offset={-3}
-            >
-              <ActionIcon
-                size="xl"
-                variant="transparent"
-                className={classes.topRightBtns}
-                onClick={() => setActivePanel(1)}
+                <ActionIcon
+                  size="xl"
+                  variant="transparent"
+                  className={classes.topRightBtns}
+                  onClick={() => setActivePanel(0)}
+                >
+                  <Image
+                    src={"/img/menu/dashboard.svg"}
+                    alt={"Submit Task"}
+                    height={25}
+                  />
+                </ActionIcon>
+              </Tooltip>
+            </Box>
+            <Box className={activePanel === 1 && classes.currentPanel}>
+              <Tooltip
+                position={"bottom"}
+                withArrow
+                label={"Submit Task"}
+                offset={-3}
               >
-                <Image
-                  src={"/img/menu/submitTask.svg"}
-                  alt={"Submit Task"}
-                  height={25}
-                />
-              </ActionIcon>
-            </Tooltip>
-          </Box>
-          <Box className={activePanel === 2 && classes.currentPanel}>
-            <Tooltip
-              position={"bottom"}
-              withArrow
-              label={"Archive"}
-              offset={-3}
-            >
-              <ActionIcon
-                size="xl"
-                variant="transparent"
-                className={classes.topRightBtns}
-                onClick={() => setActivePanel(2)}
+                <ActionIcon
+                  size="xl"
+                  variant="transparent"
+                  className={classes.topRightBtns}
+                  onClick={() => setActivePanel(1)}
+                >
+                  <Image
+                    src={"/img/menu/submitTask.svg"}
+                    alt={"Submit Task"}
+                    height={25}
+                  />
+                </ActionIcon>
+              </Tooltip>
+            </Box>
+            <Box className={activePanel === 2 && classes.currentPanel}>
+              <Tooltip
+                position={"bottom"}
+                withArrow
+                label={"Archive"}
+                offset={-3}
               >
-                <Image
-                  src={"/img/menu/fileRepo.svg"}
-                  alt={"Archive"}
-                  height={25}
-                />
-              </ActionIcon>
-            </Tooltip>
-          </Box>
-        </Group>
-      </Stack>
-    </Group>
+                <ActionIcon
+                  size="xl"
+                  variant="transparent"
+                  className={classes.topRightBtns}
+                  onClick={() => setActivePanel(2)}
+                >
+                  <Image
+                    src={"/img/menu/fileRepo.svg"}
+                    alt={"Archive"}
+                    height={25}
+                  />
+                </ActionIcon>
+              </Tooltip>
+            </Box>
+          </Group>
+        </Stack>
+      </Group>
+    </motion.div>
   );
 }

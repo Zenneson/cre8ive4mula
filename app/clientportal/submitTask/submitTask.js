@@ -124,7 +124,7 @@ export default function SubmitTask() {
         <TaskForm
           setSubmissionPanel={setSubmissionPanel}
           choosenType={choosenType}
-          service={serviceList}
+          services={serviceList}
         />
       </Center>
       <Center

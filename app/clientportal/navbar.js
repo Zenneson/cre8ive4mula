@@ -8,6 +8,7 @@ import {
   UnstyledButton,
   rem,
 } from "@mantine/core";
+import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { usePortalState } from "./portalStore";
 import classes from "./styles/navbar.module.css";
@@ -45,46 +46,77 @@ const NavbarLink = ({ icon, label, activePanel, onClick }) => {
   );
 };
 
-export default function Navbar() {
+const MainLogo = () => {
   const router = useRouter();
-  const { activePanel, setActivePanel } = usePortalState();
-
-  const links = linkData.map((link, index) => (
-    <NavbarLink
-      {...link}
-      key={link.label}
-      activePanel={index === activePanel}
-      onClick={() => {
-        setActivePanel(index);
-      }}
-    />
-  ));
+  const logoAnimationProps = {
+    initial: { scale: 0, opacity: 0 },
+    animate: { scale: 1, opacity: 1 },
+    transition: { duration: 2, delay: 2 },
+  };
 
   return (
-    <nav className={classes.navbar}>
-      <Center>
-        <Image
-          className={classes.mainLogo}
-          src="/img/svgLogo.svg"
-          alt="Logo"
-          onClick={() => router.push("/", { scroll: false })}
-        />
-      </Center>
-      <div className={classes.navbarMain}>
-        <Stack justify="center" gap={0}>
-          {links}
-        </Stack>
-      </div>
-      <Stack justify="center" gap={0}>
+    <motion.div {...logoAnimationProps}>
+      <Image
+        className={classes.mainLogo}
+        src="/img/svgLogo.svg"
+        alt="Logo"
+        onClick={() => router.push("/", { scroll: false })}
+      />
+    </motion.div>
+  );
+};
+
+export default function Navbar() {
+  const { activePanel, setActivePanel } = usePortalState();
+
+  const animationProps = {
+    initial: { x: -100, opacity: 0 },
+    animate: { x: 0, opacity: 1 },
+    transition: { duration: 1 },
+  };
+
+  const links = linkData.map((link, index) => {
+    const btnAnimationProps = {
+      initial: { x: -100, opacity: 0 },
+      animate: { x: 0, opacity: 1 },
+      transition: { duration: 1, delay: index * 0.2 },
+    };
+
+    return (
+      <motion.div key={link.label} {...btnAnimationProps}>
         <NavbarLink
-          icon={"settings"}
+          {...link}
+          activePanel={index === activePanel}
           onClick={() => {
-            setActivePanel(3);
+            setActivePanel(index);
           }}
-          label="Account Settings"
         />
-        <NavbarLink icon={"logout"} label="Logout" />
-      </Stack>
-    </nav>
+      </motion.div>
+    );
+  });
+
+  return (
+    <motion.div {...animationProps}>
+      <nav className={classes.navbar}>
+        <Center>
+          <MainLogo />
+        </Center>
+        <div className={classes.navbarMain}>
+          <Stack justify="center" gap={0}>
+            {links}
+          </Stack>
+        </div>
+        <Stack justify="center" gap={0}>
+          <NavbarLink
+            icon={"settings"}
+            onClick={() => {
+              setActivePanel(3);
+            }}
+            label="Account Settings"
+          />
+          <NavbarLink icon={"logout"} label="Logout" />
+        </Stack>
+      </nav>
+    </motion.div>
   );
 }
