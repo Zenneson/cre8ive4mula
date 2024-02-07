@@ -10,27 +10,21 @@ import {
   Image,
   Text,
 } from "@mantine/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdAttachment } from "react-icons/md";
 import { PiUploadBold } from "react-icons/pi";
 import classes from "./styles/filePanel.module.css";
 
-const data = [
-  {
-    name: "file1",
-    url: "https://www.google.com",
-  },
-  {
-    name: "file2",
-    url: "https://www.google.com",
-  },
-];
-
-export default function FilePanel() {
-  const [files, setFiles] = useState(data);
+export default function FilePanel(props) {
+  const { setFormData } = props;
+  const [files, setFiles] = useState([]);
   const removeFile = (fileToRemove) => {
     setFiles(files.filter((file) => file !== fileToRemove));
   };
+
+  useEffect(() => {
+    setFormData({ files: files });
+  }, [files, setFormData]);
 
   const fileRow = files.map((file, index) => {
     return (

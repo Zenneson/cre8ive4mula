@@ -40,9 +40,9 @@ const typeDef = {
 };
 
 const MentBtn = ({ button }) => {
-  const { choosenType, setChoosenType } = useSubissionData();
+  const { formData, setFormData } = useSubissionData();
 
-  const active = choosenType && choosenType.title === button.text;
+  const active = formData.type && formData.type.title === button.text;
   const lottieRef1 = useRef();
   const lottieRef2 = useRef();
 
@@ -59,10 +59,12 @@ const MentBtn = ({ button }) => {
 
   const selectType = (buttonText) => {
     const desc = typeDef[buttonText];
+    if (formData.type?.title === buttonText) {
+      setFormData({ type: {} });
+      return;
+    }
     if (desc) {
-      setChoosenType({ title: buttonText, desc });
-    } else {
-      console.log("No matching type found");
+      setFormData({ type: { title: buttonText, desc } });
     }
   };
 

@@ -1,4 +1,6 @@
+"use client";
 import {
+  Badge,
   Box,
   Button,
   Grid,
@@ -12,10 +14,25 @@ import {
 } from "@mantine/core";
 import { FaPlay } from "react-icons/fa";
 import classes from "./styles/chooseTypePanel.module.css";
-import { TypeBtnsCache } from "./submitTask";
+import TypeBtns from "./typeBtns";
 
 export default function ChooseTypePanel(props) {
-  const { choosenType, serviceBadges, setSubmissionPanel } = props;
+  const { setupData, choosenType, setSubmissionPanel } = props;
+
+  const serviceList = setupData?.service;
+  const serviceBadges = serviceList?.map((service, i) => {
+    return (
+      <Badge
+        key={i}
+        className={classes.serviceBadges}
+        color={setupData.color}
+        size={"xs"}
+        variant="filled"
+      >
+        {service}
+      </Badge>
+    );
+  });
 
   return (
     <Stack mih={"700px"} gap={5}>
@@ -29,10 +46,10 @@ export default function ChooseTypePanel(props) {
         <Title order={4}>Task Type</Title>
       </Group>
       <SimpleGrid cols={3} spacing={20}>
-        <TypeBtnsCache />
+        <TypeBtns />
       </SimpleGrid>
       <Transition
-        mounted={choosenType}
+        mounted={choosenType && choosenType.title}
         transition="scale-y"
         timingFunction="ease"
       >

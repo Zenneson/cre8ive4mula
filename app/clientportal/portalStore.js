@@ -11,13 +11,28 @@ export const usePortalState = create((set) => ({
   setActivePanel: (value) => set({ activePanel: value }),
 }));
 
+// Submission Data
 export const useSubissionData = create(
   persist(
     (set) => ({
-      choosenType: "",
-      setChoosenType: (value) => set({ choosenType: value }),
       submissionPanel: 0,
       setSubmissionPanel: (value) => set({ submissionPanel: value }),
+      formData: {
+        type: "",
+        title: "",
+        service: "",
+        goal: "",
+        description: "",
+        styleKeywords: [],
+        deliveryFormats: [],
+        websites: [],
+        colors: [],
+        files: [],
+      },
+      setFormData: (newFormData) =>
+        set((state) => ({
+          formData: { ...state.formData, ...newFormData },
+        })),
     }),
     {
       name: "submissionData",

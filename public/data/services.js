@@ -1,0 +1,30 @@
+export const services = {
+  design: [
+    "Logo Design",
+    "UX / UI Design",
+    "Brand Identity",
+    "Website / App Wireframing",
+    "Print Design",
+    "Infographic Design",
+    "Photoshop Editing",
+    "Social Media Posts",
+    "Promotion Material",
+  ],
+  content: [
+    "Editing and Proofreading",
+    "Marketing Copywriting",
+    "SEO Optimization",
+    "Content Transcribing ",
+  ],
+  webdev: [
+    "Performance Optimization",
+    "Feature Development",
+    "API Development",
+    "Database Management",
+    "Website Migration",
+    "Security Optimization",
+    "Bug Fixes and Troubleshooting",
+    "Payment Gateway Integration",
+    "CMS Management",
+  ],
+};

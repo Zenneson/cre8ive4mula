@@ -1,19 +1,17 @@
 "use client";
 import "@dotlottie/react-player/dist/index.css";
-import { Affix, Badge, Button, Center, Group, Text } from "@mantine/core";
-import { cache } from "react";
+import { Affix, Button, Center, Group, Text } from "@mantine/core";
+import { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
+import { services } from "../../../public/data/services";
 import { useSubissionData } from "../portalStore";
-import TypeBtns from "../submitTask/typeBtns";
 import ChooseTypePanel from "./chooseTypePanel";
 import classes from "./styles/submitTask.module.css";
 import TaskForm from "./taskForm";
 
-export const TypeBtnsCache = cache(() => <TypeBtns />);
-
 export default function SubmitTask() {
-  const { choosenType, submissionPanel, setSubmissionPanel } =
-    useSubissionData();
+  const { formData, submissionPanel, setSubmissionPanel } = useSubissionData();
+  const [typeServices, setTypeServices] = useState();
 
   const submitPage = () => {
     switch (submissionPanel) {
@@ -34,61 +32,23 @@ export default function SubmitTask() {
     }
   };
 
-  const services = {
-    design: [
-      "Logo Design",
-      "UX / UI Design",
-      "Brand Identity",
-      "Website / App Wireframing",
-      "Print Design",
-      "Infographic Design",
-      "Photoshop Editing",
-      "Social Media Posts",
-      "Promotion Material",
-    ],
-    content: [
-      "Editing and Proofreading",
-      "Marketing Copywriting",
-      "SEO Optimization",
-      "Content Transcribing ",
-    ],
-    webdev: [
-      "Performance Optimization",
-      "Feature Development",
-      "API Development",
-      "Database Management",
-      "Website Migration",
-      "Security Optimization",
-      "Bug Fixes and Troubleshooting",
-      "Payment Gateway Integration",
-      "CMS Management",
-    ],
-  };
-
   const setup = () => {
-    if (choosenType && choosenType.title === "Design")
+    if (formData.type && formData.type.title === "Design") {
       return { color: "deeporange.5", service: services.design };
-    if (choosenType && choosenType.title === "Content")
+    }
+    if (formData.type && formData.type.title === "Content") {
       return { color: "deepred.6", service: services.content };
-    if (choosenType && choosenType.title === "Web Dev")
+    }
+    if (formData.type && formData.type.title === "Web Dev") {
       return { color: "#ffd941", service: services.webdev };
+    }
   };
-
   const setupData = setup();
-  const serviceList = setupData?.service;
-  const serviceBadges = serviceList?.map((service, i) => {
-    return (
-      <Badge
-        key={i}
-        className={classes.serviceBadges}
-        color={setupData.color}
-        size={"xs"}
-        variant="filled"
-      >
-        {service}
-      </Badge>
-    );
-  });
+  useEffect(() => {
+    if (setupData && setupData.service) {
+      setTypeServices(setupData.service);
+    }
+  }, [setupData]);
 
   return (
     <Group className={classes.centerFrame} left={submitPage()} gap={"0px"}>
@@ -115,17 +75,13 @@ export default function SubmitTask() {
         ml={"110px"}
       >
         <ChooseTypePanel
-          choosenType={choosenType}
-          serviceBadges={serviceBadges}
+          setupData={setupData}
+          choosenType={formData.type}
           setSubmissionPanel={setSubmissionPanel}
         />
       </Center>
       <Center id="1" w={"calc(100vw - 110px)"} pos={"relative"} ml={"110px"}>
-        <TaskForm
-          setSubmissionPanel={setSubmissionPanel}
-          choosenType={choosenType}
-          services={serviceList}
-        />
+        <TaskForm typeServices={typeServices} />
       </Center>
       <Center
         id="2"

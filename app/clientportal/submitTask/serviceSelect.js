@@ -5,18 +5,28 @@ import {
   Text,
   useCombobox,
 } from "@mantine/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import classes from "./styles/serviceSelect.module.css";
 
 export default function ServiceSelect(props) {
-  const { services, tabIndex } = props;
+  const { typeServices, setFormData, tabIndex } = props;
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
 
-  const [data, setData] = useState(services || []);
+  const [data, setData] = useState([]);
   const [value, setValue] = useState(null);
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    if (typeServices) {
+      setData(typeServices);
+    }
+  }, [typeServices]);
+
+  useEffect(() => {
+    setFormData({ service: value });
+  }, [value, setFormData]);
 
   const exactOptionMatch = data.some((item) => item === search);
   const filteredOptions = exactOptionMatch

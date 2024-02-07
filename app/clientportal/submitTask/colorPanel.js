@@ -18,16 +18,20 @@ import {
 } from "@mantine/core";
 import { useDebouncedState } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCirclePlus } from "react-icons/fa6";
 import { HiOutlineColorSwatch } from "react-icons/hi";
 import { LuPaintBucket } from "react-icons/lu";
 import classes from "./styles/colorPanel.module.css";
 
 export default function ColorPanel(props) {
-  const { choosenType } = props;
+  const { choosenType, setFormData } = props;
   const [selectedColor, setSelectedColor] = useDebouncedState("#0000FF", 200);
   const [colors, setColors] = useState([]);
+
+  useEffect(() => {
+    setFormData({ colors: colors });
+  }, [colors, setFormData]);
 
   const addColor = () => {
     if (selectedColor !== "" && !colors.includes(selectedColor)) {
