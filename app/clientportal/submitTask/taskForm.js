@@ -7,7 +7,6 @@ import {
   Button,
   Center,
   Dialog,
-  FileButton,
   Grid,
   Group,
   Image,
@@ -23,16 +22,14 @@ import {
 import { useSetState } from "@mantine/hooks";
 import { useEffect, useRef, useState } from "react";
 import { FaPlay } from "react-icons/fa";
-import { MdAttachment } from "react-icons/md";
-import { PiUploadBold } from "react-icons/pi";
 import { TbHelpSmall, TbHelpSquareFilled } from "react-icons/tb";
 import ColorPanel from "./colorPanel";
+import FilePanel from "./filePanel";
 import ServiceSelect from "./serviceSelect";
 import classes from "./styles/taskFrom.module.css";
 
 export default function TaskForm(props) {
   const { services, setSubmissionPanel, choosenType } = props;
-  const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [typeColor, setTypeColor] = useState();
@@ -286,36 +283,7 @@ export default function TaskForm(props) {
       </Stack>
       <Stack mt={20} gap={20}>
         <ColorPanel choosenType={choosenType} />
-        <Grid
-          gutter={20}
-          className={`innerPanel ${classes.relatedFiles}`}
-          p={20}
-        >
-          <Grid.Col span="3">
-            <FileButton onChange={setFile} accept="image/png,image/jpeg">
-              {(props) => (
-                <Button
-                  {...props}
-                  leftSection={<PiUploadBold size={18} />}
-                  w={"100%"}
-                  py={8}
-                >
-                  Files
-                </Button>
-              )}
-            </FileButton>
-          </Grid.Col>
-          <Grid.Col span="auto">
-            <Box className="altPanel">
-              <Group gap={10} opacity={0.25}>
-                <MdAttachment />
-                <Text fz={11} fw={700} tt={"uppercase"}>
-                  Upladed Files
-                </Text>
-              </Group>
-            </Box>
-          </Grid.Col>
-        </Grid>
+        <FilePanel />
         <Group justify="flex-end">
           <Button
             className={classes.backBtn}
