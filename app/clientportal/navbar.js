@@ -51,7 +51,7 @@ const MainLogo = () => {
   const logoAnimationProps = {
     initial: { scale: 0, opacity: 0 },
     animate: { scale: 1, opacity: 1 },
-    transition: { duration: 2, delay: 1 },
+    transition: { duration: 1, delay: 1 },
   };
 
   return (

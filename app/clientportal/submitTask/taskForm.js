@@ -23,10 +23,11 @@ import {
 } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
-import { FaCirclePlus, FaPlus } from "react-icons/fa6";
+import { FaCirclePlus } from "react-icons/fa6";
+import { HiOutlineColorSwatch } from "react-icons/hi";
 import { LuPaintBucket } from "react-icons/lu";
 import { MdAttachment } from "react-icons/md";
-import { PiUploadSimpleBold } from "react-icons/pi";
+import { PiUploadBold } from "react-icons/pi";
 import { TbHelpSmall, TbHelpSquareFilled } from "react-icons/tb";
 import ServiceSelect from "./serviceSelect";
 import classes from "./styles/taskFrom.module.css";
@@ -45,15 +46,75 @@ export default function TaskForm(props) {
     setTypeColor(taskColor(choosenType.title));
   }, [choosenType]);
 
+  const [helpMode, setHelpMode] = useState("style keywords");
+  const HelpInfo = () => {
+    if (helpMode === "style keywords") {
+      return (
+        <Box>
+          <Text fz={13} ta={"center"}>
+            Add keywords that define the style
+            <br />
+            you want for your project.
+          </Text>
+          <Text className={classes.dialogInfoEnter}>
+            Press <Kbd size="xs">Enter</Kbd> to add
+            <br />
+            the keyword to the list.
+          </Text>
+        </Box>
+      );
+    }
+    if (helpMode === "delivery formats") {
+      return (
+        <>
+          <Text fz={13} ta={"center"}>
+            Add your perfered file types, such as <br />
+            <Text component="span" fw={700} opacity={0.5} fz={17}>
+              JPG, PNG, SVG, EPS, PDF, PSD,
+            </Text>
+            <br />
+            or any other formats relevant to your needs.
+          </Text>
+          <Text className={classes.dialogInfoEnter}>
+            Press <Kbd size="xs">Enter</Kbd> to add file type to the list.
+          </Text>
+        </>
+      );
+    }
+    if (helpMode === "websites") {
+      return (
+        <Box px={30}>
+          <Text fz={13} ta={"center"}>
+            Add all the websites you want to use as a reference for your
+            project.
+          </Text>
+          <Text className={classes.dialogInfoEnter}>
+            Press <Kbd size="xs">Enter</Kbd> to add
+            <br />
+            the site to the list.
+          </Text>
+        </Box>
+      );
+    }
+  };
+
   const AddTags = (props) => {
-    const { placeholder } = props;
+    const { placeholder, mode } = props;
     return (
       <TagsInput
         leftSection={
           <ActionIcon
             variant="transparent"
             color="#777"
-            onClick={() => setDeliverInfo(!deliverInfo)}
+            onClick={() => {
+              if (helpMode === mode) {
+                setDeliverInfo(false);
+                setHelpMode("");
+                return;
+              }
+              setHelpMode(mode);
+              setDeliverInfo(true);
+            }}
           >
             <TbHelpSquareFilled className={classes.tagsInput} size={30} />
           </ActionIcon>
@@ -66,7 +127,7 @@ export default function TaskForm(props) {
   };
 
   return (
-    <Box>
+    <Box mt={-100}>
       <Group className={classes.taskFormTitle} justify="space-between">
         <Group gap="7">
           <Image
@@ -114,11 +175,17 @@ export default function TaskForm(props) {
         <Stack hidden={choosenType?.title !== "Design"} gap={20}>
           {choosenType?.title === "Design" && (
             <>
-              <AddTags placeholder="Style Defining Keywords..." />
-              <AddTags placeholder="Delivery File Formats..." />
+              <AddTags
+                placeholder="Style Defining Keywords..."
+                mode={"style keywords"}
+              />
+              <AddTags
+                placeholder="Delivery File Formats..."
+                mode={"delivery formats"}
+              />
             </>
           )}
-          <AddTags placeholder="Websites..." />
+          <AddTags placeholder="Websites..." mode={"websites"} />
         </Stack>
       </Stack>
       <Stack mt={20} gap={20}>
@@ -136,11 +203,11 @@ export default function TaskForm(props) {
                 py={10}
               >
                 <Popover.Target>
-                  <Button w={"100%"}>
-                    <Group gap={5}>
-                      <FaPlus />
-                      Color
-                    </Group>
+                  <Button
+                    leftSection={<HiOutlineColorSwatch size={18} />}
+                    w={"100%"}
+                  >
+                    Add Colors
                   </Button>
                 </Popover.Target>
                 <Popover.Dropdown>
@@ -200,7 +267,7 @@ export default function TaskForm(props) {
               {(props) => (
                 <Button
                   {...props}
-                  leftSection={<PiUploadSimpleBold size={18} />}
+                  leftSection={<PiUploadBold size={18} />}
                   w={"100%"}
                   py={8}
                 >
@@ -247,25 +314,18 @@ export default function TaskForm(props) {
         className={classes.deliverInfoDialog}
         opened={deliverInfo}
         withCloseButton
-        onClose={() => setDeliverInfo(false)}
         size={340}
         p={"20px 25px"}
+        onClose={() => {
+          setDeliverInfo(false);
+          setHelpMode("");
+        }}
       >
         <Center className={classes.dialogIcon}>
           <TbHelpSmall size={30} />
         </Center>
         <Box w={375} pr={55}>
-          <Text fz={13} ta={"center"}>
-            Add your perfered file types, such as <br />
-            <Text component="span" fw={700} opacity={0.5} fz={17}>
-              JPG, PNG, SVG, EPS, PDF, PSD,
-            </Text>
-            <br />
-            or any other formats relevant to your needs.
-          </Text>
-          <Text className={classes.dialogInfoEnter}>
-            Press <Kbd size="xs">Enter</Kbd> to add file type to the list.
-          </Text>
+          <HelpInfo />
         </Box>
       </Dialog>
     </Box>

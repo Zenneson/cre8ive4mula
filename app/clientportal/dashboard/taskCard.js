@@ -25,8 +25,15 @@ import { usePortalState } from "../portalStore";
 import classes from "./styles/taskCard.module.css";
 
 export default function TaskCard(props) {
-  const { taskData, boardType, index, draggableId, scrollToElement } = props;
-  const [viewTask, setViewTask] = useState(false);
+  const {
+    viewTask,
+    setViewTask,
+    taskData,
+    boardType,
+    index,
+    draggableId,
+    scrollToElement,
+  } = props;
   const [showDetails, setShowDetails] = useState(false);
   const [brightDetails, setBrightDetails] = useState(false);
   const { allowReorder } = usePortalState();
@@ -52,7 +59,7 @@ export default function TaskCard(props) {
   );
 
   const websitesList = taskData.websites?.map((site, index) =>
-    index < taskData.websites.length - 1 ? `${site} | ` : site
+    index < taskData.websites.length - 1 ? `${site}, ` : site
   );
 
   return (

@@ -14,11 +14,9 @@ export default function ServiceSelect(props) {
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
 
-  const [data, setData] = useState(services);
+  const [data, setData] = useState(services || []);
   const [value, setValue] = useState(null);
   const [search, setSearch] = useState("");
-
-  console.log("🚀 ~ SelectCreatable ~ value:", value);
 
   const exactOptionMatch = data.some((item) => item === search);
   const filteredOptions = exactOptionMatch
@@ -95,8 +93,8 @@ export default function ServiceSelect(props) {
           {options}
           {!exactOptionMatch && search.trim().length > 0 && (
             <Combobox.Option value="$create">
-              <Text component="span" fw={700} fz={15} opacity={0.2}>
-                &#9205; SELECT:
+              <Text component="span" fw={100} fz={13} opacity={0.8}>
+                + Request to add:
               </Text>
               &quot;{search}&quot;
             </Combobox.Option>

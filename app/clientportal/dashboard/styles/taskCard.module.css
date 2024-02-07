@@ -65,9 +65,11 @@ h1.title {
 
 .closeIcon {
   cursor: pointer;
+  opacity: 0.7;
 
   &:hover {
     transform: scale(1.07);
+    opacity: 1;
   }
 }
 

@@ -1,6 +1,10 @@
 "use client";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
-import { checkScrollPosition, scrollToward } from "@libs/custom";
+import {
+  allValuesFalse,
+  checkScrollPosition,
+  scrollToward,
+} from "@libs/custom";
 import {
   Box,
   Group,
@@ -19,14 +23,14 @@ import TaskCard from "./taskCard";
 
 export default function Board({ taskData, boardType }) {
   const [tasks, setTasks] = useState(taskData);
+  const [taskVisibility, setTaskVisibility] = useState({});
   const { allowReorder, setAllowReorder } = usePortalState();
   const frameRef = useRef();
   const [ref, rect] = useResizeObserver();
 
   const animationProps = {
-    initial: { x: -50, opacity: 0, maxHeight: 0 },
+    initial: { opacity: 0, maxHeight: 0 },
     animate: {
-      x: 0,
       opacity: 1,
       maxHeight: "calc(100vh - 100px)",
     },
@@ -82,13 +86,17 @@ export default function Board({ taskData, boardType }) {
 
   const boardHeight = rect.height;
   useEffect(() => {
-    setTimeout(() => {
-      handleScroll();
-    }, 1000);
+    handleScroll();
   }, [boardHeight]);
 
   const scrollToElement = (element) => {
     element.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
+  const cardsAreClosed = Object.keys(taskVisibility).length === 0;
+  const closeCards = () => {
+    if (cardsAreClosed && allValuesFalse) return;
+    setTaskVisibility({});
   };
 
   return (
@@ -103,7 +111,7 @@ export default function Board({ taskData, boardType }) {
         ref={ref}
       >
         <Group className={classes.boardsHeader} justify="space-between" mb={-3}>
-          <Group gap={5}>
+          <Group gap={8}>
             <Title order={4} fw={900}>
               {tasks.length}
             </Title>
@@ -111,18 +119,33 @@ export default function Board({ taskData, boardType }) {
               {boardType}
             </Title>
           </Group>
-          {boardType === "Submitted Tasks" && (
-            <Box className={classes.reorderBtnFrame}>
-              <Tooltip label="Reorder" position="bottom">
+          <Group className={classes.boardsBtnsFrame} gap={5}>
+            {boardType === "Submitted Tasks" && (
+              <Box>
+                <Tooltip label="Reorder">
+                  <Image
+                    src={"/img/reorder.svg"}
+                    alt="Reorder"
+                    onClick={() => setAllowReorder(!allowReorder)}
+                  />
+                </Tooltip>
+              </Box>
+            )}
+            <Box>
+              <Tooltip
+                label={
+                  cardsAreClosed ? "Task Cards are Closed" : "Close All Cards"
+                }
+              >
                 <Image
-                  className={classes.reorder}
-                  src={"/img/reorder.svg"}
+                  className={cardsAreClosed && classes.allCardsClosed}
+                  src={"/img/closeCard.svg"}
                   alt="Reorder"
-                  onClick={() => setAllowReorder(!allowReorder)}
+                  onClick={closeCards}
                 />
               </Tooltip>
             </Box>
-          )}
+          </Group>
         </Group>
         <Box
           type="never"
@@ -170,6 +193,13 @@ export default function Board({ taskData, boardType }) {
                       taskData={task}
                       boardType={boardType}
                       scrollToElement={scrollToElement}
+                      viewTask={taskVisibility[task.id] || false}
+                      setViewTask={(viewTask) =>
+                        setTaskVisibility((prev) => ({
+                          ...prev,
+                          [task.id]: viewTask,
+                        }))
+                      }
                     />
                   ))}
                 </AnimatePresence>

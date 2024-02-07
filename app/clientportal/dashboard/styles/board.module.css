@@ -12,21 +12,27 @@ div.boards {
   margin-top: 5px;
 }
 
-div.reorderBtnFrame {
+div.boardsBtnsFrame {
   top: 5px;
   right: 10px;
   position: absolute;
-  cursor: pointer;
-  opacity: 0.5;
 
-  &:hover {
-    opacity: 1;
-    transform: scale(1.1) !important;
-  }
-
-  img.reorder {
+  img {
+    cursor: pointer;
+    opacity: 0.5;
     width: 17px;
+    transform: scaleX(-1);
+
+    &:hover {
+      opacity: 1;
+      transform: scaleX(-1) !important;
+    }
   }
+}
+
+img.allCardsClosed {
+  filter: invert(26%) sepia(6%) saturate(1618%) hue-rotate(191deg)
+    brightness(92%) contrast(84%);
 }
 
 div.noScroll,
