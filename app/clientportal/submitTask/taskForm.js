@@ -21,6 +21,7 @@ import {
   Textarea,
   Title,
 } from "@mantine/core";
+import { useSetState } from "@mantine/hooks";
 import { useEffect, useRef, useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { FaCirclePlus } from "react-icons/fa6";
@@ -106,7 +107,11 @@ export default function TaskForm(props) {
 
   const [styleKeywords, setStyleKeywords] = useState([]);
   const [deliveryFormats, setDeliveryFormats] = useState([]);
-  const [websites, setWebsites] = useState([]);
+  const [websites, setWebsites] = useSetState({
+    value: [],
+    isValid: true,
+    invaidValue: "",
+  });
 
   const styleKeywordsRef = useRef(null);
   const deliveryFormatsRef = useRef(null);
@@ -129,9 +134,16 @@ export default function TaskForm(props) {
         return handler;
       }
       if (mode === "websites") {
-        handler.var = websites;
-        handler.setter = setWebsites;
+        handler.var = websites.value;
         handler.ref = websitesRef;
+        handler.setter = (newValue) => {
+          const isValid = newValue.every((v) => v.match(/[.][a-zA-Z]+$/));
+          if (isValid) {
+            setWebsites({ value: newValue, isValid: true, invaidValue: "" });
+          } else {
+            setWebsites({ isValid: false, invaidValue: newValue });
+          }
+        };
         return handler;
       }
     };
@@ -140,51 +152,72 @@ export default function TaskForm(props) {
     const maxAllowed = mode === "delivery formats" ? 5 : 10;
 
     const handleKeyDown = (event) => {
-      if (event.key === "Enter") {
+      if (event.key === "Enter" || event.key === "Backspace") {
         event.preventDefault();
         setTimeout(() => {
           modeRef.current?.focus();
-        }, 0);
+        }, 100);
       }
     };
 
     return (
-      <TagsInput
-        ref={modeRef}
-        tabIndex={tabIndex}
-        value={modeVar}
-        onChange={modeSetter}
-        onKeyDown={handleKeyDown}
-        leftSectionWidth={50}
-        leftSectionPointerEvents="all"
-        rightSection={
-          modeVar.length === 0
-            ? ""
-            : `${maxAllowed - modeVar.length} / ${maxAllowed}`
-        }
-        rightSectionWidth={50}
-        placeholder={
-          modeVar.length >= maxAllowed ? "Limit Reached" : placeholder
-        }
-        maxTags={maxAllowed}
-        leftSection={
-          <ActionIcon
-            variant="transparent"
-            color="#777"
-            onClick={() => {
-              if (helpMode === mode) {
-                setDeliverInfo(false);
-                setHelpMode("");
-                return;
-              }
-              setHelpMode(mode);
-              setDeliverInfo(true);
-            }}
-          >
-            <TbHelpSquareFilled className={classes.tagsInput} size={30} />
-          </ActionIcon>
-        }
-      />
+      <Popover
+        position="bottom-start"
+        opened={!websites.isValid && mode === "websites"}
+        offset={{ mainAxis: 20, crossAxis: -123 }}
+      >
+        <Popover.Target>
+          <TagsInput
+            ref={modeRef}
+            tabIndex={tabIndex}
+            value={modeVar}
+            onChange={modeSetter}
+            placeholder={
+              modeVar.length >= maxAllowed ? "Limit Reached" : placeholder
+            }
+            onKeyDown={handleKeyDown}
+            rightSectionWidth={50}
+            rightSectionPointerEvents="none"
+            rightSection={
+              modeVar.length === 0
+                ? ""
+                : `${maxAllowed - modeVar.length} / ${maxAllowed}`
+            }
+            maxTags={maxAllowed}
+            leftSectionWidth={50}
+            leftSectionPointerEvents="all"
+            leftSection={
+              <ActionIcon
+                variant="transparent"
+                color="#777"
+                onClick={() => {
+                  if (helpMode === mode) {
+                    setDeliverInfo(false);
+                    setHelpMode("");
+                    return;
+                  }
+                  setHelpMode(mode);
+                  setDeliverInfo(true);
+                }}
+              >
+                <TbHelpSquareFilled className={classes.tagsInput} size={30} />
+              </ActionIcon>
+            }
+          />
+        </Popover.Target>
+        <Popover.Dropdown ta={"center"}>
+          <Text fz={13} c={"#777"}>
+            <Text component="span" fw={700}>
+              &quot;{websites.invaidValue}&quot;
+            </Text>{" "}
+            is not valid. Must end with{" "}
+            <Text component="span" fw={700}>
+              &quot; . * * * &quot;
+            </Text>{" "}
+            (e.g. .com, .net, .org)
+          </Text>
+        </Popover.Dropdown>
+      </Popover>
     );
   };
 

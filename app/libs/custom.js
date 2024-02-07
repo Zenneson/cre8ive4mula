@@ -96,3 +96,11 @@ export const allValuesFalse = (obj) => {
   }
   return true;
 };
+
+// Removes the last item from an array.
+export const removeLastItem = (arr) => {
+  if (arr && arr.length > 0) {
+    arr.pop();
+  }
+  return arr;
+};
