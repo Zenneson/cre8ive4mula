@@ -21,7 +21,7 @@ import {
   Textarea,
   Title,
 } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { FaCirclePlus } from "react-icons/fa6";
 import { HiOutlineColorSwatch } from "react-icons/hi";
@@ -46,22 +46,23 @@ export default function TaskForm(props) {
     setTypeColor(taskColor(choosenType.title));
   }, [choosenType]);
 
-  const [helpMode, setHelpMode] = useState("style keywords");
+  const [helpMode, setHelpMode] = useState("");
   const HelpInfo = () => {
     if (helpMode === "style keywords") {
       return (
-        <Box>
+        <>
           <Text fz={13} ta={"center"}>
             Add keywords that define the style
             <br />
-            you want for your project.
+            you want for this task.
           </Text>
           <Text className={classes.dialogInfoEnter}>
-            Press <Kbd size="xs">Enter</Kbd> to add
-            <br />
-            the keyword to the list.
+            Press <Kbd size="xs">Enter</Kbd> to add the keyword to the list.
           </Text>
-        </Box>
+          <Text ta={"center"} fz={11} mt={7} fw={700}>
+            10 Entires Allowed
+          </Text>
+        </>
       );
     }
     if (helpMode === "delivery formats") {
@@ -78,30 +79,94 @@ export default function TaskForm(props) {
           <Text className={classes.dialogInfoEnter}>
             Press <Kbd size="xs">Enter</Kbd> to add file type to the list.
           </Text>
+          <Text ta={"center"} fz={11} mt={7} fw={700}>
+            5 Entires Allowed
+          </Text>
         </>
       );
     }
     if (helpMode === "websites") {
       return (
-        <Box px={30}>
+        <>
           <Text fz={13} ta={"center"}>
-            Add all the websites you want to use as a reference for your
-            project.
+            Add all the websites you want to use
+            <br />
+            as a reference for your task.
           </Text>
           <Text className={classes.dialogInfoEnter}>
-            Press <Kbd size="xs">Enter</Kbd> to add
-            <br />
-            the site to the list.
+            Press <Kbd size="xs">Enter</Kbd> to add the site to the list.
           </Text>
-        </Box>
+          <Text ta={"center"} fz={11} mt={7} fw={700}>
+            10 Entires Allowed
+          </Text>
+        </>
       );
     }
   };
 
+  const [styleKeywords, setStyleKeywords] = useState([]);
+  const [deliveryFormats, setDeliveryFormats] = useState([]);
+  const [websites, setWebsites] = useState([]);
+
+  const styleKeywordsRef = useRef(null);
+  const deliveryFormatsRef = useRef(null);
+  const websitesRef = useRef(null);
+
   const AddTags = (props) => {
-    const { placeholder, mode } = props;
+    const { placeholder, mode, tabIndex } = props;
+    const valueMode = (mode) => {
+      let handler = {};
+      if (mode === "style keywords") {
+        handler.var = styleKeywords;
+        handler.setter = setStyleKeywords;
+        handler.ref = styleKeywordsRef;
+        return handler;
+      }
+      if (mode === "delivery formats") {
+        handler.var = deliveryFormats;
+        handler.setter = setDeliveryFormats;
+        handler.ref = deliveryFormatsRef;
+        return handler;
+      }
+      if (mode === "websites") {
+        handler.var = websites;
+        handler.setter = setWebsites;
+        handler.ref = websitesRef;
+        return handler;
+      }
+    };
+    const { var: modeVar, setter: modeSetter, ref: modeRef } = valueMode(mode);
+
+    const maxAllowed = mode === "delivery formats" ? 5 : 10;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        setTimeout(() => {
+          modeRef.current?.focus();
+        }, 0);
+      }
+    };
+
     return (
       <TagsInput
+        ref={modeRef}
+        tabIndex={tabIndex}
+        value={modeVar}
+        onChange={modeSetter}
+        onKeyDown={handleKeyDown}
+        leftSectionWidth={50}
+        leftSectionPointerEvents="all"
+        rightSection={
+          modeVar.length === 0
+            ? ""
+            : `${maxAllowed - modeVar.length} / ${maxAllowed}`
+        }
+        rightSectionWidth={50}
+        placeholder={
+          modeVar.length >= maxAllowed ? "Limit Reached" : placeholder
+        }
+        maxTags={maxAllowed}
         leftSection={
           <ActionIcon
             variant="transparent"
@@ -119,9 +184,6 @@ export default function TaskForm(props) {
             <TbHelpSquareFilled className={classes.tagsInput} size={30} />
           </ActionIcon>
         }
-        leftSectionWidth={50}
-        leftSectionPointerEvents="all"
-        placeholder={placeholder}
       />
     );
   };
@@ -152,13 +214,15 @@ export default function TaskForm(props) {
         <Grid>
           <Grid.Col span="auto">
             <TextInput
+              autoFocus={true}
               placeholder="Title..."
+              tabIndex={1}
               value={title}
               onChange={(event) => setTitle(event.currentTarget.value)}
             />
           </Grid.Col>
           <Grid.Col span="content">
-            <ServiceSelect services={services} />
+            <ServiceSelect tabIndex={2} services={services} />
           </Grid.Col>
         </Grid>
         <Box hidden={choosenType?.title !== "Web Dev"}>
@@ -166,6 +230,7 @@ export default function TaskForm(props) {
         </Box>
         <Textarea
           autosize
+          tabIndex={3}
           minRows={7}
           maxRows={7}
           placeholder="Description..."
@@ -178,14 +243,16 @@ export default function TaskForm(props) {
               <AddTags
                 placeholder="Style Defining Keywords..."
                 mode={"style keywords"}
+                tabIndex={4}
               />
               <AddTags
                 placeholder="Delivery File Formats..."
                 mode={"delivery formats"}
+                tabIndex={5}
               />
             </>
           )}
-          <AddTags placeholder="Websites..." mode={"websites"} />
+          <AddTags placeholder="Websites..." mode={"websites"} tabIndex={6} />
         </Stack>
       </Stack>
       <Stack mt={20} gap={20}>

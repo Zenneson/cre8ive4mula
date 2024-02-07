@@ -93,6 +93,14 @@ p {
     9px 9px 29px #618fc6,
     -9px -9px 29px #79b3f6;
 
+  &[data-disabled="true"] {
+    background: linear-gradient(145deg, #c7d1db, #b8c9e0);
+
+    .mantine-TagsInput-inputField {
+      background: transparent;
+    }
+  }
+
   input,
   textarea,
   .mantine-Input-input {
@@ -102,6 +110,14 @@ p {
 
     &::placeholder {
       color: #aaa;
+    }
+
+    &[data-disabled="true"] {
+      background: linear-gradient(145deg, #c7d1db, #b8c9e0);
+
+      &::placeholder {
+        color: #777;
+      }
     }
   }
 }

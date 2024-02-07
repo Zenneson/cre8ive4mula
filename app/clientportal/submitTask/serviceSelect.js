@@ -9,7 +9,7 @@ import { useState } from "react";
 import classes from "./styles/serviceSelect.module.css";
 
 export default function ServiceSelect(props) {
-  const { services } = props;
+  const { services, tabIndex } = props;
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
@@ -56,6 +56,7 @@ export default function ServiceSelect(props) {
       <Combobox.Target>
         <InputBase
           value={search}
+          tabIndex={tabIndex}
           onChange={(event) => {
             combobox.openDropdown();
             combobox.updateSelectedOptionIndex();

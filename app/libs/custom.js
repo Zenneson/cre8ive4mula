@@ -88,7 +88,7 @@ export const scrollToward = {
 };
 
 // Checks all valies in am object and returns true if all are false.
-const allValuesFalse = (obj) => {
+export const allValuesFalse = (obj) => {
   for (const key in obj) {
     if (obj.hasOwnProperty(key) && obj[key] !== false) {
       return false;

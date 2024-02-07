@@ -93,9 +93,10 @@ export default function Board({ taskData, boardType }) {
     element.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
-  const cardsAreClosed = Object.keys(taskVisibility).length === 0;
+  const cardsAreClosed =
+    Object.keys(taskVisibility).length === 0 || allValuesFalse(taskVisibility);
   const closeCards = () => {
-    if (cardsAreClosed && allValuesFalse) return;
+    if (cardsAreClosed) return;
     setTaskVisibility({});
   };
 
