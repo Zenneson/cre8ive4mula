@@ -1,0 +1,49 @@
+div.pickerArea {
+  box-shadow: 0 0 5px -2px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  border: 2px solid #fff;
+  margin-top: 5px;
+}
+
+div.pickerSlider {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  border: 2px solid #fff;
+}
+
+div.colorInputWrapper {
+  padding: 0px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  border-radius: 25px;
+  border: 2px solid #fff;
+  background: linear-gradient(0deg, #efefef, #ffffff);
+  box-shadow:
+    2px 2px 5px rgba(180, 180, 180, 0.25),
+    -2px -2px 5px rgba(199, 199, 199, 0.25);
+}
+
+input.colorInput {
+  text-transform: uppercase;
+}
+
+.addColorBtn {
+  color: #ccc;
+  cursor: pointer;
+  border-radius: 100px;
+}
+
+div.hoverCardColor {
+  width: 15px;
+  height: 80px;
+  border-radius: 25px;
+}
+
+.removeColorBtn {
+  transition: all 250ms ease-in-out;
+  cursor: pointer;
+  opacity: 0.4;
+
+  &:hover {
+    opacity: 1;
+  }
+}

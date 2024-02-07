@@ -5,6 +5,7 @@ import {
   MantineProvider,
   ScrollArea,
 } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 import { usePathname } from "next/navigation";
 import Clouds from "./clouds/clouds";
 import { tourTheme } from "./libs/tourTheme";
@@ -28,6 +29,7 @@ export default function AppWrapper({ children }) {
 
       <ColorSchemeScript forceColorScheme="light" />
       <MantineProvider forceColorScheme="light" theme={tourTheme}>
+        <Notifications position="top-right" zIndex={1000} />
         <AppShell
           pos={"relative"}
           component={ScrollArea}

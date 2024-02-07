@@ -1,12 +1,11 @@
 "use client";
-import { addAtSymbol, taskColor } from "@libs/custom";
+import { taskColor } from "@libs/custom";
 import {
   ActionIcon,
   Badge,
   Box,
   Button,
   Center,
-  ColorPicker,
   Dialog,
   FileButton,
   Grid,
@@ -24,12 +23,10 @@ import {
 import { useSetState } from "@mantine/hooks";
 import { useEffect, useRef, useState } from "react";
 import { FaPlay } from "react-icons/fa";
-import { FaCirclePlus } from "react-icons/fa6";
-import { HiOutlineColorSwatch } from "react-icons/hi";
-import { LuPaintBucket } from "react-icons/lu";
 import { MdAttachment } from "react-icons/md";
 import { PiUploadBold } from "react-icons/pi";
 import { TbHelpSmall, TbHelpSquareFilled } from "react-icons/tb";
+import ColorPanel from "./colorPanel";
 import ServiceSelect from "./serviceSelect";
 import classes from "./styles/taskFrom.module.css";
 
@@ -38,7 +35,6 @@ export default function TaskForm(props) {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [selectedColor, setSelectedColor] = useState("#0000FF");
   const [typeColor, setTypeColor] = useState();
   const [deliverInfo, setDeliverInfo] = useState(false);
 
@@ -289,74 +285,7 @@ export default function TaskForm(props) {
         </Stack>
       </Stack>
       <Stack mt={20} gap={20}>
-        <Box hidden={choosenType?.title !== "Design"}>
-          <Grid
-            gutter={20}
-            className={`innerPanel ${classes.addColors}`}
-            p={20}
-          >
-            <Grid.Col span="3">
-              <Popover
-                classNames={{ dropdown: classes.colorPopoverDropdown }}
-                position="top"
-                width="target"
-                py={10}
-              >
-                <Popover.Target>
-                  <Button
-                    leftSection={<HiOutlineColorSwatch size={18} />}
-                    w={"100%"}
-                  >
-                    Add Colors
-                  </Button>
-                </Popover.Target>
-                <Popover.Dropdown>
-                  <ColorPicker
-                    size="sm"
-                    fullWidth
-                    value={selectedColor}
-                    onChange={setSelectedColor}
-                    classNames={{
-                      saturationOverlay: classes.pickerArea,
-                      sliderOverlay: classes.pickerSlider,
-                    }}
-                  />
-                  <TextInput
-                    classNames={{
-                      wrapper: classes.colorInputWrapper,
-                      input: classes.colorInput,
-                    }}
-                    value={addAtSymbol(selectedColor, "#")}
-                    onChange={(event) =>
-                      setSelectedColor(event.currentTarget.value)
-                    }
-                    maxLength={7}
-                    rightSectionPointerEvents="all"
-                    rightSection={
-                      <ActionIcon
-                        className={classes.addColorBtn}
-                        variant="subtle"
-                        color="#777"
-                      >
-                        <FaCirclePlus size={30} />
-                      </ActionIcon>
-                    }
-                  />
-                </Popover.Dropdown>
-              </Popover>
-            </Grid.Col>
-            <Grid.Col span="auto">
-              <Box className="altPanel">
-                <Group gap={10} opacity={0.25}>
-                  <LuPaintBucket size={15} />
-                  <Text fz={11} fw={700} tt={"uppercase"}>
-                    Colors Added
-                  </Text>
-                </Group>
-              </Box>
-            </Grid.Col>
-          </Grid>
-        </Box>
+        <ColorPanel choosenType={choosenType} />
         <Grid
           gutter={20}
           className={`innerPanel ${classes.relatedFiles}`}
