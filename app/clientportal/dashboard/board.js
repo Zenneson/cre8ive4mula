@@ -36,7 +36,7 @@ export default function Board({ taskData, boardType, num }) {
       maxHeight: "calc(100vh - 100px)",
     },
     transition: {
-      duration: loaded ? 0.1 : 0.25,
+      duration: 0.25,
       delay: loaded ? 0.5 : 0.25 + num * loaded ? 0 : 0.25,
     },
   };
