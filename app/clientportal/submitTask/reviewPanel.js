@@ -11,11 +11,12 @@ import {
 } from "@mantine/core";
 import { motion } from "framer-motion";
 import { FaFlagCheckered, FaPlay } from "react-icons/fa";
-import { useSubissionData } from "../portalStore";
+import { usePortalState, useSubissionData } from "../portalStore";
 import classes from "./styles/reviewPanel.module.css";
 
 export default function ReviewPanel() {
   const { formData, setSubmissionPanel } = useSubissionData();
+  const { setActivePanel } = usePortalState();
   const typeColor = taskColor(formData.type?.title);
 
   const animation = {
@@ -124,13 +125,13 @@ export default function ReviewPanel() {
                   }}
                 />
               }
-              onClick={() => setSubmissionPanel(0)}
+              onClick={() => setSubmissionPanel(1)}
             >
               Back
             </Button>
             <Button
               leftSection={<FaFlagCheckered size={13} />}
-              onClick={() => setSubmissionPanel(1)}
+              onClick={() => setActivePanel(0)}
             >
               Submit
             </Button>

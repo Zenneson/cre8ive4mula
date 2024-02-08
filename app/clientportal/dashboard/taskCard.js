@@ -17,7 +17,7 @@ import {
 } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
 import { motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CgAttachment } from "react-icons/cg";
 import { FaRegComments } from "react-icons/fa";
 import { MdDragIndicator } from "react-icons/md";
@@ -36,25 +36,35 @@ export default function TaskCard(props) {
   } = props;
   const [showDetails, setShowDetails] = useState(false);
   const [brightDetails, setBrightDetails] = useState(false);
-  const { allowReorder } = usePortalState();
+  const { loaded, setLoaded, allowReorder } = usePortalState();
   const frameRef = useRef();
   const { ref, width } = useElementSize();
   const infoListWidth = width;
 
+  useEffect(() => {
+    setLoaded(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const aniTime = loaded ? 0 : 0.3;
   const animationProps = {
     initial: {
-      transform: "perspective(400px) rotate3d(1, 0, 0, -90deg)",
+      transform: loaded
+        ? "perspective(400px) rotate3d(1, 0, 0, 0deg)"
+        : "perspective(400px) rotate3d(1, 0, 0, -90deg)",
       animationTimingFunction: "ease-in",
       transformOrigin: "top center",
+      maxHeight: "93px",
       opacity: 0,
     },
     animate: {
       transform: "perspective(400px) rotate3d(1, 0, 0, 0deg)",
       animationTimingFunction: "ease-in",
+      maxHeight: "auto",
       opacity: 1,
     },
     exit: { opacity: 0 },
-    transition: { duration: 0.2, delay: 0.2 + index * 0.2 },
+    transition: { duration: 0.5, delay: 0.25 + index * aniTime },
   };
 
   const colorWay = taskData.colors?.map((color, index) => (
@@ -76,7 +86,7 @@ export default function TaskCard(props) {
       {(provided) => (
         <div ref={provided.innerRef} {...provided.draggableProps}>
           <motion.div {...animationProps}>
-            <Box mx={0} mb={5} mt={index !== 0 ? 15 : 5}>
+            <Box mx={0} mt={index !== 0 ? 15 : 5}>
               <Box
                 className={`innerPanel ${classes.taskFrame} ${
                   boardType === "Ready For Review" && classes.reviewReady

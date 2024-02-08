@@ -21,7 +21,7 @@ export default function Dashboard(props) {
         />
         <Board
           boardType={"Ready For Review"}
-          taskData={[taskData[2], taskData[3]]}
+          taskData={[taskData[2]]}
           num={3}
         />
       </Flex>

@@ -10,6 +10,7 @@ import {
   Group,
   Image,
   ScrollArea,
+  Space,
   Stack,
   Title,
   Tooltip,
@@ -24,17 +25,18 @@ import TaskCard from "./taskCard";
 export default function Board({ taskData, boardType, num }) {
   const [tasks, setTasks] = useState(taskData);
   const [taskVisibility, setTaskVisibility] = useState({});
-  const { allowReorder, setAllowReorder } = usePortalState();
+  const { loaded, allowReorder, setAllowReorder } = usePortalState();
   const frameRef = useRef();
   const [ref, rect] = useResizeObserver();
 
+  const aniTime = loaded ? 0 : 0.25;
   const animationProps = {
     initial: { opacity: 0, maxHeight: 0 },
     animate: {
       opacity: 1,
       maxHeight: "calc(100vh - 100px)",
     },
-    transition: { duration: 0.25, delay: 0.25 + num * 0.25 },
+    transition: { duration: aniTime, delay: aniTime + num * aniTime },
   };
 
   const onDragEnd = (result) => {
@@ -82,13 +84,14 @@ export default function Board({ taskData, boardType, num }) {
     setTimeout(() => {
       handleScroll();
     }, 2000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const boardHeight = rect.height;
   useEffect(() => {
     setTimeout(() => {
       handleScroll();
-    }, 1000);
+    }, 1250);
   }, [boardHeight]);
 
   const scrollToElement = (element) => {
@@ -158,7 +161,7 @@ export default function Board({ taskData, boardType, num }) {
           component={ScrollArea.Autosize}
           onScrollPositionChange={handleScroll}
           p={0}
-          pb={5}
+          pb={7}
           mx={5}
           mb={5}
         >
@@ -205,6 +208,7 @@ export default function Board({ taskData, boardType, num }) {
                       }
                     />
                   ))}
+                  <Space h={8} />
                 </AnimatePresence>
                 {provided.placeholder}
               </div>

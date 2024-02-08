@@ -9,6 +9,8 @@ export const usePortalState = create((set) => ({
   setAllowReorder: (value) => set({ allowReorder: value }),
   activePanel: 0,
   setActivePanel: (value) => set({ activePanel: value }),
+  loaded: false,
+  setLoaded: (value) => set({ loaded: value }),
 }));
 
 // Submission Data

@@ -1,8 +1,7 @@
 "use client";
 import "@dotlottie/react-player/dist/index.css";
-import { Affix, Button, Center, Group } from "@mantine/core";
+import { Center, Group } from "@mantine/core";
 import { useEffect, useState } from "react";
-import { FaPlay } from "react-icons/fa";
 import { services } from "../../../public/data/services";
 import { useSubissionData } from "../portalStore";
 import ChooseTypePanel from "./chooseTypePanel";
@@ -60,21 +59,6 @@ export default function SubmitTask() {
 
   return (
     <Group className={classes.centerFrame} left={submitPage()} gap={"0px"}>
-      {/* TODO: DELETE WHEN THE REVIEW PANEL IS DONE  */}
-      {submissionPanel > 1 && (
-        <Affix position={{ bottom: 30, right: 30 }}>
-          <Button
-            className={classes.backButton}
-            leftSection={
-              <FaPlay size={10} style={{ transform: "scaleX(-1)" }} />
-            }
-            onClick={() => setSubmissionPanel(1)}
-          >
-            Back
-          </Button>
-        </Affix>
-      )}
-
       <Center
         id="0"
         w={"calc(100vw - 110px)"}
