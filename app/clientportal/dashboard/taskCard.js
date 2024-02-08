@@ -54,17 +54,15 @@ export default function TaskCard(props) {
         : "perspective(400px) rotate3d(1, 0, 0, -90deg)",
       animationTimingFunction: "ease-in",
       transformOrigin: "top center",
-      maxHeight: "93px",
       opacity: 0,
     },
     animate: {
       transform: "perspective(400px) rotate3d(1, 0, 0, 0deg)",
       animationTimingFunction: "ease-in",
-      maxHeight: "auto",
       opacity: 1,
     },
     exit: { opacity: 0 },
-    transition: { duration: 0.5, delay: 0.25 + index * aniTime },
+    transition: { duration: 0.5, delay: 0.3 + index * aniTime },
   };
 
   const colorWay = taskData.colors?.map((color, index) => (

@@ -29,14 +29,16 @@ export default function Board({ taskData, boardType, num }) {
   const frameRef = useRef();
   const [ref, rect] = useResizeObserver();
 
-  const aniTime = loaded ? 0 : 0.25;
   const animationProps = {
-    initial: { opacity: 0, maxHeight: 0 },
+    initial: { opacity: 0, maxHeight: "165px" },
     animate: {
       opacity: 1,
       maxHeight: "calc(100vh - 100px)",
     },
-    transition: { duration: aniTime, delay: aniTime + num * aniTime },
+    transition: {
+      duration: loaded ? 0.1 : 0.25,
+      delay: loaded ? 0.5 : 0.25 + num * loaded ? 0 : 0.25,
+    },
   };
 
   const onDragEnd = (result) => {
