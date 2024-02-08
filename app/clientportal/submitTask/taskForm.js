@@ -19,7 +19,7 @@ import {
   Textarea,
   Title,
 } from "@mantine/core";
-import { shallowEqual, useSetState } from "@mantine/hooks";
+import { shallowEqual, useDebouncedState, useSetState } from "@mantine/hooks";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { FaPlay } from "react-icons/fa";
@@ -35,6 +35,36 @@ export default function TaskForm(props) {
   const { formData, setFormData, setSubmissionPanel } = useSubissionData();
   const [typeColor, setTypeColor] = useState();
   const [deliverInfo, setDeliverInfo] = useState(false);
+
+  const [formTitle, setFormTitle] = useDebouncedState("", 200);
+  const [formGoal, setFormGoal] = useDebouncedState("", 200);
+  const [formDesc, setFormDesc] = useDebouncedState("", 200);
+
+  useEffect(() => {
+    const equal = shallowEqual(
+      { title: formData.title, goal: formData.goal, desc: formData.desc },
+      {
+        title: formTitle,
+        goal: formGoal,
+        desc: formDesc,
+      }
+    );
+    if (equal) return;
+
+    setFormData({
+      title: formTitle,
+      goal: formGoal,
+      desc: formDesc,
+    });
+  }, [
+    formTitle,
+    formGoal,
+    formDesc,
+    formData.title,
+    formData.goal,
+    formData.desc,
+    setFormData,
+  ]);
 
   useEffect(() => {
     if (!formData.type || !formData.type.title) return;
@@ -230,7 +260,7 @@ export default function TaskForm(props) {
 
   return (
     <motion.div {...animation}>
-      <Box mt={-100}>
+      <Box mt={-50}>
         <Group className={classes.taskFormTitle} justify="space-between">
           <Group gap="7">
             <Image
@@ -258,10 +288,8 @@ export default function TaskForm(props) {
                 autoFocus={true}
                 placeholder="Title..."
                 tabIndex={1}
-                value={formData.title}
-                onChange={(event) =>
-                  setFormData({ title: event.currentTarget.value })
-                }
+                defaultValue={formTitle}
+                onChange={(event) => setFormTitle(event.currentTarget.value)}
               />
             </Grid.Col>
             <Grid.Col span="content">
@@ -277,10 +305,8 @@ export default function TaskForm(props) {
               autosize
               minRows={2}
               placeholder="Intended Goal..."
-              value={formData.goal}
-              onChange={(event) =>
-                setFormData({ goal: event.currentTarget.value })
-              }
+              defaultValue={formGoal}
+              onChange={(event) => setFormGoal(event.currentTarget.value)}
             />
           </Box>
           <Textarea
@@ -289,10 +315,8 @@ export default function TaskForm(props) {
             minRows={7}
             maxRows={7}
             placeholder="Description..."
-            value={formData.desc}
-            onChange={(event) =>
-              setFormData({ desc: event.currentTarget.value })
-            }
+            defaultValue={formDesc}
+            onChange={(event) => setFormDesc(event.currentTarget.value)}
           />
           <Stack hidden={formData.type?.title !== "Design"} gap={20}>
             {formData.type?.title === "Design" && (

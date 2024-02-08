@@ -45,6 +45,7 @@ export default function Form() {
           required
           placeholder="Email Address"
           name="email"
+          autoComplete="username"
           leftSectionWidth={40}
           leftSection={
             <Box c={"#999"} pt={7} pl={5}>
@@ -62,6 +63,7 @@ export default function Form() {
           placeholder="Password"
           type="password"
           name="password"
+          autoComplete="current-password"
           leftSectionWidth={40}
           leftSection={
             <Box c={"#999"} pt={7} pl={5}>

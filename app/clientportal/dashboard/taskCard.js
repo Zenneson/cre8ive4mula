@@ -42,10 +42,19 @@ export default function TaskCard(props) {
   const infoListWidth = width;
 
   const animationProps = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
+    initial: {
+      transform: "perspective(400px) rotate3d(1, 0, 0, -90deg)",
+      animationTimingFunction: "ease-in",
+      transformOrigin: "top center",
+      opacity: 0,
+    },
+    animate: {
+      transform: "perspective(400px) rotate3d(1, 0, 0, 0deg)",
+      animationTimingFunction: "ease-in",
+      opacity: 1,
+    },
     exit: { opacity: 0 },
-    transition: { duration: 1, delay: index * 0.2 },
+    transition: { duration: 0.2, delay: 0.2 + index * 0.2 },
   };
 
   const colorWay = taskData.colors?.map((color, index) => (

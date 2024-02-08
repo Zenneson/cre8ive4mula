@@ -1,0 +1,26 @@
+.reviewTitle {
+  margin-bottom: 10px;
+
+  h1 {
+    font-family: var(--font-montserrat);
+    text-transform: uppercase;
+  }
+}
+
+.taskType {
+  box-shadow: 0px 2px 3px -1px rgba(110, 110, 110, 0.7);
+}
+
+.reviewIcon {
+  opacity: 0.3;
+}
+
+button.backBtn {
+  background: none !important;
+  box-shadow: none !important;
+  opacity: 0.3;
+
+  &:hover {
+    opacity: 1;
+  }
+}

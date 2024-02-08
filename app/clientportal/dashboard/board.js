@@ -21,7 +21,7 @@ import { usePortalState } from "../portalStore";
 import classes from "./styles/board.module.css";
 import TaskCard from "./taskCard";
 
-export default function Board({ taskData, boardType }) {
+export default function Board({ taskData, boardType, num }) {
   const [tasks, setTasks] = useState(taskData);
   const [taskVisibility, setTaskVisibility] = useState({});
   const { allowReorder, setAllowReorder } = usePortalState();
@@ -34,7 +34,7 @@ export default function Board({ taskData, boardType }) {
       opacity: 1,
       maxHeight: "calc(100vh - 100px)",
     },
-    transition: { duration: 2, delay: taskData.id * 0.1 },
+    transition: { duration: 0.25, delay: 0.25 + num * 0.25 },
   };
 
   const onDragEnd = (result) => {
@@ -86,7 +86,9 @@ export default function Board({ taskData, boardType }) {
 
   const boardHeight = rect.height;
   useEffect(() => {
-    handleScroll();
+    setTimeout(() => {
+      handleScroll();
+    }, 1000);
   }, [boardHeight]);
 
   const scrollToElement = (element) => {

@@ -1,17 +1,25 @@
 "use client";
 import "@dotlottie/react-player/dist/index.css";
-import { Affix, Button, Center, Group, Text } from "@mantine/core";
+import { Affix, Button, Center, Group } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { services } from "../../../public/data/services";
 import { useSubissionData } from "../portalStore";
 import ChooseTypePanel from "./chooseTypePanel";
+import ReviewPanel from "./reviewPanel";
 import classes from "./styles/submitTask.module.css";
 import TaskForm from "./taskForm";
 
 export default function SubmitTask() {
-  const { formData, submissionPanel, setSubmissionPanel } = useSubissionData();
+  const { formData, setFormData, submissionPanel, setSubmissionPanel } =
+    useSubissionData();
   const [typeServices, setTypeServices] = useState();
+
+  useEffect(() => {
+    if (formData.title === "") setSubmissionPanel(0);
+    setFormData({ type: {} });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const submitPage = () => {
     switch (submissionPanel) {
@@ -90,7 +98,9 @@ export default function SubmitTask() {
         pos={"relative"}
         ml={"110px"}
       >
-        <Text>Review Details</Text>
+        <Center id="1" w={"100vw"} pos={"relative"}>
+          <ReviewPanel />
+        </Center>
       </Center>
     </Group>
   );

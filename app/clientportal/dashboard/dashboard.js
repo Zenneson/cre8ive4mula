@@ -9,14 +9,20 @@ export default function Dashboard(props) {
   return (
     <>
       <Flex pl={125} pt={75} py={0} gap={20} className={classes.boardsFrame}>
-        <Board boardType={"Submitted Tasks"} taskData={taskData.slice(0, 5)} />
+        <Board
+          boardType={"Submitted Tasks"}
+          taskData={taskData.slice(0, 5)}
+          num={1}
+        />
         <Board
           boardType={"Tasks In-Progress"}
           taskData={[taskData[0], taskData[4]]}
+          num={2}
         />
         <Board
           boardType={"Ready For Review"}
           taskData={[taskData[2], taskData[3]]}
+          num={3}
         />
       </Flex>
     </>
