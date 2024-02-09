@@ -25,16 +25,14 @@ import TaskCard from "./taskCard";
 export default function Board({ taskData, boardType, num }) {
   const [tasks, setTasks] = useState(taskData);
   const [taskVisibility, setTaskVisibility] = useState({});
+  const [removeHeight, setRemoveHeight] = useState(false);
   const { loaded, allowReorder, setAllowReorder } = usePortalState();
   const frameRef = useRef();
   const [ref, rect] = useResizeObserver();
 
   const animationProps = {
-    initial: { opacity: 0, maxHeight: "165px" },
-    animate: {
-      opacity: 1,
-      maxHeight: "calc(100vh - 100px)",
-    },
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
     transition: {
       duration: 0.25,
       delay: loaded ? 0.5 : 0.25 + num * loaded ? 0 : 0.25,
@@ -107,13 +105,28 @@ export default function Board({ taskData, boardType, num }) {
     setTaskVisibility({});
   };
 
+  const getHeight = () => {
+    const init = 165.2;
+    const num = tasks.length - 1;
+    const taskH = 108.1;
+    const add = num * taskH;
+
+    return init + add;
+  };
+
+  const initHeight = getHeight();
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Stack
         component={motion.div}
         {...animationProps}
-        w="33%"
         className={`panel ${classes.boards}`}
+        onAnimationComplete={() => setRemoveHeight(true)}
+        h={!removeHeight && initHeight}
+        w="33%"
+        mih={initHeight}
+        mah={"calc(100vh - 100px)"}
         gap={0}
         p={0}
         ref={ref}
