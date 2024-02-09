@@ -97,7 +97,7 @@ export default function ClientHeader() {
                 >
                   <Image
                     src={"/img/menu/dashboard.svg"}
-                    alt={"Submit Task"}
+                    alt={"Dashboard"}
                     height={25}
                   />
                 </ActionIcon>

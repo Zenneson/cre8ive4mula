@@ -14,6 +14,7 @@ import {
   Stack,
   Text,
   Title,
+  Tooltip,
 } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
 import { motion } from "framer-motion";
@@ -129,7 +130,7 @@ export default function TaskCard(props) {
                       bg={viewTask ? taskColor(taskData.type) : "transparent"}
                       variant={viewTask ? "filled" : "light"}
                       size={viewTask ? "xs" : "sm"}
-                      ml={viewTask ? -5 : -10}
+                      ml={viewTask ? -7 : -9}
                     >
                       {taskData.type}
                     </Badge>
@@ -154,19 +155,26 @@ export default function TaskCard(props) {
                     >
                       {taskData.date}
                     </Text>
-                    <Image
-                      className={classes.closeIcon}
-                      src="/img/close.svg"
-                      alt={"Task Tags"}
-                      fit="contain"
-                      w={viewTask ? 20 : 0}
-                      mr={-5}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setShowDetails(false);
-                        setViewTask(false);
-                      }}
-                    />
+                    <Tooltip
+                      label="Close"
+                      position="top"
+                      openDelay={500}
+                      offset={-2}
+                    >
+                      <Image
+                        className={classes.closeIcon}
+                        src="/img/closePanel.svg"
+                        alt={"Close"}
+                        fit="contain"
+                        w={viewTask ? 20 : 0}
+                        mr={-7}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShowDetails(false);
+                          setViewTask(false);
+                        }}
+                      />
+                    </Tooltip>
                   </Flex>
                 </Group>
                 <Title className={classes.title} truncate="end" lineClamp={2}>
@@ -216,7 +224,7 @@ export default function TaskCard(props) {
                       <Flex className={classes.addedTags} gap={5}>
                         <Image
                           src="/img/hashtag.svg"
-                          alt={"Task Tags"}
+                          alt={"Style Keywords"}
                           fit="contain"
                           mt={7}
                           w={20}
@@ -228,7 +236,7 @@ export default function TaskCard(props) {
                       <Flex className={classes.addedWebsites} gap={5}>
                         <Image
                           src="/img/website.svg"
-                          alt={"Task Tags"}
+                          alt={"Related Links"}
                           fit="contain"
                           mt={7}
                           w={20}
@@ -239,7 +247,12 @@ export default function TaskCard(props) {
                       </Flex>
                     )}
                   </Stack>
-                  <Group className={classes.taskBtnsFrame} ref={ref}>
+                  <Group
+                    className={`${classes.taskBtnsFrame}  ${
+                      showDetails && classes.detailsShowing
+                    }`}
+                    ref={ref}
+                  >
                     <Group gap={5} ml={5} opacity={1} c="#fff">
                       <Badge
                         className={classes.commentNum}

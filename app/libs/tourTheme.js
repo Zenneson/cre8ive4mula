@@ -58,7 +58,6 @@ export const tourTheme = createTheme({
     Tooltip: Tooltip.extend({
       defaultProps: {
         className: "tooltip",
-        withArrow: true,
         arrowSize: 10,
         arrowRadius: 3,
         radius: 5,

@@ -2,26 +2,22 @@
 import { addAtSymbol, hexToRgb } from "@libs/custom";
 import {
   ActionIcon,
-  Badge,
   Box,
   Button,
   ColorPicker,
-  ColorSwatch,
   Flex,
   Grid,
   Group,
-  HoverCard,
   Input,
   Popover,
-  Stack,
   Text,
 } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import { useEffect, useState } from "react";
-import { FaCut } from "react-icons/fa";
 import { FaCirclePlus } from "react-icons/fa6";
 import { HiOutlineColorSwatch } from "react-icons/hi";
 import { LuPaintBucket } from "react-icons/lu";
+import ColorPuck from "./colorPuck";
 import classes from "./styles/colorPanel.module.css";
 
 export default function ColorPanel(props) {
@@ -74,48 +70,13 @@ export default function ColorPanel(props) {
     };
 
     return (
-      <HoverCard
+      <ColorPuck
         key={index}
-        position="top"
-        shadow="md"
-        openDelay={0}
-        closeDelay={0}
-        withArrow
-      >
-        <HoverCard.Target>
-          <ColorSwatch
-            className={classes.colorCircle}
-            color={color}
-            size={23}
-          />
-        </HoverCard.Target>
-        <HoverCard.Dropdown>
-          <Group gap={0}>
-            <Box className={classes.hoverCardColor} bg={color} />
-            <Stack className={classes.hoverCardInfo} c={"#000"} gap={0}>
-              <Text fz={13} tt={"uppercase"}>
-                {color}
-              </Text>
-              <Text fz={13}>
-                RGB ( {rgb.r}, {rgb.g}, {rgb.b} )
-              </Text>
-              <Badge
-                className={classes.removeColorBtn}
-                fullWidth
-                variant="filled"
-                color="red.7"
-                c={"#fff"}
-                mt={3}
-                onClick={() => removeColor(color)}
-              >
-                <Group gap={5} align="center">
-                  <FaCut /> Remove
-                </Group>
-              </Badge>
-            </Stack>
-          </Group>
-        </HoverCard.Dropdown>
-      </HoverCard>
+        color={color}
+        removeColor={removeColor}
+        isTaskFrom={true}
+        rgb={rgb}
+      />
     );
   });
 
@@ -194,8 +155,9 @@ export default function ColorPanel(props) {
             className="altPanel"
             justify={"flex-start"}
             align={"center"}
-            gap={33.5}
+            gap={"6.2%"}
             mah={40}
+            pl={"20px"}
           >
             {colorRow}
             {colorRow.length < 8 && (

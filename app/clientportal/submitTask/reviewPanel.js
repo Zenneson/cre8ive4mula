@@ -1,8 +1,9 @@
-import { taskColor } from "@libs/custom";
+import { hexToRgb, taskColor } from "@libs/custom";
 import {
   Badge,
   Box,
   Button,
+  Flex,
   Group,
   Image,
   Stack,
@@ -12,6 +13,7 @@ import {
 import { motion } from "framer-motion";
 import { FaFlagCheckered, FaPlay } from "react-icons/fa";
 import { usePortalState, useSubissionData } from "../portalStore";
+import ColorPuck from "./colorPuck";
 import classes from "./styles/reviewPanel.module.css";
 
 export default function ReviewPanel() {
@@ -24,6 +26,46 @@ export default function ReviewPanel() {
     animate: { opacity: 1 },
     exit: { opacity: 0 },
     transition: { delay: 1 },
+  };
+
+  const colors = formData.colors;
+  const colorRow = colors.map((color, index) => {
+    const rgb = hexToRgb(color);
+    return <ColorPuck key={index} color={color} isTaskFrom={false} rgb={rgb} />;
+  });
+
+  const styleKeywords = formData.styleKeywords;
+  const websites = formData.websites;
+  const files = formData.files;
+
+  const DetailsRow = (props) => {
+    const { icon, alt, details } = props;
+    return (
+      <Group>
+        <Image
+          className={classes.reviewIcon}
+          src={`/img/${icon}.svg`}
+          alt={alt}
+          fit="contain"
+          mt={4}
+          w={30}
+        />
+        <Flex
+          w={"603.5px"}
+          wrap={"wrap"}
+          h={"30px"}
+          rowGap={"5px"}
+          columnGap={"5px"}
+          align={"center"}
+        >
+          {details.map((detail, index) => (
+            <Badge key={index} color="#fff" variant="outline" size="xs">
+              {detail}
+            </Badge>
+          ))}
+        </Flex>
+      </Group>
+    );
   };
 
   return (
@@ -72,47 +114,50 @@ export default function ReviewPanel() {
           </Stack>
           <Stack className="altPanel" gap={5} px={30}>
             <Box hidden={formData.type?.title !== "Design"}>
-              <Group>
-                <Image
-                  className={classes.reviewIcon}
-                  src="/img/colorPalette.svg"
-                  alt={"Task Tags"}
-                  fit="contain"
-                  mt={7}
-                  w={30}
+              {colors && colors.length > 0 && (
+                <Group>
+                  <Image
+                    className={classes.reviewIcon}
+                    src="/img/colorPalette.svg"
+                    alt={"Color Palette"}
+                    fit="contain"
+                    mt={4}
+                    mb={8}
+                    w={30}
+                  />
+                  <Flex
+                    justify={"flex-start"}
+                    align={"center"}
+                    gap={"17.6%"}
+                    pl={"3px"}
+                    mah={40}
+                  >
+                    {colorRow}
+                  </Flex>
+                </Group>
+              )}
+              {styleKeywords && styleKeywords.length > 0 && (
+                <DetailsRow
+                  icon={"hashtag"}
+                  alt={"Style Keywords"}
+                  details={styleKeywords}
                 />
-              </Group>
-              <Group>
-                <Image
-                  className={classes.reviewIcon}
-                  src="/img/hashtag.svg"
-                  alt={"Task Tags"}
-                  fit="contain"
-                  mt={7}
-                  w={30}
-                />
-              </Group>
+              )}
             </Box>
-            <Group>
-              <Image
-                className={classes.reviewIcon}
-                src="/img/website.svg"
-                alt={"Task Tags"}
-                fit="contain"
-                mt={7}
-                w={30}
+            {websites && websites.length > 0 && (
+              <DetailsRow
+                icon={"website"}
+                alt={"Related Links"}
+                details={websites}
               />
-            </Group>
-            <Group>
-              <Image
-                className={classes.reviewIcon}
-                src="/img/paperclip.svg"
-                alt={"Task Tags"}
-                fit="contain"
-                mt={7}
-                w={30}
+            )}
+            {files && files.length > 0 && (
+              <DetailsRow
+                icon={"paperclip"}
+                alt={"Project Files"}
+                details={files}
               />
-            </Group>
+            )}
           </Stack>
           <Group justify="flex-end">
             <Button

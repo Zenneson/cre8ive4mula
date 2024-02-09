@@ -238,7 +238,8 @@ export default function TaskForm(props) {
         <Popover.Dropdown ta={"center"}>
           <Text fz={13} c={"#777"}>
             <Text component="span" fw={700}>
-              &quot;{websites.invaidValue}&quot;
+              &quot;{websites.invaidValue[websites.invaidValue.length - 1]}
+              &quot;
             </Text>{" "}
             is not valid. Must end with{" "}
             <Text component="span" fw={700}>
@@ -250,6 +251,11 @@ export default function TaskForm(props) {
       </Popover>
     );
   };
+
+  console.log(
+    "🚀 ~ AddTags ~ websites.invaidValue[websites.invaidValue.length - 1]:",
+    websites.invaidValue[websites.invaidValue.length - 1]
+  );
 
   const animation = {
     initial: { opacity: 0 },

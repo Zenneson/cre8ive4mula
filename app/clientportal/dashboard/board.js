@@ -148,7 +148,7 @@ export default function Board({ taskData, boardType, num }) {
                 <Image
                   className={cardsAreClosed && classes.allCardsClosed}
                   src={"/img/closeCard.svg"}
-                  alt="Reorder"
+                  alt="Close Cards"
                   onClick={closeCards}
                 />
               </Tooltip>

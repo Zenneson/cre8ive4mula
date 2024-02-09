@@ -37,7 +37,7 @@ export default function Intro() {
           onClick={() => setActive(0)}
           src={"/img/return.svg"}
           w={active === 5 ? "40px" : "0px"}
-          alt="Left Arrow"
+          alt="Return Arrow"
         />
         <Image
           className={classes.rightArrow}
