@@ -65,8 +65,9 @@ export default function FilePanel(props) {
           {(props) => (
             <Button
               {...props}
-              leftSection={<PiUploadBold size={18} />}
+              leftSection={<PiUploadBold size={20} />}
               w={"100%"}
+              h={40}
               py={8}
             >
               Files

@@ -32,10 +32,15 @@ input.colorInput {
   border-radius: 100px;
 }
 
+div.hoverCardInfo {
+  margin-left: 10px;
+}
+
 div.hoverCardColor {
-  width: 15px;
-  height: 80px;
   border-radius: 25px;
+  height: 60px;
+  width: 8px;
+  box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.15);
 }
 
 .removeColorBtn {
@@ -46,4 +51,10 @@ div.hoverCardColor {
   &:hover {
     opacity: 1;
   }
+}
+.colorCircle {
+  transition: all 250ms ease-in-out;
+  filter: drop-shadow(0 2px 1px rgba(0, 0, 0, 0.4));
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  transform: scale(1.18);
 }

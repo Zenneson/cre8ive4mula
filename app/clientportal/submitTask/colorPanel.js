@@ -11,14 +11,14 @@ import {
   Grid,
   Group,
   HoverCard,
+  Input,
   Popover,
   Stack,
   Text,
-  TextInput,
 } from "@mantine/core";
-import { useDebouncedState } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
 import { useEffect, useState } from "react";
+import { FaCut } from "react-icons/fa";
 import { FaCirclePlus } from "react-icons/fa6";
 import { HiOutlineColorSwatch } from "react-icons/hi";
 import { LuPaintBucket } from "react-icons/lu";
@@ -26,7 +26,7 @@ import classes from "./styles/colorPanel.module.css";
 
 export default function ColorPanel(props) {
   const { choosenType, setFormData } = props;
-  const [selectedColor, setSelectedColor] = useDebouncedState("#0000FF", 200);
+  const [selectedColor, setSelectedColor] = useState("#FF0000");
   const [colors, setColors] = useState([]);
 
   useEffect(() => {
@@ -34,13 +34,22 @@ export default function ColorPanel(props) {
   }, [colors, setFormData]);
 
   const addColor = () => {
-    if (selectedColor !== "" && !colors.includes(selectedColor)) {
-      setColors([...colors, selectedColor]);
-      setSelectedColor("#0000FF");
-      return;
+    if (!hexToRgb(selectedColor)) {
+      return showNotification({
+        title: (
+          <Group gap={10} opacity={0.25}>
+            <LuPaintBucket size={15} />
+            <Text fz={11} fw={700} tt={"uppercase"}>
+              Invalid Color
+            </Text>
+          </Group>
+        ),
+        message: "Thex hex value given is invalid.",
+        color: "red",
+      });
     }
     if (colors.includes(selectedColor)) {
-      showNotification({
+      return showNotification({
         title: (
           <Group gap={10} opacity={0.25}>
             <LuPaintBucket size={15} />
@@ -49,9 +58,12 @@ export default function ColorPanel(props) {
             </Text>
           </Group>
         ),
-        message: "This color is already added",
+        message: "This color has already been added.",
         color: selectedColor,
       });
+    }
+    if (selectedColor !== "" && !colors.includes(selectedColor)) {
+      setColors([...colors, selectedColor]);
     }
   };
 
@@ -71,17 +83,21 @@ export default function ColorPanel(props) {
         withArrow
       >
         <HoverCard.Target>
-          <ColorSwatch color={color} size={20} />
+          <ColorSwatch
+            className={classes.colorCircle}
+            color={color}
+            size={23}
+          />
         </HoverCard.Target>
         <HoverCard.Dropdown>
-          <Group>
+          <Group gap={0}>
             <Box className={classes.hoverCardColor} bg={color} />
-            <Stack c={"#000"} gap={0}>
+            <Stack className={classes.hoverCardInfo} c={"#000"} gap={0}>
               <Text fz={13} tt={"uppercase"}>
                 {color}
               </Text>
               <Text fz={13}>
-                RGBA ( {rgb.r}, {rgb.g}, {rgb.b} )
+                RGB ( {rgb.r}, {rgb.g}, {rgb.b} )
               </Text>
               <Badge
                 className={classes.removeColorBtn}
@@ -92,7 +108,9 @@ export default function ColorPanel(props) {
                 mt={3}
                 onClick={() => removeColor(color)}
               >
-                Remove
+                <Group gap={5} align="center">
+                  <FaCut /> Remove
+                </Group>
               </Badge>
             </Stack>
           </Group>
@@ -124,7 +142,7 @@ export default function ColorPanel(props) {
                   )
                 }
               >
-                Add Colors
+                {colors.length === 0 ? "Add" : ""} Colors
               </Button>
             </Popover.Target>
             <Popover.Dropdown>
@@ -132,21 +150,29 @@ export default function ColorPanel(props) {
                 size="sm"
                 fullWidth
                 value={selectedColor}
-                onChange={setSelectedColor}
+                onChange={(event) => {
+                  setSelectedColor(event);
+                }}
                 classNames={{
                   saturationOverlay: classes.pickerArea,
                   sliderOverlay: classes.pickerSlider,
                 }}
               />
-              <TextInput
+              <Input
                 classNames={{
                   wrapper: classes.colorInputWrapper,
                   input: classes.colorInput,
                 }}
                 value={addAtSymbol(selectedColor, "#")}
-                onChange={(event) =>
-                  setSelectedColor(event.currentTarget.value)
-                }
+                onChange={(event) => {
+                  const hex = event.currentTarget.value;
+                  setSelectedColor(hex);
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    addColor();
+                  }
+                }}
                 maxLength={7}
                 rightSectionPointerEvents="all"
                 rightSection={
@@ -168,18 +194,17 @@ export default function ColorPanel(props) {
             className="altPanel"
             justify={"flex-start"}
             align={"center"}
-            gap={37}
+            gap={33.5}
             mah={40}
           >
-            {colorRow.length === 0 ? (
+            {colorRow}
+            {colorRow.length < 8 && (
               <Group gap={10} opacity={0.25}>
                 <LuPaintBucket size={15} />
                 <Text fz={11} fw={700} tt={"uppercase"}>
                   Colors Added
                 </Text>
               </Group>
-            ) : (
-              colorRow
             )}
           </Flex>
         </Grid.Col>

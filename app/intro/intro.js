@@ -1,6 +1,14 @@
 "use client";
 import ModelScene from "@libs/modelScene";
-import { Button, Center, Group, Image, Stack, Text } from "@mantine/core";
+import {
+  Affix,
+  Button,
+  Center,
+  Group,
+  Image,
+  Stack,
+  Text,
+} from "@mantine/core";
 import Link from "next/link";
 import { useState } from "react";
 import Logo from "../logo/logo";
@@ -83,46 +91,51 @@ export default function Intro() {
   };
 
   return (
-    <Group
-      className={classes.centerFrame}
-      pos={"fixed"}
-      w={"600vw"}
-      h={"100vh"}
-      gap={"0px"}
-      left={leftFunc()}
-    >
-      <LoginBtn />
-      <Center
-        id="0"
-        className={classes.homePanel}
-        w={"100vw"}
+    <>
+      <Affix position={{ top: 20, left: 20 }}>
+        <Link href="/clientportal">Client Portal</Link>
+      </Affix>
+      <Group
+        className={classes.centerFrame}
+        pos={"fixed"}
+        w={"600vw"}
         h={"100vh"}
-        pos={"relative"}
+        gap={"0px"}
+        left={leftFunc()}
       >
-        <Stack direction={"column"} w={"100%"} align="center">
-          <Logo />
-          <TypedOut />
-        </Stack>
-      </Center>
-      <Center id="1" w={"100vw"} h={"100vh"} pos={"relative"}>
-        <Button className={classes.blank} component={Link} href="/blank">
-          Map Panel&apos;s Content Out
-        </Button>
-        <ModelScene />
-      </Center>
-      <Center id="2" w={"100vw"} h={"100vh"} pos={"relative"}>
-        <Text>Services Breakdown</Text>
-      </Center>
-      <Center id="3" w={"100vw"} h={"100vh"} pos={"relative"}>
-        <Text>Portfolio</Text>
-      </Center>
-      <Center id="4" w={"100vw"} h={"100vh"} pos={"relative"}>
-        <Text>Price and Plans Breakdown</Text>
-      </Center>
-      <Center id="5" w={"100vw"} h={"100vh"} pos={"relative"}>
-        <Text>Contact Info and CTA</Text>
-      </Center>
-      <PanelSwitch />
-    </Group>
+        <LoginBtn />
+        <Center
+          id="0"
+          className={classes.homePanel}
+          w={"100vw"}
+          h={"100vh"}
+          pos={"relative"}
+        >
+          <Stack direction={"column"} w={"100%"} align="center">
+            <Logo />
+            <TypedOut />
+          </Stack>
+        </Center>
+        <Center id="1" w={"100vw"} h={"100vh"} pos={"relative"}>
+          <Button className={classes.blank} component={Link} href="/blank">
+            Map Panel&apos;s Content Out
+          </Button>
+          <ModelScene />
+        </Center>
+        <Center id="2" w={"100vw"} h={"100vh"} pos={"relative"}>
+          <Text>Services Breakdown</Text>
+        </Center>
+        <Center id="3" w={"100vw"} h={"100vh"} pos={"relative"}>
+          <Text>Portfolio</Text>
+        </Center>
+        <Center id="4" w={"100vw"} h={"100vh"} pos={"relative"}>
+          <Text>Price and Plans Breakdown</Text>
+        </Center>
+        <Center id="5" w={"100vw"} h={"100vh"} pos={"relative"}>
+          <Text>Contact Info and CTA</Text>
+        </Center>
+        <PanelSwitch />
+      </Group>
+    </>
   );
 }

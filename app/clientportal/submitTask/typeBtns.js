@@ -69,6 +69,7 @@ const MentBtn = ({ button }) => {
   };
 
   useDidUpdate(() => {
+    if (!lottieRef1.current || !lottieRef2.current) return;
     if (!active) {
       lottieRef1.current.stop();
       lottieRef2.current.stop();
