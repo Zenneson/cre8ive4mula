@@ -100,18 +100,8 @@ const MentBtn = ({ button }) => {
           </Title>
         </Group>
         <Group grow gap={0}>
-          <DotLottiePlayer
-            hover={true}
-            ref={lottieRef1}
-            src={button.svg1}
-            loop
-          />
-          <DotLottiePlayer
-            hover={true}
-            ref={lottieRef2}
-            src={button.svg2}
-            loop
-          />
+          <DotLottiePlayer ref={lottieRef1} src={button.svg1} loop />
+          <DotLottiePlayer ref={lottieRef2} src={button.svg2} loop />
         </Group>
       </Stack>
     </Button>

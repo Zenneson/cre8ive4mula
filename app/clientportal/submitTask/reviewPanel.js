@@ -183,10 +183,11 @@ export default function ReviewPanel() {
               Back
             </Button>
             <Button
-              leftSection={<FaFlagCheckered size={13} />}
+              rightSection={<FaFlagCheckered size={15} />}
               onClick={() => setActivePanel(0)}
+              fz={15}
             >
-              Submit
+              Submit Task
             </Button>
           </Group>
         </Stack>

@@ -52,6 +52,7 @@
 button.backBtn {
   background: none !important;
   box-shadow: none !important;
+  padding-right: 10px;
   opacity: 0.3;
 
   &:hover {
@@ -61,4 +62,13 @@ button.backBtn {
 
 button.reviewBtn {
   transition: all 200ms ease-in-out;
+}
+
+img.helpIcon {
+  transition: all 150ms ease-in-out;
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+  }
 }

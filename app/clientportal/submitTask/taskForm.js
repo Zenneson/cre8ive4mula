@@ -9,6 +9,7 @@ import {
   Dialog,
   Grid,
   Group,
+  HoverCard,
   Image,
   Kbd,
   Popover,
@@ -270,133 +271,148 @@ export default function TaskForm(props) {
 
   return (
     <motion.div {...animation}>
-      <Box mt={-50}>
-        <Group className={classes.taskFormTitle} justify="space-between">
-          <Group gap="7">
-            <Image
-              src={"/img/task.svg"}
-              alt={"Task Type"}
-              height={25}
-              opacity={0.5}
-            />
-            <Title order={4}>Add Details</Title>
-          </Group>
-          <Badge
-            className={classes.taskType}
-            color={typeColor}
-            c={taskType === "Web Dev" ? "#000" : "#fff"}
-            size="md"
-            variant={"filled"}
-          >
-            {taskType}
-          </Badge>
+      <Group className={classes.taskFormTitle} justify="space-between">
+        <Group gap="7">
+          <Image
+            src={"/img/task.svg"}
+            alt={"Task Type"}
+            height={25}
+            opacity={0.5}
+          />
+          <Title order={4}>Add Details</Title>
         </Group>
-        <Stack className="panel" w={800} gap={20}>
-          <Grid>
-            <Grid.Col span="auto">
-              <TextInput
-                ref={titleRef}
-                autoFocus={true}
-                placeholder="Title..."
-                tabIndex={1}
-                defaultValue={formTitle}
-                onChange={(event) => setFormTitle(event.currentTarget.value)}
-              />
-            </Grid.Col>
-            <Grid.Col span="content">
-              <ServiceSelect
-                typeServices={typeServices}
-                setFormData={setFormData}
-                tabIndex={2}
-              />
-            </Grid.Col>
-          </Grid>
-          <Box hidden={taskType !== "Web Dev"}>
-            <Textarea
-              autosize
-              minRows={2}
-              tabIndex={taskType === "Web Dev" ? 3 : "NaN"}
-              placeholder="Intended Goal..."
-              defaultValue={formGoal}
-              onChange={(event) => setFormGoal(event.currentTarget.value)}
+        <Badge
+          className={classes.taskType}
+          color={typeColor}
+          c={taskType === "Web Dev" ? "#000" : "#fff"}
+          size="md"
+          variant={"filled"}
+        >
+          {taskType}
+        </Badge>
+      </Group>
+      <Stack className="panel" w={800} gap={20}>
+        <Grid>
+          <Grid.Col span="auto">
+            <TextInput
+              ref={titleRef}
+              autoFocus={true}
+              placeholder="Title..."
+              tabIndex={1}
+              defaultValue={formTitle}
+              onChange={(event) => setFormTitle(event.currentTarget.value)}
             />
-          </Box>
+          </Grid.Col>
+          <Grid.Col span="content">
+            <ServiceSelect
+              typeServices={typeServices}
+              setFormData={setFormData}
+              tabIndex={2}
+            />
+          </Grid.Col>
+        </Grid>
+        <Box hidden={taskType !== "Web Dev"}>
           <Textarea
             autosize
-            tabIndex={taskType === "Web Dev" ? 4 : 3}
-            minRows={7}
-            maxRows={7}
-            placeholder="Description..."
-            defaultValue={formDesc}
-            onChange={(event) => setFormDesc(event.currentTarget.value)}
+            minRows={2}
+            tabIndex={taskType === "Web Dev" ? 3 : "NaN"}
+            placeholder="Intended Goal..."
+            defaultValue={formGoal}
+            onChange={(event) => setFormGoal(event.currentTarget.value)}
           />
-          <Stack hidden={taskType !== "Design"} gap={20}>
-            {taskType === "Design" && (
-              <>
-                <AddTags
-                  placeholder="Style Defining Keywords..."
-                  mode={"styleKeywords"}
-                  tabIndex={taskType === "Web Dev" ? 5 : 4}
-                />
-                <AddTags
-                  placeholder="Delivery File Formats..."
-                  mode={"deliveryFormats"}
-                  tabIndex={taskType === "Web Dev" ? 6 : 5}
-                />
-              </>
-            )}
-            <AddTags placeholder="Websites..." mode={"websites"} tabIndex={6} />
-          </Stack>
+        </Box>
+        <Textarea
+          autosize
+          tabIndex={taskType === "Web Dev" ? 4 : 3}
+          minRows={7}
+          maxRows={7}
+          placeholder="Description..."
+          defaultValue={formDesc}
+          onChange={(event) => setFormDesc(event.currentTarget.value)}
+        />
+        <Stack hidden={taskType !== "Design"} gap={20}>
+          {taskType === "Design" && (
+            <>
+              <AddTags
+                placeholder="Style Defining Keywords..."
+                mode={"styleKeywords"}
+                tabIndex={taskType === "Web Dev" ? 5 : 4}
+              />
+              <AddTags
+                placeholder="Delivery File Formats..."
+                mode={"deliveryFormats"}
+                tabIndex={taskType === "Web Dev" ? 6 : 5}
+              />
+            </>
+          )}
+          <AddTags placeholder="Websites..." mode={"websites"} tabIndex={6} />
         </Stack>
-        <Stack mt={20} gap={20}>
-          <ColorPanel setFormData={setFormData} choosenType={formData.type} />
-          <FilePanel setFormData={setFormData} />
-          <Group justify="flex-end">
+      </Stack>
+      <Stack mt={20} gap={20}>
+        <ColorPanel setFormData={setFormData} choosenType={formData.type} />
+        <FilePanel setFormData={setFormData} />
+        <Group justify="flex-end" gap={5}>
+          <Button
+            className={classes.backBtn}
+            onClick={() => setSubmissionPanel(0)}
+            leftSection={
+              <FaPlay
+                size={10}
+                style={{
+                  transform: "rotate(180deg)",
+                }}
+              />
+            }
+          >
+            Back
+          </Button>
+          {showReviewBtn ? (
             <Button
-              className={classes.backBtn}
-              mr={!showReviewBtn ? -15 : 0}
-              onClick={() => setSubmissionPanel(0)}
-              leftSection={
-                <FaPlay
-                  size={10}
-                  style={{
-                    transform: "rotate(180deg)",
-                  }}
-                />
-              }
+              className={classes.reviewBtn}
+              rightSection={<FaPlay size={8} />}
+              onClick={() => setSubmissionPanel(2)}
             >
-              Back
+              Review
             </Button>
-            {showReviewBtn && (
-              <Button
-                className={classes.reviewBtn}
-                leftSection={<FaPlay size={10} />}
-                onClick={() => setSubmissionPanel(2)}
-              >
-                Review
-              </Button>
-            )}
-          </Group>
-        </Stack>
-        <Dialog
-          className={classes.deliverInfoDialog}
-          opened={deliverInfo}
-          withCloseButton
-          size={340}
-          p={"20px 25px"}
-          onClose={() => {
-            setDeliverInfo(false);
-            setHelpMode("");
-          }}
-        >
-          <Center className={classes.dialogIcon}>
-            <TbHelpSmall size={30} />
-          </Center>
-          <Box w={375} pr={55}>
-            <HelpInfo />
-          </Box>
-        </Dialog>
-      </Box>
+          ) : (
+            <HoverCard shadow="md" position="bottom" withArrow>
+              <HoverCard.Target>
+                <Image
+                  className={classes.helpIcon}
+                  src={"/img/help.svg"}
+                  alt={"Help Notice"}
+                  height={25}
+                />
+              </HoverCard.Target>
+              <HoverCard.Dropdown>
+                <Text c={"#000"} fz={12}>
+                  Add a title, description and
+                  <br />
+                  select a service to continue.
+                </Text>
+              </HoverCard.Dropdown>
+            </HoverCard>
+          )}
+        </Group>
+      </Stack>
+      <Dialog
+        className={classes.deliverInfoDialog}
+        opened={deliverInfo}
+        withCloseButton
+        size={340}
+        p={"20px 25px"}
+        onClose={() => {
+          setDeliverInfo(false);
+          setHelpMode("");
+        }}
+      >
+        <Center className={classes.dialogIcon}>
+          <TbHelpSmall size={30} />
+        </Center>
+        <Box w={375} pr={55}>
+          <HelpInfo />
+        </Box>
+      </Dialog>
     </motion.div>
   );
 }

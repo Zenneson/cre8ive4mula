@@ -74,7 +74,7 @@ export default function ChooseTypePanel(props) {
               {serviceBadges}
             </Group>
             <Group justify="flex-end" mt={20}>
-              <Button leftSection={<FaPlay size={10} />} onClick={goToForm}>
+              <Button rightSection={<FaPlay size={8} />} onClick={goToForm}>
                 Continue
               </Button>
             </Group>

@@ -16,7 +16,7 @@ export default function SubmitTask() {
   const [typeServices, setTypeServices] = useState();
 
   useEffect(() => {
-    if (formData.title === "") setSubmissionPanel(0);
+    if (submissionPanel !== 0) setSubmissionPanel(0);
     setFormData({ type: {} });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
