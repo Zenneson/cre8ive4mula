@@ -206,8 +206,9 @@ export default function Board({ taskData, boardType, num }) {
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 <AnimatePresence>
-                  {tasks.map((task) => (
+                  {tasks.map((task, i) => (
                     <TaskCard
+                      num={i}
                       index={task.id}
                       draggableId={task.id}
                       key={task.id}

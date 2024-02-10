@@ -58,3 +58,7 @@ button.backBtn {
     opacity: 1;
   }
 }
+
+button.reviewBtn {
+  transition: all 200ms ease-in-out;
+}

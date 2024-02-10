@@ -31,7 +31,7 @@ import ServiceSelect from "./serviceSelect";
 import classes from "./styles/taskFrom.module.css";
 
 export default function TaskForm(props) {
-  const { typeServices } = props;
+  const { typeServices, titleRef } = props;
   const { formData, setFormData, setSubmissionPanel } = useSubissionData();
   const [typeColor, setTypeColor] = useState();
   const [deliverInfo, setDeliverInfo] = useState(false);
@@ -39,6 +39,15 @@ export default function TaskForm(props) {
   const [formTitle, setFormTitle] = useDebouncedState("", 200);
   const [formGoal, setFormGoal] = useDebouncedState("", 200);
   const [formDesc, setFormDesc] = useDebouncedState("", 200);
+
+  const taskType = formData.type?.title;
+  const taskService = formData?.service;
+  const showReviewBtn =
+    taskType === "Web Dev" && formTitle && formGoal && formDesc && taskService
+      ? true
+      : taskType !== "Web Dev" && formTitle && formDesc && taskService
+        ? true
+        : false;
 
   useEffect(() => {
     const equal = shallowEqual(
@@ -73,7 +82,7 @@ export default function TaskForm(props) {
 
   const [helpMode, setHelpMode] = useState("");
   const HelpInfo = () => {
-    if (helpMode === "style keywords") {
+    if (helpMode === "styleKeywords") {
       return (
         <>
           <Text fz={13} ta={"center"}>
@@ -90,7 +99,7 @@ export default function TaskForm(props) {
         </>
       );
     }
-    if (helpMode === "delivery formats") {
+    if (helpMode === "deliveryFormats") {
       return (
         <>
           <Text fz={13} ta={"center"}>
@@ -252,11 +261,6 @@ export default function TaskForm(props) {
     );
   };
 
-  console.log(
-    "🚀 ~ AddTags ~ websites.invaidValue[websites.invaidValue.length - 1]:",
-    websites.invaidValue[websites.invaidValue.length - 1]
-  );
-
   const animation = {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
@@ -280,17 +284,18 @@ export default function TaskForm(props) {
           <Badge
             className={classes.taskType}
             color={typeColor}
-            c={formData.type?.title === "Web Dev" ? "#000" : "#fff"}
+            c={taskType === "Web Dev" ? "#000" : "#fff"}
             size="md"
             variant={"filled"}
           >
-            {formData.type?.title}
+            {taskType}
           </Badge>
         </Group>
         <Stack className="panel" w={800} gap={20}>
           <Grid>
             <Grid.Col span="auto">
               <TextInput
+                ref={titleRef}
                 autoFocus={true}
                 placeholder="Title..."
                 tabIndex={1}
@@ -306,10 +311,11 @@ export default function TaskForm(props) {
               />
             </Grid.Col>
           </Grid>
-          <Box hidden={formData.type?.title !== "Web Dev"}>
+          <Box hidden={taskType !== "Web Dev"}>
             <Textarea
               autosize
               minRows={2}
+              tabIndex={taskType === "Web Dev" ? 3 : "NaN"}
               placeholder="Intended Goal..."
               defaultValue={formGoal}
               onChange={(event) => setFormGoal(event.currentTarget.value)}
@@ -317,25 +323,25 @@ export default function TaskForm(props) {
           </Box>
           <Textarea
             autosize
-            tabIndex={3}
+            tabIndex={taskType === "Web Dev" ? 4 : 3}
             minRows={7}
             maxRows={7}
             placeholder="Description..."
             defaultValue={formDesc}
             onChange={(event) => setFormDesc(event.currentTarget.value)}
           />
-          <Stack hidden={formData.type?.title !== "Design"} gap={20}>
-            {formData.type?.title === "Design" && (
+          <Stack hidden={taskType !== "Design"} gap={20}>
+            {taskType === "Design" && (
               <>
                 <AddTags
                   placeholder="Style Defining Keywords..."
                   mode={"styleKeywords"}
-                  tabIndex={4}
+                  tabIndex={taskType === "Web Dev" ? 5 : 4}
                 />
                 <AddTags
                   placeholder="Delivery File Formats..."
                   mode={"deliveryFormats"}
-                  tabIndex={5}
+                  tabIndex={taskType === "Web Dev" ? 6 : 5}
                 />
               </>
             )}
@@ -348,6 +354,8 @@ export default function TaskForm(props) {
           <Group justify="flex-end">
             <Button
               className={classes.backBtn}
+              mr={!showReviewBtn ? -15 : 0}
+              onClick={() => setSubmissionPanel(0)}
               leftSection={
                 <FaPlay
                   size={10}
@@ -356,16 +364,18 @@ export default function TaskForm(props) {
                   }}
                 />
               }
-              onClick={() => setSubmissionPanel(0)}
             >
               Back
             </Button>
-            <Button
-              leftSection={<FaPlay size={10} />}
-              onClick={() => setSubmissionPanel(2)}
-            >
-              Review
-            </Button>
+            {showReviewBtn && (
+              <Button
+                className={classes.reviewBtn}
+                leftSection={<FaPlay size={10} />}
+                onClick={() => setSubmissionPanel(2)}
+              >
+                Review
+              </Button>
+            )}
           </Group>
         </Stack>
         <Dialog

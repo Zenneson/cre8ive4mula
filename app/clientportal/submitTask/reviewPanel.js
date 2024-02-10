@@ -38,6 +38,12 @@ export default function ReviewPanel() {
   const websites = formData.websites;
   const files = formData.files;
 
+  const isExtraData =
+    styleKeywords.length > 0 ||
+    websites.length > 0 ||
+    files.length > 0 ||
+    colors.length > 0;
+
   const DetailsRow = (props) => {
     const { icon, alt, details } = props;
     return (
@@ -112,53 +118,55 @@ export default function ReviewPanel() {
               {formData.desc}
             </Box>
           </Stack>
-          <Stack className="altPanel" gap={5} px={30}>
-            <Box hidden={formData.type?.title !== "Design"}>
-              {colors && colors.length > 0 && (
-                <Group>
-                  <Image
-                    className={classes.reviewIcon}
-                    src="/img/colorPalette.svg"
-                    alt={"Color Palette"}
-                    fit="contain"
-                    mt={4}
-                    mb={8}
-                    w={30}
+          {isExtraData && (
+            <Stack className="altPanel" gap={5} px={30}>
+              <Box hidden={formData.type?.title !== "Design"}>
+                {colors && colors.length > 0 && (
+                  <Group>
+                    <Image
+                      className={classes.reviewIcon}
+                      src="/img/colorPalette.svg"
+                      alt={"Color Palette"}
+                      fit="contain"
+                      mt={4}
+                      mb={8}
+                      w={30}
+                    />
+                    <Flex
+                      justify={"flex-start"}
+                      align={"center"}
+                      gap={"17.6%"}
+                      pl={"3px"}
+                      mah={40}
+                    >
+                      {colorRow}
+                    </Flex>
+                  </Group>
+                )}
+                {styleKeywords && styleKeywords.length > 0 && (
+                  <DetailsRow
+                    icon={"hashtag"}
+                    alt={"Style Keywords"}
+                    details={styleKeywords}
                   />
-                  <Flex
-                    justify={"flex-start"}
-                    align={"center"}
-                    gap={"17.6%"}
-                    pl={"3px"}
-                    mah={40}
-                  >
-                    {colorRow}
-                  </Flex>
-                </Group>
-              )}
-              {styleKeywords && styleKeywords.length > 0 && (
+                )}
+              </Box>
+              {websites && websites.length > 0 && (
                 <DetailsRow
-                  icon={"hashtag"}
-                  alt={"Style Keywords"}
-                  details={styleKeywords}
+                  icon={"website"}
+                  alt={"Related Links"}
+                  details={websites}
                 />
               )}
-            </Box>
-            {websites && websites.length > 0 && (
-              <DetailsRow
-                icon={"website"}
-                alt={"Related Links"}
-                details={websites}
-              />
-            )}
-            {files && files.length > 0 && (
-              <DetailsRow
-                icon={"paperclip"}
-                alt={"Project Files"}
-                details={files}
-              />
-            )}
-          </Stack>
+              {files && files.length > 0 && (
+                <DetailsRow
+                  icon={"paperclip"}
+                  alt={"Project Files"}
+                  details={files}
+                />
+              )}
+            </Stack>
+          )}
           <Group justify="flex-end">
             <Button
               className={classes.backBtn}

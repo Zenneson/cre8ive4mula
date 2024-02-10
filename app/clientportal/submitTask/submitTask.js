@@ -1,7 +1,7 @@
 "use client";
 import "@dotlottie/react-player/dist/index.css";
 import { Center, Group } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { services } from "../../../public/data/services";
 import { useSubissionData } from "../portalStore";
 import ChooseTypePanel from "./chooseTypePanel";
@@ -10,6 +10,7 @@ import classes from "./styles/submitTask.module.css";
 import TaskForm from "./taskForm";
 
 export default function SubmitTask() {
+  const titleRef = useRef();
   const { formData, setFormData, submissionPanel, setSubmissionPanel } =
     useSubissionData();
   const [typeServices, setTypeServices] = useState();
@@ -70,10 +71,11 @@ export default function SubmitTask() {
           setupData={setupData}
           choosenType={formData.type}
           setSubmissionPanel={setSubmissionPanel}
+          titleRef={titleRef}
         />
       </Center>
       <Center id="1" w={"calc(100vw - 110px)"} pos={"relative"} ml={"110px"}>
-        <TaskForm typeServices={typeServices} />
+        <TaskForm typeServices={typeServices} titleRef={titleRef} />
       </Center>
       <Center
         id="2"

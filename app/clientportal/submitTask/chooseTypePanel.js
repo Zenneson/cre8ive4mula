@@ -17,7 +17,7 @@ import classes from "./styles/chooseTypePanel.module.css";
 import TypeBtns from "./typeBtns";
 
 export default function ChooseTypePanel(props) {
-  const { setupData, choosenType, setSubmissionPanel } = props;
+  const { setupData, choosenType, setSubmissionPanel, titleRef } = props;
 
   const serviceList = setupData?.service;
   const serviceBadges = serviceList?.map((service, i) => {
@@ -33,6 +33,11 @@ export default function ChooseTypePanel(props) {
       </Badge>
     );
   });
+
+  const goToForm = () => {
+    titleRef.current.focus();
+    setSubmissionPanel(1);
+  };
 
   return (
     <Stack mih={"700px"} gap={5}>
@@ -69,10 +74,7 @@ export default function ChooseTypePanel(props) {
               {serviceBadges}
             </Group>
             <Group justify="flex-end" mt={20}>
-              <Button
-                leftSection={<FaPlay size={10} />}
-                onClick={() => setSubmissionPanel(1)}
-              >
+              <Button leftSection={<FaPlay size={10} />} onClick={goToForm}>
                 Continue
               </Button>
             </Group>

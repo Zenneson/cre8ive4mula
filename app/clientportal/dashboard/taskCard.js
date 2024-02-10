@@ -27,6 +27,7 @@ import classes from "./styles/taskCard.module.css";
 
 export default function TaskCard(props) {
   const {
+    num,
     viewTask,
     setViewTask,
     taskData,
@@ -63,7 +64,7 @@ export default function TaskCard(props) {
       opacity: 1,
     },
     exit: { opacity: 0 },
-    transition: { duration: 0.5, delay: 0.3 + index * aniTime },
+    transition: { duration: 0.5, delay: 0.3 + num * aniTime },
   };
 
   const colorWay = taskData.colors?.map((color, index) => (
