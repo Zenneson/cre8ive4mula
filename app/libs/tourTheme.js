@@ -13,9 +13,9 @@ export const tourTheme = createTheme({
   focusRing: "never",
   cursorType: "pointer",
   defaultRadius: "10px",
-  primaryColor: "deepblue",
+  primaryColor: "cobaltblue",
   autoContrast: true,
-  primaryShade: 7,
+  primaryShade: 9,
   colors: {
     deepblue: [
       "#e4f5ff",
@@ -28,6 +28,18 @@ export const tourTheme = createTheme({
       "#0066e4",
       "#005acd",
       "#004eb5",
+    ],
+    cobaltblue: [
+      "#ebf3ff",
+      "#d4e3f9",
+      "#a3c4f6",
+      "#70a3f4",
+      "#4a87f3",
+      "#3676f2",
+      "#2b6df4",
+      "#215cd9",
+      "#1852c2",
+      "#0246ab",
     ],
     deepred: [
       "#ffe9f0",

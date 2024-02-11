@@ -1,0 +1,90 @@
+div.archiveFrame {
+  font-family: var(--font-montserrat);
+
+  div.calendarFrame {
+    overflow: visible;
+
+    div.archiveCalendar {
+      button {
+        color: #fff;
+
+        &[data-weekend="true"] {
+          color: #f00;
+        }
+        &[data-outside="true"] {
+          color: rgba(255, 255, 255, 0.4);
+          pointer-events: none;
+        }
+
+        &[data-selected="true"] {
+          font-size: 18px !important;
+          font-weight: 700;
+          color: #fff;
+          text-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+        }
+      }
+
+      button[data-selected="true"],
+      button:hover {
+        color: #3f70a8;
+        background: linear-gradient(145deg, #5f95d7, #75acee);
+        box-shadow:
+          5px 5px 10px #528cce,
+          -5px -5px 20px rgba(224, 238, 255, 0.2);
+      }
+    }
+  }
+
+  div.fileSearchBtn {
+    transition: all 200ms ease-in-out;
+    border-radius: 10px;
+    position: absolute;
+    padding: 13px;
+    padding-bottom: 6px;
+    top: 40px;
+    right: 40px;
+    color: #fff;
+    cursor: pointer;
+    transform: scale(1.5);
+
+    &:hover {
+      transform: scale(1.52) !important;
+      color: #3f70a8;
+    }
+  }
+
+  div.archiveFrame {
+    font-family: var(--font-montserrat);
+  }
+
+  div.tableFrame {
+    max-height: calc(100vh - 880px);
+    margin: 10px;
+    margin-top: 20px;
+  }
+
+  button.viewTaskBtn {
+    background: #8bbbf5 !important;
+    border: 0;
+    box-shadow: none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 5px 10px !important;
+    font-family: var(--font-montserrat);
+    font-weight: 700;
+    margin: 4px 0;
+    margin-right: 4px;
+    font-size: 12px;
+    box-shadow:
+      10px 10px 15px rgba(82, 140, 206, 0.3),
+      -10px -10px 15px rgba(82, 140, 206, 0.2);
+  }
+
+  h4.archiveTaskTitle {
+    font-family: var(--font-montserrat);
+    width: 100%;
+    font-weight: 500;
+    font-size: 15px;
+    color: #fff;
+  }
+}

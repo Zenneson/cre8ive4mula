@@ -1,6 +1,7 @@
 "use client";
 import { Box, ScrollArea, Title } from "@mantine/core";
 import { motion } from "framer-motion";
+import Archive from "./archive/archive";
 import Dashboard from "./dashboard/dashboard";
 import { usePortalState } from "./portalStore";
 import classes from "./styles/clientPortal.module.css";
@@ -52,7 +53,7 @@ export default function Panels(props) {
             pt={60}
             pl={125}
           >
-            <Title>Archive</Title>
+            <Archive />
           </Box>
         </motion.div>
       )}

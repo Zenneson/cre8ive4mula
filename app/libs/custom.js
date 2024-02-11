@@ -1,3 +1,13 @@
+import dayjs from "dayjs";
+import AdvancedFormat from "dayjs/plugin/advancedFormat";
+dayjs.extend(AdvancedFormat);
+
+// Formats the date string to a more readable format.
+export const convertDateFormat = (dateString) => {
+  const date = dayjs(dateString);
+  return date.format("dddd, MMMM D, YYYY");
+};
+
 // Ensures that a given string starts with a specified symbol.
 export const addAtSymbol = (inputStr, symbol) => {
   if (!inputStr) return;
