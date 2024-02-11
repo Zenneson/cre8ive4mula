@@ -38,7 +38,8 @@ export default function TaskCard(props) {
   } = props;
   const [showDetails, setShowDetails] = useState(false);
   const [brightDetails, setBrightDetails] = useState(false);
-  const { loaded, setLoaded, allowReorder } = usePortalState();
+  const { allowReorder, loaded, setLoaded, drawerOpen, setDrawerOpen } =
+    usePortalState();
   const frameRef = useRef();
   const { ref, width } = useElementSize();
   const infoListWidth = width;
@@ -54,17 +55,19 @@ export default function TaskCard(props) {
       transform: loaded
         ? "perspective(400px) rotate3d(1, 0, 0, 0deg)"
         : "perspective(400px) rotate3d(1, 0, 0, -90deg)",
-      animationTimingFunction: "ease-in",
       transformOrigin: "top center",
       opacity: 0,
     },
     animate: {
       transform: "perspective(400px) rotate3d(1, 0, 0, 0deg)",
-      animationTimingFunction: "ease-in",
       opacity: 1,
     },
     exit: { opacity: 0 },
-    transition: { duration: 0.5, delay: 0.3 + num * aniTime },
+    transition: {
+      animationTimingFunction: "ease-in-out",
+      duration: 0.5,
+      delay: 0.3 + num * aniTime,
+    },
   };
 
   const colorWay = taskData.colors?.map((color, index) => (
@@ -269,11 +272,16 @@ export default function TaskCard(props) {
                       <Button
                         className={`${classes.viewTaskBtn} ${classes.reviewBtn}`}
                         variant="light"
+                        onClick={() => setDrawerOpen(true)}
                       >
                         Review
                       </Button>
                     ) : (
-                      <Button className={classes.viewTaskBtn} variant="light">
+                      <Button
+                        className={classes.viewTaskBtn}
+                        onClick={() => setDrawerOpen(true)}
+                        variant="light"
+                      >
                         Open
                       </Button>
                     )}

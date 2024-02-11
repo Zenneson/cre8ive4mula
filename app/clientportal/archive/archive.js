@@ -18,6 +18,7 @@ import "@mantine/dates/styles.css";
 import { useState } from "react";
 import { FaRegComments } from "react-icons/fa";
 import { LuFolderSearch } from "react-icons/lu";
+import { usePortalState } from "../portalStore";
 import classes from "./styles/archive.module.css";
 
 const tasks = [
@@ -61,8 +62,7 @@ const tasks = [
 
 export default function Archive() {
   const [selectedDate, setSelectedDate] = useState(new Date());
-
-  console.log("🚀 ~ Archive ~ selectedDate:", selectedDate);
+  const { setDrawerOpen } = usePortalState();
 
   const rows = tasks.map((task, index) => {
     const typeColor = taskColor(task.type);
@@ -96,7 +96,12 @@ export default function Archive() {
           </Badge>
         </Table.Td>
         <Table.Td ta={"center"} p={0} px={5}>
-          <Button className={classes.viewTaskBtn} variant="light" mr={10}>
+          <Button
+            className={classes.viewTaskBtn}
+            onClick={() => setDrawerOpen(true)}
+            variant="light"
+            mr={10}
+          >
             Open
           </Button>
         </Table.Td>

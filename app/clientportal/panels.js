@@ -8,9 +8,9 @@ import classes from "./styles/clientPortal.module.css";
 import SubmitTask from "./submitTask/submitTask";
 
 const animation = {
-  initial: { y: -100, opacity: 0, duration: 500 },
-  animate: { y: 0, opacity: 1, duration: 500 },
-  transition: { type: "ease-in-out" },
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  transition: { animationTimingFunction: "ease-in-out", duration: 0.5 },
 };
 
 export default function Panels(props) {

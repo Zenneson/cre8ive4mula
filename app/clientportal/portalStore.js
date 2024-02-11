@@ -11,6 +11,8 @@ export const usePortalState = create((set) => ({
   setActivePanel: (value) => set({ activePanel: value }),
   loaded: false,
   setLoaded: (value) => set({ loaded: value }),
+  drawerOpen: false,
+  setDrawerOpen: (value) => set({ drawerOpen: value }),
 }));
 
 // Submission Data

@@ -17,7 +17,7 @@ div.archiveFrame {
         }
 
         &[data-selected="true"] {
-          font-size: 18px !important;
+          font-size: 16px !important;
           font-weight: 700;
           color: #fff;
           text-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
@@ -26,7 +26,7 @@ div.archiveFrame {
 
       button[data-selected="true"],
       button:hover {
-        color: #3f70a8;
+        transition: all 200ms ease-in-out;
         background: linear-gradient(145deg, #5f95d7, #75acee);
         box-shadow:
           5px 5px 10px #528cce,
@@ -46,10 +46,20 @@ div.archiveFrame {
     color: #fff;
     cursor: pointer;
     transform: scale(1.5);
+    user-select: none;
 
     &:hover {
-      transform: scale(1.52) !important;
-      color: #3f70a8;
+      svg {
+        transition: all 100ms ease-in-out;
+        transform: scale(1.2);
+      }
+    }
+
+    &:active {
+      svg {
+        transform: scale(1.1);
+        color: #ccc;
+      }
     }
   }
 
@@ -84,7 +94,7 @@ div.archiveFrame {
     font-family: var(--font-montserrat);
     width: 100%;
     font-weight: 500;
-    font-size: 15px;
+    font-size: 12px;
     color: #fff;
   }
 }

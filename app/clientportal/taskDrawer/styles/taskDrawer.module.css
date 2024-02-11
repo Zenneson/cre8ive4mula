@@ -1,0 +1,23 @@
+div.taskDrawerRoot {
+  z-index: 700;
+  position: fixed;
+}
+
+section.taskDrawerContent {
+  background: transparent;
+  box-shadow: none;
+}
+
+div.topSection {
+  height: calc(70vh - 30px);
+  box-shadow:
+    10px 10px 15px rgba(82, 140, 206, 1),
+    -10px -10px 15px rgba(103, 162, 230, 1);
+}
+
+div.bottomSection {
+  height: calc(30vh - 30px);
+  box-shadow:
+    10px 10px 15px rgba(82, 140, 206, 1),
+    -10px -10px 15px rgba(103, 162, 230, 1);
+}
