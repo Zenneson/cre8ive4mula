@@ -3,6 +3,22 @@ div.taskDrawerRoot {
   position: fixed;
 }
 
+img.closeBtn {
+  transition: all 250ms ease;
+  position: absolute;
+  top: 30px;
+  right: 35px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  opacity: 0.4;
+
+  &:hover {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
 section.taskDrawerContent {
   background: transparent;
   box-shadow: none;

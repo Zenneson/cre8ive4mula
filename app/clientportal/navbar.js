@@ -67,7 +67,7 @@ const MainLogo = () => {
 };
 
 export default function Navbar() {
-  const { activePanel, setActivePanel } = usePortalState();
+  const { activePanel, setActivePanel, setDrawerOpen } = usePortalState();
 
   const animationProps = {
     initial: { x: -50, opacity: 0 },
@@ -88,6 +88,7 @@ export default function Navbar() {
           {...link}
           activePanel={index === activePanel}
           onClick={() => {
+            setDrawerOpen(false);
             setActivePanel(index);
           }}
         />
@@ -110,6 +111,7 @@ export default function Navbar() {
           <NavbarLink
             icon={"settings"}
             onClick={() => {
+              setDrawerOpen(false);
               setActivePanel(3);
             }}
             label="Account Settings"

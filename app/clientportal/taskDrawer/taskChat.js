@@ -8,11 +8,12 @@ import {
   Image,
   Text,
   Textarea,
+  Tooltip,
 } from "@mantine/core";
 import { useEffect, useRef } from "react";
 import { IoSend } from "react-icons/io5";
 import { MdOutlineExpand } from "react-icons/md";
-import { PiGlobeBold } from "react-icons/pi";
+import { TbWorldQuestion } from "react-icons/tb";
 import classes from "./styles/taskChat.module.css";
 
 const Message = (props) => {
@@ -56,7 +57,7 @@ const Message = (props) => {
               top={-5}
               left={5}
               pos={"absolute"}
-              src="/img/adminChatIcon.svg"
+              src="/img/userChatIcon.svg"
               alt="admin"
               w={40}
               h={40}
@@ -68,7 +69,7 @@ const Message = (props) => {
   );
 };
 
-export default function TaskChat() {
+const ChatMessages = () => {
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -78,29 +79,36 @@ export default function TaskChat() {
   useEffect(scrollToBottom, []);
 
   return (
-    <Box className={classes.chat} pos={"relative"} h={"100%"}>
-      <Box className={`altPanel ${classes.chatMessages}`}>
-        <Box className={classes.messagesInnerFrame}>
-          <Message message={"This message is from the bot."} speaker="bot" />
-          <Message message={"This message is from the user."} speaker="user" />
-          <Message message={"This message is from the bot."} speaker="bot" />
-          <Message
-            message={"This message is from the admin."}
-            speaker="admin"
-          />
-          <Message message={"This message is from the user."} speaker="user" />
-          <div ref={messagesEndRef} />
-        </Box>
+    <Box className={`altPanel ${classes.chatMessages}`}>
+      <Box className={classes.messagesInnerFrame}>
+        <Message message={"This message is from the bot."} speaker="bot" />
+        <Message message={"This message is from the user."} speaker="user" />
+        <Message message={"This message is from the bot."} speaker="bot" />
+        <Message message={"This message is from the admin."} speaker="admin" />
+        <Message message={"This message is from the user."} speaker="user" />
+        <div ref={messagesEndRef} />
       </Box>
+    </Box>
+  );
+};
+
+export default function TaskChat() {
+  return (
+    <Box className={classes.chat} pos={"relative"} h={"100%"}>
+      <ChatMessages />
       <Grid pos={"absolute"} w={"100%"} bottom={0}>
         <Grid.Col span={"content"}>
           <Button.Group className={classes.chatAltBtns} orientation="vertical">
-            <Button>
-              <MdOutlineExpand size={18} />
-            </Button>
-            <Button>
-              <PiGlobeBold size={18} />
-            </Button>
+            <Tooltip label="Expand Chat">
+              <Button>
+                <MdOutlineExpand size={18} />
+              </Button>
+            </Tooltip>
+            <Tooltip label="Ask AI">
+              <Button>
+                <TbWorldQuestion size={18} />
+              </Button>
+            </Tooltip>
           </Button.Group>
         </Grid.Col>
         <Grid.Col span={"auto"}>
@@ -112,6 +120,7 @@ export default function TaskChat() {
             placeholder="Type your message..."
             w={"100%"}
             minRows={4}
+            data-autofocus
             autosize
           />
           <ActionIcon

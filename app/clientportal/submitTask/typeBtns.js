@@ -110,10 +110,9 @@ const MentBtn = ({ button }) => {
 
 const buttonsList = buttons.map((button, i) => {
   const animation = {
-    initial: { y: -50, opacity: 0 },
-    animate: { y: 1, opacity: 1 },
-    exit: { y: -50, opacity: 0 },
-    transition: { duration: 1, delay: 0.5 + i * 0.1 },
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    transition: { duration: 1, delay: 0.5 + i * 0.15 },
   };
 
   return (

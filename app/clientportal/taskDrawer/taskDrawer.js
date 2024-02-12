@@ -1,5 +1,5 @@
 "use client";
-import { Box, Drawer } from "@mantine/core";
+import { Box, Drawer, Image, Tooltip } from "@mantine/core";
 import { usePortalState } from "../portalStore";
 import classes from "./styles/taskDrawer.module.css";
 import TaskChat from "./taskChat";
@@ -17,9 +17,18 @@ export default function TaskDrawer() {
       withCloseButton={false}
       position="right"
       size={"70%"}
+      returnFocus
       opened={drawerOpen}
       onClose={() => setDrawerOpen(false)}
     >
+      <Tooltip label="Close">
+        <Image
+          className={classes.closeBtn}
+          src="/img/closeDrawer.svg"
+          alt="close"
+          onClick={() => setDrawerOpen(false)}
+        />
+      </Tooltip>
       <Box className={`innerPanel ${classes.topSection}`} mr={5}>
         <h1>Task Drawer</h1>
       </Box>
