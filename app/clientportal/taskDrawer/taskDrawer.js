@@ -1,6 +1,7 @@
 "use client";
-import { Box, Drawer, Image, Tooltip } from "@mantine/core";
+import { Drawer, Group, Image, Tooltip } from "@mantine/core";
 import { usePortalState } from "../portalStore";
+import DetailsSection from "./detailsSection";
 import classes from "./styles/taskDrawer.module.css";
 import TaskChat from "./taskChat";
 
@@ -21,20 +22,26 @@ export default function TaskDrawer() {
       opened={drawerOpen}
       onClose={() => setDrawerOpen(false)}
     >
-      <Tooltip label="Close">
-        <Image
-          className={classes.closeBtn}
-          src="/img/closeDrawer.svg"
-          alt="close"
-          onClick={() => setDrawerOpen(false)}
-        />
-      </Tooltip>
-      <Box className={`innerPanel ${classes.topSection}`} mr={5}>
-        <h1>Task Drawer</h1>
-      </Box>
-      <Box className={`innerPanel ${classes.bottomSection}`} mt={20} mr={5}>
-        <TaskChat />
-      </Box>
+      <Group className={`altPanel ${classes.drawerBtns}`} gap={10}>
+        <Tooltip label="Expand Details">
+          <Image
+            className={classes.expandBtn}
+            src="/img/expand.svg"
+            alt="Expand Details"
+            onClick={() => setDrawerOpen(false)}
+          />
+        </Tooltip>
+        <Tooltip label="Close">
+          <Image
+            className={classes.closeBtn}
+            src="/img/closeDrawer.svg"
+            alt="close"
+            onClick={() => setDrawerOpen(false)}
+          />
+        </Tooltip>
+      </Group>
+      <DetailsSection />
+      <TaskChat />
     </Drawer>
   );
 }

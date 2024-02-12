@@ -77,13 +77,12 @@ export default function ReviewPanel() {
   return (
     <motion.div {...animation}>
       <Box w={800} mt={-150}>
-        <Stack className={classes.reviewTitle} gap={0}>
+        <Stack className={classes.reviewTitle} ml={-7} gap={0}>
           <Badge
             className={classes.taskType}
             color={typeColor}
-            c={formData.type?.title === "Web Dev" ? "#000" : "#fff"}
-            ml={45}
-            mb={7}
+            ml={48}
+            mb={3}
             size="md"
             variant={"filled"}
           >
@@ -91,14 +90,14 @@ export default function ReviewPanel() {
           </Badge>
           <Group gap="7">
             <Image
-              src={"/img/task.svg"}
+              src={"/img/addTask.svg"}
               alt={"Task Type"}
               height={40}
               opacity={0.5}
             />
             <Title order={1}>{formData.title}</Title>
           </Group>
-          <Text ml={45}>{formData.service}</Text>
+          <Text ml={48}>{formData.service}</Text>
         </Stack>
         <Stack mx={40} gap={25}>
           <Stack className="innerPanel" gap={20} p={20}>

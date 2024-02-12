@@ -1,3 +1,10 @@
+div.chatPanel {
+  height: calc(30vh - 30px);
+  box-shadow:
+    10px 10px 15px rgba(82, 140, 206, 1),
+    -10px -10px 15px rgba(103, 162, 230, 1);
+}
+
 div.chatMessages {
   background: rgba(255, 255, 255, 0.1);
   position: relative;
@@ -5,31 +12,35 @@ div.chatMessages {
   height: calc(100% - 125px);
   width: 100%;
   display: table;
+  border-radius: 10px;
 }
 
 div.messagesInnerFrame {
-  padding-top: 15px;
-  border-radius: 10px;
   position: absolute;
   left: 0;
   bottom: 0;
-  display: table-cell;
-  vertical-align: bottom;
+  padding-top: 15px;
+  border-radius: 10px;
   width: 100%;
   max-height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+  display: table-cell;
+  vertical-align: bottom;
 
   &::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
   }
-
   &::-webkit-scrollbar-thumb {
-    background: rgba(2, 70, 173, 0.5);
-    border-radius: 10px;
-  }
-  &::-webkit-scrollbar-thumb:hover {
+    transition: all 250ms ease-in-out;
     background: #0247ad;
+    border-radius: 10px;
+    display: none;
+  }
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      display: block;
+    }
   }
 }
 
@@ -122,4 +133,10 @@ div.chatAltBtns button {
   box-shadow:
     rgba(50, 50, 93, 0.15) 0px 15px 30px -6px,
     rgba(0, 0, 0, 0.05) 0px 18px 18px -9px;
+}
+
+div.shadow {
+  z-index: 500;
+  pointer-events: none;
+  border-radius: 10px;
 }

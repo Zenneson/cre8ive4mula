@@ -3,14 +3,18 @@ div.taskDrawerRoot {
   position: fixed;
 }
 
-img.closeBtn {
-  transition: all 250ms ease;
+div.drawerBtns {
   position: absolute;
   top: 30px;
   right: 35px;
+}
+
+img.expandBtn,
+img.closeBtn {
+  transition: all 250ms ease;
   cursor: pointer;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   opacity: 0.4;
 
   &:hover {
@@ -19,22 +23,13 @@ img.closeBtn {
   }
 }
 
+img.expandBtn {
+  width: 20px;
+  height: 20px;
+}
+
 section.taskDrawerContent {
   background: transparent;
   box-shadow: none;
   max-width: 1000px;
-}
-
-div.topSection {
-  height: calc(70vh - 30px);
-  box-shadow:
-    10px 10px 15px rgba(82, 140, 206, 1),
-    -10px -10px 15px rgba(103, 162, 230, 1);
-}
-
-div.bottomSection {
-  height: calc(30vh - 30px);
-  box-shadow:
-    10px 10px 15px rgba(82, 140, 206, 1),
-    -10px -10px 15px rgba(103, 162, 230, 1);
 }

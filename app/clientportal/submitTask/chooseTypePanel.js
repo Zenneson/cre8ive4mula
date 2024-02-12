@@ -43,7 +43,7 @@ export default function ChooseTypePanel(props) {
     <Stack mih={"700px"} gap={5}>
       <Group className={classes.chooseTypeTitleFrame} gap="7">
         <Image
-          src={"/img/task.svg"}
+          src={"/img/addTask.svg"}
           alt={"Task Type"}
           height={25}
           opacity={0.5}

@@ -79,7 +79,15 @@ const ChatMessages = () => {
   useEffect(scrollToBottom, []);
 
   return (
-    <Box className={`altPanel ${classes.chatMessages}`}>
+    <Box className={`${classes.chatMessages}`}>
+      <Box
+        className={`altPanel ${classes.shadow}`}
+        pos="absolute"
+        top={-1}
+        left={0}
+        w={"100%"}
+        h={"100%"}
+      />
       <Box className={classes.messagesInnerFrame}>
         <Message message={"This message is from the bot."} speaker="bot" />
         <Message message={"This message is from the user."} speaker="user" />
@@ -94,47 +102,52 @@ const ChatMessages = () => {
 
 export default function TaskChat() {
   return (
-    <Box className={classes.chat} pos={"relative"} h={"100%"}>
-      <ChatMessages />
-      <Grid pos={"absolute"} w={"100%"} bottom={0}>
-        <Grid.Col span={"content"}>
-          <Button.Group className={classes.chatAltBtns} orientation="vertical">
-            <Tooltip label="Expand Chat">
-              <Button>
-                <MdOutlineExpand size={18} />
-              </Button>
-            </Tooltip>
-            <Tooltip label="Ask AI">
-              <Button>
-                <TbWorldQuestion size={18} />
-              </Button>
-            </Tooltip>
-          </Button.Group>
-        </Grid.Col>
-        <Grid.Col span={"auto"}>
-          <Textarea
-            classNames={{
-              wrapper: classes.inputWrapper,
-              input: classes.chatInput,
-            }}
-            placeholder="Type your message..."
-            w={"100%"}
-            minRows={4}
-            data-autofocus
-            autosize
-          />
-          <ActionIcon
-            className={`innerPanel ${classes.sendBtn}`}
-            variant="transparent"
-            pos={"absolute"}
-            right={5}
-            bottom={5}
-            size="xl"
-          >
-            <IoSend />
-          </ActionIcon>
-        </Grid.Col>
-      </Grid>
+    <Box className={`innerPanel ${classes.chatPanel}`} mt={20} mr={5}>
+      <Box className={classes.chat} pos={"relative"} h={"100%"}>
+        <ChatMessages />
+        <Grid pos={"absolute"} w={"100%"} bottom={0}>
+          <Grid.Col span={"content"}>
+            <Button.Group
+              className={classes.chatAltBtns}
+              orientation="vertical"
+            >
+              <Tooltip label="Expand Chat">
+                <Button>
+                  <MdOutlineExpand size={18} />
+                </Button>
+              </Tooltip>
+              <Tooltip label="Ask AI">
+                <Button>
+                  <TbWorldQuestion size={18} />
+                </Button>
+              </Tooltip>
+            </Button.Group>
+          </Grid.Col>
+          <Grid.Col span={"auto"}>
+            <Textarea
+              classNames={{
+                wrapper: classes.inputWrapper,
+                input: classes.chatInput,
+              }}
+              placeholder="Type your message..."
+              w={"100%"}
+              minRows={4}
+              data-autofocus
+              autosize
+            />
+            <ActionIcon
+              className={`innerPanel ${classes.sendBtn}`}
+              variant="transparent"
+              pos={"absolute"}
+              right={5}
+              bottom={5}
+              size="xl"
+            >
+              <IoSend />
+            </ActionIcon>
+          </Grid.Col>
+        </Grid>
+      </Box>
     </Box>
   );
 }

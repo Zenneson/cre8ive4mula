@@ -1,0 +1,53 @@
+div.detailsSection {
+  padding-top: 15px;
+  height: calc(70vh - 30px);
+  overflow: hidden;
+  box-shadow:
+    10px 10px 15px rgba(82, 140, 206, 1),
+    -10px -10px 15px rgba(103, 162, 230, 1);
+}
+
+div.textPanel {
+  background: linear-gradient(145deg, #dfe5ea, #ffffff);
+  box-shadow: inset 0px 2px 4px 0px rgba(83, 140, 205, 0.6);
+  border-top: 1px solid transparent;
+  border-left: 1px solid transparent;
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin: 0 10px;
+
+  svg,
+  h6 {
+    color: #777;
+  }
+
+  h6 {
+    font-size: 12px;
+  }
+
+  p {
+    white-space: pre-wrap;
+    padding-left: 15px;
+    color: #000;
+  }
+}
+
+div.taskDesc {
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    transition: all 250ms ease-in-out;
+    background: #0247ad;
+    border-radius: 10px;
+    display: none;
+  }
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      display: block;
+    }
+  }
+}

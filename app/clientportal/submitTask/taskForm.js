@@ -274,7 +274,7 @@ export default function TaskForm(props) {
       <Group className={classes.taskFormTitle} justify="space-between">
         <Group gap="7">
           <Image
-            src={"/img/task.svg"}
+            src={"/img/addTask.svg"}
             alt={"Task Type"}
             height={25}
             opacity={0.5}
