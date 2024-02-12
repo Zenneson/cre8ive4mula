@@ -6,6 +6,7 @@ div.taskDrawerRoot {
 section.taskDrawerContent {
   background: transparent;
   box-shadow: none;
+  max-width: 1000px;
 }
 
 div.topSection {

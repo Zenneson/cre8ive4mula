@@ -40,24 +40,6 @@ const tasks = [
     comments: 8,
     status: "Delivery",
   },
-  {
-    type: "Design",
-    title: "Drawing for the March Event",
-    comments: 5,
-    status: "Delivery",
-  },
-  {
-    type: "Content",
-    title: "Changing Page Content",
-    comments: 12,
-    status: "Submission",
-  },
-  {
-    type: "Web Dev",
-    title: "Add Feature",
-    comments: 8,
-    status: "Delivery",
-  },
 ];
 
 export default function Archive() {
@@ -147,8 +129,8 @@ export default function Archive() {
             }}
           />
         </Box>
-        <Box className="panel">
-          <Group w={"550px"} gap={7}>
+        <Box className="panel" w={"638.4px"}>
+          <Group gap={7}>
             <Image
               src="/img/calendar.svg"
               alt="Current Date"
