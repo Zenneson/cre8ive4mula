@@ -3,17 +3,15 @@ import "@dotlottie/react-player/dist/index.css";
 import {
   ActionIcon,
   Box,
-  Button,
   Grid,
   Image,
+  Stack,
   Text,
   Textarea,
   Tooltip,
 } from "@mantine/core";
 import { useEffect, useRef } from "react";
 import { IoSend } from "react-icons/io5";
-import { MdOutlineExpand } from "react-icons/md";
-import { TbWorldQuestion } from "react-icons/tb";
 import classes from "./styles/taskChat.module.css";
 
 const Message = (props) => {
@@ -24,7 +22,12 @@ const Message = (props) => {
         <Grid.Col span={"content"}>
           <Box pos={"relative"} w={50} mih={50} h={"100%"}>
             {speaker === "bot" ? (
-              <DotLottiePlayer src={"/img/botIcon.json"} autoplay loop />
+              <DotLottiePlayer
+                // className={classes.botIcon}
+                src={"/img/botIcon.json"}
+                autoplay
+                loop
+              />
             ) : (
               <Image
                 top={-5}
@@ -102,26 +105,30 @@ const ChatMessages = () => {
 
 export default function TaskChat() {
   return (
-    <Box className={`innerPanel ${classes.chatPanel}`} mt={20} mr={5}>
+    <Box className={`panel ${classes.chatPanel}`} mt={20} mr={5}>
       <Box className={classes.chat} pos={"relative"} h={"100%"}>
         <ChatMessages />
         <Grid pos={"absolute"} w={"100%"} bottom={0}>
           <Grid.Col span={"content"}>
-            <Button.Group
-              className={classes.chatAltBtns}
-              orientation="vertical"
+            <Stack
+              className={`altPanel ${classes.chatAltBtns}`}
+              align="center"
+              gap={12}
+              p={11}
             >
-              <Tooltip label="Expand Chat">
-                <Button>
-                  <MdOutlineExpand size={18} />
-                </Button>
+              <Tooltip position="left" label="Expand Chat">
+                <Image
+                  src="/img/expand.svg"
+                  alt="Expand Chat"
+                  mt={8}
+                  w={23}
+                  h={23}
+                />
               </Tooltip>
-              <Tooltip label="Ask AI">
-                <Button>
-                  <TbWorldQuestion size={18} />
-                </Button>
+              <Tooltip position="left" label="Ask AI">
+                <Image src="/img/aiBtn.svg" alt="AI" w={35} h={35} />
               </Tooltip>
-            </Button.Group>
+            </Stack>
           </Grid.Col>
           <Grid.Col span={"auto"}>
             <Textarea

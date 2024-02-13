@@ -1,4 +1,5 @@
 div.chatPanel {
+  padding: 15px 20px;
   height: calc(30vh - 30px);
   box-shadow:
     10px 10px 15px rgba(82, 140, 206, 1),
@@ -44,6 +45,11 @@ div.messagesInnerFrame {
   }
 }
 
+div.botIcon {
+  filter: invert(100%) sepia(0%) saturate(7443%) hue-rotate(200deg)
+    brightness(110%) contrast(109%);
+}
+
 div.message {
   position: relative;
   width: 100%;
@@ -70,7 +76,7 @@ div.message {
 }
 
 div.messageBubble {
-  background: linear-gradient(145deg, #c7d1db, #b8c9e0);
+  background: linear-gradient(145deg, #dfe5ea, #fff);
   position: relative;
   padding: 10px 20px;
   border-radius: 5px;
@@ -97,7 +103,7 @@ div.messageBubble {
     left: -15px;
     top: 0px;
     border: 15px solid;
-    border-color: #c7d1db transparent transparent transparent;
+    border-color: #dfe5ea transparent transparent transparent;
   }
 }
 
@@ -110,16 +116,23 @@ div.userBubble {
 
   &:after {
     right: -15px;
-    border-color: #b8c9e0 transparent transparent transparent;
+    border-color: #fff transparent transparent transparent;
   }
 }
 
 div.chatAltBtns {
   position: relative;
-  bottom: -13px;
+  bottom: -12px;
 
-  svg {
-    transform: scale(1.25);
+  img {
+    transition: all 250ms ease-in-out;
+    cursor: pointer;
+    opacity: 0.5;
+
+    &:hover {
+      transform: scale(1.1);
+      opacity: 1;
+    }
   }
 }
 
@@ -136,6 +149,10 @@ div.chatAltBtns button {
 }
 
 div.shadow {
+  border-top: 1px solid rgba(184, 201, 224, 0.85);
+  box-shadow:
+    rgba(51, 116, 191, 0.4) 0px 15px 30px -6px inset,
+    rgba(0, 0, 0, 0.1) 0px 18px 18px -9px inset;
   z-index: 500;
   pointer-events: none;
   border-radius: 10px;
