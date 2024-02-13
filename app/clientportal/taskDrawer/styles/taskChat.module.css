@@ -1,6 +1,6 @@
 div.chatPanel {
-  padding: 15px 20px;
-  height: calc(30vh - 30px);
+  transition: all 500ms ease-in-out;
+  padding: 20px;
   box-shadow:
     10px 10px 15px rgba(82, 140, 206, 1),
     -10px -10px 15px rgba(103, 162, 230, 1);
@@ -9,8 +9,8 @@ div.chatPanel {
 div.chatMessages {
   background: rgba(255, 255, 255, 0.1);
   position: relative;
-  top: 5px;
-  height: calc(100% - 125px);
+  top: 0;
+  height: calc(100% - 120px);
   width: 100%;
   display: table;
   border-radius: 10px;
@@ -45,9 +45,27 @@ div.messagesInnerFrame {
   }
 }
 
-div.botIcon {
-  filter: invert(100%) sepia(0%) saturate(7443%) hue-rotate(200deg)
-    brightness(110%) contrast(109%);
+div.botChatIcon {
+  transform: scale(0.85) translate(3px, -10px);
+}
+
+img.adminChatIcon,
+img.userChatIcon {
+  transform: scale(0.8);
+}
+
+img.adminChatIcon,
+img.userChatIcon {
+  position: absolute;
+  left: 6px;
+}
+
+img.adminChatIcon {
+  top: -12px;
+}
+
+img.userChatIcon {
+  top: -10px;
 }
 
 div.message {
@@ -64,7 +82,6 @@ div.message {
 
 .inputWrapper {
   border-top: 2px solid rgba(82, 140, 206, 0.5);
-  margin-top: 12px;
   padding: 0;
 }
 
@@ -122,7 +139,6 @@ div.userBubble {
 
 div.chatAltBtns {
   position: relative;
-  bottom: -12px;
 
   img {
     transition: all 250ms ease-in-out;

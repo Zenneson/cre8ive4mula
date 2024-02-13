@@ -10,8 +10,10 @@ import {
   Textarea,
   Tooltip,
 } from "@mantine/core";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { IoSend } from "react-icons/io5";
+import { usePortalState } from "../portalStore";
 import classes from "./styles/taskChat.module.css";
 
 const Message = (props) => {
@@ -23,16 +25,13 @@ const Message = (props) => {
           <Box pos={"relative"} w={50} mih={50} h={"100%"}>
             {speaker === "bot" ? (
               <DotLottiePlayer
-                // className={classes.botIcon}
+                className={classes.botChatIcon}
                 src={"/img/botIcon.json"}
-                autoplay
                 loop
               />
             ) : (
               <Image
-                top={-5}
-                left={5}
-                pos={"absolute"}
+                className={classes.adminChatIcon}
                 src="/img/adminChatIcon.svg"
                 alt="admin"
                 w={40}
@@ -57,9 +56,7 @@ const Message = (props) => {
         <Grid.Col span={"content"}>
           <Box pos={"relative"} w={50} mih={50} h={"100%"}>
             <Image
-              top={-5}
-              left={5}
-              pos={"absolute"}
+              className={classes.userChatIcon}
               src="/img/userChatIcon.svg"
               alt="admin"
               w={40}
@@ -72,7 +69,15 @@ const Message = (props) => {
   );
 };
 
-const ChatMessages = () => {
+const animationProps = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
+  transition: { delay: 0.1, duration: 0.3 },
+};
+
+const ChatMessages = (props) => {
+  const { drawerState } = props;
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -82,33 +87,62 @@ const ChatMessages = () => {
   useEffect(scrollToBottom, []);
 
   return (
-    <Box className={`${classes.chatMessages}`}>
+    drawerState !== "showDetails" && (
       <Box
-        className={`altPanel ${classes.shadow}`}
-        pos="absolute"
-        top={-1}
-        left={0}
-        w={"100%"}
-        h={"100%"}
-      />
-      <Box className={classes.messagesInnerFrame}>
-        <Message message={"This message is from the bot."} speaker="bot" />
-        <Message message={"This message is from the user."} speaker="user" />
-        <Message message={"This message is from the bot."} speaker="bot" />
-        <Message message={"This message is from the admin."} speaker="admin" />
-        <Message message={"This message is from the user."} speaker="user" />
-        <div ref={messagesEndRef} />
+        className={`${classes.chatMessages}`}
+        component={motion.div}
+        {...animationProps}
+      >
+        <Box
+          className={`altPanel ${classes.shadow}`}
+          pos="absolute"
+          top={-1}
+          left={0}
+          w={"100%"}
+          h={"100%"}
+        />
+        <Box className={classes.messagesInnerFrame}>
+          <Message message={"This message is from the bot."} speaker="bot" />
+          <Message message={"This message is from the user."} speaker="user" />
+          <Message message={"This message is from the bot."} speaker="bot" />
+          <Message
+            message={"This message is from the admin."}
+            speaker="admin"
+          />
+          <Message message={"This message is from the user."} speaker="user" />
+          <div ref={messagesEndRef} />
+        </Box>
       </Box>
-    </Box>
+    )
   );
 };
 
 export default function TaskChat() {
+  const { drawerState, setDrawerState } = usePortalState();
+
+  const handleDrawerHeight = () => {
+    const action = drawerState !== "showChat" ? "showChat" : "init";
+    setDrawerState(action);
+  };
+
   return (
-    <Box className={`panel ${classes.chatPanel}`} mt={20} mr={5}>
+    <Box
+      className={`panel ${classes.chatPanel}`}
+      h={`${
+        drawerState === "init"
+          ? "calc(40vh - 30px)"
+          : drawerState === "showChat"
+            ? "calc(100vh - 150px)"
+            : "94px"
+      }`}
+      mt={20}
+      mr={5}
+    >
       <Box className={classes.chat} pos={"relative"} h={"100%"}>
-        <ChatMessages />
-        <Grid pos={"absolute"} w={"100%"} bottom={0}>
+        <AnimatePresence>
+          <ChatMessages drawerState={drawerState} />
+        </AnimatePresence>
+        <Grid pos={"absolute"} mt={12} w={"100%"} bottom={0}>
           <Grid.Col span={"content"}>
             <Stack
               className={`altPanel ${classes.chatAltBtns}`}
@@ -118,40 +152,63 @@ export default function TaskChat() {
             >
               <Tooltip position="left" label="Expand Chat">
                 <Image
-                  src="/img/expand.svg"
+                  src={
+                    drawerState === "showChat"
+                      ? "/img/reset.svg"
+                      : "/img/expand.svg"
+                  }
                   alt="Expand Chat"
-                  mt={8}
+                  my={3}
                   w={23}
                   h={23}
+                  onClick={handleDrawerHeight}
                 />
               </Tooltip>
-              <Tooltip position="left" label="Ask AI">
-                <Image src="/img/aiBtn.svg" alt="AI" w={35} h={35} />
-              </Tooltip>
+              <AnimatePresence>
+                {drawerState !== "showDetails" && (
+                  <motion.div {...animationProps}>
+                    <Tooltip position="left" label="Ask AI">
+                      <Image
+                        className={classes.aiAltBtn}
+                        src="/img/aiBtn.svg"
+                        alt="AI"
+                        w={35}
+                        h={35}
+                      />
+                    </Tooltip>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </Stack>
           </Grid.Col>
           <Grid.Col span={"auto"}>
-            <Textarea
-              classNames={{
-                wrapper: classes.inputWrapper,
-                input: classes.chatInput,
-              }}
-              placeholder="Type your message..."
-              w={"100%"}
-              minRows={4}
-              data-autofocus
-              autosize
-            />
-            <ActionIcon
-              className={`innerPanel ${classes.sendBtn}`}
-              variant="transparent"
-              pos={"absolute"}
-              right={5}
-              bottom={5}
-              size="xl"
-            >
-              <IoSend />
-            </ActionIcon>
+            <AnimatePresence>
+              {drawerState !== "showDetails" && (
+                <motion.div {...animationProps}>
+                  <Textarea
+                    classNames={{
+                      wrapper: classes.inputWrapper,
+                      input: classes.chatInput,
+                    }}
+                    placeholder="Type your message..."
+                    w={"100%"}
+                    minRows={4}
+                    data-autofocus
+                    autosize
+                  />
+                  <ActionIcon
+                    className={`innerPanel ${classes.sendBtn}`}
+                    variant="transparent"
+                    pos={"absolute"}
+                    right={5}
+                    bottom={5}
+                    size="xl"
+                  >
+                    <IoSend />
+                  </ActionIcon>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </Grid.Col>
         </Grid>
       </Box>

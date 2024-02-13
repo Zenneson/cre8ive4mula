@@ -1,6 +1,6 @@
 div.detailsSection {
+  transition: all 500ms ease-in-out;
   padding-top: 15px;
-  height: calc(70vh - 30px);
   overflow: hidden;
   box-shadow:
     10px 10px 15px rgba(82, 140, 206, 1),

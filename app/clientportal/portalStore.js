@@ -13,6 +13,8 @@ export const usePortalState = create((set) => ({
   setLoaded: (value) => set({ loaded: value }),
   drawerOpen: false,
   setDrawerOpen: (value) => set({ drawerOpen: value }),
+  drawerState: "init",
+  setDrawerState: (value) => set({ drawerState: value }),
 }));
 
 // Submission Data

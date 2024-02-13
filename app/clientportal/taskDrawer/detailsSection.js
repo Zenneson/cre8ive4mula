@@ -1,18 +1,38 @@
 "use client";
 import { taskColor } from "@libs/custom";
 import { Badge, Box, Group, Image, Stack, Text, Title } from "@mantine/core";
+import { AnimatePresence, motion } from "framer-motion";
 import { RiArrowDropRightLine, RiArrowRightDoubleFill } from "react-icons/ri";
 import { taskInfo } from "../../../public/data/taskData";
+import { usePortalState } from "../portalStore";
 import classes from "./styles/detailsSection.module.css";
 
 export default function DetailsSection() {
+  const { drawerState } = usePortalState();
   const task = taskInfo[2];
   const typeColor = taskColor(task.type);
 
+  const animationProps = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0 },
+    transition: { delay: 0.1, duration: 0.3 },
+  };
+
   return (
-    <Box className={`panel ${classes.detailsSection}`} mr={5}>
+    <Box
+      className={`panel ${classes.detailsSection}`}
+      h={`${
+        drawerState === "init"
+          ? "calc(60vh - 30px)"
+          : drawerState === "showDetails"
+            ? "calc(100vh - 150px)"
+            : "92px"
+      }`}
+      mr={5}
+    >
       <Box h={"100%"}>
-        <Stack className={classes.taskTitle} mb={15} gap={0}>
+        <Stack className={classes.taskTitle} mb={20} gap={0}>
           <Group gap={5}>
             <Image
               src="/img/taskIcon.svg"
@@ -46,34 +66,44 @@ export default function DetailsSection() {
             </Stack>
           </Group>
         </Stack>
-        <Stack h={"100%"} gap={20} mt={5}>
-          <Box className={classes.topDetails}>
-            {task.type === "Web Dev" && (
-              <Box className={classes.textPanel}>
+        <AnimatePresence>
+          {drawerState !== "showChat" && (
+            <Stack
+              component={motion.div}
+              {...animationProps}
+              h={"100%"}
+              gap={20}
+              mt={5}
+            >
+              <Box className={classes.topDetails}>
+                {task.type === "Web Dev" && (
+                  <Box className={classes.textPanel}>
+                    <Group gap={0}>
+                      <RiArrowDropRightLine />
+                      <Title tt={"uppercase"} mb={1} order={6}>
+                        Intended goal
+                      </Title>
+                    </Group>
+                    <Text fz={14}>{task.goal}</Text>
+                  </Box>
+                )}
+              </Box>
+              <Box
+                className={`${classes.textPanel} ${classes.taskDesc}`}
+                h={"calc(100% - 185px"}
+                // mah={"calc(100% - 180px"}
+              >
                 <Group gap={0}>
                   <RiArrowDropRightLine />
                   <Title tt={"uppercase"} mb={1} order={6}>
-                    Intended goal
+                    Description
                   </Title>
                 </Group>
-                <Text fz={14}>{task.goal}</Text>
+                <Text fz={14}>{task.desc}</Text>
               </Box>
-            )}
-          </Box>
-          <Box
-            className={`${classes.textPanel} ${classes.taskDesc}`}
-            h={"calc(100% - 180px"}
-            // mah={"calc(100% - 180px"}
-          >
-            <Group gap={0}>
-              <RiArrowDropRightLine />
-              <Title tt={"uppercase"} mb={1} order={6}>
-                Description
-              </Title>
-            </Group>
-            <Text fz={14}>{task.desc}</Text>
-          </Box>
-        </Stack>
+            </Stack>
+          )}
+        </AnimatePresence>
       </Box>
     </Box>
   );
