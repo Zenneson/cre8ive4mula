@@ -9,13 +9,13 @@ import { useEffect, useState } from "react";
 import classes from "./styles/serviceSelect.module.css";
 
 export default function ServiceSelect(props) {
-  const { typeServices, setFormData, tabIndex } = props;
+  const { typeServices, formData, setFormData, tabIndex } = props;
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
 
   const [data, setData] = useState([]);
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState(formData.service || null);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -65,7 +65,7 @@ export default function ServiceSelect(props) {
     >
       <Combobox.Target>
         <InputBase
-          value={search}
+          value={formData.service || search}
           tabIndex={tabIndex}
           onChange={(event) => {
             combobox.openDropdown();

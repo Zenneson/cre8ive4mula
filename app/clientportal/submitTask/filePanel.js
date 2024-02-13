@@ -23,7 +23,7 @@ export default function FilePanel(props) {
   };
 
   useEffect(() => {
-    setFormData({ files: files });
+    setFormData({ files });
   }, [files, setFormData]);
 
   const fileRow = files.map((file, index) => {

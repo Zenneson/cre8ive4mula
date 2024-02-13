@@ -21,12 +21,14 @@ import ColorPuck from "./colorPuck";
 import classes from "./styles/colorPanel.module.css";
 
 export default function ColorPanel(props) {
-  const { choosenType, setFormData } = props;
+  const { choosenType, formData, setFormData } = props;
   const [selectedColor, setSelectedColor] = useState("#FF0000");
   const [colors, setColors] = useState([]);
 
   useEffect(() => {
-    setFormData({ colors: colors });
+    if (colors && colors.length > 0) {
+      setFormData({ colors: colors });
+    }
   }, [colors, setFormData]);
 
   const addColor = () => {
@@ -59,11 +61,15 @@ export default function ColorPanel(props) {
       });
     }
     if (selectedColor !== "" && !colors.includes(selectedColor)) {
-      setColors([...colors, selectedColor]);
+      const newColors =
+        colors.length === 0
+          ? [...formData.colors, selectedColor]
+          : [...colors, selectedColor];
+      setColors(newColors);
     }
   };
 
-  const colorRow = colors.map((color, index) => {
+  const colorRow = formData.colors.map((color, index) => {
     const rgb = hexToRgb(color);
     const removeColor = (colorToRemove) => {
       setColors(colors.filter((color) => color !== colorToRemove));

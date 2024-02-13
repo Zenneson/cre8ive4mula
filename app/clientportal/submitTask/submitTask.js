@@ -11,15 +11,8 @@ import TaskForm from "./taskForm";
 
 export default function SubmitTask() {
   const titleRef = useRef();
-  const { formData, setFormData, submissionPanel, setSubmissionPanel } =
-    useSubissionData();
+  const { formData, submissionPanel, setSubmissionPanel } = useSubissionData();
   const [typeServices, setTypeServices] = useState();
-
-  useEffect(() => {
-    if (submissionPanel !== 0) setSubmissionPanel(0);
-    setFormData({ type: {} });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const submitPage = () => {
     switch (submissionPanel) {

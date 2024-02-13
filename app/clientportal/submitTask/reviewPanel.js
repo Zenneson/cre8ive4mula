@@ -110,7 +110,7 @@ export default function ReviewPanel() {
               </Title>
               {formData.goal}
             </Box>
-            <Box className="altPanel">
+            <Box className={`altPanel ${classes.taskDescFrame}`}>
               <Title order={6} tt={"uppercase"}>
                 Description:
               </Title>

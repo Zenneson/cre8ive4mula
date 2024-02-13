@@ -43,38 +43,26 @@ export default function TaskForm(props) {
 
   const taskType = formData.type?.title;
   const taskService = formData?.service;
-  const showReviewBtn =
-    taskType === "Web Dev" && formTitle && formGoal && formDesc && taskService
-      ? true
-      : taskType !== "Web Dev" && formTitle && formDesc && taskService
-        ? true
-        : false;
+  const [showReviewBtn, setShowReviewBtn] = useState(false);
 
-  useEffect(() => {
-    const equal = shallowEqual(
-      { title: formData.title, goal: formData.goal, desc: formData.desc },
-      {
-        title: formTitle,
-        goal: formGoal,
-        desc: formDesc,
-      }
-    );
-    if (equal) return;
-
-    setFormData({
-      title: formTitle,
-      goal: formGoal,
-      desc: formDesc,
-    });
-  }, [
-    formTitle,
-    formGoal,
-    formDesc,
-    formData.title,
-    formData.goal,
-    formData.desc,
-    setFormData,
-  ]);
+  useEffect(
+    () => {
+      const isWebDevComplete =
+        taskType === "Web Dev" &&
+        ((formData.title &&
+          formData.goal &&
+          formData.desc &&
+          formData.service) ||
+          (formTitle && formGoal && formDesc && taskService));
+      const isOtherTaskComplete =
+        taskType !== "Web Dev" &&
+        ((formData.title && formData.desc && formData.service) ||
+          (formTitle && formDesc && taskService));
+      setShowReviewBtn(isWebDevComplete || isOtherTaskComplete);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   useEffect(() => {
     if (!formData.type || !formData.type.title) return;
@@ -196,7 +184,7 @@ export default function TaskForm(props) {
 
     useEffect(() => {
       const equal = shallowEqual(modeVar, formData[mode]);
-      if (equal) return;
+      if (equal || modeVar.length === 0) return;
       setFormData({ [mode]: modeVar });
     }, [mode, modeVar]);
 
@@ -210,7 +198,7 @@ export default function TaskForm(props) {
           <TagsInput
             ref={modeRef}
             tabIndex={tabIndex}
-            value={modeVar}
+            value={formData[mode] || modeVar}
             onChange={modeSetter}
             placeholder={
               modeVar.length >= maxAllowed ? "Limit Reached" : placeholder
@@ -299,13 +287,14 @@ export default function TaskForm(props) {
               autoFocus={true}
               placeholder="Title..."
               tabIndex={1}
-              defaultValue={formTitle}
+              defaultValue={formTitle || formData.title}
               onChange={(event) => setFormTitle(event.currentTarget.value)}
             />
           </Grid.Col>
           <Grid.Col span="content">
             <ServiceSelect
               typeServices={typeServices}
+              formData={formData}
               setFormData={setFormData}
               tabIndex={2}
             />
@@ -317,7 +306,7 @@ export default function TaskForm(props) {
             minRows={2}
             tabIndex={taskType === "Web Dev" ? 3 : "NaN"}
             placeholder="Intended Goal..."
-            defaultValue={formGoal}
+            defaultValue={formGoal || formData.goal}
             onChange={(event) => setFormGoal(event.currentTarget.value)}
           />
         </Box>
@@ -327,7 +316,7 @@ export default function TaskForm(props) {
           minRows={7}
           maxRows={7}
           placeholder="Description..."
-          defaultValue={formDesc}
+          defaultValue={formDesc || formData.desc}
           onChange={(event) => setFormDesc(event.currentTarget.value)}
         />
         <Stack hidden={taskType !== "Design"} gap={20}>
@@ -349,7 +338,11 @@ export default function TaskForm(props) {
         </Stack>
       </Stack>
       <Stack mt={20} gap={20}>
-        <ColorPanel setFormData={setFormData} choosenType={formData.type} />
+        <ColorPanel
+          formData={formData}
+          setFormData={setFormData}
+          choosenType={formData.type}
+        />
         <FilePanel setFormData={setFormData} />
         <Group justify="flex-end" gap={5}>
           <Button
