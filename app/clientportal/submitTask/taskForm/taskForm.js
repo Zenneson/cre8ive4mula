@@ -25,10 +25,10 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { TbHelpSmall, TbHelpSquareFilled } from "react-icons/tb";
-import { useSubissionData } from "../portalStore";
-import ColorPanel from "./colorPanel";
-import FilePanel from "./filePanel";
-import ServiceSelect from "./serviceSelect";
+import { useSubissionData } from "../../portalStore";
+import ColorPanel from "../colorPanel/colorPanel";
+import FilePanel from "../filePanel/filePanel";
+import ServiceSelect from "../serviceSelect/serviceSelect";
 import classes from "./styles/taskFrom.module.css";
 
 export default function TaskForm(props) {

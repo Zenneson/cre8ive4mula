@@ -12,7 +12,7 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { motion } from "framer-motion";
-import { usePortalState } from "./portalStore";
+import { usePortalState } from "../portalStore";
 import classes from "./styles/clientHeader.module.css";
 
 export default function ClientHeader() {
@@ -82,7 +82,7 @@ export default function ClientHeader() {
             </Badge>
           </Tooltip>
           <Group gap={0}>
-            <Box className={activePanel === 0 && classes.currentPanel}>
+            <Box>
               <Tooltip
                 position={"bottom"}
                 withArrow
@@ -92,7 +92,9 @@ export default function ClientHeader() {
                 <ActionIcon
                   size="xl"
                   variant="transparent"
-                  className={classes.topRightBtns}
+                  className={`${classes.topRightBtns} ${
+                    activePanel === 0 && classes.currentPanel
+                  }`}
                   onClick={() => setActivePanel(0)}
                 >
                   <Image
@@ -103,7 +105,7 @@ export default function ClientHeader() {
                 </ActionIcon>
               </Tooltip>
             </Box>
-            <Box className={activePanel === 1 && classes.currentPanel}>
+            <Box>
               <Tooltip
                 position={"bottom"}
                 withArrow
@@ -113,7 +115,9 @@ export default function ClientHeader() {
                 <ActionIcon
                   size="xl"
                   variant="transparent"
-                  className={classes.topRightBtns}
+                  className={`${classes.topRightBtns} ${
+                    activePanel === 1 && classes.currentPanel
+                  }`}
                   onClick={() => setActivePanel(1)}
                 >
                   <Image
@@ -124,7 +128,7 @@ export default function ClientHeader() {
                 </ActionIcon>
               </Tooltip>
             </Box>
-            <Box className={activePanel === 2 && classes.currentPanel}>
+            <Box>
               <Tooltip
                 position={"bottom"}
                 withArrow
@@ -134,7 +138,9 @@ export default function ClientHeader() {
                 <ActionIcon
                   size="xl"
                   variant="transparent"
-                  className={classes.topRightBtns}
+                  className={`${classes.topRightBtns} ${
+                    activePanel === 2 && classes.currentPanel
+                  }`}
                   onClick={() => setActivePanel(2)}
                 >
                   <Image

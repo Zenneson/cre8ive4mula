@@ -4,10 +4,10 @@ import { Center, Group } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
 import { services } from "../../../public/data/services";
 import { useSubissionData } from "../portalStore";
-import ChooseTypePanel from "./chooseTypePanel";
-import ReviewPanel from "./reviewPanel";
+import ChooseTypePanel from "./chooseTypePanel/chooseTypePanel";
+import ReviewPanel from "./reviewPanel/reviewPanel";
 import classes from "./styles/submitTask.module.css";
-import TaskForm from "./taskForm";
+import TaskForm from "./taskForm/taskForm";
 
 export default function SubmitTask() {
   const titleRef = useRef();

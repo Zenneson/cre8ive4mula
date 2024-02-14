@@ -1,6 +1,6 @@
 "use client";
 import { Flex } from "@mantine/core";
-import Board from "./board";
+import Board from "./board/board";
 import classes from "./styles/dashboard.module.css";
 
 export default function Dashboard(props) {

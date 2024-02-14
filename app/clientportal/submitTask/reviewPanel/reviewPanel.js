@@ -12,8 +12,8 @@ import {
 } from "@mantine/core";
 import { motion } from "framer-motion";
 import { FaFlagCheckered, FaPlay } from "react-icons/fa";
-import { usePortalState, useSubissionData } from "../portalStore";
-import ColorPuck from "./colorPuck";
+import ColorPuck from "../../colorPuck/colorPuck";
+import { usePortalState, useSubissionData } from "../../portalStore";
 import classes from "./styles/reviewPanel.module.css";
 
 export default function ReviewPanel() {

@@ -18,9 +18,9 @@ import {
 import { useResizeObserver } from "@mantine/hooks";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { usePortalState } from "../portalStore";
+import { usePortalState } from "../../portalStore";
+import TaskCard from "../taskCard/taskCard";
 import classes from "./styles/board.module.css";
-import TaskCard from "./taskCard";
 
 export default function Board({ taskData, boardType, num }) {
   const [tasks, setTasks] = useState(taskData);

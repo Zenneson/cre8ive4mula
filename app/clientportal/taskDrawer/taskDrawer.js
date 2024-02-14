@@ -1,9 +1,9 @@
 "use client";
 import { Drawer, Group, Image, Tooltip } from "@mantine/core";
 import { usePortalState } from "../portalStore";
-import DetailsSection from "./detailsSection";
+import DetailsSection from "./detailsSection/detailsSection";
 import classes from "./styles/taskDrawer.module.css";
-import TaskChat from "./taskChat";
+import TaskChat from "./taskChat/taskChat";
 
 export default function TaskDrawer() {
   const { drawerOpen, setDrawerOpen, drawerState, setDrawerState } =
@@ -34,7 +34,9 @@ export default function TaskDrawer() {
       onClose={drawerClose}
     >
       <Group className={`altPanel ${classes.drawerBtns}`} gap={10}>
-        <Tooltip label="Expand Details">
+        <Tooltip
+          label={drawerState === "showDetails" ? "Reset" : "Expand Details"}
+        >
           <Image
             className={classes.expandBtn}
             src={

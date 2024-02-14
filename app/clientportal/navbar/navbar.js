@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { usePortalState } from "./portalStore";
+import { usePortalState } from "../portalStore";
 import classes from "./styles/navbar.module.css";
 
 const linkData = [

@@ -22,7 +22,7 @@ import { useEffect, useRef, useState } from "react";
 import { CgAttachment } from "react-icons/cg";
 import { FaRegComments } from "react-icons/fa";
 import { MdDragIndicator } from "react-icons/md";
-import { usePortalState } from "../portalStore";
+import { usePortalState } from "../../portalStore";
 import classes from "./styles/taskCard.module.css";
 
 export default function TaskCard(props) {

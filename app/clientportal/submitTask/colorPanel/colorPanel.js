@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import { FaCirclePlus } from "react-icons/fa6";
 import { HiOutlineColorSwatch } from "react-icons/hi";
 import { LuPaintBucket } from "react-icons/lu";
-import ColorPuck from "./colorPuck";
+import ColorPuck from "../../colorPuck/colorPuck";
 import classes from "./styles/colorPanel.module.css";
 
 export default function ColorPanel(props) {

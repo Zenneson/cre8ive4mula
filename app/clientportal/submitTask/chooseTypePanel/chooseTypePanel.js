@@ -13,8 +13,8 @@ import {
   Transition,
 } from "@mantine/core";
 import { FaPlay } from "react-icons/fa";
+import TypeBtns from "../typeBtns/typeBtns";
 import classes from "./styles/chooseTypePanel.module.css";
-import TypeBtns from "./typeBtns";
 
 export default function ChooseTypePanel(props) {
   const { setupData, choosenType, setSubmissionPanel, titleRef } = props;

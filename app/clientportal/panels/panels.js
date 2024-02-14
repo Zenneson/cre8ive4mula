@@ -1,11 +1,11 @@
 "use client";
 import { Box, ScrollArea, Title } from "@mantine/core";
 import { motion } from "framer-motion";
-import Archive from "./archive/archive";
-import Dashboard from "./dashboard/dashboard";
-import { usePortalState } from "./portalStore";
-import classes from "./styles/clientPortal.module.css";
-import SubmitTask from "./submitTask/submitTask";
+import Archive from "../archive/archive";
+import Dashboard from "../dashboard/dashboard";
+import { usePortalState } from "../portalStore";
+import SubmitTask from "../submitTask/submitTask";
+import classes from "./styles/panels.module.css";
 
 const animation = {
   initial: { opacity: 0 },

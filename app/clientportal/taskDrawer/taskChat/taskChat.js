@@ -13,7 +13,7 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { IoSend } from "react-icons/io5";
-import { usePortalState } from "../portalStore";
+import { usePortalState } from "../../portalStore";
 import classes from "./styles/taskChat.module.css";
 
 const Message = (props) => {
@@ -133,7 +133,7 @@ export default function TaskChat() {
           ? "calc(40vh - 30px)"
           : drawerState === "showChat"
             ? "calc(100vh - 150px)"
-            : "94px"
+            : "90px"
       }`}
       mt={20}
       mr={5}
@@ -150,20 +150,6 @@ export default function TaskChat() {
               gap={12}
               p={11}
             >
-              <Tooltip position="left" label="Expand Chat">
-                <Image
-                  src={
-                    drawerState === "showChat"
-                      ? "/img/reset.svg"
-                      : "/img/expand.svg"
-                  }
-                  alt="Expand Chat"
-                  my={3}
-                  w={23}
-                  h={23}
-                  onClick={handleDrawerHeight}
-                />
-              </Tooltip>
               <AnimatePresence>
                 {drawerState !== "showDetails" && (
                   <motion.div {...animationProps}>
@@ -172,13 +158,30 @@ export default function TaskChat() {
                         className={classes.aiAltBtn}
                         src="/img/aiBtn.svg"
                         alt="AI"
-                        w={35}
+                        w={25}
                         h={35}
                       />
                     </Tooltip>
                   </motion.div>
                 )}
               </AnimatePresence>
+              <Tooltip
+                position="left"
+                label={drawerState === "showChat" ? "Reset" : "Expand Chat"}
+              >
+                <Image
+                  src={
+                    drawerState === "showChat"
+                      ? "/img/reset.svg"
+                      : "/img/expand.svg"
+                  }
+                  alt="Expand Chat"
+                  my={3}
+                  w={25}
+                  h={25}
+                  onClick={handleDrawerHeight}
+                />
+              </Tooltip>
             </Stack>
           </Grid.Col>
           <Grid.Col span={"auto"}>

@@ -1,5 +1,5 @@
 import { taskData } from "../../public/data/taskData";
-import Panels from "./panels";
+import Panels from "./panels/panels";
 import TaskDrawer from "./taskDrawer/taskDrawer";
 
 export default function Portal() {
