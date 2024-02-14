@@ -2,6 +2,7 @@ import { DotLottiePlayer } from "@dotlottie/react-player";
 import "@dotlottie/react-player/dist/index.css";
 import {
   ActionIcon,
+  Badge,
   Box,
   Grid,
   Image,
@@ -93,6 +94,14 @@ const ChatMessages = (props) => {
         component={motion.div}
         {...animationProps}
       >
+        <Badge
+          className={classes.labelBadge}
+          size="xs"
+          variant="gradient"
+          gradient={{ from: "#8fbaeb", to: "#7fb1ea", deg: 180 }}
+        >
+          Chat
+        </Badge>
         <Box
           className={`altPanel ${classes.shadow}`}
           pos="absolute"
@@ -203,8 +212,8 @@ export default function TaskChat() {
                     className={`innerPanel ${classes.sendBtn}`}
                     variant="transparent"
                     pos={"absolute"}
-                    right={5}
-                    bottom={5}
+                    right={8}
+                    bottom={8}
                     size="xl"
                   >
                     <IoSend />

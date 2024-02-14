@@ -36,7 +36,7 @@ export const useSubissionData = create(
         title: "",
         service: "",
         goal: "",
-        description: "",
+        desc: "",
         styleKeywords: [],
         deliveryFormats: [],
         websites: [],

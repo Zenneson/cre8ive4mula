@@ -21,7 +21,9 @@ export default function ColorPuck(props) {
       shadow="md"
       openDelay={0}
       closeDelay={0}
+      arrowSize={10}
       withArrow
+      withinPortal={isTaskFrom}
     >
       <HoverCard.Target>
         <ColorSwatch className={classes.colorCircle} color={color} size={23} />

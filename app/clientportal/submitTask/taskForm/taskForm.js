@@ -45,24 +45,17 @@ export default function TaskForm(props) {
   const taskService = formData?.service;
   const [showReviewBtn, setShowReviewBtn] = useState(false);
 
-  useEffect(
-    () => {
-      const isWebDevComplete =
-        taskType === "Web Dev" &&
-        ((formData.title &&
-          formData.goal &&
-          formData.desc &&
-          formData.service) ||
-          (formTitle && formGoal && formDesc && taskService));
-      const isOtherTaskComplete =
-        taskType !== "Web Dev" &&
-        ((formData.title && formData.desc && formData.service) ||
-          (formTitle && formDesc && taskService));
-      setShowReviewBtn(isWebDevComplete || isOtherTaskComplete);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
+  useEffect(() => {
+    const isWebDevComplete =
+      taskType === "Web Dev" &&
+      ((formData.title && formData.goal && formData.desc && formData.service) ||
+        (formTitle && formGoal && formDesc && taskService));
+    const isOtherTaskComplete =
+      taskType !== "Web Dev" &&
+      ((formData.title && formData.desc && formData.service) ||
+        (formTitle && formDesc && taskService));
+    setShowReviewBtn(isWebDevComplete || isOtherTaskComplete);
+  }, [formData, formTitle, formGoal, formDesc, taskService, taskType]);
 
   useEffect(() => {
     if (!formData.type || !formData.type.title) return;
@@ -181,6 +174,24 @@ export default function TaskForm(props) {
         }, 100);
       }
     };
+
+    useEffect(() => {
+      const equal = shallowEqual(
+        { title: formData.title, goal: formData.goal, desc: formData.desc },
+        {
+          title: formTitle,
+          goal: formGoal,
+          desc: formDesc,
+        }
+      );
+      if (equal) return;
+
+      setFormData({
+        title: formTitle,
+        goal: formGoal,
+        desc: formDesc,
+      });
+    }, []);
 
     useEffect(() => {
       const equal = shallowEqual(modeVar, formData[mode]);

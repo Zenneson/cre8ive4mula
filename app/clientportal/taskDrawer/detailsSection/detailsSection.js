@@ -13,7 +13,7 @@ import {
 import { useElementSize } from "@mantine/hooks";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { RiArrowDropRightLine, RiArrowRightDoubleFill } from "react-icons/ri";
+import { RiArrowRightDoubleFill } from "react-icons/ri";
 import { taskInfo } from "../../../../public/data/taskData";
 import ColorPuck from "../../colorPuck/colorPuck";
 import { usePortalState } from "../../portalStore";
@@ -21,7 +21,7 @@ import classes from "./styles/detailsSection.module.css";
 
 export default function DetailsSection() {
   const { drawerState } = usePortalState();
-  const task = taskInfo[0];
+  const task = taskInfo[2];
   const typeColor = taskColor(task.type);
   const { ref, height } = useElementSize();
 
@@ -86,7 +86,7 @@ export default function DetailsSection() {
   const colorRow = colors.map((color, index) => {
     const rgb = hexToRgb(color);
 
-    return <ColorPuck key={index} color={color} isTaskFrom={true} rgb={rgb} />;
+    return <ColorPuck key={index} color={color} isTaskFrom={false} rgb={rgb} />;
   });
 
   return (
@@ -116,7 +116,7 @@ export default function DetailsSection() {
                   className={classes.taskType}
                   color={typeColor}
                   variant={"filled"}
-                  size="sm"
+                  size="xs"
                 >
                   {task.type}
                 </Badge>
@@ -145,10 +145,18 @@ export default function DetailsSection() {
               gap={20}
               mt={5}
             >
-              <Box className={classes.topDetails} ref={ref}>
+              <Box pos={"relative"} className={classes.topDetails} ref={ref}>
+                <Badge
+                  className={classes.detailsBadge}
+                  size="xs"
+                  variant="gradient"
+                  gradient={{ from: "#8fbaeb", to: "#7fb1ea", deg: 180 }}
+                >
+                  Details
+                </Badge>
                 {hasData && (
                   <Stack
-                    className="altPanel"
+                    className={`altPanel ${classes.detailsPanel}`}
                     mb={task.type === "Web Dev" ? 20 : 5}
                     gap={5}
                   >
@@ -196,30 +204,37 @@ export default function DetailsSection() {
                     )}
                   </Stack>
                 )}
-
                 {task.type === "Web Dev" && (
-                  <Box className={classes.textPanel}>
-                    <Group gap={0}>
-                      <RiArrowDropRightLine />
-                      <Title tt={"uppercase"} mb={1} order={6}>
-                        Intended goal
-                      </Title>
-                    </Group>
-                    <Text fz={14}>{task.goal}</Text>
+                  <Box pos={"relative"}>
+                    <Badge
+                      className={classes.descBadge}
+                      size="xs"
+                      variant="gradient"
+                      gradient={{ from: "#8fbaeb", to: "#7fb1ea", deg: 180 }}
+                    >
+                      Goal
+                    </Badge>
+                    <Box className={classes.textPanel}>
+                      <Text fz={14}>{task.goal}</Text>
+                    </Box>
                   </Box>
                 )}
               </Box>
-              <Box
-                className={`${classes.textPanel} ${classes.taskDesc}`}
-                h={`calc(100% - ${infoHeight}px`}
-              >
-                <Group gap={0}>
-                  <RiArrowDropRightLine />
-                  <Title tt={"uppercase"} mb={1} order={6}>
-                    Description
-                  </Title>
-                </Group>
-                <Text fz={14}>{task.desc}</Text>
+              <Box pos={"relative"} h={`calc(100% - ${infoHeight}px`}>
+                <Badge
+                  className={classes.descBadge}
+                  size="xs"
+                  variant="gradient"
+                  gradient={{ from: "#8fbaeb", to: "#7fb1ea", deg: 180 }}
+                >
+                  Description
+                </Badge>
+                <Box
+                  className={`${classes.textPanel} ${classes.taskDesc}`}
+                  h={"100%"}
+                >
+                  <Text fz={14}>{task.desc}</Text>
+                </Box>
               </Box>
             </Stack>
           )}

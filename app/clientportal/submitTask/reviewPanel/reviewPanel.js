@@ -127,8 +127,7 @@ export default function ReviewPanel() {
                       src="/img/colorPalette.svg"
                       alt={"Color Palette"}
                       fit="contain"
-                      mt={4}
-                      mb={8}
+                      my={4}
                       w={30}
                     />
                     <Flex

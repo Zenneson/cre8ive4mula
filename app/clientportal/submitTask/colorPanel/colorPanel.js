@@ -12,8 +12,9 @@ import {
   Popover,
   Text,
 } from "@mantine/core";
+import { useDidUpdate } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaCirclePlus } from "react-icons/fa6";
 import { HiOutlineColorSwatch } from "react-icons/hi";
 import { LuPaintBucket } from "react-icons/lu";
@@ -25,10 +26,8 @@ export default function ColorPanel(props) {
   const [selectedColor, setSelectedColor] = useState("#FF0000");
   const [colors, setColors] = useState([]);
 
-  useEffect(() => {
-    if (colors && colors.length > 0) {
-      setFormData({ colors: colors });
-    }
+  useDidUpdate(() => {
+    setFormData({ colors: colors });
   }, [colors, setFormData]);
 
   const addColor = () => {

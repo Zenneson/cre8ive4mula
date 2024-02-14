@@ -182,9 +182,6 @@ export const taskInfo = [
       "designinspiration.com",
       "siteinspire.com",
       "thedieline.com",
-      "logolounge.com",
-      "abduzeedo.com",
-      "creativeboom.com",
     ],
     files: ["feature_list.docx", "implementation_plan.docx"],
     desc: "The new design should encourage longer visits, lower bounce rates, and increase the conversion rate by at least 20%.",
@@ -230,7 +227,7 @@ export const taskInfo = [
       "creativeboom.com",
     ],
     files: ["feature_list.docx", "implementation_plan.docx"],
-    goal: "To increase website engagement metrics by redesigning the homepage to be more visually appealing, intuitive, and user-friendly. The new design should encourage longer visits, lower bounce rates, and increase the conversion rate by at least 20%.",
+    goal: "To increase website engagement metrics by redesigning the homepage to be more visually appealing, ",
     desc: `The homepage is the first impression visitors have of our brand and services. Currently, it lacks the visual appeal and navigational ease that modern web users expect, leading to suboptimal engagement metrics. The task involves a comprehensive overhaul of the homepage design with the following key objectives:
 
 Modernize the Layout: Implement a clean, modern design that aligns with our brand identity. Use whitespace effectively to create a layout that is easy on the eyes and makes content easily digestible.
