@@ -50,7 +50,7 @@ export default function ReviewPanel() {
       <Group>
         <Image
           className={classes.reviewIcon}
-          src={`/img/${icon}.svg`}
+          src={`/img/clientDashboard/${icon}.svg`}
           alt={alt}
           fit="contain"
           mt={4}
@@ -90,7 +90,7 @@ export default function ReviewPanel() {
           </Badge>
           <Group gap="7">
             <Image
-              src={"/img/addTask.svg"}
+              src={"/img/clientDashboard/submit/addTask.svg"}
               alt={"Task Type"}
               height={40}
               opacity={0.5}
@@ -124,7 +124,7 @@ export default function ReviewPanel() {
                   <Group>
                     <Image
                       className={classes.reviewIcon}
-                      src="/img/colorPalette.svg"
+                      src="/img/clientDashboard/submit/colorPalette.svg"
                       alt={"Color Palette"}
                       fit="contain"
                       my={4}

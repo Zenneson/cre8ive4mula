@@ -54,7 +54,12 @@ export default function DetailsSection() {
     const { icon, alt, details } = props;
     return (
       <Group className={classes.detailsRow} my={5}>
-        <Image src={`/img/${icon}.svg`} alt={alt} fit="contain" w={25} />
+        <Image
+          src={`/img/clientDashboard/${icon}.svg`}
+          alt={alt}
+          fit="contain"
+          w={25}
+        />
         <Flex
           w={"calc(100% - 50px)"}
           wrap={"wrap"}
@@ -95,7 +100,7 @@ export default function DetailsSection() {
         <Stack className={classes.taskTitle} mb={20} ml={-7} gap={0}>
           <Group gap={5}>
             <Image
-              src="/img/taskIcon.svg"
+              src="/img/clientDashboard/taskIcon.svg"
               alt="Task Icon"
               width={55}
               height={55}
@@ -147,23 +152,31 @@ export default function DetailsSection() {
                 <Stack
                   className={`altPanel ${classes.detailsPanel}`}
                   mb={task.type === "Web Dev" ? 20 : 5}
-                  gap={5}
+                  gap={0}
                 >
                   <Group className={classes.dateRow} my={5}>
                     <Image
-                      src="/img/taskCalendar.svg"
+                      src="/img/clientDashboard/drawer/taskCalendar.svg"
                       alt={"Calendar"}
                       fit="contain"
                       opacity={0.5}
                       w={27}
                     />
                     <Text>{task.date}</Text>
+                    <Image
+                      src="/img/clientDashboard/drawer/clock.svg"
+                      alt={"Clock"}
+                      fit="contain"
+                      opacity={0.5}
+                      w={18}
+                    />
+                    <Text>{task.time}</Text>
                   </Group>
                   <Box hidden={task.type !== "Design"}>
                     {colors && colors.length > 0 && (
                       <Group className={classes.detailsRow} mt={5} mb={15}>
                         <Image
-                          src="/img/colorPalette.svg"
+                          src="/img/clientDashboard/colorPalette.svg"
                           alt={"Color Palette"}
                           fit="contain"
                           w={25}

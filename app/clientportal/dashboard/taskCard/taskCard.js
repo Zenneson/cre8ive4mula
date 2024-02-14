@@ -167,7 +167,7 @@ export default function TaskCard(props) {
                     >
                       <Image
                         className={classes.closeIcon}
-                        src="/img/closePanel.svg"
+                        src="/img/clientDashboard/dashboard/closePanel.svg"
                         alt={"Close"}
                         fit="contain"
                         w={viewTask ? 20 : 0}
@@ -227,7 +227,7 @@ export default function TaskCard(props) {
                     {taskData.tags && taskData.tags.length > 0 && (
                       <Flex className={classes.addedTags} gap={5}>
                         <Image
-                          src="/img/hashtag.svg"
+                          src="/img/clientDashboard/hashtag.svg"
                           alt={"Style Keywords"}
                           fit="contain"
                           mt={7}
@@ -239,7 +239,7 @@ export default function TaskCard(props) {
                     {taskData.websites && taskData.websites.length > 0 && (
                       <Flex className={classes.addedWebsites} gap={5}>
                         <Image
-                          src="/img/website.svg"
+                          src="/img/clientDashboard/website.svg"
                           alt={"Related Links"}
                           fit="contain"
                           mt={7}

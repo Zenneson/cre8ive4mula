@@ -132,7 +132,7 @@ export default function Archive() {
         <Box className="panel" w={"638.4px"}>
           <Group gap={7}>
             <Image
-              src="/img/calendar.svg"
+              src="/img/clientDashboard/archive/calendar.svg"
               alt="Current Date"
               width={23}
               height={23}

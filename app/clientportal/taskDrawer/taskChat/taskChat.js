@@ -27,13 +27,13 @@ const Message = (props) => {
             {speaker === "bot" ? (
               <DotLottiePlayer
                 className={classes.botChatIcon}
-                src={"/img/botIcon.json"}
+                src={"/img/clientDashboard/drawer/botIcon.json"}
                 loop
               />
             ) : (
               <Image
                 className={classes.adminChatIcon}
-                src="/img/adminChatIcon.svg"
+                src="/img/clientDashboard/drawer/adminChatIcon.svg"
                 alt="admin"
                 w={40}
                 h={40}
@@ -58,7 +58,7 @@ const Message = (props) => {
           <Box pos={"relative"} w={50} mih={50} h={"100%"}>
             <Image
               className={classes.userChatIcon}
-              src="/img/userChatIcon.svg"
+              src="/img/clientDashboard/drawer/userChatIcon.svg"
               alt="admin"
               w={40}
               h={40}
@@ -165,7 +165,7 @@ export default function TaskChat() {
                     <Tooltip position="left" label="Ask AI">
                       <Image
                         className={classes.aiAltBtn}
-                        src="/img/aiBtn.svg"
+                        src="/img/clientDashboard/drawer/aiBtn.svg"
                         alt="AI"
                         w={25}
                         h={35}
@@ -181,8 +181,8 @@ export default function TaskChat() {
                 <Image
                   src={
                     drawerState === "showChat"
-                      ? "/img/reset.svg"
-                      : "/img/expand.svg"
+                      ? "/img/clientDashboard/drawer/reset.svg"
+                      : "/img/clientDashboard/drawer/expand.svg"
                   }
                   alt="Expand Chat"
                   my={3}

@@ -273,7 +273,7 @@ export default function TaskForm(props) {
       <Group className={classes.taskFormTitle} justify="space-between">
         <Group gap="7">
           <Image
-            src={"/img/addTask.svg"}
+            src={"/img/clientDashboard/submit/addTask.svg"}
             alt={"Task Type"}
             height={25}
             opacity={0.5}
@@ -383,7 +383,7 @@ export default function TaskForm(props) {
               <HoverCard.Target>
                 <Image
                   className={classes.helpIcon}
-                  src={"/img/help.svg"}
+                  src={"/img/clientDashboard/submit/help.svg"}
                   alt={"Help Notice"}
                   height={25}
                 />

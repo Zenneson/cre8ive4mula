@@ -41,8 +41,8 @@ export default function TaskDrawer() {
             className={classes.expandBtn}
             src={
               drawerState === "showDetails"
-                ? "/img/reset.svg"
-                : "/img/expand.svg"
+                ? "/img/clientDashboard/drawer/reset.svg"
+                : "/img/clientDashboard/drawer/expand.svg"
             }
             alt="Expand Details"
             onClick={handleDrawerHeight}
@@ -51,7 +51,7 @@ export default function TaskDrawer() {
         <Tooltip label="Close">
           <Image
             className={classes.closeBtn}
-            src="/img/closeDrawer.svg"
+            src="/img/clientDashboard/drawer/closeDrawer.svg"
             alt="close"
             onClick={drawerClose}
           />

@@ -13,20 +13,20 @@ const buttons = [
   {
     text: "Design",
     color: tourTheme.colors.deeporange[5],
-    svg1: "/img/submit/psd.json",
-    svg2: "/img/submit/ai.json",
+    svg1: "/img/clientDashboard/submit/psd.json",
+    svg2: "/img/clientDashboard/submit/ai.json",
   },
   {
     text: "Content",
     color: tourTheme.colors.deepred[6],
-    svg1: "/img/submit/docx.json",
-    svg2: "/img/submit/pdf.json",
+    svg1: "/img/clientDashboard/submit/docx.json",
+    svg2: "/img/clientDashboard/submit/pdf.json",
   },
   {
     text: "Web Dev",
     color: "#ffd941",
-    svg1: "/img/submit/css.json",
-    svg2: "/img/submit/js.json",
+    svg1: "/img/clientDashboard/submit/css.json",
+    svg2: "/img/clientDashboard/submit/js.json",
   },
 ];
 

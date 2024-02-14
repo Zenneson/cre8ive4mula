@@ -38,7 +38,7 @@ export default function FilePanel(props) {
       >
         <HoverCard.Target>
           <Image
-            src="/img/paperclip.svg"
+            src="/img/clientDashboard/paperclip.svg"
             alt={"Project Files"}
             fit="contain"
             w={15}

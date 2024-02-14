@@ -145,7 +145,7 @@ export default function Board({ taskData, boardType, num }) {
               <Box>
                 <Tooltip label="Reorder">
                   <Image
-                    src={"/img/reorder.svg"}
+                    src={"/img/clientDashboard/dashboard/reorder.svg"}
                     alt="Reorder"
                     onClick={() => setAllowReorder(!allowReorder)}
                   />
@@ -160,7 +160,7 @@ export default function Board({ taskData, boardType, num }) {
               >
                 <Image
                   className={cardsAreClosed && classes.allCardsClosed}
-                  src={"/img/closeCard.svg"}
+                  src={"/img/clientDashboard/dashboard/closeCard.svg"}
                   alt="Close Cards"
                   onClick={closeCards}
                 />
