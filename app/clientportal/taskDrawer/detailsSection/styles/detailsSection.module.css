@@ -23,6 +23,20 @@ div.detailsRow {
   border-radius: 10px;
 }
 
+div.dateRow {
+  padding: 0 10px;
+
+  p {
+    text-shadow: 0 2px 2px 0 rgba(0, 0, 0, 1);
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 400;
+    font-size: 18px;
+    font-family: var(--font-arcade);
+    margin-bottom: -10px;
+  }
+}
+
 div.textPanel {
   position: relative;
   border-top: 1px solid rgba(184, 201, 224, 0.5);

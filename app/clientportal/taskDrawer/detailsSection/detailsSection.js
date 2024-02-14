@@ -29,7 +29,6 @@ export default function DetailsSection() {
   const [styleKeywords, setStyleKeywords] = useState([]);
   const [websites, setWebsites] = useState([]);
   const [files, setFiles] = useState([]);
-  const [hasData, setHasData] = useState(false);
   const [infoHeight, setInfoHeight] = useState(0);
 
   useEffect(() => {
@@ -37,20 +36,11 @@ export default function DetailsSection() {
     setStyleKeywords(task.styleKeywords || []);
     setWebsites(task.websites || []);
     setFiles(task.files || []);
-
-    if (
-      (task.colors && task.colors.length > 0) ||
-      (task.styleKeywords && task.styleKeywords.length > 0) ||
-      (task.websites && task.websites.length > 0) ||
-      (task.files && task.files.length > 0)
-    ) {
-      setHasData(true);
-    }
   }, [task]);
 
   useEffect(() => {
     if (height === 0) return;
-    setInfoHeight(height + 100);
+    setInfoHeight(height + 105);
   }, [height]);
 
   const animationProps = {
@@ -96,13 +86,13 @@ export default function DetailsSection() {
         drawerState === "init"
           ? "calc(60vh - 30px)"
           : drawerState === "showDetails"
-            ? "calc(100vh - 150px)"
-            : "90px"
+            ? "calc(100vh - 155px)"
+            : "88px"
       }`}
       mr={5}
     >
       <Box h={"100%"}>
-        <Stack className={classes.taskTitle} mb={20} gap={0}>
+        <Stack className={classes.taskTitle} mb={20} ml={-7} gap={0}>
           <Group gap={5}>
             <Image
               src="/img/taskIcon.svg"
@@ -154,56 +144,64 @@ export default function DetailsSection() {
                 >
                   Details
                 </Badge>
-                {hasData && (
-                  <Stack
-                    className={`altPanel ${classes.detailsPanel}`}
-                    mb={task.type === "Web Dev" ? 20 : 5}
-                    gap={5}
-                  >
-                    <Box hidden={task.type !== "Design"}>
-                      {colors && colors.length > 0 && (
-                        <Group className={classes.detailsRow} mt={5} mb={15}>
-                          <Image
-                            src="/img/colorPalette.svg"
-                            alt={"Color Palette"}
-                            fit="contain"
-                            w={25}
-                          />
-                          <Flex
-                            justify={"flex-start"}
-                            align={"center"}
-                            gap={"20px"}
-                            pl={"3px"}
-                            mah={40}
-                          >
-                            {colorRow}
-                          </Flex>
-                        </Group>
-                      )}
-                      {styleKeywords && styleKeywords.length > 0 && (
-                        <DetailsRow
-                          icon={"hashtag"}
-                          alt={"Style Keywords"}
-                          details={styleKeywords}
+                <Stack
+                  className={`altPanel ${classes.detailsPanel}`}
+                  mb={task.type === "Web Dev" ? 20 : 5}
+                  gap={5}
+                >
+                  <Group className={classes.dateRow} my={5}>
+                    <Image
+                      src="/img/taskCalendar.svg"
+                      alt={"Calendar"}
+                      fit="contain"
+                      opacity={0.5}
+                      w={27}
+                    />
+                    <Text>{task.date}</Text>
+                  </Group>
+                  <Box hidden={task.type !== "Design"}>
+                    {colors && colors.length > 0 && (
+                      <Group className={classes.detailsRow} mt={5} mb={15}>
+                        <Image
+                          src="/img/colorPalette.svg"
+                          alt={"Color Palette"}
+                          fit="contain"
+                          w={25}
                         />
-                      )}
-                    </Box>
-                    {websites && websites.length > 0 && (
+                        <Flex
+                          justify={"flex-start"}
+                          align={"center"}
+                          gap={"20px"}
+                          pl={"3px"}
+                          mah={40}
+                        >
+                          {colorRow}
+                        </Flex>
+                      </Group>
+                    )}
+                    {styleKeywords && styleKeywords.length > 0 && (
                       <DetailsRow
-                        icon={"website"}
-                        alt={"Related Links"}
-                        details={websites}
+                        icon={"hashtag"}
+                        alt={"Style Keywords"}
+                        details={styleKeywords}
                       />
                     )}
-                    {files && files.length > 0 && (
-                      <DetailsRow
-                        icon={"paperclip"}
-                        alt={"Project Files"}
-                        details={files}
-                      />
-                    )}
-                  </Stack>
-                )}
+                  </Box>
+                  {websites && websites.length > 0 && (
+                    <DetailsRow
+                      icon={"website"}
+                      alt={"Related Links"}
+                      details={websites}
+                    />
+                  )}
+                  {files && files.length > 0 && (
+                    <DetailsRow
+                      icon={"paperclip"}
+                      alt={"Project Files"}
+                      details={files}
+                    />
+                  )}
+                </Stack>
                 {task.type === "Web Dev" && (
                   <Box pos={"relative"}>
                     <Badge

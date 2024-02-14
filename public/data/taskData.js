@@ -159,7 +159,7 @@ export const taskInfo = [
     service: "Logo Design",
     title:
       "Revamp Homepage Design for Enhanced User Engagement and the the a Conversion",
-    date: "FEB 5th, 2024",
+    date: "Wednesday, February 14, 2024 | 10:00 AM",
     alerts: 1,
     styleKeywords: ["User-Friendly", "Modern", "Interactive", "Responsive"],
     colors: [
@@ -190,7 +190,7 @@ export const taskInfo = [
     type: "Content",
     service: "Content Editing",
     title: "Changing Page Content",
-    date: "FEB 5th, 2024",
+    date: "Wednesday, February 14, 2024 - 10:00 AM",
     alerts: 1,
     files: ["feature_list.docx", "implementation_plan.docx"],
     desc: "The new design should encourage longer visits, lower bounce rates, and increase the conversion rate by at least 20%. The new design should encourage longer visits, lower bounce rates, and increase the conversion rate by at least 20%.",
@@ -199,7 +199,7 @@ export const taskInfo = [
     type: "Web Dev",
     service: "Add Feature",
     title: "Adding New Page",
-    date: "FEB 5th, 2024",
+    date: "Wednesday, February 14, 2024 - 10:00 AM",
     alerts: 1,
     styleKeywords: ["User-Friendly", "Modern", "Interactive", "Responsive"],
     colors: [

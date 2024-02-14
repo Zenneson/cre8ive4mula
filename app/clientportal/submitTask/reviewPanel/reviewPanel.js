@@ -65,7 +65,7 @@ export default function ReviewPanel() {
           align={"center"}
         >
           {details.map((detail, index) => (
-            <Badge key={index} color="#fff" variant="outline" size="xs">
+            <Badge key={index} color="#fff" variant="outline" size="xs" mt={5}>
               {detail}
             </Badge>
           ))}

@@ -141,8 +141,8 @@ export default function TaskChat() {
         drawerState === "init"
           ? "calc(40vh - 30px)"
           : drawerState === "showChat"
-            ? "calc(100vh - 150px)"
-            : "90px"
+            ? "calc(100vh - 148px)"
+            : "95px"
       }`}
       mt={20}
       mr={5}
