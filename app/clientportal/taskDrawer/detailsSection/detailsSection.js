@@ -160,7 +160,8 @@ export default function DetailsSection() {
                       alt={"Calendar"}
                       fit="contain"
                       opacity={0.5}
-                      w={27}
+                      w={20}
+                      ml={3.5}
                     />
                     <Text>{task.date}</Text>
                     <Image

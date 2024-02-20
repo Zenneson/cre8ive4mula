@@ -93,15 +93,15 @@ div.message {
 }
 
 .inputWrapper {
-  border-top: 2px solid rgba(82, 140, 206, 0.5);
+  border-top: 1px solid rgba(184, 201, 224, 0.85);
   padding: 0;
 }
 
 .chatInput {
   color: #000;
   box-shadow:
-    rgba(50, 50, 93, 0.05) 0px 15px 30px -6px inset,
-    rgba(0, 0, 0, 0.07) 0px 18px 18px -9px inset;
+    rgba(51, 116, 191, 0.4) 0px 15px 30px -6px inset,
+    rgba(0, 0, 0, 0.1) 0px 18px 18px -9px inset;
 }
 
 div.messageBubble {
@@ -180,12 +180,12 @@ div.chatAltBtns button {
 
 div.shadow {
   border-top: 1px solid rgba(184, 201, 224, 0.85);
-  box-shadow:
-    rgba(51, 116, 191, 0.4) 0px 15px 30px -6px inset,
-    rgba(0, 0, 0, 0.1) 0px 18px 18px -9px inset;
   z-index: 500;
   pointer-events: none;
   border-radius: 10px;
+  box-shadow:
+    rgba(51, 116, 191, 0.4) 0px 15px 30px -6px inset,
+    rgba(0, 0, 0, 0.1) 0px 18px 18px -9px inset;
 }
 
 .labelBadge {

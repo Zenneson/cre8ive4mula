@@ -5,7 +5,7 @@ import * as THREE from "three";
 import CLOUDS2 from "vanta/dist/vanta.clouds2.min";
 import classes from "./styles/clouds.module.css";
 
-export default function Clouds(props) {
+export default function Clouds() {
   const [vantaEffect, setVantaEffect] = useState(null);
   const cloudsRef = useRef(null);
   useEffect(() => {
@@ -13,17 +13,17 @@ export default function Clouds(props) {
       setVantaEffect(
         CLOUDS2({
           el: cloudsRef.current,
-          THREE: THREE,
-          mouseControls: true,
-          touchControls: true,
-          gyroControls: false,
-          minHeight: 200.0,
-          minWidth: 200.0,
           skyColor: "#47b6ff",
           cloudColor: "#ffffff",
           lightColor: "#47b6ff",
-          speed: 1.5,
+          mouseControls: false,
+          touchControls: false,
+          gyroControls: false,
+          minHeight: 200.0,
+          minWidth: 200.0,
+          speed: 1,
           texturePath: "/img/noise.png",
+          THREE: THREE,
         })
       );
     }

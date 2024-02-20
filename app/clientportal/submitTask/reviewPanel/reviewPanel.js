@@ -124,7 +124,7 @@ export default function ReviewPanel() {
                   <Group>
                     <Image
                       className={classes.reviewIcon}
-                      src="/img/clientDashboard/submit/colorPalette.svg"
+                      src="/img/clientDashboard/colorPalette.svg"
                       alt={"Color Palette"}
                       fit="contain"
                       my={4}

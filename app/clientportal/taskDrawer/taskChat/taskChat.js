@@ -112,6 +112,17 @@ const ChatMessages = (props) => {
         />
         <Box className={classes.messagesInnerFrame}>
           <Message message={"This message is from the bot."} speaker="bot" />
+          <Message message={"This message is from the bot."} speaker="bot" />
+          <Message message={"This message is from the bot."} speaker="bot" />
+          <Message message={"This message is from the bot."} speaker="bot" />
+          <Message message={"This message is from the bot."} speaker="bot" />
+          <Message message={"This message is from the bot."} speaker="bot" />
+          <Message message={"This message is from the bot."} speaker="bot" />
+          <Message message={"This message is from the bot."} speaker="bot" />
+          <Message message={"This message is from the bot."} speaker="bot" />
+          <Message message={"This message is from the bot."} speaker="bot" />
+          <Message message={"This message is from the bot."} speaker="bot" />
+          <Message message={"This message is from the bot."} speaker="bot" />
           <Message message={"This message is from the user."} speaker="user" />
           <Message message={"This message is from the bot."} speaker="bot" />
           <Message
