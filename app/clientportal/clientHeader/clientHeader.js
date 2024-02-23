@@ -67,19 +67,24 @@ export default function ClientHeader() {
           <Tooltip
             position={"bottom"}
             withArrow
-            label={"Account Settings"}
+            label={"Notifications"}
             offset={5}
           >
-            <Badge
-              className={classes.userBadge}
-              variant="light"
-              color={"#fff"}
-              size="md"
-              tt={"inherit"}
-              onClick={() => setActivePanel(3)}
-            >
-              useremail@gmail.com
-            </Badge>
+            <Group gap={3}>
+              <Badge size="xs" mb={-8} mr={-5} circle color="deepred.7">
+                3
+              </Badge>
+              <Badge
+                className={classes.userBadge}
+                variant="light"
+                color={"#fff"}
+                size="sm"
+                tt={"uppercase"}
+                onClick={() => setActivePanel(3)}
+              >
+                useremail@gmail.com
+              </Badge>
+            </Group>
           </Tooltip>
           <Group gap={0}>
             <Box>

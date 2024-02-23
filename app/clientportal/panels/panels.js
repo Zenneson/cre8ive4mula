@@ -67,6 +67,20 @@ export default function Panels(props) {
             pt={60}
             pl={125}
           >
+            <Title>AI Image Generator</Title>
+          </Box>
+        </motion.div>
+      )}{" "}
+      {activePanel === 4 && (
+        <motion.div {...animation}>
+          <Box
+            component={ScrollArea}
+            type="hover"
+            {...animation}
+            className={classes.dashPanel}
+            pt={60}
+            pl={125}
+          >
             <Title>Account Settings</Title>
           </Box>
         </motion.div>

@@ -26,19 +26,20 @@
   color: #fff;
 }
 
-div.loginBtns {
-  transition: all 150ms ease-in-out;
-  border-radius: 10px;
-  background: linear-gradient(145deg, #3f70a8, #75acee);
-  box-shadow:
-    10px 10px 15px #528cce,
-    -10px -10px 15px #79b3f6;
+button.loginBtn {
+  &:hover {
+    transition: all 150ms ease-in-out;
+    transform: scale(1.02);
+  }
 
-  button {
-    opacity: 0.5;
+  &:active {
+    transition: all 50ms ease-in-out;
+    transform: scale(0.98);
+    color: #fff;
   }
 }
 
-.loginBtns button:hover {
-  opacity: 1;
+.forgotPassword:hover {
+  transition: all 250ms ease-in-out;
+  text-decoration: underline;
 }

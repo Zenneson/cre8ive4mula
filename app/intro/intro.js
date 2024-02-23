@@ -2,6 +2,7 @@
 import ModelScene from "@libs/modelScene";
 import {
   Affix,
+  Box,
   Button,
   Center,
   Group,
@@ -29,21 +30,22 @@ export default function Intro() {
           className={classes.leftArrow}
           onClick={prevStep}
           src={"/img/left.svg"}
-          w={active !== 0 ? "40px" : "0px"}
+          w={active !== 0 ? 40 : 0}
           alt="Left Arrow"
         />
         <Image
           className={classes.leftArrow}
           onClick={() => setActive(0)}
           src={"/img/return.svg"}
-          w={active === 5 ? "40px" : "0px"}
+          w={active === 5 ? 40 : 0}
           alt="Return Arrow"
         />
         <Image
           className={classes.rightArrow}
           onClick={nextStep}
           src={"/img/right.svg"}
-          w={active !== 5 ? "40px" : "0px"}
+          w={active !== 5 ? 40 : 0}
+          ml={active === 0 ? -20 : 0}
           alt="Right Arrow"
         />
       </Group>
@@ -114,6 +116,7 @@ export default function Intro() {
           <Stack direction={"column"} w={"100%"} align="center">
             <Logo />
             <TypedOut />
+            <Box w={"25%"} h={300} mb={50} bg={"rgba(255, 255, 255, 1)"} />
           </Stack>
         </Center>
         <Center id="1" w={"100vw"} h={"100vh"} pos={"relative"}>

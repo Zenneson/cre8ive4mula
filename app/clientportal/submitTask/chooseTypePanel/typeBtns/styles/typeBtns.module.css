@@ -2,10 +2,10 @@ button.submitType {
   z-index: 500;
   position: relative;
   transition: all 250ms ease-in-out;
-  background: linear-gradient(145deg, #5084bf, #679cdc) !important;
+  background: linear-gradient(145deg, #5994d7, #75acee) !important;
   box-shadow:
     10px 10px 15px rgba(82, 140, 206, 0.7),
-    -10px -10px 15px rgba(121, 179, 246, 0.3);
+    -10px -10px 15px rgba(121, 179, 246, 0.3) !important;
 
   h5 {
     text-align: center !important;

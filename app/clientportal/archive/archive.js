@@ -26,19 +26,16 @@ const tasks = [
     type: "Design",
     title: "Drawing for the March Event",
     comments: 5,
-    status: "Delivery",
   },
   {
     type: "Content",
     title: "Changing Page Content",
     comments: 12,
-    status: "Submission",
   },
   {
     type: "Web Dev",
     title: "Add Feature",
     comments: 8,
-    status: "Delivery",
   },
 ];
 
@@ -48,11 +45,10 @@ export default function Archive() {
 
   const rows = tasks.map((task, index) => {
     const typeColor = taskColor(task.type);
-    const statusColor = task.status === "Delivery" ? "teal.9" : "yellow.4";
 
     return (
       <Table.Tr key={index}>
-        <Table.Td className={classes.tdLeft} p={0}>
+        <Table.Td w={75} p={0}>
           <Badge color={typeColor} variant="filled" size="xs" ml={15}>
             {task.type}
           </Badge>
@@ -62,7 +58,7 @@ export default function Archive() {
             {task.title}
           </Title>
         </Table.Td>
-        <Table.Td ta={"center"} p={0} px={5}>
+        <Table.Td ta={"right"} p={0} px={5}>
           <Badge
             rightSection={<FaRegComments size={12} />}
             color="gray.4"
@@ -72,12 +68,7 @@ export default function Archive() {
             {task.comments}
           </Badge>
         </Table.Td>
-        <Table.Td ta={"center"} p={0} px={5}>
-          <Badge color={statusColor} variant="outline" size="sm">
-            {task.status}
-          </Badge>
-        </Table.Td>
-        <Table.Td ta={"center"} p={0} px={5}>
+        <Table.Td ta={"right"} p={0} px={5} w={75}>
           <Button
             className={classes.viewTaskBtn}
             onClick={() => setDrawerOpen(true)}
@@ -129,7 +120,7 @@ export default function Archive() {
             }}
           />
         </Box>
-        <Box className="panel" w={"638.4px"}>
+        <Box w={"638.4px"}>
           <Group gap={7}>
             <Image
               src="/img/clientDashboard/archive/calendar.svg"
@@ -158,7 +149,8 @@ export default function Archive() {
               <Table
                 highlightOnHoverColor={"rgba(255, 255, 255, 0.05)"}
                 verticalSpacing={8}
-                withRowBorders={false}
+                withRowBorders={true}
+                borderColor="rgba(255, 255, 255, 0.2)"
                 highlightOnHover
                 my={5}
               >

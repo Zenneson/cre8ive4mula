@@ -1,6 +1,7 @@
 "use client";
 import {
   Center,
+  Divider,
   Image,
   Indicator,
   Stack,
@@ -17,32 +18,41 @@ const linkData = [
   { icon: "dashboard", label: "Dashbaord" },
   { icon: "submitTask", label: "Submit Task" },
   { icon: "fileRepo", label: "Archive" },
+  { icon: "imgGen", label: "AI Image Generator" },
 ];
 
-const NavbarLink = ({ icon, label, activePanel, onClick }) => {
+const NavbarLink = ({ id, icon, label, activePanel, onClick }) => {
   return (
-    <Tooltip label={label} position="right" openDelay={0} withArrow={false}>
-      <Indicator
-        size={activePanel ? "8" : "5"}
-        offset={activePanel ? "2" : "17"}
-        disabled={icon === "dashboard" ? false : true}
-        style={{
-          "--indicator-translate-x": "6px",
-        }}
-      >
-        <UnstyledButton
-          onClick={onClick}
-          className={`${classes.link} ${activePanel && classes.linkActive}`}
-          data-activepanel={activePanel || undefined}
+    <>
+      <Divider
+        hidden={icon !== "imgGen"}
+        opacity={0.15}
+        w={"80%"}
+        mx={"auto"}
+      />
+      <Tooltip label={label} position="right" openDelay={0} withArrow={false}>
+        <Indicator
+          size={activePanel ? "8" : "5"}
+          offset={activePanel ? "2" : "17"}
+          disabled={icon === "dashboard" ? false : true}
+          style={{
+            "--indicator-translate-x": "6px",
+          }}
         >
-          <Image
-            src={`/img/menu/${icon}.svg`}
-            style={{ width: rem(40), height: rem(40) }}
-            alt={label}
-          />
-        </UnstyledButton>
-      </Indicator>
-    </Tooltip>
+          <UnstyledButton
+            onClick={onClick}
+            className={`${classes.link} ${activePanel && classes.linkActive}`}
+            data-activepanel={activePanel || undefined}
+          >
+            <Image
+              src={`/img/menu/${icon}.svg`}
+              style={{ width: rem(40), height: rem(40) }}
+              alt={label}
+            />
+          </UnstyledButton>
+        </Indicator>
+      </Tooltip>
+    </>
   );
 };
 
@@ -112,7 +122,7 @@ export default function Navbar() {
             icon={"settings"}
             onClick={() => {
               setDrawerOpen(false);
-              setActivePanel(3);
+              setActivePanel(4);
             }}
             label="Account Settings"
           />

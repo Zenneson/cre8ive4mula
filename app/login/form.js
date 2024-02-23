@@ -1,18 +1,14 @@
 "use client";
-import { Box, Button, Group, Input, Stack, Text } from "@mantine/core";
+import { Box, Button, Divider, Group, Input, Stack, Text } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { useHover } from "@mantine/hooks";
 import Link from "next/link";
 import { FaAsterisk, FaGoogle } from "react-icons/fa";
-import { FaFacebookF, FaXTwitter } from "react-icons/fa6";
-import { GrInstagram } from "react-icons/gr";
+import { FaXTwitter } from "react-icons/fa6";
 import { IoIosHelpBuoy } from "react-icons/io";
 import { MdAlternateEmail } from "react-icons/md";
 import classes from "./styles/login.module.css";
 
 export default function Form() {
-  const { hovered, ref } = useHover();
-
   const form = useForm({
     initialValues: {
       email: "",
@@ -27,20 +23,15 @@ export default function Form() {
   return (
     <form onSubmit={form.onSubmit((values) => console.log(values))}>
       <Stack gap={20}>
-        <Button.Group className={classes.loginBtns}>
-          <Button w={"25%"} className="removeDetails">
+        <Group grow>
+          <Button className={classes.loginBtn}>
             <FaGoogle />
           </Button>
-          <Button w={"25%"} className="removeDetails">
+          <Button className={classes.loginBtn}>
             <FaXTwitter />
           </Button>
-          <Button w={"25%"} className="removeDetails">
-            <FaFacebookF />
-          </Button>
-          <Button w={"25%"} className="removeDetails">
-            <GrInstagram />
-          </Button>
-        </Button.Group>
+        </Group>
+        <Divider opacity={0.2} />
         <Input
           required
           placeholder="Email Address"
@@ -80,15 +71,15 @@ export default function Form() {
           }
         />
         <Group justify="space-between">
-          <Link href="#">
-            <Group gap={5} ref={ref} opacity={hovered ? 1 : 0.8}>
+          <Link className={classes.forgotPassword} href="#">
+            <Group gap={5}>
               <IoIosHelpBuoy size={20} />
-              <Text fz={12} td={hovered && "underline"}>
-                Forgot Password?
-              </Text>
+              <Text fz={12}>Forgot Password?</Text>
             </Group>
           </Link>
-          <Button w={"40%"}>Submit</Button>
+          <Button className={classes.loginBtn} w={"30%"}>
+            Login
+          </Button>
         </Group>
       </Stack>
     </form>

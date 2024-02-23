@@ -38,7 +38,14 @@ next-env.d.ts
 # VS Code
 .vscode/*
 
+# Sentry
+sentry.*
+global-error.jsx
+
 # 3D files
 *.glb
 *.gltf
 ```
+
+# Sentry Config File
+.sentryclirc
