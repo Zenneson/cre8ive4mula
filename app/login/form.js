@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FaAsterisk, FaGoogle } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoIosHelpBuoy } from "react-icons/io";
+import { LuKeyRound } from "react-icons/lu";
 import { MdAlternateEmail } from "react-icons/md";
 import classes from "./styles/login.module.css";
 
@@ -31,7 +32,10 @@ export default function Form() {
             <FaXTwitter />
           </Button>
         </Group>
-        <Divider opacity={0.2} />
+        <Divider
+          opacity={0.2}
+          label={<LuKeyRound color={"#fff"} size={18} />}
+        />
         <Input
           required
           placeholder="Email Address"

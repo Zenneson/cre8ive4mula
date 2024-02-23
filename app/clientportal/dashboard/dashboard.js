@@ -8,7 +8,14 @@ export default function Dashboard(props) {
 
   return (
     <>
-      <Flex pl={125} pt={75} py={0} gap={20} className={classes.boardsFrame}>
+      <Flex
+        pl={125}
+        pt={75}
+        py={0}
+        maw={2400}
+        gap={20}
+        className={classes.boardsFrame}
+      >
         <Board
           boardType={"Submitted Tasks"}
           taskData={taskData.slice(0, 5)}

@@ -18,25 +18,27 @@ import classes from "./styles/clientHeader.module.css";
 export default function ClientHeader() {
   const { activePanel, setActivePanel } = usePortalState();
 
-  const panelLabel = (activePanel) => {
-    switch (activePanel) {
-      case 0:
-        return "Task Dashboard";
-      case 1:
-        return "Submission Form";
-      case 2:
-        return "Project Archive";
-      case 3:
-        return "Account Settings";
-      default:
-        return "Task Dashboard";
-    }
-  };
-
   const animationProps = {
     initial: { y: -100, opacity: 0 },
     animate: { y: 0, opacity: 1 },
     transition: { duration: 1, delay: 0.5 },
+  };
+
+  const panelLabel = (activePanel) => {
+    switch (activePanel) {
+      case 0:
+        return "Dashboard";
+      case 1:
+        return "Submit Task";
+      case 2:
+        return "Archive";
+      case 3:
+        return "AI Image Generator";
+      case 4:
+        return "Account Settings";
+      default:
+        return "Dashboard";
+    }
   };
 
   return (
@@ -63,101 +65,45 @@ export default function ClientHeader() {
           </Text>
         </Stack>
 
-        <Stack gap={0} align="flex-end">
+        <Group gap={0}>
           <Tooltip
             position={"bottom"}
             withArrow
             label={"Notifications"}
             offset={5}
           >
-            <Group gap={3}>
-              <Badge size="xs" mb={-8} mr={-5} circle color="deepred.7">
-                3
-              </Badge>
-              <Badge
-                className={classes.userBadge}
-                variant="light"
-                color={"#fff"}
-                size="sm"
-                tt={"uppercase"}
-                onClick={() => setActivePanel(3)}
-              >
-                useremail@gmail.com
-              </Badge>
-            </Group>
+            <Badge
+              className={classes.notificationsBadge}
+              size="md"
+              mr={-5}
+              circle
+              color="deepred.7"
+            >
+              3
+            </Badge>
           </Tooltip>
-          <Group gap={0}>
-            <Box>
-              <Tooltip
-                position={"bottom"}
-                withArrow
-                label={"Dashboard"}
-                offset={-3}
+          <Box>
+            <Tooltip
+              position={"bottom"}
+              withArrow
+              label={"Notifications"}
+              offset={-3}
+            >
+              <ActionIcon
+                size="xl"
+                variant="transparent"
+                className={classes.topRightBtns}
+                // onClick={}
               >
-                <ActionIcon
-                  size="xl"
-                  variant="transparent"
-                  className={`${classes.topRightBtns} ${
-                    activePanel === 0 && classes.currentPanel
-                  }`}
-                  onClick={() => setActivePanel(0)}
-                >
-                  <Image
-                    src={"/img/menu/dashboard.svg"}
-                    alt={"Dashboard"}
-                    height={25}
-                  />
-                </ActionIcon>
-              </Tooltip>
-            </Box>
-            <Box>
-              <Tooltip
-                position={"bottom"}
-                withArrow
-                label={"Submit Task"}
-                offset={-3}
-              >
-                <ActionIcon
-                  size="xl"
-                  variant="transparent"
-                  className={`${classes.topRightBtns} ${
-                    activePanel === 1 && classes.currentPanel
-                  }`}
-                  onClick={() => setActivePanel(1)}
-                >
-                  <Image
-                    src={"/img/menu/submitTask.svg"}
-                    alt={"Submit Task"}
-                    height={25}
-                  />
-                </ActionIcon>
-              </Tooltip>
-            </Box>
-            <Box>
-              <Tooltip
-                position={"bottom"}
-                withArrow
-                label={"Archive"}
-                offset={-3}
-              >
-                <ActionIcon
-                  size="xl"
-                  variant="transparent"
-                  className={`${classes.topRightBtns} ${
-                    activePanel === 2 && classes.currentPanel
-                  }`}
-                  onClick={() => setActivePanel(2)}
-                >
-                  <Image
-                    src={"/img/menu/fileRepo.svg"}
-                    alt={"Archive"}
-                    height={25}
-                  />
-                </ActionIcon>
-              </Tooltip>
-            </Box>
-          </Group>
-        </Stack>
+                <Image
+                  src={`/img/menu/bell.svg`}
+                  alt={"Notifications"}
+                  height={25}
+                />
+              </ActionIcon>
+            </Tooltip>
+          </Box>
+        </Group>
       </Group>
     </motion.div>
   );

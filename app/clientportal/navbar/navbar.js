@@ -27,7 +27,7 @@ const NavbarLink = ({ id, icon, label, activePanel, onClick }) => {
       <Divider
         hidden={icon !== "imgGen"}
         opacity={0.15}
-        w={"80%"}
+        w={"67%"}
         mx={"auto"}
       />
       <Tooltip label={label} position="right" openDelay={0} withArrow={false}>
