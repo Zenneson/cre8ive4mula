@@ -85,6 +85,7 @@ div.archiveFrame {
     font-weight: 700;
     margin: 4px 0;
     margin-right: 4px;
+    margin-top: 0;
     font-size: 12px;
     box-shadow:
       10px 10px 15px rgba(82, 140, 206, 0.3),
@@ -93,9 +94,19 @@ div.archiveFrame {
 
   h4.archiveTaskTitle {
     font-family: var(--font-montserrat);
+    margin-top: 2px;
     width: 100%;
     font-weight: 500;
     font-size: 12px;
     color: #fff;
+  }
+}
+
+.archiveTaskGrid {
+  overflow: hidden;
+  padding-top: 3px;
+
+  &:hover {
+    background-color: rgba(224, 238, 255, 0.1);
   }
 }

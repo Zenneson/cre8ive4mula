@@ -30,7 +30,7 @@ const NavbarLink = ({ id, icon, label, activePanel, onClick }) => {
         w={"67%"}
         mx={"auto"}
       />
-      <Tooltip label={label} position="right" openDelay={0} withArrow={false}>
+      <Tooltip label={label} position="right" openDelay={0}>
         <Indicator
           size={activePanel ? "8" : "5"}
           offset={activePanel ? "2" : "17"}

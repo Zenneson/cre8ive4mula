@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Center,
+  Grid,
   Group,
   Image,
   ScrollArea,
@@ -48,36 +49,38 @@ export default function Archive() {
 
     return (
       <Table.Tr key={index}>
-        <Table.Td w={75} p={0}>
-          <Badge color={typeColor} variant="filled" size="xs" ml={15}>
-            {task.type}
-          </Badge>
-        </Table.Td>
-        <Table.Td w={270}>
-          <Title className={classes.archiveTaskTitle} order={4} lineClamp={1}>
-            {task.title}
-          </Title>
-        </Table.Td>
-        <Table.Td ta={"right"} p={0} px={5}>
-          <Badge
-            rightSection={<FaRegComments size={12} />}
-            color="gray.4"
-            variant="outline"
-            size="sm"
-          >
-            {task.comments}
-          </Badge>
-        </Table.Td>
-        <Table.Td ta={"right"} p={0} px={5} w={75}>
-          <Button
-            className={classes.viewTaskBtn}
-            onClick={() => setDrawerOpen(true)}
-            variant="light"
-            mr={10}
-          >
-            Open
-          </Button>
-        </Table.Td>
+        <Grid className={classes.archiveTaskGrid} mt={5}>
+          <Grid.Col span="content">
+            <Badge color={typeColor} variant="filled" size="xs" ml={10}>
+              {task.type}
+            </Badge>
+          </Grid.Col>
+          <Grid.Col span="auto">
+            <Title className={classes.archiveTaskTitle} order={4} lineClamp={1}>
+              {task.title}
+            </Title>
+          </Grid.Col>
+          <Grid.Col span="content">
+            <Badge
+              rightSection={<FaRegComments size={12} />}
+              color="gray.4"
+              variant="outline"
+              size="sm"
+            >
+              {task.comments}
+            </Badge>
+          </Grid.Col>
+          <Grid.Col span="content">
+            <Button
+              className={classes.viewTaskBtn}
+              onClick={() => setDrawerOpen(true)}
+              variant="light"
+              mr={10}
+            >
+              Open
+            </Button>
+          </Grid.Col>
+        </Grid>
       </Table.Tr>
     );
   });
@@ -147,11 +150,9 @@ export default function Archive() {
               p={0}
             >
               <Table
-                highlightOnHoverColor={"rgba(255, 255, 255, 0.05)"}
                 verticalSpacing={8}
                 withRowBorders={true}
                 borderColor="rgba(255, 255, 255, 0.2)"
-                highlightOnHover
                 my={5}
               >
                 <Table.Tbody>{rows}</Table.Tbody>

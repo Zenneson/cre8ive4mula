@@ -3,6 +3,7 @@ import { Box, ScrollArea, Title } from "@mantine/core";
 import { motion } from "framer-motion";
 import Archive from "../archive/archive";
 import Dashboard from "../dashboard/dashboard";
+import ImgGen from "../imgGen/imgGen";
 import { usePortalState } from "../portalStore";
 import SubmitTask from "../submitTask/submitTask";
 import classes from "./styles/panels.module.css";
@@ -67,7 +68,7 @@ export default function Panels(props) {
             pt={60}
             pl={125}
           >
-            <Title>AI Image Generator</Title>
+            <ImgGen />
           </Box>
         </motion.div>
       )}{" "}

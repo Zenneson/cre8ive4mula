@@ -2,6 +2,7 @@ import {
   Divider,
   Indicator,
   ScrollArea,
+  Textarea,
   Tooltip,
   createTheme,
 } from "@mantine/core";
@@ -67,6 +68,14 @@ export const tourTheme = createTheme({
     ],
   },
   components: {
+    Textarea: Textarea.extend({
+      defaultProps: {
+        classNames: {
+          wrapper: "textareaWrapper",
+          input: "chatInput",
+        },
+      },
+    }),
     Tooltip: Tooltip.extend({
       defaultProps: {
         className: "tooltip",

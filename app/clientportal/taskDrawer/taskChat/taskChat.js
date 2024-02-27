@@ -173,7 +173,7 @@ export default function TaskChat() {
               <AnimatePresence>
                 {drawerState !== "showDetails" && (
                   <motion.div {...animationProps}>
-                    <Tooltip position="left" label="Ask AI">
+                    <Tooltip position="left" label="AI Assistant">
                       <Image
                         className={classes.aiAltBtn}
                         src="/img/clientDashboard/drawer/aiBtn.svg"
@@ -209,10 +209,6 @@ export default function TaskChat() {
               {drawerState !== "showDetails" && (
                 <motion.div {...animationProps}>
                   <Textarea
-                    classNames={{
-                      wrapper: classes.inputWrapper,
-                      input: classes.chatInput,
-                    }}
                     placeholder="Type your message..."
                     w={"100%"}
                     minRows={4}
@@ -220,7 +216,7 @@ export default function TaskChat() {
                     autosize
                   />
                   <ActionIcon
-                    className={`innerPanel ${classes.sendBtn}`}
+                    className={"innerPanel sendBtn"}
                     variant="transparent"
                     pos={"absolute"}
                     right={8}
