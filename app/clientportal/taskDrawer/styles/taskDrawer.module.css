@@ -3,15 +3,8 @@ div.taskDrawerRoot {
   position: fixed;
 }
 
-div.drawerBtns {
-  position: absolute;
-  top: 36px;
-  right: 44px;
-}
-
 img.expandBtn,
 img.closeBtn,
-img.helpBtn,
 img.emailTaskBtn,
 img.editTaskBtn {
   transition: all 250ms ease;
@@ -27,7 +20,7 @@ img.editTaskBtn {
 }
 
 img.closeBtn {
-  margin-left: -5px;
+  margin-left: -3px;
 }
 
 img.expandBtn,

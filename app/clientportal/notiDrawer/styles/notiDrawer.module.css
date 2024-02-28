@@ -1,0 +1,32 @@
+div.notiDrawerRoot {
+  z-index: 800;
+  position: fixed;
+}
+
+section.notiDrawerContent {
+  background: transparent;
+  box-shadow: none;
+}
+
+div.notiDrawerBox {
+  height: calc(100vh - 32px);
+}
+
+img.closeBtn {
+  transition: all 250ms ease;
+  cursor: pointer;
+  width: 23px;
+  height: 23px;
+  opacity: 0.4;
+
+  &:hover {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+img.notiImg {
+  width: 35px;
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(208deg)
+    brightness(102%) contrast(102%);
+}

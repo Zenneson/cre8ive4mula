@@ -18,7 +18,7 @@ import { FaPaperclip } from "react-icons/fa6";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { TbHelpSmall, TbHelpSquareFilled } from "react-icons/tb";
 import { services } from "../../public/data/services";
-import classes from "./styles/register.module.css";
+import classes from "./styles/signup.module.css";
 
 export default function BrandInfo(props) {
   const { form } = props;

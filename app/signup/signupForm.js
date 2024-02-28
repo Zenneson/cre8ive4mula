@@ -1,16 +1,18 @@
 "use client";
+import { auth } from "@libs/firebase";
 import { useJoinForm } from "@libs/store";
 import { Box, Button, Group, Text, Transition } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { isEmail, useForm } from "@mantine/form";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
 import { useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { FaRegHandshake } from "react-icons/fa6";
 import BrandInfo from "./brandInfo";
 import ClientInfo from "./clientInfo";
-import classes from "./styles/register.module.css";
+import classes from "./styles/signup.module.css";
 
-export default function JoinForm() {
+export default function SignupForm() {
   const [clinetInfoAdded, setClientInfoAdded] = useState(false);
   const { clientInfo, setClientInfo } = useJoinForm();
   const form = useForm({
@@ -21,13 +23,53 @@ export default function JoinForm() {
       lastName: "",
       email: "",
       phone: "",
+      password: "",
       desiredService: "",
       companyDesc: "",
       goals: "",
       relatedURLs: [],
       companyFiles: [],
     },
+    validate: {
+      email: isEmail("Invalid email"),
+    },
   });
+
+  const addUser = async (user) => {
+    await setDoc(doc(firestore, "users", user.email), {
+      firstName: form.values.firstName,
+      lastName: form.values.lastName,
+      email: form.values.email,
+      uid: user.uid,
+    });
+  };
+
+  const handleLogin = () => {
+    createUserWithEmailAndPassword(
+      auth,
+      form.values.email,
+      form.values.password
+    )
+      .then((userCredential) => {
+        addUser(userCredential.user)
+          .then(() => {
+            setInfoAdded(true);
+            setPopoverOpened(false);
+          })
+          .catch((error) => {
+            console.error("Error adding user to database: ", error);
+          });
+      })
+      .catch((error) => {
+        showError(
+          error,
+          emailInvalid(form),
+          alreadyExists(form),
+          "auth/invalid-email",
+          "auth/email-already-in-use"
+        );
+      });
+  };
 
   return (
     <>

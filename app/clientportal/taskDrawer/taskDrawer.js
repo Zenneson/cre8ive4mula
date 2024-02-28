@@ -26,15 +26,13 @@ export default function TaskDrawer() {
         content: classes.taskDrawerContent,
       }}
       overlayProps={{ backgroundOpacity: 0.25, color: "#9dc4f3", blur: 7 }}
-      transitionProps={{ duration: 300, timingFunction: "ease" }}
-      withCloseButton={false}
       position="right"
       size={"70%"}
       returnFocus
       opened={drawerOpen}
       onClose={drawerClose}
     >
-      <Group className={`altPanel ${classes.drawerBtns}`} gap={10}>
+      <Group className={"altPanel drawerTopBtns"} gap={10}>
         <Tooltip label="Edit Task">
           <Image
             className={classes.editTaskBtn}
@@ -63,13 +61,6 @@ export default function TaskDrawer() {
             }
             alt="Expand Details"
             onClick={handleDrawerHeight}
-          />
-        </Tooltip>
-        <Tooltip label="Task Drawer Info.">
-          <Image
-            className={classes.helpBtn}
-            src="/img/clientDashboard/drawer/help.svg"
-            alt="More Info."
           />
         </Tooltip>
         <Tooltip label="Close">

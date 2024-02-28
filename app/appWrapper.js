@@ -44,7 +44,7 @@ export default function AppWrapper({ children }) {
         </AppShell>
         {(pathname === "/" ||
           pathname === "/login" ||
-          pathname === "/join") && <Clouds />}
+          pathname === "/signup") && <Clouds />}
       </MantineProvider>
     </>
   );

@@ -17,6 +17,8 @@ export const usePortalState = create(
       setDrawerState: (value) => set({ drawerState: value }),
       activePanel: 0,
       setActivePanel: (value) => set({ activePanel: value }),
+      notiDrawerOpen: false,
+      setNotiDrawerOpen: (value) => set({ notiDrawerOpen: value }),
     }),
     {
       name: "portalState",

@@ -16,7 +16,7 @@ import { usePortalState } from "../portalStore";
 import classes from "./styles/clientHeader.module.css";
 
 export default function ClientHeader() {
-  const { activePanel, setActivePanel } = usePortalState();
+  const { activePanel, setNotiDrawerOpen } = usePortalState();
 
   const animationProps = {
     initial: { y: -100, opacity: 0 },
@@ -66,7 +66,7 @@ export default function ClientHeader() {
           </Text>
         </Stack>
 
-        <Group gap={0}>
+        <Group gap={0} onClick={() => setNotiDrawerOpen(true)}>
           <Tooltip
             position={"bottom"}
             withArrow
@@ -94,7 +94,6 @@ export default function ClientHeader() {
                 size="xl"
                 variant="transparent"
                 className={classes.topRightBtns}
-                // onClick={}
               >
                 <Image
                   src={`/img/menu/bell.svg`}

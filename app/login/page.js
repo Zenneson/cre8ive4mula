@@ -6,7 +6,7 @@ import classes from "./styles/login.module.css";
 export default function Login() {
   return (
     <Center w={"100vw"} h={"100vh"}>
-      <Stack gap={0}>
+      <Stack gap={0} mt={-100}>
         <Stack gap={0}>
           <Text
             className={classes.title}

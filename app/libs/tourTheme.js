@@ -1,7 +1,10 @@
 import {
   Divider,
+  Drawer,
   Indicator,
   Input,
+  NumberInput,
+  PasswordInput,
   ScrollArea,
   Select,
   TagsInput,
@@ -72,6 +75,28 @@ export const tourTheme = createTheme({
     ],
   },
   components: {
+    Drawer: Drawer.extend({
+      defaultProps: {
+        withCloseButton: false,
+        transitionProps: { duration: 300, timingFunction: "ease" },
+      },
+    }),
+    PasswordInput: PasswordInput.extend({
+      defaultProps: {
+        classNames: {
+          wrapper: "inputWrapper",
+          input: "chatInput",
+        },
+      },
+    }),
+    NumberInput: NumberInput.extend({
+      defaultProps: {
+        classNames: {
+          wrapper: "inputWrapper",
+          input: "chatInput",
+        },
+      },
+    }),
     Input: Input.extend({
       defaultProps: {
         classNames: {
