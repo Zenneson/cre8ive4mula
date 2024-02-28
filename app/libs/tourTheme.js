@@ -3,6 +3,7 @@ import {
   Indicator,
   Input,
   ScrollArea,
+  Select,
   TagsInput,
   TextInput,
   Textarea,
@@ -72,6 +73,14 @@ export const tourTheme = createTheme({
   },
   components: {
     Input: Input.extend({
+      defaultProps: {
+        classNames: {
+          wrapper: "inputWrapper",
+          input: "chatInput",
+        },
+      },
+    }),
+    Select: Select.extend({
       defaultProps: {
         classNames: {
           wrapper: "inputWrapper",

@@ -1,0 +1,22 @@
+.title {
+  font-family: var(--font-arcade);
+  text-align: center;
+  font-size: 5.4rem;
+  height: 80px;
+  margin-top: -40px;
+  opacity: 0.4;
+}
+
+.subtitle {
+  text-align: right;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 12px;
+  margin-right: 7px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.formStack {
+  transition: all 300ms ease-in-out;
+}
