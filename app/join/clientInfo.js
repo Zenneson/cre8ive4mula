@@ -1,26 +1,14 @@
 "use client";
 import { Box, Divider, Group, Input, Stack, Tooltip } from "@mantine/core";
-import { useForm } from "@mantine/form";
 import { FaAsterisk } from "react-icons/fa";
 import classes from "./styles/register.module.css";
 
-// REGISTER FORM
-export default function ClientInfo() {
-  const form = useForm({
-    initialValues: {
-      companyName: "",
-      title: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-    },
-  });
-
+export default function ClientInfo(props) {
+  const { form } = props;
   const Required = () => {
     return (
       <Tooltip label="Required" offset={0}>
-        <Box c={"#999"} pl={5}>
+        <Box c={"#999"} pl={5} pt={3}>
           <FaAsterisk opacity={0.4} size={12} />
         </Box>
       </Tooltip>
@@ -30,6 +18,7 @@ export default function ClientInfo() {
   return (
     <Stack className={classes.formStack} gap={20}>
       <Input
+        {...form.getInputProps("companyName")}
         placeholder="Company Name"
         name={"Company Name"}
         rightSectionPointerEvents="all"
@@ -37,15 +26,17 @@ export default function ClientInfo() {
         rightSection={<Required />}
       />
       <Input
+        {...form.getInputProps("title")}
         placeholder="Title / Position"
-        name={"Title"}
         rightSectionPointerEvents="all"
+        name={"Title"}
         rightSectionWidth={40}
         rightSection={<Required />}
       />
       <Divider opacity={0.2} />
       <Group grow>
         <Input
+          {...form.getInputProps("firstName")}
           placeholder="First Name"
           name={"First Name"}
           rightSectionPointerEvents="all"
@@ -53,6 +44,7 @@ export default function ClientInfo() {
           rightSection={<Required />}
         />
         <Input
+          {...form.getInputProps("lastName")}
           placeholder="Last Name"
           name={"Last Name"}
           rightSectionPointerEvents="all"
@@ -62,6 +54,7 @@ export default function ClientInfo() {
       </Group>
       <Group grow>
         <Input
+          {...form.getInputProps("email")}
           placeholder="Email"
           name={"Email"}
           rightSectionPointerEvents="all"
@@ -69,6 +62,7 @@ export default function ClientInfo() {
           rightSection={<Required />}
         />
         <Input
+          {...form.getInputProps("phone")}
           placeholder="Phone"
           name={"Phone"}
           rightSectionPointerEvents="all"

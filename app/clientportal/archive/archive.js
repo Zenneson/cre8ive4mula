@@ -1,5 +1,6 @@
 import { convertDateFormat, taskColor } from "@libs/custom";
 import {
+  ActionIcon,
   Badge,
   Box,
   Button,
@@ -7,18 +8,17 @@ import {
   Grid,
   Group,
   Image,
+  Input,
   ScrollArea,
   Stack,
   Table,
   Text,
   Title,
-  Tooltip,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import "@mantine/dates/styles.css";
 import { useState } from "react";
-import { FaRegComments } from "react-icons/fa";
-import { LuFolderSearch } from "react-icons/lu";
+import { FaRegComments, FaSearch } from "react-icons/fa";
 import { usePortalState } from "../portalStore";
 import classes from "./styles/archive.module.css";
 
@@ -94,11 +94,16 @@ export default function Archive() {
         align="center"
         pos={"relative"}
       >
-        <Tooltip label="File Search">
-          <Box className={`panel ${classes.fileSearchBtn}`}>
-            <LuFolderSearch />
-          </Box>
-        </Tooltip>
+        <Input
+          rightSection={
+            <ActionIcon size={"lg"} mr={10} className="actionBtn">
+              <FaSearch />
+            </ActionIcon>
+          }
+          rightSectionPointerEvents="all"
+          placeholder="Search Tasks..."
+          w={"65%"}
+        />
         <Box className={`altPanel ${classes.calendarFrame}`}>
           <DatePicker
             className={classes.archiveCalendar}

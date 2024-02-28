@@ -15,18 +15,18 @@ export default function Clouds() {
           el: cloudsRef.current,
           backgroundColor: "#ffffff",
           sunColor: "#ff9919",
-          sunGlareColor: "#ff6633",
-          sunlightColor: "#ff9933",
-          skyColor: "#8fcef8",
-          cloudColor: "#d8ebff",
+          sunGlareColor: "#0388fc",
+          sunlightColor: "#00b0ff",
+          skyColor: "#6aa4e7",
+          cloudColor: "#cfe8ff",
           mouseControls: false,
           touchControls: false,
           gyroControls: false,
-          minHeight: 200.0,
-          minWidth: 200.0,
-          speed: 1,
+          minHeight: 400.0,
+          minWidth: 400.0,
           texturePath: "/img/noise.png",
           THREE: THREE,
+          speed: 1.5,
         })
       );
     }
@@ -39,3 +39,10 @@ export default function Clouds() {
     <Box ref={cloudsRef} className={classes.clouds} w={"100%"} h={"100%"} />
   );
 }
+
+// backgroundColor: "#ffffff",
+// sunColor: "#ff9919",
+// sunGlareColor: "#ff6633",
+// sunlightColor: "#ff9933",
+// skyColor: "#64aaff",
+// cloudColor: "#eaf3fc",

@@ -232,7 +232,9 @@ export default function TaskForm(props) {
                 onClick={() => {
                   if (helpMode === mode) {
                     setDeliverInfo(false);
-                    setHelpMode("");
+                    setTimeout(() => {
+                      setHelpMode("");
+                    }, 300);
                     return;
                   }
                   setHelpMode(mode);
@@ -400,17 +402,23 @@ export default function TaskForm(props) {
         </Group>
       </Stack>
       <Dialog
-        className={classes.deliverInfoDialog}
+        className="infoDialog"
         opened={deliverInfo}
         withCloseButton
         size={340}
         p={"20px 25px"}
+        transitionProps={{
+          transition: "slide-left",
+          duration: 300,
+        }}
         onClose={() => {
-          setDeliverInfo(false);
-          setHelpMode("");
+          setTimeout(() => {
+            setHelpMode("");
+            setDeliverInfo(false);
+          }, 300);
         }}
       >
-        <Center className={classes.dialogIcon}>
+        <Center className="dialogIcon">
           <TbHelpSmall size={30} />
         </Center>
         <Box w={375} pr={55}>

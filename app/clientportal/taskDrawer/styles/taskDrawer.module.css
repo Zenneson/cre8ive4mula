@@ -26,6 +26,10 @@ img.editTaskBtn {
   }
 }
 
+img.closeBtn {
+  margin-left: -5px;
+}
+
 img.expandBtn,
 img.editTaskBtn {
   width: 20px;

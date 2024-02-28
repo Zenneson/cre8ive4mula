@@ -35,34 +35,6 @@ div.archiveFrame {
     }
   }
 
-  div.fileSearchBtn {
-    transition: all 200ms ease-in-out;
-    border-radius: 10px;
-    position: absolute;
-    padding: 13px;
-    padding-bottom: 6px;
-    top: 40px;
-    right: 40px;
-    color: #fff;
-    cursor: pointer;
-    transform: scale(1.5);
-    user-select: none;
-
-    &:hover {
-      svg {
-        transition: all 100ms ease-in-out;
-        transform: scale(1.2);
-      }
-    }
-
-    &:active {
-      svg {
-        transform: scale(1.1);
-        color: #ccc;
-      }
-    }
-  }
-
   div.archiveFrame {
     font-family: var(--font-montserrat);
   }

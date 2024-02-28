@@ -126,7 +126,8 @@ p {
 a.mantine-Button-root,
 button.mantine-Button-root {
   transition: all 150ms ease;
-  font-weight: 900;
+  font-family: var(--font-montserrat);
+  font-weight: 700;
   height: auto;
   padding: 15px 20px;
   outline: none;
@@ -179,7 +180,7 @@ a {
   height: 50px !important;
   color: #000;
   box-shadow:
-    rgba(51, 116, 191, 0.4) 0px 15px 30px -6px inset,
+    rgba(51, 116, 191, 0.25) 0px 7px 20px -6px inset,
     rgba(0, 0, 0, 0.1) 0px 18px 18px -9px inset;
 }
 
@@ -187,4 +188,28 @@ a {
   box-shadow:
     rgba(50, 50, 93, 0.4) 0px 15px 30px -6px,
     rgba(0, 0, 0, 0.25) 0px 18px 18px -9px;
+}
+
+.actionBtn {
+  background: linear-gradient(145deg, #3f70a8, #75acee) !important;
+  box-shadow:
+    rgba(50, 50, 93, 0.4) 0px 15px 30px -6px,
+    rgba(0, 0, 0, 0.25) 0px 18px 18px -9px;
+}
+
+.infoDialog {
+  background: linear-gradient(0deg, #efefef, #ffffff);
+  color: #444;
+  box-shadow: 0px 2px 8px 0px rgba(110, 110, 110, 0.3);
+  overflow: hidden;
+}
+
+.dialogIcon {
+  background: linear-gradient(0deg, #f7f7f7, #ffffff);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 40px;
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.05);
 }

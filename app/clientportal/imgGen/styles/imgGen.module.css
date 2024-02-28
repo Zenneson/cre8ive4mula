@@ -1,4 +1,5 @@
 .imgGenTitle {
+  font-family: var(--font-montserrat);
   text-transform: uppercase;
   font-size: 1.5em;
 }

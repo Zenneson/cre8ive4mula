@@ -19,23 +19,6 @@
   border-radius: 100px;
 }
 
-.deliverInfoDialog {
-  background: linear-gradient(0deg, #efefef, #ffffff);
-  color: #444;
-  box-shadow: 0px 2px 8px 0px rgba(110, 110, 110, 0.3);
-  overflow: hidden;
-}
-
-.dialogIcon {
-  background: linear-gradient(0deg, #f7f7f7, #ffffff);
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 40px;
-  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.05);
-}
-
 .dialogInfoEnter {
   background: rgba(255, 255, 255, 0.3);
   border-radius: 7px;
