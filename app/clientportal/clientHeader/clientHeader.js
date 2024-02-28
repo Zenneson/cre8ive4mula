@@ -46,7 +46,8 @@ export default function ClientHeader() {
       <Group
         className={classes.headerFrame}
         justify="space-between"
-        mb={"2px"}
+        mt={7}
+        mb={2}
         pr={13}
         pl={125}
       >

@@ -209,7 +209,7 @@ export default function TaskForm(props) {
           <TagsInput
             ref={modeRef}
             tabIndex={tabIndex}
-            value={formData[mode] || modeVar}
+            value={modeVar || formData[mode]}
             onChange={modeSetter}
             placeholder={
               modeVar.length >= maxAllowed ? "Limit Reached" : placeholder

@@ -123,7 +123,10 @@ export default function ImgGen() {
                   <Popover.Dropdown p={0}>
                     <Group c={"#000"} fw={700} gap={0}>
                       <Input
-                        className={classes.aspectRatioInput}
+                        classNames={{
+                          wrapper: classes.aspectRatioWrapper,
+                          input: classes.aspectRatioInput,
+                        }}
                         placeholder={"16"}
                       />
                       <CgFormatSlash
@@ -135,7 +138,10 @@ export default function ImgGen() {
                         stroke={2}
                       />
                       <Input
-                        className={classes.aspectRatioInput}
+                        classNames={{
+                          wrapper: classes.aspectRatioWrapper,
+                          input: classes.aspectRatioInput,
+                        }}
                         placeholder={"9"}
                       />
                     </Group>

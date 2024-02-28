@@ -1,7 +1,10 @@
 import {
   Divider,
   Indicator,
+  Input,
   ScrollArea,
+  TagsInput,
+  TextInput,
   Textarea,
   Tooltip,
   createTheme,
@@ -68,11 +71,40 @@ export const tourTheme = createTheme({
     ],
   },
   components: {
+    Input: Input.extend({
+      defaultProps: {
+        classNames: {
+          wrapper: "inputWrapper",
+          input: "chatInput",
+        },
+      },
+    }),
+    TextInput: TextInput.extend({
+      defaultProps: {
+        classNames: {
+          wrapper: "inputWrapper",
+          input: "chatInput",
+        },
+      },
+    }),
     Textarea: Textarea.extend({
       defaultProps: {
         classNames: {
-          wrapper: "textareaWrapper",
+          wrapper: "inputWrapper",
           input: "chatInput",
+        },
+      },
+    }),
+    TagsInput: TagsInput.extend({
+      defaultProps: {
+        classNames: {
+          wrapper: "inputWrapper",
+          input: "chatInput",
+        },
+      },
+      styles: {
+        input: {
+          paddingTop: 13,
         },
       },
     }),
