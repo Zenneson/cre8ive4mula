@@ -3,7 +3,8 @@ import { Box, Center } from "@mantine/core";
 import { useEffect, useRef } from "react";
 import classes from "./styles/customLoader.module.css";
 
-export default function CustomLoader() {
+export default function CustomLoader(props) {
+  const { mode = false } = props;
   const frameRef = useRef();
 
   useEffect(() => {
@@ -25,12 +26,25 @@ export default function CustomLoader() {
   }, []);
 
   return (
-    <Center className={`${classes.loaderBg}  ${classes.blueBg}`}>
+    <Center
+      className={`${classes.loaderBg}  ${mode === "default" && classes.blueBg}`}
+    >
       <Box ref={frameRef} className={classes.loader}>
-        <span>L</span>
-        <span>O</span>
-        <span>A</span>
-        <span>D</span>
+        {mode === "imgGen" ? (
+          <>
+            <span>C</span>
+            <span>R</span>
+            <span>E</span>
+            <span>8</span>
+          </>
+        ) : (
+          <>
+            <span>L</span>
+            <span>O</span>
+            <span>A</span>
+            <span>D</span>
+          </>
+        )}
         <span>I</span>
         <span>N</span>
         <span>G</span>

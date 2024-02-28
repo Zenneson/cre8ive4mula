@@ -3,6 +3,7 @@ import { hexToRgb, taskColor } from "@libs/custom";
 import {
   Badge,
   Box,
+  Divider,
   Flex,
   Group,
   Image,
@@ -21,7 +22,7 @@ import classes from "./styles/detailsSection.module.css";
 
 export default function DetailsSection() {
   const { drawerState } = usePortalState();
-  const task = taskInfo[2];
+  const task = taskInfo[0];
   const typeColor = taskColor(task.type);
   const { ref, height } = useElementSize();
 
@@ -122,9 +123,9 @@ export default function DetailsSection() {
               </Group>
               <Title
                 tt={"uppercase"}
-                w={"calc(100% - 100px)"}
-                order={3}
+                w={"calc(100% - 215px)"}
                 lineClamp={1}
+                order={3}
               >
                 {task.title}
               </Title>
@@ -154,28 +155,30 @@ export default function DetailsSection() {
                   mb={task.type === "Web Dev" ? 20 : 5}
                   gap={0}
                 >
-                  <Group className={classes.dateRow} my={5}>
+                  <Group className={classes.dateRow} mt={5} mb={10}>
                     <Image
                       src="/img/clientDashboard/drawer/taskCalendar.svg"
                       alt={"Calendar"}
                       fit="contain"
-                      opacity={0.5}
-                      w={20}
+                      opacity={0.25}
+                      w={25}
                       ml={3.5}
                     />
-                    <Text>{task.date}</Text>
+                    <Text mr={10}>{task.date}</Text>
                     <Image
                       src="/img/clientDashboard/drawer/clock.svg"
                       alt={"Clock"}
                       fit="contain"
-                      opacity={0.5}
-                      w={18}
+                      opacity={0.25}
+                      w={23}
+                      mr={-5}
                     />
                     <Text>{task.time}</Text>
                   </Group>
+                  <Divider opacity={0.12} w={"98%"} mx={"auto"} />
                   <Box hidden={task.type !== "Design"}>
                     {colors && colors.length > 0 && (
-                      <Group className={classes.detailsRow} mt={5} mb={15}>
+                      <Group className={classes.detailsRow} my={5}>
                         <Image
                           src="/img/clientDashboard/colorPalette.svg"
                           alt={"Color Palette"}

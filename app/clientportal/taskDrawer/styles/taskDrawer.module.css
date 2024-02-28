@@ -10,11 +10,14 @@ div.drawerBtns {
 }
 
 img.expandBtn,
-img.closeBtn {
+img.closeBtn,
+img.helpBtn,
+img.emailTaskBtn,
+img.editTaskBtn {
   transition: all 250ms ease;
   cursor: pointer;
-  width: 25px;
-  height: 25px;
+  width: 23px;
+  height: 23px;
   opacity: 0.4;
 
   &:hover {
@@ -23,7 +26,8 @@ img.closeBtn {
   }
 }
 
-img.expandBtn {
+img.expandBtn,
+img.editTaskBtn {
   width: 20px;
   height: 20px;
 }
@@ -32,4 +36,5 @@ section.taskDrawerContent {
   background: transparent;
   box-shadow: none;
   max-width: 1000px;
+  min-width: 625px;
 }

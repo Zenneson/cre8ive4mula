@@ -25,7 +25,8 @@ export default function TaskDrawer() {
         root: classes.taskDrawerRoot,
         content: classes.taskDrawerContent,
       }}
-      overlayProps={{ backgroundOpacity: 0.25, color: "#75acee", blur: 5 }}
+      overlayProps={{ backgroundOpacity: 0.25, color: "#9dc4f3", blur: 7 }}
+      transitionProps={{ duration: 300, timingFunction: "ease" }}
       withCloseButton={false}
       position="right"
       size={"70%"}
@@ -34,6 +35,22 @@ export default function TaskDrawer() {
       onClose={drawerClose}
     >
       <Group className={`altPanel ${classes.drawerBtns}`} gap={10}>
+        <Tooltip label="Edit Task">
+          <Image
+            className={classes.editTaskBtn}
+            src="/img/clientDashboard/drawer/edit.svg"
+            alt="Edit Task"
+            mr={5}
+          />
+        </Tooltip>
+        <Tooltip label="Send Task">
+          <Image
+            className={classes.emailTaskBtn}
+            src="/img/clientDashboard/drawer/mail.svg"
+            alt="Email Task"
+            mx={5}
+          />
+        </Tooltip>
         <Tooltip
           label={drawerState === "showDetails" ? "Reset" : "Expand Details"}
         >
@@ -48,11 +65,18 @@ export default function TaskDrawer() {
             onClick={handleDrawerHeight}
           />
         </Tooltip>
+        <Tooltip label="Task Drawer Info.">
+          <Image
+            className={classes.helpBtn}
+            src="/img/clientDashboard/drawer/help.svg"
+            alt="More Info."
+          />
+        </Tooltip>
         <Tooltip label="Close">
           <Image
             className={classes.closeBtn}
             src="/img/clientDashboard/drawer/closeDrawer.svg"
-            alt="close"
+            alt="Close"
             onClick={drawerClose}
           />
         </Tooltip>

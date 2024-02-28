@@ -5,15 +5,21 @@ import {
   Badge,
   Box,
   Grid,
+  Group,
   Image,
   Stack,
   Text,
   Textarea,
+  Title,
   Tooltip,
 } from "@mantine/core";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef } from "react";
+import { BsChatLeftQuote } from "react-icons/bs";
+import { FaRegUserCircle } from "react-icons/fa";
 import { IoSend } from "react-icons/io5";
+import { LuClock2 } from "react-icons/lu";
+import { PiQuotesFill } from "react-icons/pi";
 import { usePortalState } from "../../portalStore";
 import classes from "./styles/taskChat.module.css";
 
@@ -73,8 +79,8 @@ const Message = (props) => {
 const animationProps = {
   initial: { opacity: 0 },
   animate: { opacity: 1 },
-  exit: { opacity: 0 },
-  transition: { delay: 0.1, duration: 0.3 },
+  exit: { opacity: 0, transition: { duration: 0 } },
+  transition: { delay: 0.2, duration: 1 },
 };
 
 const ChatMessages = (props) => {
@@ -164,45 +170,137 @@ export default function TaskChat() {
         </AnimatePresence>
         <Grid pos={"absolute"} mt={12} w={"100%"} bottom={0}>
           <Grid.Col span={"content"}>
-            <Stack
-              className={`altPanel ${classes.chatAltBtns}`}
-              align="center"
-              gap={12}
-              p={11}
-            >
+            <Group>
+              <Stack
+                className={`altPanel ${classes.chatAltBtns}`}
+                align="center"
+                gap={12}
+                p={11}
+              >
+                <AnimatePresence>
+                  {drawerState !== "showDetails" && (
+                    <motion.div {...animationProps}>
+                      <Tooltip position="left" label="AI Assistant">
+                        <Image
+                          className={classes.aiAltBtn}
+                          src="/img/clientDashboard/drawer/aiBtn.svg"
+                          alt="AI"
+                          w={25}
+                          h={35}
+                        />
+                      </Tooltip>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                <Group>
+                  <Tooltip
+                    position="left"
+                    label={drawerState === "showChat" ? "Reset" : "Expand Chat"}
+                  >
+                    <Image
+                      src={
+                        drawerState === "showChat"
+                          ? "/img/clientDashboard/drawer/reset.svg"
+                          : "/img/clientDashboard/drawer/expand.svg"
+                      }
+                      alt="Expand Chat"
+                      my={3}
+                      w={25}
+                      h={25}
+                      onClick={handleDrawerHeight}
+                    />
+                  </Tooltip>
+                  <AnimatePresence>
+                    {drawerState === "showDetails" && (
+                      <motion.div {...animationProps}>
+                        <Tooltip position="left" label="AI Assistant">
+                          <Image
+                            className={classes.aiAltBtn}
+                            src="/img/clientDashboard/drawer/aiBtn.svg"
+                            alt="AI"
+                            w={25}
+                            h={35}
+                          />
+                        </Tooltip>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </Group>
+              </Stack>
               <AnimatePresence>
-                {drawerState !== "showDetails" && (
-                  <motion.div {...animationProps}>
-                    <Tooltip position="left" label="AI Assistant">
-                      <Image
-                        className={classes.aiAltBtn}
-                        src="/img/clientDashboard/drawer/aiBtn.svg"
-                        alt="AI"
-                        w={25}
-                        h={35}
-                      />
-                    </Tooltip>
-                  </motion.div>
+                {drawerState === "showDetails" && (
+                  <Stack
+                    className={classes.chatDetails}
+                    component={motion.div}
+                    {...animationProps}
+                    gap={0}
+                  >
+                    <Group gap={5} mb={-2} align="flex-end">
+                      <BsChatLeftQuote opacity={0.5} />
+                      <Title tt={"uppercase"} order={6} fz={14}>
+                        Task Discussion
+                      </Title>
+                    </Group>
+                    <Group gap={0} ml={22} mb={-2}>
+                      <PiQuotesFill size={15} />
+                      <Text
+                        ml={6}
+                        fz={14}
+                        c={"cobaltblue.9"}
+                        fs={"italic"}
+                        lineClamp={1}
+                        maw={750}
+                      >
+                        <Text
+                          fw={900}
+                          fz={10}
+                          c={"#fff"}
+                          tt={"uppercase"}
+                          component="span"
+                          fs={"normal"}
+                        >
+                          Last Message:
+                        </Text>{" "}
+                        Are these all the details needed in the graphic?
+                      </Text>
+                    </Group>
+                    <Group gap={0} ml={22} mb={-5}>
+                      <LuClock2 size={15} />
+                      <Text fz={14} ml={4} mr={10} c={"cobaltblue.9"}>
+                        <Text
+                          fw={900}
+                          fz={10}
+                          c={"#fff"}
+                          tt={"uppercase"}
+                          component="span"
+                        >
+                          <Text
+                            fw={400}
+                            fz={12}
+                            mr={15}
+                            c={"cobaltblue.9"}
+                            tt={"uppercase"}
+                            component="span"
+                            fs={"normal"}
+                          >
+                            Tues FEb 27, 2024 | 12:00 PM EST
+                          </Text>
+                          <FaRegUserCircle
+                            style={{
+                              verticalAlign: "middle",
+                              marginBottom: "2px",
+                              marginRight: "3px",
+                            }}
+                            size={14}
+                          />
+                        </Text>{" "}
+                        zenneson@gmail.com
+                      </Text>
+                    </Group>
+                  </Stack>
                 )}
               </AnimatePresence>
-              <Tooltip
-                position="left"
-                label={drawerState === "showChat" ? "Reset" : "Expand Chat"}
-              >
-                <Image
-                  src={
-                    drawerState === "showChat"
-                      ? "/img/clientDashboard/drawer/reset.svg"
-                      : "/img/clientDashboard/drawer/expand.svg"
-                  }
-                  alt="Expand Chat"
-                  my={3}
-                  w={25}
-                  h={25}
-                  onClick={handleDrawerHeight}
-                />
-              </Tooltip>
-            </Stack>
+            </Group>
           </Grid.Col>
           <Grid.Col span={"auto"}>
             <AnimatePresence>

@@ -23,21 +23,21 @@ import { usePortalState } from "../portalStore";
 import classes from "./styles/archive.module.css";
 
 const tasks = [
-  {
-    type: "Design",
-    title: "Drawing for the March Event",
-    comments: 5,
-  },
-  {
-    type: "Content",
-    title: "Changing Page Content",
-    comments: 12,
-  },
-  {
-    type: "Web Dev",
-    title: "Add Feature",
-    comments: 8,
-  },
+  // {
+  //   type: "Design",
+  //   title: "Drawing for the March Event",
+  //   comments: 5,
+  // },
+  // {
+  //   type: "Content",
+  //   title: "Changing Page Content",
+  //   comments: 12,
+  // },
+  // {
+  //   type: "Web Dev",
+  //   title: "Add Feature",
+  //   comments: 8,
+  // },
 ];
 
 export default function Archive() {
@@ -49,7 +49,7 @@ export default function Archive() {
 
     return (
       <Table.Tr key={index}>
-        <Grid className={classes.archiveTaskGrid} mt={5}>
+        <Grid className={classes.archiveTaskGrid}>
           <Grid.Col span="content">
             <Badge color={typeColor} variant="filled" size="xs" ml={10}>
               {task.type}
@@ -124,7 +124,7 @@ export default function Archive() {
           />
         </Box>
         <Box w={"638.4px"}>
-          <Group gap={7}>
+          <Group gap={7} mb={-8}>
             <Image
               src="/img/clientDashboard/archive/calendar.svg"
               alt="Current Date"

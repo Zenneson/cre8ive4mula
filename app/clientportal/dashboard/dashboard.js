@@ -9,12 +9,12 @@ export default function Dashboard(props) {
   return (
     <>
       <Flex
+        className={classes.boardsFrame}
+        maw={2400}
         pl={125}
         pt={75}
         py={0}
-        maw={2400}
         gap={20}
-        className={classes.boardsFrame}
       >
         <Board
           boardType={"Submitted Tasks"}

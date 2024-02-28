@@ -9,7 +9,7 @@ export default function ClientPortalLayout() {
     <>
       <Navbar />
       <ClientHeader />
-      <Suspense fallback={<CustomLoader />}>
+      <Suspense fallback={<CustomLoader mode={"default"} />}>
         <Portal />
       </Suspense>
     </>
