@@ -45,7 +45,7 @@ export default function LoginForm() {
           required
           placeholder="Email Address"
           name="email"
-          autocomplete="username"
+          autoComplete="username"
           leftSectionWidth={40}
           leftSection={
             <Box c={"#999"} pt={7} pl={5}>
@@ -63,7 +63,7 @@ export default function LoginForm() {
           placeholder="Password"
           type="password"
           name="password"
-          autocomplete="current-password"
+          autoComplete="current-password"
           leftSectionWidth={40}
           leftSection={
             <Box c={"#999"} pt={7} pl={5}>

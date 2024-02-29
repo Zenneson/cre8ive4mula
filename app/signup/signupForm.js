@@ -76,6 +76,8 @@ export default function SignupForm() {
       });
   };
 
+  console.log("🚀 ~ SignupForm ~ form.values:", form.values);
+
   return (
     <>
       <Box

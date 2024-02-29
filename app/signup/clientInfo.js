@@ -1,14 +1,12 @@
 "use client";
-import { formatPhoneNumber } from "@libs/custom";
 import { Box, Divider, Group, Input, Stack, Tooltip } from "@mantine/core";
-import { useState } from "react";
 import { FaAsterisk } from "react-icons/fa";
+import { IMaskInput } from "react-imask";
 import PasswordField from "./passwordField";
 import classes from "./styles/signup.module.css";
 
 export default function ClientInfo(props) {
   const { form } = props;
-  const [phoneValue, setPhoneValue] = useState("");
 
   const Required = () => {
     return (
@@ -20,25 +18,33 @@ export default function ClientInfo(props) {
     );
   };
 
+  const mask = [
+    { mask: "(000) 000-0000" },
+    { mask: "[+0 ](000) 000-0000" },
+    { mask: "[+00 ](000) 000-0000" },
+  ];
+
   return (
     <Stack className={classes.formStack} gap={20}>
       <Input
         {...form.getInputProps("companyName")}
         placeholder="Company Name"
         name={"Company Name"}
-        autocomplete="organization"
+        autoComplete="organization"
         rightSectionPointerEvents="all"
         rightSectionWidth={40}
         rightSection={<Required />}
+        required
       />
       <Input
         {...form.getInputProps("title")}
         placeholder="Title / Position"
         name={"title"}
-        autocomplete="organization-title"
+        autoComplete="organization-title"
         rightSectionPointerEvents="all"
         rightSectionWidth={40}
         rightSection={<Required />}
+        required
       />
       <Divider opacity={0.2} />
       <Group grow>
@@ -46,19 +52,21 @@ export default function ClientInfo(props) {
           {...form.getInputProps("firstName")}
           placeholder="First Name"
           name={"First Name"}
-          autocomplete="given-name"
+          autoComplete="given-name"
           rightSectionPointerEvents="all"
           rightSectionWidth={40}
           rightSection={<Required />}
+          required
         />
         <Input
           {...form.getInputProps("lastName")}
           placeholder="Last Name"
           name={"Last Name"}
-          autocomplete="family-name"
+          autoComplete="family-name"
           rightSectionPointerEvents="all"
           rightSectionWidth={40}
           rightSection={<Required />}
+          required
         />
       </Group>
       <Group grow>
@@ -66,24 +74,26 @@ export default function ClientInfo(props) {
           {...form.getInputProps("email")}
           placeholder="Email"
           name={"email"}
-          autocomplete="username"
+          autoComplete="username"
           rightSectionPointerEvents="all"
           rightSectionWidth={40}
           rightSection={<Required />}
+          required
         />
         <Input
+          {...form.getInputProps("phone")}
           name={"phone"}
-          value={formatPhoneNumber(phoneValue) || ""}
-          placeholder={"Phone #"}
-          autocomplete="username"
-          onChange={(event) => {
-            const formatted = formatPhoneNumber(event.target.value);
-            form.setFieldValue("phone", formatted);
-            setPhoneValue(formatted);
+          component={IMaskInput}
+          mask={mask}
+          onBlur={(event) => {
+            form.setFieldValue("phone", event.target.value);
           }}
+          placeholder={"Phone #"}
+          autoComplete="username"
           rightSectionPointerEvents="all"
           rightSectionWidth={40}
           rightSection={<Required />}
+          required
         />
       </Group>
       <Divider opacity={0.2} />
