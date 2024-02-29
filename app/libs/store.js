@@ -4,4 +4,6 @@ import { create } from "zustand";
 export const useJoinForm = create((set) => ({
   clientInfo: {},
   setClientInfo: (info) => set({ clientInfo: info }),
+  premiereSignup: false,
+  setpremiereSignup: (bool) => set({ premiereSignup: bool }),
 }));

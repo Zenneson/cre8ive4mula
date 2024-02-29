@@ -128,6 +128,7 @@ button.mantine-Button-root {
   transition: all 150ms ease;
   font-family: var(--font-montserrat);
   font-weight: 700;
+  font-size: 11px;
   height: auto;
   padding: 15px 20px;
   outline: none;

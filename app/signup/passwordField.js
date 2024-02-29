@@ -83,9 +83,9 @@ export default function PasswordField(props) {
         <PasswordInput
           {...form.getInputProps("password")}
           name="password"
-          autoComplete={"current-password" || "new-password"}
+          autocomplete={"current-password" || "new-password"}
           value={form.values.password}
-          placeholder={passValue === "" ? "Password..." : ""}
+          placeholder={passValue === "" ? "Create Password..." : ""}
           error={form.errors.password && "Password does not meet requirements"}
           onChange={(event) => {
             setPassValue(event.currentTarget.value);

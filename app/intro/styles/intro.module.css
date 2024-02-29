@@ -16,7 +16,6 @@ img.rightArrow {
   color: #fff;
   margin: 20px 0;
   cursor: pointer;
-  overflow: visible;
   width: 35px;
   user-select: none;
 }
@@ -60,7 +59,7 @@ a.loginBtn {
     border-radius: 10px;
     position: absolute;
     content: "Client Portal";
-    padding-top: 10px;
+    padding-top: 12px;
     top: 0;
     left: 0;
     width: 100%;

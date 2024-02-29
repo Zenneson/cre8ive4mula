@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import AdvancedFormat from "dayjs/plugin/advancedFormat";
+
 dayjs.extend(AdvancedFormat);
 
 // Formats the date string to a more readable format.
@@ -135,4 +136,21 @@ export const hexToRgb = (hex) => {
     return false;
   }
   return { r, g, b };
+};
+
+// Formats a phone number to a more readable format.
+export const formatPhoneNumber = (phoneNumber) => {
+  if (!phoneNumber || phoneNumber.length === 0) return "";
+  let phoneString = String(phoneNumber);
+  phoneString = phoneString.replace(/\D/g, "");
+  phoneString = phoneString.substring(0, 10);
+  const formattedNumber =
+    "(" +
+    phoneString.substring(0, 3) +
+    ") " +
+    phoneString.substring(3, 6) +
+    "-" +
+    phoneString.substring(6, 10);
+
+  return formattedNumber;
 };

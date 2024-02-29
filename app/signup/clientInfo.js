@@ -1,4 +1,5 @@
 "use client";
+import { formatPhoneNumber } from "@libs/custom";
 import { Box, Divider, Group, Input, Stack, Tooltip } from "@mantine/core";
 import { useState } from "react";
 import { FaAsterisk } from "react-icons/fa";
@@ -8,22 +9,6 @@ import classes from "./styles/signup.module.css";
 export default function ClientInfo(props) {
   const { form } = props;
   const [phoneValue, setPhoneValue] = useState("");
-
-  const formatPhoneNumber = (phoneNumber) => {
-    if (!phoneNumber || phoneNumber.length === 0) return "";
-    let phoneString = String(phoneNumber);
-    phoneString = phoneString.replace(/\D/g, "");
-    phoneString = phoneString.substring(0, 10);
-    const formattedNumber =
-      "(" +
-      phoneString.substring(0, 3) +
-      ") " +
-      phoneString.substring(3, 6) +
-      "-" +
-      phoneString.substring(6, 10);
-
-    return formattedNumber;
-  };
 
   const Required = () => {
     return (
@@ -41,6 +26,7 @@ export default function ClientInfo(props) {
         {...form.getInputProps("companyName")}
         placeholder="Company Name"
         name={"Company Name"}
+        autocomplete="organization"
         rightSectionPointerEvents="all"
         rightSectionWidth={40}
         rightSection={<Required />}
@@ -48,8 +34,9 @@ export default function ClientInfo(props) {
       <Input
         {...form.getInputProps("title")}
         placeholder="Title / Position"
+        name={"title"}
+        autocomplete="organization-title"
         rightSectionPointerEvents="all"
-        name={"Title"}
         rightSectionWidth={40}
         rightSection={<Required />}
       />
@@ -59,6 +46,7 @@ export default function ClientInfo(props) {
           {...form.getInputProps("firstName")}
           placeholder="First Name"
           name={"First Name"}
+          autocomplete="given-name"
           rightSectionPointerEvents="all"
           rightSectionWidth={40}
           rightSection={<Required />}
@@ -67,6 +55,7 @@ export default function ClientInfo(props) {
           {...form.getInputProps("lastName")}
           placeholder="Last Name"
           name={"Last Name"}
+          autocomplete="family-name"
           rightSectionPointerEvents="all"
           rightSectionWidth={40}
           rightSection={<Required />}
@@ -77,15 +66,16 @@ export default function ClientInfo(props) {
           {...form.getInputProps("email")}
           placeholder="Email"
           name={"email"}
+          autocomplete="username"
           rightSectionPointerEvents="all"
           rightSectionWidth={40}
           rightSection={<Required />}
         />
         <Input
-          // {...form.getInputProps("phone")}
           name={"phone"}
           value={formatPhoneNumber(phoneValue) || ""}
           placeholder={"Phone #"}
+          autocomplete="username"
           onChange={(event) => {
             const formatted = formatPhoneNumber(event.target.value);
             form.setFieldValue("phone", formatted);
@@ -96,6 +86,7 @@ export default function ClientInfo(props) {
           rightSection={<Required />}
         />
       </Group>
+      <Divider opacity={0.2} />
       <PasswordField form={form} />
     </Stack>
   );

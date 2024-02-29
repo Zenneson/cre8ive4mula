@@ -1,10 +1,12 @@
 "use client";
-import { auth } from "@libs/firebase";
+import { auth, firestore } from "@libs/firebase";
 import { useJoinForm } from "@libs/store";
 import { Box, Button, Group, Text, Transition } from "@mantine/core";
 import { isEmail, useForm } from "@mantine/form";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { FaRegHandshake } from "react-icons/fa6";
@@ -13,8 +15,9 @@ import ClientInfo from "./clientInfo";
 import classes from "./styles/signup.module.css";
 
 export default function SignupForm() {
+  const router = useRouter();
   const [clinetInfoAdded, setClientInfoAdded] = useState(false);
-  const { clientInfo, setClientInfo } = useJoinForm();
+  const { premiereSignup, setClientInfo } = useJoinForm();
   const form = useForm({
     initialValues: {
       companyName: "",
@@ -37,14 +40,22 @@ export default function SignupForm() {
 
   const addUser = async (user) => {
     await setDoc(doc(firestore, "users", user.email), {
+      uid: user.uid,
+      companyName: form.values.companyName,
+      title: form.values.title,
       firstName: form.values.firstName,
       lastName: form.values.lastName,
       email: form.values.email,
-      uid: user.uid,
+      phone: form.values.phone,
+      desiredService: form.values.desiredService,
+      companyDesc: form.values.companyDesc,
+      goals: form.values.goals,
+      relatedURLs: form.values.relatedURLs,
+      companyFiles: form.values.companyFiles,
     });
   };
 
-  const handleLogin = () => {
+  const handleSignup = () => {
     createUserWithEmailAndPassword(
       auth,
       form.values.email,
@@ -53,21 +64,15 @@ export default function SignupForm() {
       .then((userCredential) => {
         addUser(userCredential.user)
           .then(() => {
-            setInfoAdded(true);
-            setPopoverOpened(false);
+            console.log("User added to database");
+            router.push("/clientportal");
           })
           .catch((error) => {
             console.error("Error adding user to database: ", error);
           });
       })
       .catch((error) => {
-        showError(
-          error,
-          emailInvalid(form),
-          alreadyExists(form),
-          "auth/invalid-email",
-          "auth/email-already-in-use"
-        );
+        console.error("Error creating user: ", error);
       });
   };
 
@@ -85,12 +90,11 @@ export default function SignupForm() {
         </Text>
         <Text className={classes.subtitle}>
           <Text component="span" c="#fff" fz={"inherit"} fw={700} mr={5}>
-            {/* TODO Add logic to swithc account sign - up type  */}
-            Pro Account
+            {premiereSignup ? "Premiere" : "Pro"} Account
           </Text>
           | Sign - Up
         </Text>
-        <form onSubmit={form.onSubmit(setClientInfo)}>
+        <form onSubmit={form.onSubmit(handleSignup)}>
           {!clinetInfoAdded && <ClientInfo form={form} />}
           <Transition
             mounted={clinetInfoAdded}

@@ -1,6 +1,6 @@
 import { Box, Center, Stack, Text, Title } from "@mantine/core";
 import Link from "next/link";
-import Form from "./form";
+import LoginForm from "./loginForm";
 import classes from "./styles/login.module.css";
 
 export default function Login() {
@@ -20,7 +20,7 @@ export default function Login() {
           <Title className={classes.subtitle}>Client Portal Login</Title>
         </Stack>
         <Box className="panel lightShadow" w={400}>
-          <Form />
+          <LoginForm />
         </Box>
       </Stack>
     </Center>

@@ -1,13 +1,17 @@
 "use client";
+import { auth } from "@libs/firebase";
 import { Box, Button, Divider, Group, Input, Stack, Text } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { IoIosHelpBuoy } from "react-icons/io";
 import { LuFingerprint, LuKeyRound } from "react-icons/lu";
 import { MdAlternateEmail } from "react-icons/md";
 import classes from "./styles/login.module.css";
 
-export default function Form() {
+export default function LoginForm() {
+  const router = useRouter();
   const form = useForm({
     initialValues: {
       email: "",
@@ -19,8 +23,19 @@ export default function Form() {
     },
   });
 
+  const handleLogin = () => {
+    signInWithEmailAndPassword(auth, form.values.email, form.values.password)
+      .then(() => {
+        console.log(`Signed in as ${form.values.email}`);
+        router.push("/clientportal");
+      })
+      .catch((error) => {
+        console.error("Error signing in with password and email", error);
+      });
+  };
+
   return (
-    <form onSubmit={form.onSubmit((values) => console.log(values))}>
+    <form onSubmit={form.onSubmit(handleLogin)}>
       <Stack gap={20}>
         <Divider
           opacity={0.2}
@@ -30,7 +45,7 @@ export default function Form() {
           required
           placeholder="Email Address"
           name="email"
-          autoComplete="username"
+          autocomplete="username"
           leftSectionWidth={40}
           leftSection={
             <Box c={"#999"} pt={7} pl={5}>
@@ -48,7 +63,7 @@ export default function Form() {
           placeholder="Password"
           type="password"
           name="password"
-          autoComplete="current-password"
+          autocomplete="current-password"
           leftSectionWidth={40}
           leftSection={
             <Box c={"#999"} pt={7} pl={5}>

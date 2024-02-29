@@ -44,6 +44,23 @@ export default function BrandInfo(props) {
   return (
     <>
       <Stack className={classes.formStack} gap={20}>
+        <Box className="altPanel" w={584}>
+          <Text
+            className={classes.infoNotice}
+            fz={14}
+            px={10}
+            lh={1.25}
+            ta={"justify"}
+          >
+            To align our goals effectively, we request any relevant information
+            you have about your company. This information is invaluable in
+            ensuring that our efforts are perfectly tailored to your unique
+            vision and objectives. Your insights into your company&apos;s
+            identity, values, and aspirations will guide us in creating
+            strategies that genuinely reflect and enhance your brand&apos;s
+            presence in the market.
+          </Text>
+        </Box>
         <Textarea
           {...form.getInputProps("companyDesc")}
           placeholder="Company Description..."
