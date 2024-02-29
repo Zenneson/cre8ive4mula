@@ -4,9 +4,11 @@ import {
   Box,
   Center,
   Dialog,
+  Divider,
   FileInput,
   Group,
-  Select,
+  MultiSelect,
+  Popover,
   Stack,
   TagsInput,
   Text,
@@ -15,7 +17,7 @@ import {
 } from "@mantine/core";
 import { useState } from "react";
 import { FaPaperclip } from "react-icons/fa6";
-import { MdOutlineFileUpload } from "react-icons/md";
+import { MdArrowDropDown, MdOutlineFileUpload } from "react-icons/md";
 import { TbHelpSmall, TbHelpSquareFilled } from "react-icons/tb";
 import { services } from "../../public/data/services";
 import classes from "./styles/signup.module.css";
@@ -23,7 +25,7 @@ import classes from "./styles/signup.module.css";
 export default function BrandInfo(props) {
   const { form } = props;
   const [fileUploadInfo, setFileUploadInfo] = useState(false);
-  const [relevantSites, setRelevantSites] = useState(false);
+  const [relevantSitesInfo, setRelevantSitesInfo] = useState(false);
 
   const servicesToData = (services) => {
     const data = Object.keys(services).map((group) => {
@@ -41,10 +43,26 @@ export default function BrandInfo(props) {
   };
   const convertedData = servicesToData(services);
 
+  const handleWebsites = (newValue) => {
+    const isValid = newValue.every((v) => v.match(/[.][a-zA-Z]+$/));
+    if (isValid) {
+      form.setFieldValue("relatedURLs", {
+        value: newValue,
+        isValid: true,
+        invaidValue: "",
+      });
+    } else {
+      form.setFieldValue("relatedURLs", {
+        isValid: false,
+        invaidValue: newValue,
+      });
+    }
+  };
+
   return (
     <>
       <Stack className={classes.formStack} gap={20}>
-        <Box className="altPanel" w={584}>
+        <Box className="altPanel">
           <Text
             className={classes.infoNotice}
             fz={14}
@@ -69,40 +87,120 @@ export default function BrandInfo(props) {
         />
         <Textarea
           {...form.getInputProps("goals")}
-          placeholder="Goals..."
+          placeholder="Goals related to our services..."
           minRows={4}
           autosize
         />
-        <Select
-          {...form.getInputProps("desiredService")}
-          placeholder="Most Desired Service"
+        <MultiSelect
+          name="desiredServices"
+          placeholder={
+            form.values.desiredServices.length < 4
+              ? "Most Desired Services..."
+              : ""
+          }
           data={convertedData}
           checkIconPosition="right"
-          clearable
+          maxValues={5}
+          rightSection={
+            form.values.desiredServices.length > 0 ? (
+              <Stack gap={0} align="center">
+                <Title c={"cobaltblue.4"} fz={12}>
+                  {form.values.desiredServices.length}
+                </Title>
+                <Divider w={15} color={"cobaltblue.4"} />
+                <Title c={"cobaltblue.4"} fz={12}>
+                  5
+                </Title>
+              </Stack>
+            ) : (
+              <MdArrowDropDown opacity={0.5} size={30} />
+            )
+          }
+          value={form.values.desiredServices}
+          onChange={(value) => form.setFieldValue("desiredServices", value)}
           classNames={{
             wrapper: "inputWrapper",
-            input: "chatInput",
-            option: classes.desiredServiceOption,
+            input: `defaultInput ${classes.desiredServicesInput}`,
+            option: classes.desiredServicesOption,
+            pill: classes.desiredServicesPill,
           }}
         />
-        <TagsInput
-          {...form.getInputProps("relatedURLs")}
-          placeholder="Relevant URLs..."
-          leftSectionWidth={50}
-          leftSectionPointerEvents="all"
-          leftSection={
-            <ActionIcon
-              variant="transparent"
-              color="#fff"
-              onClick={() => {
-                setRelevantSites(!relevantSites);
-                setFileUploadInfo(false);
+        <Popover
+          position="bottom-start"
+          opened={!form.values.relatedURLs.isValid}
+          offset={{ mainAxis: 20, crossAxis: -123 }}
+        >
+          <Popover.Target>
+            <TagsInput
+              classNames={{
+                wrapper: "inputWrapper",
+                input: "defaultInput",
+                pillsList: classes.tagsPillsList,
               }}
-            >
-              <TbHelpSquareFilled size={30} />
-            </ActionIcon>
-          }
-        />
+              placeholder={
+                form.values.relatedURLs.value?.length < 5
+                  ? "Relevant Websites..."
+                  : ""
+              }
+              rightSection={
+                form.values.relatedURLs.value?.length > 0 && (
+                  <Stack gap={0} align="center">
+                    <Title c={"cobaltblue.4"} fz={12}>
+                      {form.values.relatedURLs.value?.length}
+                    </Title>
+                    <Divider w={15} color={"cobaltblue.4"} />
+                    <Title c={"cobaltblue.4"} fz={12}>
+                      6
+                    </Title>
+                  </Stack>
+                )
+              }
+              onChange={handleWebsites}
+              leftSectionWidth={50}
+              leftSectionPointerEvents="all"
+              maxTags={6}
+              mah={50}
+              styles={{
+                inputField: {
+                  display: "inline",
+                  maxHeight:
+                    form.values.relatedURLs.value?.length === 6 ? 0 : 50,
+                },
+                pill: {
+                  justifyContent: "space-between",
+                  minWidth: 75,
+                  maxWidth: 75,
+                },
+              }}
+              leftSection={
+                <ActionIcon
+                  variant="transparent"
+                  color="#fff"
+                  onClick={() => {
+                    setRelevantSitesInfo(!relevantSitesInfo);
+                    setFileUploadInfo(false);
+                  }}
+                >
+                  <TbHelpSquareFilled size={30} />
+                </ActionIcon>
+              }
+            />
+          </Popover.Target>
+          <Popover.Dropdown ta={"center"}>
+            <Text fz={13} c={"#777"}>
+              <Text component="span" fw={700}>
+                &quot;
+                {
+                  form.values.relatedURLs.invaidValue[
+                    form.values.relatedURLs.invaidValue.length - 1
+                  ]
+                }
+                &quot;
+              </Text>{" "}
+              is not valid web address (e.g. .com, .net, .org)
+            </Text>
+          </Popover.Dropdown>
+        </Popover>
         <FileInput
           {...form.getInputProps("companyFiles")}
           name="Upload files"
@@ -116,7 +214,7 @@ export default function BrandInfo(props) {
               color="#fff"
               onClick={() => {
                 setFileUploadInfo(!fileUploadInfo);
-                setRelevantSites(false);
+                setRelevantSitesInfo(false);
               }}
             >
               <TbHelpSquareFilled size={30} />
@@ -144,7 +242,7 @@ export default function BrandInfo(props) {
       </Stack>
       <Dialog
         className="infoDialog"
-        opened={fileUploadInfo || relevantSites}
+        opened={fileUploadInfo || relevantSitesInfo}
         transitionProps={{
           transition: "slide-left",
           duration: 300,
@@ -155,7 +253,7 @@ export default function BrandInfo(props) {
         pl={60}
         onClose={() => {
           setFileUploadInfo(false);
-          setRelevantSites(false);
+          setRelevantSitesInfo(false);
         }}
       >
         <Center className="dialogIcon">

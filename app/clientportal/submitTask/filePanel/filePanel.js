@@ -16,15 +16,16 @@ import { PiUploadBold } from "react-icons/pi";
 import classes from "./styles/filePanel.module.css";
 
 export default function FilePanel(props) {
-  const { setFormData } = props;
+  const { form } = props;
   const [files, setFiles] = useState([]);
   const removeFile = (fileToRemove) => {
     setFiles(files.filter((file) => file !== fileToRemove));
   };
 
   useEffect(() => {
-    setFormData({ files });
-  }, [files, setFormData]);
+    form.setFieldValue("files", files);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const fileRow = files.map((file, index) => {
     return (

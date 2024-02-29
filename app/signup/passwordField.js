@@ -19,7 +19,7 @@ export default function PasswordField(props) {
   const PasswordRequirement = ({ meets, label }) => {
     return (
       <Text
-        c={meets ? "#00E8FC" : "red"}
+        c={meets ? "green.7" : "red.5"}
         style={{ display: "flex", alignItems: "center" }}
         mt={7}
         size="sm"
@@ -53,7 +53,8 @@ export default function PasswordField(props) {
   ));
 
   const strength = getStrength(passValue);
-  const color = strength === 100 ? "#00E8FC" : strength > 50 ? "yellow" : "red";
+  const color =
+    strength === 100 ? "green.7" : strength > 50 ? "yellow" : "red.5";
 
   useEffect(() => {
     if (strength === 100) {
@@ -86,6 +87,7 @@ export default function PasswordField(props) {
           autoComplete={"current-password" || "new-password"}
           value={form.values.password}
           placeholder={passValue === "" ? "Create Password..." : ""}
+          rightSectionWidth={35}
           error={form.errors.password && "Password does not meet requirements"}
           onChange={(event) => {
             setPassValue(event.currentTarget.value);

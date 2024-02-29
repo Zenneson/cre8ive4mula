@@ -138,19 +138,15 @@ export const hexToRgb = (hex) => {
   return { r, g, b };
 };
 
-// Formats a phone number to a more readable format.
-export const formatPhoneNumber = (phoneNumber) => {
-  if (!phoneNumber || phoneNumber.length === 0) return "";
-  let phoneString = String(phoneNumber);
-  phoneString = phoneString.replace(/\D/g, "");
-  phoneString = phoneString.substring(0, 10);
-  const formattedNumber =
-    "(" +
-    phoneString.substring(0, 3) +
-    ") " +
-    phoneString.substring(3, 6) +
-    "-" +
-    phoneString.substring(6, 10);
-
-  return formattedNumber;
+// Extracts the domain and path from a URL.
+export const extractDomainAndPath = (url) => {
+  try {
+    const parsedUrl = new URL(url);
+    // Combine the hostname (domain) with the pathname
+    const domainAndPath = `${parsedUrl.hostname}${parsedUrl.pathname}`;
+    return domainAndPath;
+  } catch (error) {
+    console.error("Invalid URL provided:", error);
+    return null; // Or handle the error as appropriate for your application
+  }
 };

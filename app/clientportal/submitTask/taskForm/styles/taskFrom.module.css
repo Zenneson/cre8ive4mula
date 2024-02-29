@@ -55,3 +55,28 @@ img.helpIcon {
     opacity: 1;
   }
 }
+
+div.wrapperInput {
+  max-height: 50px !important;
+  white-space: nowrap !important;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+input.tagsInputField {
+  min-width: 0% !important;
+}
+
+div.tagsInput {
+  max-height: 50px !important;
+  border-radius: 5px;
+}
+
+div.tagsPillsList {
+  display: inline-flex;
+  word-wrap: unset;
+  flex-wrap: unset;
+  overflow: hidden;
+  max-height: 50px !important;
+  width: 100%;
+}

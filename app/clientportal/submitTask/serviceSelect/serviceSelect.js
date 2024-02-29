@@ -5,28 +5,33 @@ import {
   Text,
   useCombobox,
 } from "@mantine/core";
+import { shallowEqual } from "@mantine/hooks";
 import { useEffect, useState } from "react";
+import { MdArrowDropDown } from "react-icons/md";
 import classes from "./styles/serviceSelect.module.css";
 
 export default function ServiceSelect(props) {
-  const { typeServices, formData, setFormData, tabIndex } = props;
+  const { form, typeServices, tabIndex } = props;
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
 
   const [data, setData] = useState([]);
-  const [value, setValue] = useState(formData.service || null);
+  const [value, setValue] = useState(form.values.service || null);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    if (typeServices) {
+    if (typeServices && typeServices.length > 0 && data.length === 0) {
       setData(typeServices);
     }
-  }, [typeServices]);
+  }, [typeServices, data]);
 
   useEffect(() => {
-    setFormData({ service: value });
-  }, [value, setFormData]);
+    if (!shallowEqual(form.values.service, value)) {
+      form.setFieldValue("service", value);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value, form.values.service]);
 
   const exactOptionMatch = data.some((item) => item === search);
   const filteredOptions = exactOptionMatch
@@ -65,7 +70,8 @@ export default function ServiceSelect(props) {
     >
       <Combobox.Target>
         <InputBase
-          value={formData.service || search}
+          {...form.getInputProps("service")}
+          value={form.values.service || search}
           tabIndex={tabIndex}
           onChange={(event) => {
             combobox.openDropdown();
@@ -93,7 +99,7 @@ export default function ServiceSelect(props) {
                 }}
               />
             ) : (
-              <Combobox.Chevron />
+              <MdArrowDropDown opacity={0.5} size={25} />
             )
           }
         />

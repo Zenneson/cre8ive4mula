@@ -3,8 +3,6 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export function middleware(request) {
-  console.log("🚀 ~ middleware ~ request:", request);
-
   const user = getUserFromRequest(request);
 
   if (user === "none") {

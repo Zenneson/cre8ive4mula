@@ -7,6 +7,7 @@ import {
   Button,
   Center,
   Dialog,
+  Divider,
   Grid,
   Group,
   HoverCard,
@@ -20,7 +21,8 @@ import {
   Textarea,
   Title,
 } from "@mantine/core";
-import { shallowEqual, useDebouncedState, useSetState } from "@mantine/hooks";
+import { useForm } from "@mantine/form";
+import { shallowEqual, useSetState } from "@mantine/hooks";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { FaPlay } from "react-icons/fa";
@@ -33,29 +35,48 @@ import classes from "./styles/taskFrom.module.css";
 
 export default function TaskForm(props) {
   const { typeServices, titleRef } = props;
-  const { formData, setFormData, setSubmissionPanel } = useSubissionData();
+  const { formData, setSubmissionPanel } = useSubissionData();
   const [typeColor, setTypeColor] = useState();
   const [deliverInfo, setDeliverInfo] = useState(false);
 
-  const [formTitle, setFormTitle] = useDebouncedState("", 200);
-  const [formGoal, setFormGoal] = useDebouncedState("", 200);
-  const [formDesc, setFormDesc] = useDebouncedState("", 200);
+  const form = useForm({
+    initialValues: {
+      type: "",
+      title: "",
+      service: "",
+      goal: "",
+      desc: "",
+      styleKeywords: [],
+      deliveryFormats: [],
+      websites: [],
+      colors: [],
+      files: [],
+    },
+  });
 
   const taskType = formData.type?.title;
-  const taskService = formData?.service;
   const [showReviewBtn, setShowReviewBtn] = useState(false);
 
   useEffect(() => {
     const isWebDevComplete =
       taskType === "Web Dev" &&
-      ((formData.title && formData.goal && formData.desc && formData.service) ||
-        (formTitle && formGoal && formDesc && taskService));
+      form.values.title &&
+      form.values.goal &&
+      form.values.desc &&
+      form.values.service;
     const isOtherTaskComplete =
       taskType !== "Web Dev" &&
-      ((formData.title && formData.desc && formData.service) ||
-        (formTitle && formDesc && taskService));
+      form.values.title &&
+      form.values.desc &&
+      form.values.service;
     setShowReviewBtn(isWebDevComplete || isOtherTaskComplete);
-  }, [formData, formTitle, formGoal, formDesc, taskService, taskType]);
+  }, [
+    form.values.title,
+    form.values.goal,
+    form.values.desc,
+    form.values.service,
+    taskType,
+  ]);
 
   useEffect(() => {
     if (!formData.type || !formData.type.title) return;
@@ -164,7 +185,8 @@ export default function TaskForm(props) {
     };
     const { var: modeVar, setter: modeSetter, ref: modeRef } = valueMode(mode);
 
-    const maxAllowed = mode === "deliveryFormats" ? 5 : 10;
+    const maxAllowed =
+      mode === "deliveryFormats" ? 5 : mode === "websites" ? 7 : 10;
 
     const handleKeyDown = (event) => {
       if (event.key === "Enter") {
@@ -175,28 +197,16 @@ export default function TaskForm(props) {
       }
     };
 
-    useEffect(() => {
-      const equal = shallowEqual(
-        { title: formData.title, goal: formData.goal, desc: formData.desc },
-        {
-          title: formTitle,
-          goal: formGoal,
-          desc: formDesc,
-        }
-      );
-      if (equal) return;
-
-      setFormData({
-        title: formTitle,
-        goal: formGoal,
-        desc: formDesc,
-      });
-    }, []);
+    const pillWidth = () => {
+      if (mode === "styleKeywords") return 57.5;
+      if (mode === "deliveryFormats") return 123;
+      if (mode === "websites") return 85.5;
+    };
 
     useEffect(() => {
-      const equal = shallowEqual(modeVar, formData[mode]);
+      const equal = shallowEqual(modeVar, form.values[mode]);
       if (equal || modeVar.length === 0) return;
-      setFormData({ [mode]: modeVar });
+      form.setFieldValue(mode, modeVar);
     }, [mode, modeVar]);
 
     return (
@@ -207,20 +217,40 @@ export default function TaskForm(props) {
       >
         <Popover.Target>
           <TagsInput
+            classNames={{
+              wrapper: `inputWrapper ${classes.wrapperInput}`,
+              input: `defaultInput ${classes.tagsInput}`,
+              inputField: classes.tagsInputField,
+              pillsList: classes.tagsPillsList,
+            }}
             ref={modeRef}
             tabIndex={tabIndex}
-            value={modeVar || formData[mode]}
+            value={modeVar || form.values[mode]}
             onChange={modeSetter}
-            placeholder={
-              modeVar.length >= maxAllowed ? "Limit Reached" : placeholder
-            }
+            placeholder={modeVar.length < maxAllowed - 2 ? placeholder : ""}
+            mah={50}
+            styles={{
+              pill: {
+                minWidth: pillWidth(),
+                maxWidth: pillWidth(),
+                justifyContent: "space-between",
+              },
+            }}
             onKeyDown={handleKeyDown}
             rightSectionWidth={50}
             rightSectionPointerEvents="none"
             rightSection={
-              modeVar.length === 0
-                ? ""
-                : `${maxAllowed - modeVar.length} / ${maxAllowed}`
+              modeVar.length > 0 && (
+                <Stack gap={0} align="center">
+                  <Title c={"cobaltblue.4"} fz={12}>
+                    {modeVar.length}
+                  </Title>
+                  <Divider w={15} color={"cobaltblue.4"} />
+                  <Title c={"cobaltblue.4"} fz={12}>
+                    {maxAllowed}
+                  </Title>
+                </Stack>
+              )
             }
             maxTags={maxAllowed}
             leftSectionWidth={50}
@@ -252,11 +282,7 @@ export default function TaskForm(props) {
               &quot;{websites.invaidValue[websites.invaidValue.length - 1]}
               &quot;
             </Text>{" "}
-            is not valid. Must end with{" "}
-            <Text component="span" fw={700}>
-              &quot; . * * * &quot;
-            </Text>{" "}
-            (e.g. .com, .net, .org)
+            is not valid web address (e.g. .com, .net, .org)
           </Text>
         </Popover.Dropdown>
       </Popover>
@@ -271,160 +297,158 @@ export default function TaskForm(props) {
   };
 
   return (
-    <motion.div {...animation}>
-      <Group className={classes.taskFormTitle} justify="space-between">
-        <Group gap="7">
-          <Image
-            src={"/img/clientDashboard/submit/addTask.svg"}
-            alt={"Task Type"}
-            height={25}
-            opacity={0.5}
-          />
-          <Title order={4}>Add Details</Title>
-        </Group>
-        <Badge
-          className={classes.taskType}
-          color={typeColor}
-          c={taskType === "Web Dev" ? "#000" : "#fff"}
-          size="md"
-          variant={"filled"}
-        >
-          {taskType}
-        </Badge>
-      </Group>
-      <Stack className="panel" w={800} gap={20}>
-        <Grid>
-          <Grid.Col span="auto">
-            <TextInput
-              ref={titleRef}
-              autoFocus={true}
-              placeholder="Title..."
-              tabIndex={1}
-              defaultValue={formTitle || formData.title}
-              onChange={(event) => setFormTitle(event.currentTarget.value)}
+    <form onSubmit={form.onSubmit()}>
+      <motion.div {...animation}>
+        <Group className={classes.taskFormTitle} justify="space-between">
+          <Group gap="7">
+            <Image
+              src={"/img/clientDashboard/submit/addTask.svg"}
+              alt={"Task Type"}
+              height={25}
+              opacity={0.5}
             />
-          </Grid.Col>
-          <Grid.Col span="content">
-            <ServiceSelect
-              typeServices={typeServices}
-              formData={formData}
-              setFormData={setFormData}
-              tabIndex={2}
-            />
-          </Grid.Col>
-        </Grid>
-        <Box hidden={taskType !== "Web Dev"}>
-          <Textarea
-            autosize
-            minRows={2}
-            tabIndex={taskType === "Web Dev" ? 3 : "NaN"}
-            placeholder="Intended Goal..."
-            defaultValue={formGoal || formData.goal}
-            onChange={(event) => setFormGoal(event.currentTarget.value)}
-          />
-        </Box>
-        <Textarea
-          autosize
-          tabIndex={taskType === "Web Dev" ? 4 : 3}
-          minRows={7}
-          maxRows={7}
-          placeholder="Description..."
-          defaultValue={formDesc || formData.desc}
-          onChange={(event) => setFormDesc(event.currentTarget.value)}
-        />
-        <Stack hidden={taskType !== "Design"} gap={20}>
-          {taskType === "Design" && (
-            <>
-              <AddTags
-                placeholder="Style Defining Keywords..."
-                mode={"styleKeywords"}
-                tabIndex={taskType === "Web Dev" ? 5 : 4}
-              />
-              <AddTags
-                placeholder="Delivery File Formats..."
-                mode={"deliveryFormats"}
-                tabIndex={taskType === "Web Dev" ? 6 : 5}
-              />
-            </>
-          )}
-          <AddTags placeholder="Websites..." mode={"websites"} tabIndex={6} />
-        </Stack>
-      </Stack>
-      <Stack mt={20} gap={20}>
-        <ColorPanel
-          formData={formData}
-          setFormData={setFormData}
-          choosenType={formData.type}
-        />
-        <FilePanel setFormData={setFormData} />
-        <Group justify="flex-end" gap={5}>
-          <Button
-            className={classes.backBtn}
-            onClick={() => setSubmissionPanel(0)}
-            leftSection={
-              <FaPlay
-                size={10}
-                style={{
-                  transform: "rotate(180deg)",
-                }}
-              />
-            }
+            <Title order={4}>Add Details</Title>
+          </Group>
+          <Badge
+            className={classes.taskType}
+            color={typeColor}
+            c={taskType === "Web Dev" ? "#000" : "#fff"}
+            size="md"
+            variant={"filled"}
           >
-            Back
-          </Button>
-          {showReviewBtn ? (
-            <Button
-              className={classes.reviewBtn}
-              rightSection={<FaPlay size={8} />}
-              onClick={() => setSubmissionPanel(2)}
-            >
-              Review
-            </Button>
-          ) : (
-            <HoverCard shadow="md" position="bottom" withArrow>
-              <HoverCard.Target>
-                <Image
-                  className={classes.helpIcon}
-                  src={"/img/clientDashboard/submit/help.svg"}
-                  alt={"Help Notice"}
-                  height={25}
-                />
-              </HoverCard.Target>
-              <HoverCard.Dropdown>
-                <Text c={"#000"} fz={12}>
-                  Add a title, description and
-                  <br />
-                  select a service to continue.
-                </Text>
-              </HoverCard.Dropdown>
-            </HoverCard>
-          )}
+            {taskType}
+          </Badge>
         </Group>
-      </Stack>
-      <Dialog
-        className="infoDialog"
-        opened={deliverInfo}
-        withCloseButton
-        size={340}
-        p={"20px 25px"}
-        transitionProps={{
-          transition: "slide-left",
-          duration: 300,
-        }}
-        onClose={() => {
-          setTimeout(() => {
-            setHelpMode("");
-            setDeliverInfo(false);
-          }, 300);
-        }}
-      >
-        <Center className="dialogIcon">
-          <TbHelpSmall size={30} />
-        </Center>
-        <Box w={375} pr={55}>
-          <HelpInfo />
-        </Box>
-      </Dialog>
-    </motion.div>
+        <Stack className="panel" w={800} gap={20}>
+          <Grid>
+            <Grid.Col span="auto">
+              <TextInput
+                {...form.getInputProps("title")}
+                ref={titleRef}
+                autoFocus={true}
+                placeholder="Title..."
+                tabIndex={1}
+              />
+            </Grid.Col>
+            <Grid.Col span="content">
+              <ServiceSelect
+                form={form}
+                typeServices={typeServices}
+                tabIndex={2}
+              />
+            </Grid.Col>
+          </Grid>
+          <Box hidden={taskType !== "Web Dev"}>
+            <Textarea
+              {...form.getInputProps("goal")}
+              autosize
+              minRows={2}
+              tabIndex={taskType === "Web Dev" ? 3 : "NaN"}
+              placeholder="Intended Goal..."
+            />
+          </Box>
+          <Textarea
+            {...form.getInputProps("desc")}
+            placeholder="Description..."
+            tabIndex={taskType === "Web Dev" ? 4 : 3}
+            minRows={7}
+            maxRows={7}
+            autosize
+          />
+          <Stack hidden={taskType !== "Design"} gap={20}>
+            {taskType === "Design" && (
+              <>
+                <AddTags
+                  placeholder="Style Defining Keywords..."
+                  mode={"styleKeywords"}
+                  tabIndex={taskType === "Web Dev" ? 5 : 4}
+                />
+                <AddTags
+                  placeholder="Delivery File Formats..."
+                  mode={"deliveryFormats"}
+                  tabIndex={taskType === "Web Dev" ? 6 : 5}
+                />
+              </>
+            )}
+            <AddTags
+              placeholder="Relevant Websites..."
+              mode={"websites"}
+              tabIndex={6}
+            />
+          </Stack>
+        </Stack>
+        <Stack mt={20} gap={20}>
+          <ColorPanel choosenType={formData.type} form={form} />
+          <FilePanel form={form} />
+          <Group justify="flex-end" gap={5}>
+            <Button
+              className={classes.backBtn}
+              onClick={() => setSubmissionPanel(0)}
+              leftSection={
+                <FaPlay
+                  size={10}
+                  style={{
+                    transform: "rotate(180deg)",
+                  }}
+                />
+              }
+            >
+              Back
+            </Button>
+            {showReviewBtn ? (
+              <Button
+                className={classes.reviewBtn}
+                rightSection={<FaPlay size={8} />}
+                onClick={() => setSubmissionPanel(2)}
+              >
+                Review
+              </Button>
+            ) : (
+              <HoverCard shadow="md" position="bottom" withArrow>
+                <HoverCard.Target>
+                  <Image
+                    className={classes.helpIcon}
+                    src={"/img/clientDashboard/submit/help.svg"}
+                    alt={"Help Notice"}
+                    height={25}
+                  />
+                </HoverCard.Target>
+                <HoverCard.Dropdown>
+                  <Text c={"#000"} fz={12}>
+                    Add a title, description and
+                    <br />
+                    select a service to continue.
+                  </Text>
+                </HoverCard.Dropdown>
+              </HoverCard>
+            )}
+          </Group>
+        </Stack>
+        <Dialog
+          className="infoDialog"
+          opened={deliverInfo}
+          withCloseButton
+          size={340}
+          p={"20px 25px"}
+          transitionProps={{
+            transition: "slide-left",
+            duration: 300,
+          }}
+          onClose={() => {
+            setTimeout(() => {
+              setHelpMode("");
+              setDeliverInfo(false);
+            }, 300);
+          }}
+        >
+          <Center className="dialogIcon">
+            <TbHelpSmall size={30} />
+          </Center>
+          <Box w={375} pr={55}>
+            <HelpInfo />
+          </Box>
+        </Dialog>
+      </motion.div>
+    </form>
   );
 }

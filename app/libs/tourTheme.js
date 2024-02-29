@@ -85,7 +85,7 @@ export const tourTheme = createTheme({
       defaultProps: {
         classNames: {
           wrapper: "inputWrapper",
-          input: "chatInput",
+          input: "defaultInput",
         },
       },
     }),
@@ -93,7 +93,7 @@ export const tourTheme = createTheme({
       defaultProps: {
         classNames: {
           wrapper: "inputWrapper",
-          input: "chatInput",
+          input: "defaultInput",
         },
       },
     }),
@@ -101,7 +101,7 @@ export const tourTheme = createTheme({
       defaultProps: {
         classNames: {
           wrapper: "inputWrapper",
-          input: "chatInput",
+          input: "defaultInput",
         },
       },
     }),
@@ -109,7 +109,7 @@ export const tourTheme = createTheme({
       defaultProps: {
         classNames: {
           wrapper: "inputWrapper",
-          input: "chatInput",
+          input: "defaultInput",
         },
       },
     }),
@@ -117,7 +117,7 @@ export const tourTheme = createTheme({
       defaultProps: {
         classNames: {
           wrapper: "inputWrapper",
-          input: "chatInput",
+          input: "defaultInput",
         },
       },
     }),
@@ -125,7 +125,7 @@ export const tourTheme = createTheme({
       defaultProps: {
         classNames: {
           wrapper: "inputWrapper",
-          input: "chatInput",
+          input: "defaultInput",
         },
       },
     }),
@@ -133,7 +133,7 @@ export const tourTheme = createTheme({
       defaultProps: {
         classNames: {
           wrapper: "inputWrapper",
-          input: "chatInput",
+          input: "defaultInput",
         },
       },
       styles: {

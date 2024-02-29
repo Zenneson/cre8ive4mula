@@ -27,8 +27,9 @@
   left: 2px;
 }
 
-.formStack {
+div.formStack {
   transition: all 300ms ease-in-out;
+  max-width: 585px !important;
 }
 
 button.backBtn {
@@ -47,7 +48,7 @@ button.submitBtn {
   transition: all 300ms ease-in-out;
 }
 
-.desiredServiceOption {
+.desiredServicesOption {
   color: #000;
 }
 
@@ -73,4 +74,28 @@ p.fileUploadInfoText {
   color: #fff;
   font-size: 14px;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.desiredServicesWrapper {
+  min-height: 50px;
+  height: auto;
+  overflow: hidden;
+}
+
+.desiredServicesInput {
+  padding-top: 13.5px !important;
+  height: 100%;
+}
+
+.desiredServicesPill {
+  width: 100px;
+}
+
+div.tagsPillsList {
+  display: inline-flex;
+  word-wrap: unset;
+  flex-wrap: unset;
+  overflow: hidden;
+  max-height: 50px !important;
+  width: 100%;
 }

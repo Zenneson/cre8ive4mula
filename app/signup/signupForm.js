@@ -27,10 +27,14 @@ export default function SignupForm() {
       email: "",
       phone: "",
       password: "",
-      desiredService: "",
+      desiredServices: [],
       companyDesc: "",
       goals: "",
-      relatedURLs: [],
+      relatedURLs: {
+        value: [],
+        isValid: true,
+        invaidValue: "",
+      },
       companyFiles: [],
     },
     validate: {
@@ -47,7 +51,7 @@ export default function SignupForm() {
       lastName: form.values.lastName,
       email: form.values.email,
       phone: form.values.phone,
-      desiredService: form.values.desiredService,
+      desiredServices: form.values.desiredServices,
       companyDesc: form.values.companyDesc,
       goals: form.values.goals,
       relatedURLs: form.values.relatedURLs,
@@ -75,8 +79,6 @@ export default function SignupForm() {
         console.error("Error creating user: ", error);
       });
   };
-
-  console.log("🚀 ~ SignupForm ~ form.values:", form.values);
 
   return (
     <>
