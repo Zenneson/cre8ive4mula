@@ -67,7 +67,7 @@ export default function NotiDrawer() {
       onClose={() => setNotiDrawerOpen(false)}
     >
       <Box className={`panel ${classes.notiDrawerBox}`}>
-        <Box className={"altPanel drawerTopBtns"} gap={10}>
+        <Box className={"altPanel drawerTopBtns"} mt={-2} gap={10}>
           <Tooltip label="Close">
             <Image
               className={classes.closeBtn}

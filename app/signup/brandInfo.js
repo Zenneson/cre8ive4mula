@@ -45,16 +45,16 @@ export default function BrandInfo(props) {
 
   const handleWebsites = (newValue) => {
     const isValid = newValue.every((v) => v.match(/[.][a-zA-Z]+$/));
-    if (isValid) {
+    if (!isValid) {
+      form.setFieldValue("relatedURLs", {
+        isValid: false,
+        invaidValue: newValue,
+      });
+    } else {
       form.setFieldValue("relatedURLs", {
         value: newValue,
         isValid: true,
         invaidValue: "",
-      });
-    } else {
-      form.setFieldValue("relatedURLs", {
-        isValid: false,
-        invaidValue: newValue,
       });
     }
   };
@@ -82,7 +82,7 @@ export default function BrandInfo(props) {
         <Textarea
           {...form.getInputProps("companyDesc")}
           placeholder="Company Description..."
-          minRows={6}
+          minRows={4}
           autosize
         />
         <Textarea

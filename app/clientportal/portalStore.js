@@ -31,6 +31,8 @@ export const usePortalState = create(
 export const useSubissionData = create(
   persist(
     (set) => ({
+      submissionPanel: 0,
+      setSubmissionPanel: (value) => set({ submissionPanel: value }),
       taskType: "",
       setTaskType: (value) => set({ taskType: value }),
     }),

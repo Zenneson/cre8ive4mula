@@ -47,7 +47,7 @@ export default function ClientInfo(props) {
         required
       />
       <Divider opacity={0.2} />
-      <Group grow>
+      <Group gap={20} grow>
         <Input
           {...form.getInputProps("firstName")}
           placeholder="First Name"
@@ -69,7 +69,7 @@ export default function ClientInfo(props) {
           required
         />
       </Group>
-      <Group grow>
+      <Group gap={20} grow>
         <Input
           {...form.getInputProps("email")}
           placeholder="Email"
