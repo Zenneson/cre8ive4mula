@@ -1,23 +1,24 @@
 "use client";
 import { auth, firestore } from "@libs/firebase";
 import { useJoinForm } from "@libs/store";
-import { Box, Button, Group, Text, Transition } from "@mantine/core";
+import { Box, Button, Group, Text } from "@mantine/core";
 import { isEmail, useForm } from "@mantine/form";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { FaPlay } from "react-icons/fa";
+import { FaFlagCheckered, FaPlay } from "react-icons/fa";
 import { FaRegHandshake } from "react-icons/fa6";
+import { usePortalState } from "../clientportal/portalStore";
 import BrandInfo from "./brandInfo";
 import ClientInfo from "./clientInfo";
 import classes from "./styles/signup.module.css";
 
 export default function SignupForm() {
   const router = useRouter();
-  const [clinetInfoAdded, setClientInfoAdded] = useState(false);
-  const { premiereSignup, setClientInfo } = useJoinForm();
+  const { paymentPanel, setPaymentPanel } = usePortalState();
+  const { premiereSignup } = useJoinForm();
   const form = useForm({
     initialValues: {
       companyName: "",
@@ -80,15 +81,16 @@ export default function SignupForm() {
       });
   };
 
+  const animation = {
+    initial: { x: 100, opacity: 0 },
+    animate: { x: 0, opacity: 1 },
+    exit: { x: -100, opacity: 0 },
+    transition: { animationTimingFunction: "ease-in-out", duration: 0.5 },
+  };
+
   return (
     <>
-      <Box
-        className="panel lightShadow"
-        p={"xl"}
-        w={"100%"}
-        maw={1000}
-        miw={650}
-      >
+      <Box className="panel lightShadow" p={"xl"}>
         <Text className={classes.title} c="#fff">
           CRE8IVE 4MULA
         </Text>
@@ -99,34 +101,32 @@ export default function SignupForm() {
           | Sign - Up
         </Text>
         <form onSubmit={form.onSubmit(handleSignup)}>
-          {!clinetInfoAdded && <ClientInfo form={form} />}
-          <Transition
-            mounted={clinetInfoAdded}
-            transition="fade"
-            duration={500}
-            exitDuration={0}
-            timingFunction="ease-in-out"
-          >
-            {(styles) => (
-              <div style={styles}>
-                <BrandInfo form={form} />
-              </div>
-            )}
-          </Transition>
+          {paymentPanel === 0 && (
+            <motion.div {...animation}>
+              <Text>Stripe Payment Form</Text>
+            </motion.div>
+          )}
+          {paymentPanel === 1 && (
+            <motion.div {...animation}>
+              <ClientInfo form={form} />
+            </motion.div>
+          )}
+          {paymentPanel === 2 && (
+            <motion.div {...animation}>
+              <BrandInfo form={form} />
+            </motion.div>
+          )}
         </form>
       </Box>
-      <Box hidden={clinetInfoAdded} className="panel lightShadow" p={"xl"}>
-        Stripe Payment Form
-      </Box>
       <Group justify="flex-end">
-        {clinetInfoAdded && (
+        {paymentPanel > 0 && (
           <Button
             className={`removeDetails ${classes.backBtn}`}
             size="md"
-            onClick={() => setClientInfoAdded(false)}
+            onClick={() => setPaymentPanel(paymentPanel - 1)}
             leftSection={
               <FaPlay
-                size={10}
+                size={8}
                 style={{
                   transform: "rotate(180deg)",
                 }}
@@ -138,25 +138,25 @@ export default function SignupForm() {
         )}
         <Button
           className={`removeDetails ${classes.submitBtn}`}
-          type={clinetInfoAdded ? "submit" : "button"}
-          component={!clinetInfoAdded ? "button" : Link}
-          href={!clinetInfoAdded ? null : "/clientportal"}
-          onClick={() => {
-            if (!clinetInfoAdded) {
-              setClientInfoAdded(true);
-            } else {
-              setClientInfo(form.values);
-            }
-          }}
+          type={paymentPanel === 2 ? "submit" : "button"}
+          component={paymentPanel === 2 ? Link : "button"}
+          href={paymentPanel === 2 ? "/clientportal" : null}
+          onClick={() => paymentPanel < 2 && setPaymentPanel(paymentPanel + 1)}
           rightSection={
-            !clinetInfoAdded ? (
+            paymentPanel === 0 ? (
               <FaRegHandshake opacity={0.5} size={20} />
+            ) : paymentPanel === 2 ? (
+              <FaFlagCheckered size={15} />
             ) : (
-              <FaPlay size={10} />
+              <FaPlay size={8} />
             )
           }
         >
-          {!clinetInfoAdded ? "Subscribe" : "Continue to Client Portal"}
+          {paymentPanel === 0
+            ? "Subscribe"
+            : paymentPanel === 2
+              ? "Continue to Client Portal"
+              : "Share Details"}
         </Button>
       </Group>
     </>

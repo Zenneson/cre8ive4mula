@@ -19,6 +19,12 @@ export const usePortalState = create(
       setActivePanel: (value) => set({ activePanel: value }),
       notiDrawerOpen: false,
       setNotiDrawerOpen: (value) => set({ notiDrawerOpen: value }),
+      paymentPanel: 0,
+      setPaymentPanel: (value) => set({ paymentPanel: value }),
+      helpMode: "",
+      setHelpMode: (value) => set({ helpMode: value }),
+      deliverInfo: false,
+      setDeliverInfo: (value) => set({ deliverInfo: value }),
     }),
     {
       name: "portalState",

@@ -22,7 +22,7 @@ import ColorPuck from "../../colorPuck/colorPuck";
 import classes from "./styles/colorPanel.module.css";
 
 export default function ColorPanel(props) {
-  const { form, choosenType } = props;
+  const { form } = props;
   const [selectedColor, setSelectedColor] = useState("#FF0000");
   const [colors, setColors] = useState([]);
 
@@ -86,7 +86,7 @@ export default function ColorPanel(props) {
   });
 
   return (
-    <Box hidden={choosenType?.title !== "Design"}>
+    <Box>
       <Grid gutter={20} className="innerPanel" p={20}>
         <Grid.Col span="3">
           <Popover

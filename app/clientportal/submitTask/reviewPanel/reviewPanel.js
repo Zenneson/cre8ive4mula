@@ -167,7 +167,7 @@ export default function ReviewPanel() {
               className={classes.backBtn}
               leftSection={
                 <FaPlay
-                  size={10}
+                  size={8}
                   style={{
                     transform: "rotate(180deg)",
                   }}

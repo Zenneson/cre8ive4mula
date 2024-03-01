@@ -85,8 +85,8 @@ export default function ImgGen() {
   });
 
   const helpAnimationProps = {
-    initial: { x: 100, opacity: 0 },
-    animate: { x: 0, opacity: 1 },
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
     transition: { duration: 1 },
   };
 

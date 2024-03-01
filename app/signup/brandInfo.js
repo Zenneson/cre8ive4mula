@@ -66,11 +66,12 @@ export default function BrandInfo(props) {
   return (
     <>
       <Stack className={classes.formStack} gap={20}>
-        <Box className="altPanel">
+        <Box>
           <Text
             className={classes.infoNotice}
             fz={14}
-            px={10}
+            pl={15}
+            pr={5}
             lh={1.25}
             ta={"justify"}
           >
@@ -180,6 +181,7 @@ export default function BrandInfo(props) {
               }}
               leftSection={
                 <ActionIcon
+                  className={"actionBtnDimmed"}
                   variant="transparent"
                   color="#fff"
                   onClick={() => {
@@ -216,6 +218,7 @@ export default function BrandInfo(props) {
           leftSectionPointerEvents="all"
           leftSection={
             <ActionIcon
+              className={"actionBtnDimmed"}
               variant="transparent"
               color="#fff"
               onClick={() => {
@@ -231,7 +234,7 @@ export default function BrandInfo(props) {
             <ActionIcon
               size={"lg"}
               mr={10}
-              className={`actionBtn ${classes.actionBtnDimmed}`}
+              className={"actionBtn actionBtnDimmed"}
             >
               <MdOutlineFileUpload />
             </ActionIcon>

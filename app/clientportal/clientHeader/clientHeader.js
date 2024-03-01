@@ -66,7 +66,7 @@ export default function ClientHeader() {
           </Text>
         </Stack>
 
-        <Group gap={0} onClick={() => setNotiDrawerOpen(true)}>
+        <Group mt={-5} mr={-5} gap={0} onClick={() => setNotiDrawerOpen(true)}>
           <Tooltip
             position={"bottom"}
             withArrow
@@ -75,10 +75,11 @@ export default function ClientHeader() {
           >
             <Badge
               className={classes.notificationsBadge}
+              color="#b9d5f6"
+              c={"cobaltblue.9"}
               size="md"
               mr={-5}
               circle
-              color="deepred.7"
             >
               3
             </Badge>
@@ -98,7 +99,7 @@ export default function ClientHeader() {
                 <Image
                   src={`/img/menu/bell.svg`}
                   alt={"Notifications"}
-                  height={25}
+                  height={27}
                 />
               </ActionIcon>
             </Tooltip>

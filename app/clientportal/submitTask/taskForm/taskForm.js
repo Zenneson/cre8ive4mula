@@ -6,36 +6,35 @@ import {
   Button,
   Center,
   Dialog,
-  Divider,
+  FileInput,
   Grid,
   Group,
   HoverCard,
   Image,
   Kbd,
-  Popover,
   Stack,
-  TagsInput,
   Text,
   TextInput,
   Textarea,
   Title,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { shallowEqual, useSetState } from "@mantine/hooks";
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
+import { MdOutlineFileUpload } from "react-icons/md";
 import { TbHelpSmall, TbHelpSquareFilled } from "react-icons/tb";
-import { useSubissionData } from "../../portalStore";
+import { usePortalState, useSubissionData } from "../../portalStore";
 import ColorPanel from "../colorPanel/colorPanel";
-import FilePanel from "../filePanel/filePanel";
 import ServiceSelect from "../serviceSelect/serviceSelect";
+import AddTags from "./addTags";
 import classes from "./styles/taskFrom.module.css";
 
 export default function TaskForm(props) {
   const { typeColor, typeServices, titleRef } = props;
   const { taskType, setFormData, setSubmissionPanel } = useSubissionData();
-  const [deliverInfo, setDeliverInfo] = useState(false);
+  const { helpMode, setHelpMode, deliverInfo, setDeliverInfo } =
+    usePortalState();
 
   const form = useForm({
     initialValues: {
@@ -69,7 +68,14 @@ export default function TaskForm(props) {
     setShowReviewBtn(isWebDevComplete || isOtherTaskComplete);
   }, [form?.values, taskType]);
 
-  const [helpMode, setHelpMode] = useState("");
+  const enterBtnInfo = (subject) => (
+    <>
+      <Text className={classes.dialogInfoEnter}>
+        Press <Kbd size="xs">Enter</Kbd> to add the {subject} to the list.
+      </Text>
+    </>
+  );
+
   const HelpInfo = () => {
     if (helpMode === "styleKeywords") {
       return (
@@ -79,12 +85,7 @@ export default function TaskForm(props) {
             <br />
             you want for this task.
           </Text>
-          <Text className={classes.dialogInfoEnter}>
-            Press <Kbd size="xs">Enter</Kbd> to add the keyword to the list.
-          </Text>
-          <Text ta={"center"} fz={11} mt={7} fw={700}>
-            10 Entires Allowed
-          </Text>
+          {enterBtnInfo("keyword")}
         </>
       );
     }
@@ -99,12 +100,7 @@ export default function TaskForm(props) {
             <br />
             or any other formats relevant to your needs.
           </Text>
-          <Text className={classes.dialogInfoEnter}>
-            Press <Kbd size="xs">Enter</Kbd> to add file type to the list.
-          </Text>
-          <Text ta={"center"} fz={11} mt={7} fw={700}>
-            5 Entires Allowed
-          </Text>
+          {enterBtnInfo("file type")}
         </>
       );
     }
@@ -116,167 +112,22 @@ export default function TaskForm(props) {
             <br />
             as a reference for your task.
           </Text>
-          <Text className={classes.dialogInfoEnter}>
-            Press <Kbd size="xs">Enter</Kbd> to add the site to the list.
-          </Text>
-          <Text ta={"center"} fz={11} mt={7} fw={700}>
-            10 Entires Allowed
-          </Text>
+          {enterBtnInfo("site")}
         </>
       );
     }
-  };
-
-  const [styleKeywords, setStyleKeywords] = useState([]);
-  const [deliveryFormats, setDeliveryFormats] = useState([]);
-  const [websites, setWebsites] = useSetState({
-    value: [],
-    isValid: true,
-    invalidValue: "",
-  });
-
-  const styleKeywordsRef = useRef(null);
-  const deliveryFormatsRef = useRef(null);
-  const websitesRef = useRef(null);
-
-  const AddTags = (props) => {
-    const { placeholder, mode, tabIndex } = props;
-    const valueMode = (mode) => {
-      let handler = {};
-      if (mode === "styleKeywords") {
-        handler.var = styleKeywords;
-        handler.setter = setStyleKeywords;
-        handler.ref = styleKeywordsRef;
-        return handler;
-      }
-      if (mode === "deliveryFormats") {
-        handler.var = deliveryFormats;
-        handler.setter = setDeliveryFormats;
-        handler.ref = deliveryFormatsRef;
-        return handler;
-      }
-      if (mode === "websites") {
-        handler.var = websites.value;
-        handler.ref = websitesRef;
-        handler.setter = (newValue) => {
-          const isValid = newValue.every((v) =>
-            v.match(
-              /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/
-            )
-          );
-          if (isValid) {
-            setWebsites({ value: newValue, isValid: true, invalidValue: "" });
-          } else {
-            setWebsites({ isValid: false, invalidValue: newValue });
-          }
-        };
-        return handler;
-      }
-    };
-    const { var: modeVar, setter: modeSetter, ref: modeRef } = valueMode(mode);
-
-    const maxAllowed =
-      mode === "deliveryFormats" ? 5 : mode === "websites" ? 7 : 10;
-
-    const handleKeyDown = (event) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        setTimeout(() => {
-          modeRef.current?.focus();
-        }, 100);
-      }
-    };
-
-    const pillWidth = () => {
-      if (mode === "styleKeywords") return 57.5;
-      if (mode === "deliveryFormats") return 123;
-      if (mode === "websites") return 85.5;
-    };
-
-    useEffect(() => {
-      const equal = shallowEqual(modeVar, form.values[mode]);
-      if (equal || modeVar.length === 0) return;
-      form.setFieldValue(mode, modeVar);
-    }, [mode, modeVar]);
-
-    return (
-      <Popover
-        position="bottom-start"
-        opened={!websites.isValid && mode === "websites"}
-        offset={{ mainAxis: 20, crossAxis: -123 }}
-      >
-        <Popover.Target>
-          <TagsInput
-            classNames={{
-              wrapper: `inputWrapper ${classes.wrapperInput}`,
-              input: `defaultInput ${classes.tagsInput}`,
-              inputField: classes.tagsInputField,
-              pillsList: classes.tagsPillsList,
-            }}
-            ref={modeRef}
-            tabIndex={tabIndex}
-            value={modeVar || form.values[mode]}
-            onChange={modeSetter}
-            placeholder={modeVar.length < maxAllowed - 2 ? placeholder : ""}
-            mah={50}
-            styles={{
-              pill: {
-                minWidth: pillWidth(),
-                maxWidth: pillWidth(),
-                justifyContent: "space-between",
-              },
-            }}
-            onKeyDown={handleKeyDown}
-            rightSectionWidth={50}
-            rightSectionPointerEvents="none"
-            rightSection={
-              modeVar.length > 0 && (
-                <Stack gap={0} align="center">
-                  <Title c={"gray.6"} fz={12}>
-                    {modeVar.length}
-                  </Title>
-                  <Divider w={15} color={"gray.6"} />
-                  <Title c={"gray.6"} fz={12}>
-                    {maxAllowed}
-                  </Title>
-                </Stack>
-              )
-            }
-            maxTags={maxAllowed}
-            leftSectionWidth={50}
-            leftSectionPointerEvents="all"
-            leftSection={
-              <ActionIcon
-                variant="transparent"
-                color="#777"
-                onClick={() => {
-                  if (helpMode === mode) {
-                    setDeliverInfo(false);
-                    setTimeout(() => {
-                      setHelpMode("");
-                    }, 300);
-                    return;
-                  }
-                  setHelpMode(mode);
-                  setDeliverInfo(true);
-                }}
-              >
-                <TbHelpSquareFilled className={classes.tagsInput} size={30} />
-              </ActionIcon>
-            }
-          />
-        </Popover.Target>
-        <Popover.Dropdown ta={"center"}>
-          <Text fz={13} c={"#777"}>
-            <Text component="span" fw={700}>
-              &quot;{websites.invalidValue[websites.invalidValue.length - 1]}
-              &quot;
-            </Text>{" "}
-            is not valid web address (e.g. .com, .net, .org)
+    if (helpMode === "files") {
+      return (
+        <>
+          <Text fz={13} ta={"center"}>
+            Upload any files that are relevant to
+            <br />
+            completing this task.
           </Text>
-        </Popover.Dropdown>
-      </Popover>
-    );
+          {enterBtnInfo("file")}
+        </>
+      );
+    }
   };
 
   const animation = {
@@ -289,7 +140,11 @@ export default function TaskForm(props) {
   return (
     <form onSubmit={() => console.log(form.values)}>
       <motion.div {...animation}>
-        <Group className={classes.taskFormTitle} justify="space-between">
+        <Group
+          className={classes.taskFormTitle}
+          mt={-100}
+          justify="space-between"
+        >
           <Group gap="7">
             <Image
               src={"/img/clientDashboard/submit/addTask.svg"}
@@ -349,27 +204,75 @@ export default function TaskForm(props) {
             {taskType === "Design" && (
               <>
                 <AddTags
+                  form={form}
                   placeholder="Style Defining Keywords..."
                   mode={"styleKeywords"}
+                  deliverInfo={deliverInfo}
+                  setDeliverInfo={setDeliverInfo}
                   tabIndex={taskType === "Web Dev" ? 5 : 4}
                 />
                 <AddTags
+                  form={form}
                   placeholder="Delivery File Formats..."
                   mode={"deliveryFormats"}
+                  deliverInfo={deliverInfo}
+                  setDeliverInfo={setDeliverInfo}
                   tabIndex={taskType === "Web Dev" ? 6 : 5}
                 />
               </>
             )}
             <AddTags
+              form={form}
               placeholder="Relevant Websites..."
               mode={"websites"}
+              deliverInfo={deliverInfo}
+              setDeliverInfo={setDeliverInfo}
               tabIndex={6}
+            />
+            <FileInput
+              {...form.getInputProps("files")}
+              name="Upload files"
+              placeholder="Upload Files..."
+              multiple
+              leftSectionWidth={50}
+              leftSectionPointerEvents="all"
+              leftSection={
+                <ActionIcon
+                  className={"actionBtnDimmed"}
+                  variant="transparent"
+                  color="#fff"
+                  onClick={() => {
+                    if (helpMode !== "files") {
+                      setHelpMode("files");
+                      setDeliverInfo(true);
+                    } else {
+                      setDeliverInfo(!deliverInfo);
+                      if (deliverInfo) {
+                        setTimeout(() => {
+                          setHelpMode("");
+                        }, 300);
+                      }
+                    }
+                  }}
+                >
+                  <TbHelpSquareFilled size={30} />
+                </ActionIcon>
+              }
+              rightSectionPointerEvents="all"
+              rightSection={
+                <ActionIcon
+                  size={"lg"}
+                  mr={10}
+                  className={"actionBtn actionBtnDimmed"}
+                >
+                  <MdOutlineFileUpload />
+                </ActionIcon>
+              }
             />
           </Stack>
         </Stack>
         <Stack mt={20} gap={20}>
-          <ColorPanel form={form} />
-          <FilePanel form={form} />
+          {taskType === "Design" && <ColorPanel form={form} />}
           <Group justify="flex-end" gap={5}>
             <Button
               className={classes.backBtn}
