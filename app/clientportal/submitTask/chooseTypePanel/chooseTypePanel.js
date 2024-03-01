@@ -17,9 +17,9 @@ import classes from "./styles/chooseTypePanel.module.css";
 import TypeBtns from "./typeBtns/typeBtns";
 
 export default function ChooseTypePanel(props) {
-  const { setupData, choosenType, setSubmissionPanel, titleRef } = props;
+  const { types, taskType, setupData, setSubmissionPanel, titleRef } = props;
 
-  const serviceList = setupData?.service;
+  const serviceList = setupData?.services;
   const serviceBadges = serviceList?.map((service, i) => {
     return (
       <Badge
@@ -51,23 +51,19 @@ export default function ChooseTypePanel(props) {
         <Title order={4}>Task Type</Title>
       </Group>
       <SimpleGrid cols={3} spacing={20}>
-        <TypeBtns />
+        <TypeBtns types={types} />
       </SimpleGrid>
-      <Transition
-        mounted={choosenType && choosenType.title}
-        transition="scale-y"
-        timingFunction="ease"
-      >
+      <Transition mounted={taskType} transition="scale-y" timingFunction="ease">
         {(styles) => (
           <Box style={styles}>
             <Grid className={`panel ${classes.typeDescFrame}`}>
               <Grid.Col span="content">
                 <Title tt={"uppercase"} order={2}>
-                  {choosenType.title}
+                  {taskType}
                 </Title>
               </Grid.Col>
               <Grid.Col span="auto">
-                <Text>{choosenType.desc}</Text>
+                <Text>{setupData?.desc}</Text>
               </Grid.Col>
             </Grid>
             <Group className={`panel ${classes.serviceBadgesFrame}`}>

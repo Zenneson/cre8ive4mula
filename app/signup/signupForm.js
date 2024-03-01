@@ -33,7 +33,7 @@ export default function SignupForm() {
       relatedURLs: {
         value: [],
         isValid: true,
-        invaidValue: "",
+        invalidValue: "",
       },
       companyFiles: [],
     },

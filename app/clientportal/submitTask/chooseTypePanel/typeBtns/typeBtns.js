@@ -1,7 +1,6 @@
 "use client";
 import { DotLottiePlayer } from "@dotlottie/react-player";
 import "@dotlottie/react-player/dist/index.css";
-import { tourTheme } from "@libs/tourTheme";
 import { Button, ColorSwatch, Group, Stack, Title } from "@mantine/core";
 import { useDidUpdate } from "@mantine/hooks";
 import { motion } from "framer-motion";
@@ -9,40 +8,11 @@ import { useRef } from "react";
 import { useSubissionData } from "../../../portalStore";
 import classes from "./styles/typeBtns.module.css";
 
-const buttons = [
-  {
-    text: "Design",
-    color: tourTheme.colors.deeporange[5],
-    svg1: "/img/clientDashboard/submit/psd.json",
-    svg2: "/img/clientDashboard/submit/ai.json",
-  },
-  {
-    text: "Content",
-    color: tourTheme.colors.deepred[6],
-    svg1: "/img/clientDashboard/submit/docx.json",
-    svg2: "/img/clientDashboard/submit/pdf.json",
-  },
-  {
-    text: "Web Dev",
-    color: "#ffd941",
-    svg1: "/img/clientDashboard/submit/css.json",
-    svg2: "/img/clientDashboard/submit/js.json",
-  },
-];
+const MenuBtn = (props) => {
+  const { button, color } = props;
+  const { taskType, setTaskType } = useSubissionData();
 
-const typeDef = {
-  Design:
-    "Design services encompass all aspects of graphic and web design. This includes the creation of visual elements, website layout design, and other design-related tasks, ensuring a cohesive and aesthetically pleasing visual identity.",
-  Content:
-    "Content services involve SEO, editing, and management of digital content. The focus is on optimizing content for search engines, refining the clarity and effectiveness of the text, and managing content to align with strategic goals.",
-  "Web Dev":
-    "Web Development services cover the addition of new features, maintenance, and overall management of websites. This includes ensuring website functionality, responsiveness, and security, as well as implementing updates and improvements.",
-};
-
-const MentBtn = ({ button }) => {
-  const { formData, setFormData } = useSubissionData();
-
-  const active = formData.type && formData.type.title === button.text;
+  const active = taskType === button.text;
   const lottieRef1 = useRef();
   const lottieRef2 = useRef();
 
@@ -55,17 +25,6 @@ const MentBtn = ({ button }) => {
     if (active) return;
     lottieRef1.current.stop();
     lottieRef2.current.stop();
-  };
-
-  const selectType = (buttonText) => {
-    const desc = typeDef[buttonText];
-    if (formData.type?.title === buttonText) {
-      setFormData({ type: {} });
-      return;
-    }
-    if (desc) {
-      setFormData({ type: { title: buttonText, desc } });
-    }
   };
 
   useDidUpdate(() => {
@@ -86,15 +45,17 @@ const MentBtn = ({ button }) => {
       h={130}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={() => selectType(button.text)}
+      onClick={() => {
+        if (active) {
+          setTaskType("");
+          return;
+        }
+        setTaskType(button.text);
+      }}
     >
       <Stack gap={0} justify="center" align="center">
         <Group pos={"relative"} w={"87%"} gap={5} mb={-10}>
-          <ColorSwatch
-            className={classes.typeColor}
-            size={10}
-            color={button.color}
-          />
+          <ColorSwatch className={classes.typeColor} size={10} color={color} />
           <Title order={5} ta={"left"}>
             {button.text}
           </Title>
@@ -108,20 +69,32 @@ const MentBtn = ({ button }) => {
   );
 };
 
-const buttonsList = buttons.map((button, i) => {
-  const animation = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    transition: { duration: 1, delay: 0.5 + i * 0.15 },
-  };
+export default function TypeBtns(props) {
+  const { types } = props;
 
   return (
-    <motion.div key={i} {...animation}>
-      <MentBtn index={i} button={button} />
-    </motion.div>
+    <>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.5 }}
+      >
+        <MenuBtn button={types[0]} color={"#f35424"} />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.65 }}
+      >
+        <MenuBtn button={types[1]} color={"#fc1851"} />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.8 }}
+      >
+        <MenuBtn button={types[2]} color={"#ffd941"} />
+      </motion.div>
+    </>
   );
-});
-
-export default function TypeBtns() {
-  return buttonsList;
 }

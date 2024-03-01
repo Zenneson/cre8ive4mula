@@ -1,5 +1,4 @@
 "use client";
-import { taskColor } from "@libs/custom";
 import {
   ActionIcon,
   Badge,
@@ -34,9 +33,8 @@ import ServiceSelect from "../serviceSelect/serviceSelect";
 import classes from "./styles/taskFrom.module.css";
 
 export default function TaskForm(props) {
-  const { typeServices, titleRef } = props;
-  const { formData, setSubmissionPanel } = useSubissionData();
-  const [typeColor, setTypeColor] = useState();
+  const { typeColor, typeServices, titleRef } = props;
+  const { taskType, setFormData, setSubmissionPanel } = useSubissionData();
   const [deliverInfo, setDeliverInfo] = useState(false);
 
   const form = useForm({
@@ -54,34 +52,22 @@ export default function TaskForm(props) {
     },
   });
 
-  const taskType = formData.type?.title;
   const [showReviewBtn, setShowReviewBtn] = useState(false);
 
   useEffect(() => {
     const isWebDevComplete =
       taskType === "Web Dev" &&
-      form.values.title &&
-      form.values.goal &&
-      form.values.desc &&
-      form.values.service;
+      form.values.title.length > 0 &&
+      form.values.goal.length > 0 &&
+      form.values.desc.length > 0 &&
+      form.values.service.length > 0;
     const isOtherTaskComplete =
       taskType !== "Web Dev" &&
-      form.values.title &&
-      form.values.desc &&
-      form.values.service;
+      form.values.title.length > 0 &&
+      form.values.desc.length > 0 &&
+      form.values.service.length > 0;
     setShowReviewBtn(isWebDevComplete || isOtherTaskComplete);
-  }, [
-    form.values.title,
-    form.values.goal,
-    form.values.desc,
-    form.values.service,
-    taskType,
-  ]);
-
-  useEffect(() => {
-    if (!formData.type || !formData.type.title) return;
-    setTypeColor(taskColor(formData.type.title));
-  }, [formData.type]);
+  }, [form?.values, taskType]);
 
   const [helpMode, setHelpMode] = useState("");
   const HelpInfo = () => {
@@ -146,7 +132,7 @@ export default function TaskForm(props) {
   const [websites, setWebsites] = useSetState({
     value: [],
     isValid: true,
-    invaidValue: "",
+    invalidValue: "",
   });
 
   const styleKeywordsRef = useRef(null);
@@ -173,11 +159,15 @@ export default function TaskForm(props) {
         handler.var = websites.value;
         handler.ref = websitesRef;
         handler.setter = (newValue) => {
-          const isValid = newValue.every((v) => v.match(/[.][a-zA-Z]+$/));
+          const isValid = newValue.every((v) =>
+            v.match(
+              /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/
+            )
+          );
           if (isValid) {
-            setWebsites({ value: newValue, isValid: true, invaidValue: "" });
+            setWebsites({ value: newValue, isValid: true, invalidValue: "" });
           } else {
-            setWebsites({ isValid: false, invaidValue: newValue });
+            setWebsites({ isValid: false, invalidValue: newValue });
           }
         };
         return handler;
@@ -242,11 +232,11 @@ export default function TaskForm(props) {
             rightSection={
               modeVar.length > 0 && (
                 <Stack gap={0} align="center">
-                  <Title c={"cobaltblue.4"} fz={12}>
+                  <Title c={"gray.6"} fz={12}>
                     {modeVar.length}
                   </Title>
-                  <Divider w={15} color={"cobaltblue.4"} />
-                  <Title c={"cobaltblue.4"} fz={12}>
+                  <Divider w={15} color={"gray.6"} />
+                  <Title c={"gray.6"} fz={12}>
                     {maxAllowed}
                   </Title>
                 </Stack>
@@ -279,7 +269,7 @@ export default function TaskForm(props) {
         <Popover.Dropdown ta={"center"}>
           <Text fz={13} c={"#777"}>
             <Text component="span" fw={700}>
-              &quot;{websites.invaidValue[websites.invaidValue.length - 1]}
+              &quot;{websites.invalidValue[websites.invalidValue.length - 1]}
               &quot;
             </Text>{" "}
             is not valid web address (e.g. .com, .net, .org)
@@ -297,7 +287,7 @@ export default function TaskForm(props) {
   };
 
   return (
-    <form onSubmit={form.onSubmit()}>
+    <form onSubmit={() => console.log(form.values)}>
       <motion.div {...animation}>
         <Group className={classes.taskFormTitle} justify="space-between">
           <Group gap="7">
@@ -378,7 +368,7 @@ export default function TaskForm(props) {
           </Stack>
         </Stack>
         <Stack mt={20} gap={20}>
-          <ColorPanel choosenType={formData.type} form={form} />
+          <ColorPanel form={form} />
           <FilePanel form={form} />
           <Group justify="flex-end" gap={5}>
             <Button
@@ -399,7 +389,10 @@ export default function TaskForm(props) {
               <Button
                 className={classes.reviewBtn}
                 rightSection={<FaPlay size={8} />}
-                onClick={() => setSubmissionPanel(2)}
+                onClick={() => {
+                  setFormData(form.values);
+                  setSubmissionPanel(2);
+                }}
               >
                 Review
               </Button>

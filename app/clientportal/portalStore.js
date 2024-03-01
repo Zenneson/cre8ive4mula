@@ -35,6 +35,8 @@ export const useSubissionData = create(
       setSubmissionPanel: (value) => set({ submissionPanel: value }),
       taskType: "",
       setTaskType: (value) => set({ taskType: value }),
+      formData: [],
+      setFormData: (value) => set({ formData: value }),
     }),
     {
       name: "submissionData",

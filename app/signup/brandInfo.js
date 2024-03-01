@@ -44,17 +44,21 @@ export default function BrandInfo(props) {
   const convertedData = servicesToData(services);
 
   const handleWebsites = (newValue) => {
-    const isValid = newValue.every((v) => v.match(/[.][a-zA-Z]+$/));
-    if (!isValid) {
-      form.setFieldValue("relatedURLs", {
-        isValid: false,
-        invaidValue: newValue,
-      });
-    } else {
+    const isValid = newValue.every((v) =>
+      v.match(
+        /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/
+      )
+    );
+    if (isValid) {
       form.setFieldValue("relatedURLs", {
         value: newValue,
         isValid: true,
-        invaidValue: "",
+        invalidValue: "",
+      });
+    } else {
+      form.setFieldValue("relatedURLs", {
+        isValid: false,
+        invalidValue: newValue,
       });
     }
   };
@@ -104,11 +108,11 @@ export default function BrandInfo(props) {
           rightSection={
             form.values.desiredServices.length > 0 ? (
               <Stack gap={0} align="center">
-                <Title c={"cobaltblue.4"} fz={12}>
+                <Title c={"gray.6"} fz={12}>
                   {form.values.desiredServices.length}
                 </Title>
-                <Divider w={15} color={"cobaltblue.4"} />
-                <Title c={"cobaltblue.4"} fz={12}>
+                <Divider w={15} color={"gray.6"} />
+                <Title c={"gray.6"} fz={12}>
                   5
                 </Title>
               </Stack>
@@ -132,6 +136,7 @@ export default function BrandInfo(props) {
         >
           <Popover.Target>
             <TagsInput
+              {...form.getInputProps("relatedURLs")}
               classNames={{
                 wrapper: "inputWrapper",
                 input: "defaultInput",
@@ -155,6 +160,7 @@ export default function BrandInfo(props) {
                   </Stack>
                 )
               }
+              value={form.values.relatedURLs.value}
               onChange={handleWebsites}
               leftSectionWidth={50}
               leftSectionPointerEvents="all"
@@ -191,8 +197,8 @@ export default function BrandInfo(props) {
               <Text component="span" fw={700}>
                 &quot;
                 {
-                  form.values.relatedURLs.invaidValue[
-                    form.values.relatedURLs.invaidValue.length - 1
+                  form.values.relatedURLs.invalidValue[
+                    form.values.relatedURLs.invalidValue.length - 1
                   ]
                 }
                 &quot;

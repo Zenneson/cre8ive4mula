@@ -10,8 +10,32 @@ import classes from "./styles/submitTask.module.css";
 import TaskForm from "./taskForm/taskForm";
 
 export default function SubmitTask() {
+  const types = [
+    {
+      text: "Design",
+      color: "deeporange.5",
+      svg1: "/img/clientDashboard/submit/psd.json",
+      svg2: "/img/clientDashboard/submit/ai.json",
+      desc: "Design services encompass all aspects of graphic and web design. This includes the creation of visual elements, website layout design, and other design-related tasks, ensuring a cohesive and aesthetically pleasing visual identity.",
+    },
+    {
+      text: "Content",
+      color: "deepred.6",
+      svg1: "/img/clientDashboard/submit/docx.json",
+      svg2: "/img/clientDashboard/submit/pdf.json",
+      desc: "Content services involve SEO, editing, and management of digital content. The focus is on optimizing content for search engines, refining the clarity and effectiveness of the text, and managing content to align with strategic goals.",
+    },
+    {
+      text: "Web Dev",
+      color: "#ffd941",
+      svg1: "/img/clientDashboard/submit/css.json",
+      svg2: "/img/clientDashboard/submit/js.json",
+      desc: "Web Development services cover the addition of new features, maintenance, and overall management of websites. This includes ensuring website functionality, responsiveness, and security, as well as implementing updates and improvements.",
+    },
+  ];
+
   const titleRef = useRef();
-  const { formData, submissionPanel, setSubmissionPanel } = useSubissionData();
+  const { taskType, submissionPanel, setSubmissionPanel } = useSubissionData();
   const [typeServices, setTypeServices] = useState();
 
   const submitPage = () => {
@@ -34,20 +58,32 @@ export default function SubmitTask() {
   };
 
   const setup = () => {
-    if (formData.type && formData.type.title === "Design") {
-      return { color: "deeporange.5", service: services.design };
+    if (taskType === "Design") {
+      return {
+        color: "deeporange.5",
+        services: services.design,
+        desc: types[0].desc,
+      };
     }
-    if (formData.type && formData.type.title === "Content") {
-      return { color: "deepred.6", service: services.content };
+    if (taskType === "Content") {
+      return {
+        color: "deepred.6",
+        services: services.content,
+        desc: types[1].desc,
+      };
     }
-    if (formData.type && formData.type.title === "Web Dev") {
-      return { color: "#ffd941", service: services.webdev };
+    if (taskType === "Web Dev") {
+      return {
+        color: "#ffd941",
+        services: services.webdev,
+        desc: types[2].desc,
+      };
     }
   };
   const setupData = setup();
   useEffect(() => {
-    if (setupData && setupData.service) {
-      setTypeServices(setupData.service);
+    if (setupData && setupData.services) {
+      setTypeServices(setupData.services);
     }
   }, [setupData]);
 
@@ -61,14 +97,19 @@ export default function SubmitTask() {
         ml={"110px"}
       >
         <ChooseTypePanel
+          types={types}
+          taskType={taskType}
           setupData={setupData}
-          choosenType={formData.type}
           setSubmissionPanel={setSubmissionPanel}
           titleRef={titleRef}
         />
       </Center>
       <Center id="1" w={"calc(100vw - 110px)"} pos={"relative"} ml={"110px"}>
-        <TaskForm typeServices={typeServices} titleRef={titleRef} />
+        <TaskForm
+          typeColor={setupData?.color}
+          typeServices={typeServices}
+          titleRef={titleRef}
+        />
       </Center>
       <Center
         id="2"

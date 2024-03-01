@@ -31,7 +31,7 @@ export const taskColor = (type) => {
     case "Web Dev":
       return "#ffd941";
     default:
-      return "#F5454A";
+      return "deeporange.5";
   }
 };
 

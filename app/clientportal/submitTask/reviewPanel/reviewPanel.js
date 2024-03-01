@@ -17,9 +17,9 @@ import { usePortalState, useSubissionData } from "../../portalStore";
 import classes from "./styles/reviewPanel.module.css";
 
 export default function ReviewPanel() {
-  const { formData, setSubmissionPanel } = useSubissionData();
+  const { taskType, formData, setSubmissionPanel } = useSubissionData();
   const { setActivePanel } = usePortalState();
-  const typeColor = taskColor(formData.type?.title);
+  const typeColor = taskColor(taskType);
 
   const animation = {
     initial: { opacity: 0 },
@@ -29,7 +29,7 @@ export default function ReviewPanel() {
   };
 
   const colors = formData.colors;
-  const colorRow = colors.map((color, index) => {
+  const colorRow = colors?.map((color, index) => {
     const rgb = hexToRgb(color);
     return <ColorPuck key={index} color={color} isTaskFrom={false} rgb={rgb} />;
   });
@@ -39,10 +39,10 @@ export default function ReviewPanel() {
   const files = formData.files;
 
   const isExtraData =
-    styleKeywords.length > 0 ||
-    websites.length > 0 ||
-    files.length > 0 ||
-    colors.length > 0;
+    styleKeywords?.length > 0 ||
+    websites?.length > 0 ||
+    files?.length > 0 ||
+    colors?.length > 0;
 
   const DetailsRow = (props) => {
     const { icon, alt, details } = props;
@@ -86,7 +86,7 @@ export default function ReviewPanel() {
             size="md"
             variant={"filled"}
           >
-            {formData.type?.title}
+            {taskType}
           </Badge>
           <Group gap="7">
             <Image
@@ -101,10 +101,7 @@ export default function ReviewPanel() {
         </Stack>
         <Stack mx={40} gap={25}>
           <Stack className="innerPanel" gap={20} p={20}>
-            <Box
-              className="altPanel"
-              hidden={formData.type?.title !== "Web Dev"}
-            >
+            <Box className="altPanel" hidden={formData.type !== "Web Dev"}>
               <Title order={6} tt={"uppercase"}>
                 Intended Goal:
               </Title>
@@ -119,7 +116,7 @@ export default function ReviewPanel() {
           </Stack>
           {isExtraData && (
             <Stack className="altPanel" gap={5} px={30}>
-              <Box hidden={formData.type?.title !== "Design"}>
+              <Box hidden={formData.type !== "Design"}>
                 {colors && colors.length > 0 && (
                   <Group>
                     <Image
