@@ -3,7 +3,6 @@ import { Box, Divider, Group, Input, Stack, Tooltip } from "@mantine/core";
 import { FaAsterisk } from "react-icons/fa";
 import { IMaskInput } from "react-imask";
 import PasswordField from "./passwordField";
-import classes from "./styles/signup.module.css";
 
 export default function ClientInfo(props) {
   const { form } = props;
@@ -25,7 +24,7 @@ export default function ClientInfo(props) {
   ];
 
   return (
-    <Stack className={classes.formStack} gap={20}>
+    <Stack gap={20}>
       <Input
         {...form.getInputProps("companyName")}
         placeholder="Company Name"

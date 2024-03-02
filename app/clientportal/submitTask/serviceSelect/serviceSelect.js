@@ -7,7 +7,7 @@ import {
 } from "@mantine/core";
 import { shallowEqual } from "@mantine/hooks";
 import { useEffect, useState } from "react";
-import { MdArrowDropDown } from "react-icons/md";
+import { FiChevronsDown } from "react-icons/fi";
 import classes from "./styles/serviceSelect.module.css";
 
 export default function ServiceSelect(props) {
@@ -86,6 +86,7 @@ export default function ServiceSelect(props) {
           }}
           placeholder="Choose Service..."
           rightSectionPointerEvents={value === null ? "none" : "all"}
+          rightSectionWidth={35}
           rightSection={
             value !== null ? (
               <CloseButton
@@ -99,7 +100,7 @@ export default function ServiceSelect(props) {
                 }}
               />
             ) : (
-              <MdArrowDropDown opacity={0.5} size={25} />
+              <FiChevronsDown size={17} />
             )
           }
         />

@@ -1,4 +1,5 @@
 "use client";
+import ListInput from "@libs/listInput/listInput";
 import {
   ActionIcon,
   Box,
@@ -8,16 +9,14 @@ import {
   FileInput,
   Group,
   MultiSelect,
-  Popover,
   Stack,
-  TagsInput,
   Text,
   Textarea,
   Title,
 } from "@mantine/core";
 import { useState } from "react";
-import { FaPaperclip } from "react-icons/fa6";
-import { MdArrowDropDown, MdOutlineFileUpload } from "react-icons/md";
+import { FaPlus } from "react-icons/fa";
+import { FiChevronsDown } from "react-icons/fi";
 import { TbHelpSmall, TbHelpSquareFilled } from "react-icons/tb";
 import { services } from "../../public/data/services";
 import classes from "./styles/signup.module.css";
@@ -65,7 +64,89 @@ export default function BrandInfo(props) {
 
   return (
     <>
-      <Stack className={classes.formStack} gap={20}>
+      <Stack gap={20}>
+        <Textarea
+          {...form.getInputProps("companyDesc")}
+          placeholder="Company Description..."
+          minRows={4}
+          autosize
+        />
+        <Textarea
+          {...form.getInputProps("goals")}
+          placeholder="Goals related to our services..."
+          minRows={4}
+          autosize
+        />
+        <Divider opacity={0.2} />
+        <MultiSelect
+          name="desiredServices"
+          placeholder={
+            form.values.desiredServices.length < 4
+              ? "Most Desired Services..."
+              : ""
+          }
+          data={convertedData}
+          checkIconPosition="right"
+          maxValues={5}
+          rightSectionWidth={40}
+          rightSection={
+            form.values.desiredServices.length > 0 ? (
+              <Stack gap={0} align="center">
+                <Title c={"gray.6"} fz={12}>
+                  {form.values.desiredServices.length}
+                </Title>
+                <Divider w={15} color={"gray.6"} />
+                <Title c={"gray.6"} fz={12}>
+                  5
+                </Title>
+              </Stack>
+            ) : (
+              <FiChevronsDown size={17} />
+            )
+          }
+          value={form.values.desiredServices}
+          onChange={(value) => form.setFieldValue("desiredServices", value)}
+          classNames={{
+            wrapper: "inputWrapper",
+            input: `defaultInput ${classes.desiredServicesInput}`,
+            option: classes.desiredServicesOption,
+            pill: classes.desiredServicesPill,
+          }}
+        />
+        <Group grow gap={20}>
+          <ListInput placeholder={"Relevant Websites..."} />
+          <FileInput
+            {...form.getInputProps("companyFiles")}
+            name="Upload files"
+            placeholder="Upload Files..."
+            multiple
+            leftSectionWidth={50}
+            leftSectionPointerEvents="all"
+            leftSection={
+              <ActionIcon
+                className={"actionBtnDimmed"}
+                variant="transparent"
+                color="#fff"
+                onClick={() => {
+                  setFileUploadInfo(!fileUploadInfo);
+                  setRelevantSitesInfo(false);
+                }}
+              >
+                <TbHelpSquareFilled size={30} />
+              </ActionIcon>
+            }
+            rightSectionPointerEvents="all"
+            rightSection={
+              <ActionIcon
+                w={40}
+                mr={10}
+                className={"actionBtn actionBtnDimmed"}
+              >
+                <FaPlus size={15} />
+              </ActionIcon>
+            }
+          />
+        </Group>
         <Box>
           <Text
             className={classes.infoNotice}
@@ -83,170 +164,6 @@ export default function BrandInfo(props) {
             strategies that genuinely reflect and enhance your brand&apos;s
             presence in the market.
           </Text>
-        </Box>
-        <Textarea
-          {...form.getInputProps("companyDesc")}
-          placeholder="Company Description..."
-          minRows={4}
-          autosize
-        />
-        <Textarea
-          {...form.getInputProps("goals")}
-          placeholder="Goals related to our services..."
-          minRows={4}
-          autosize
-        />
-        <MultiSelect
-          name="desiredServices"
-          placeholder={
-            form.values.desiredServices.length < 4
-              ? "Most Desired Services..."
-              : ""
-          }
-          data={convertedData}
-          checkIconPosition="right"
-          maxValues={5}
-          rightSection={
-            form.values.desiredServices.length > 0 ? (
-              <Stack gap={0} align="center">
-                <Title c={"gray.6"} fz={12}>
-                  {form.values.desiredServices.length}
-                </Title>
-                <Divider w={15} color={"gray.6"} />
-                <Title c={"gray.6"} fz={12}>
-                  5
-                </Title>
-              </Stack>
-            ) : (
-              <MdArrowDropDown opacity={0.5} size={30} />
-            )
-          }
-          value={form.values.desiredServices}
-          onChange={(value) => form.setFieldValue("desiredServices", value)}
-          classNames={{
-            wrapper: "inputWrapper",
-            input: `defaultInput ${classes.desiredServicesInput}`,
-            option: classes.desiredServicesOption,
-            pill: classes.desiredServicesPill,
-          }}
-        />
-        <Popover
-          position="bottom-start"
-          opened={!form.values.relatedURLs.isValid}
-          offset={{ mainAxis: 20, crossAxis: -123 }}
-        >
-          <Popover.Target>
-            <TagsInput
-              {...form.getInputProps("relatedURLs")}
-              classNames={{
-                wrapper: "inputWrapper",
-                input: "defaultInput",
-                pillsList: classes.tagsPillsList,
-              }}
-              placeholder={
-                form.values.relatedURLs.value?.length < 5
-                  ? "Relevant Websites..."
-                  : ""
-              }
-              rightSection={
-                form.values.relatedURLs.value?.length > 0 && (
-                  <Stack gap={0} align="center">
-                    <Title c={"cobaltblue.4"} fz={12}>
-                      {form.values.relatedURLs.value?.length}
-                    </Title>
-                    <Divider w={15} color={"cobaltblue.4"} />
-                    <Title c={"cobaltblue.4"} fz={12}>
-                      6
-                    </Title>
-                  </Stack>
-                )
-              }
-              value={form.values.relatedURLs.value}
-              onChange={handleWebsites}
-              leftSectionWidth={50}
-              leftSectionPointerEvents="all"
-              maxTags={6}
-              mah={50}
-              styles={{
-                inputField: {
-                  display: "inline",
-                  maxHeight:
-                    form.values.relatedURLs.value?.length === 6 ? 0 : 50,
-                },
-                pill: {
-                  justifyContent: "space-between",
-                  minWidth: 75,
-                  maxWidth: 75,
-                },
-              }}
-              leftSection={
-                <ActionIcon
-                  className={"actionBtnDimmed"}
-                  variant="transparent"
-                  color="#fff"
-                  onClick={() => {
-                    setRelevantSitesInfo(!relevantSitesInfo);
-                    setFileUploadInfo(false);
-                  }}
-                >
-                  <TbHelpSquareFilled size={30} />
-                </ActionIcon>
-              }
-            />
-          </Popover.Target>
-          <Popover.Dropdown ta={"center"}>
-            <Text fz={13} c={"#777"}>
-              <Text component="span" fw={700}>
-                &quot;
-                {
-                  form.values.relatedURLs.invalidValue[
-                    form.values.relatedURLs.invalidValue.length - 1
-                  ]
-                }
-                &quot;
-              </Text>{" "}
-              is not valid web address (e.g. .com, .net, .org)
-            </Text>
-          </Popover.Dropdown>
-        </Popover>
-        <FileInput
-          {...form.getInputProps("companyFiles")}
-          name="Upload files"
-          placeholder="Upload Files..."
-          multiple
-          leftSectionWidth={50}
-          leftSectionPointerEvents="all"
-          leftSection={
-            <ActionIcon
-              className={"actionBtnDimmed"}
-              variant="transparent"
-              color="#fff"
-              onClick={() => {
-                setFileUploadInfo(!fileUploadInfo);
-                setRelevantSitesInfo(false);
-              }}
-            >
-              <TbHelpSquareFilled size={30} />
-            </ActionIcon>
-          }
-          rightSectionPointerEvents="all"
-          rightSection={
-            <ActionIcon
-              size={"lg"}
-              mr={10}
-              className={"actionBtn actionBtnDimmed"}
-            >
-              <MdOutlineFileUpload />
-            </ActionIcon>
-          }
-        />
-        <Box className="altPanel">
-          <Group gap={8}>
-            <FaPaperclip />
-            <Text opacity={0.5} tt={"uppercase"} fz={14} fw={600}>
-              Uploaded Files
-            </Text>
-          </Group>
         </Box>
       </Stack>
       <Dialog

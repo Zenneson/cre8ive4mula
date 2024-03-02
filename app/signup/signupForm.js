@@ -1,7 +1,9 @@
 "use client";
+import { DotLottiePlayer } from "@dotlottie/react-player";
+import "@dotlottie/react-player/dist/index.css";
 import { auth, firestore } from "@libs/firebase";
 import { useJoinForm } from "@libs/store";
-import { Box, Button, Group, Text } from "@mantine/core";
+import { Box, Button, Group, Stack, Text } from "@mantine/core";
 import { isEmail, useForm } from "@mantine/form";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
@@ -10,15 +12,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FaFlagCheckered, FaPlay } from "react-icons/fa";
 import { FaRegHandshake } from "react-icons/fa6";
-import { usePortalState } from "../clientportal/portalStore";
+import { RiArrowRightDoubleFill } from "react-icons/ri";
 import BrandInfo from "./brandInfo";
 import ClientInfo from "./clientInfo";
 import classes from "./styles/signup.module.css";
 
 export default function SignupForm() {
   const router = useRouter();
-  const { paymentPanel, setPaymentPanel } = usePortalState();
-  const { premiereSignup } = useJoinForm();
+  const { premiereSignup, paymentPanel, setPaymentPanel } = useJoinForm();
   const form = useForm({
     initialValues: {
       companyName: "",
@@ -85,21 +86,69 @@ export default function SignupForm() {
     initial: { x: 100, opacity: 0 },
     animate: { x: 0, opacity: 1 },
     exit: { x: -100, opacity: 0 },
-    transition: { animationTimingFunction: "ease-in-out", duration: 0.5 },
+    transition: { animationTimingFunction: "ease-in-out", duration: 1 },
   };
 
   return (
     <>
-      <Box className="panel lightShadow" p={"xl"}>
-        <Text className={classes.title} c="#fff">
-          CRE8IVE 4MULA
-        </Text>
-        <Text className={classes.subtitle}>
-          <Text component="span" c="#fff" fz={"inherit"} fw={700} mr={5}>
-            {premiereSignup ? "Premiere" : "Pro"} Account
-          </Text>
-          | Sign - Up
-        </Text>
+      <Box className={`panel lightShadow ${classes.formPanel}`} p={"xl"}>
+        <Box pos={"absolute"} top={0} right={0}>
+          {paymentPanel === 0 && (
+            <motion.div {...animation}>
+              <DotLottiePlayer
+                className={classes.subLottieIcon}
+                src={"/img/signup/subscribe.json"}
+                autoplay
+                loop
+                speed={0.4}
+              />
+            </motion.div>
+          )}
+          {paymentPanel === 1 && (
+            <motion.div {...animation}>
+              <DotLottiePlayer
+                className={classes.fingerprintLlottieIcon}
+                src={"/img/signup/clientDetails.json"}
+                autoplay
+                loop={2}
+                speed={0.75}
+              />
+            </motion.div>
+          )}
+          {paymentPanel === 2 && (
+            <motion.div {...animation}>
+              <DotLottiePlayer
+                className={classes.detailsLottieIcon}
+                src={"/img/signup/addDetails.json"}
+                autoplay
+                loop={5}
+                speed={0.75}
+              />
+            </motion.div>
+          )}
+        </Box>
+        <Group justify="space-between" mt={-5} mb={20}>
+          <Group align="center" gap={10}>
+            <Stack gap={0}>
+              <Text className={classes.title} c="#fff">
+                CRE8IVE 4MULA
+              </Text>
+              <Box className={classes.subtitle}>
+                <Group gap={5}>
+                  <Text c="#fff" fz={"inherit"} fw={700}>
+                    {premiereSignup ? "Premiere" : "Pro"} Account
+                  </Text>
+                  <RiArrowRightDoubleFill opacity={0.25} />
+                  <Text fz={12} opacity={0.5}>
+                    {paymentPanel === 0 && "Purchase Subscription"}
+                    {paymentPanel === 1 && "Account Details"}
+                    {paymentPanel === 2 && "Company / Brand Details"}
+                  </Text>
+                </Group>
+              </Box>
+            </Stack>
+          </Group>
+        </Group>
         <form onSubmit={form.onSubmit(handleSignup)}>
           {paymentPanel === 0 && (
             <motion.div {...animation}>
@@ -153,7 +202,7 @@ export default function SignupForm() {
           }
         >
           {paymentPanel === 0
-            ? "Subscribe"
+            ? "Create Account"
             : paymentPanel === 2
               ? "Continue to Client Portal"
               : "Share Details"}

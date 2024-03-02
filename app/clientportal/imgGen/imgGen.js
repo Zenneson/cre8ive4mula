@@ -20,7 +20,6 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { CgFormatSlash } from "react-icons/cg";
 import { FaQuestion } from "react-icons/fa";
-import { FaRegImage } from "react-icons/fa6";
 import { FiEdit3 } from "react-icons/fi";
 import { HiOutlinePaintBrush } from "react-icons/hi2";
 import { ImPaintFormat, ImSpinner11 } from "react-icons/im";
@@ -31,6 +30,7 @@ import {
   MdOutlineVrpano,
 } from "react-icons/md";
 import { TbExchange } from "react-icons/tb";
+import { VscClearAll } from "react-icons/vsc";
 import classes from "./styles/imgGen.module.css";
 
 const imgGenOptions = [
@@ -85,8 +85,9 @@ export default function ImgGen() {
   });
 
   const helpAnimationProps = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
+    initial: { x: 50, opacity: 0 },
+    animate: { x: 0, opacity: 1 },
+    exit: { x: 50, opacity: 0 },
     transition: { duration: 1 },
   };
 
@@ -96,6 +97,7 @@ export default function ImgGen() {
         <Group justify="space-between" mb={10}>
           <Group gap={7}>
             <Image
+              className={classes.imgGenIcon}
               src={"/img/clientDashboard/imgGen/imgGen.svg"}
               alt="AI Image Generator"
               height={27}
@@ -107,11 +109,23 @@ export default function ImgGen() {
           <Group className={`altPanel ${classes.imgGenTopBtns}`}>
             {imgRendered && (
               <motion.div {...helpAnimationProps}>
-                <Tooltip label="More Information">
-                  <Box className={classes.helpBtnFrame}>
-                    <FaQuestion size={12} />
-                  </Box>
-                </Tooltip>
+                <Group>
+                  <Tooltip label="More Information">
+                    <Box className={classes.topBtnFrame}>
+                      <FaQuestion size={12} />
+                    </Box>
+                  </Tooltip>
+                  <Tooltip label="Reset">
+                    <Box
+                      className={classes.topBtnFrame}
+                      onClick={() => setImgRendered(false)}
+                      pos={"relative"}
+                      top={3}
+                    >
+                      <VscClearAll size={18} />
+                    </Box>
+                  </Tooltip>
+                </Group>
               </motion.div>
             )}
             <Tooltip label="Edit Aspect Ratio" offset={15}>
@@ -165,20 +179,18 @@ export default function ImgGen() {
           pos={"absolute"}
           right={8}
           bottom={8}
-          size="xl"
+          p={22}
           onClick={() => setImgRendered(true)}
         >
-          <FaRegImage
-            style={{
-              transform: "scale(1.3)",
-            }}
+          <Image
+            src={"/img/clientDashboard/imgGen/pixelImg.svg"}
+            alt="Generate Image"
+            w={28}
+            height={28}
           />
         </ActionIcon>
       </Box>
-      <Box
-        hidden={imgRendered}
-        className={`altPanel ${classes.imgGenHelpFrame}`}
-      >
+      <Box hidden={imgRendered} className={classes.imgGenHelpFrame}>
         <Text>
           To use the AI image generator, input desired parameters in the field
           above. An image will be generate based on the input. You may then

@@ -14,6 +14,7 @@ import {
   Table,
   Text,
   Title,
+  Tooltip,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import "@mantine/dates/styles.css";
@@ -61,20 +62,31 @@ export default function Archive() {
           <Grid.Col span="auto">
             <Title className={classes.archiveTaskTitle} order={4} lineClamp={1}>
               <Group gap={10}>
-                <Image
-                  className={task.phase === "submitted" && classes.yellowFilter}
-                  src={
-                    task.phase === "submitted"
-                      ? "/img/menu/submitTask.svg"
-                      : "/img/clientDashboard/taskIcon.svg"
-                  }
-                  height={20}
-                  alt={
+                <Tooltip
+                  label={
                     task.phase === "submitted"
                       ? "Task Submitted"
                       : "Task Delivered"
                   }
-                />
+                  position="top"
+                >
+                  <Image
+                    className={
+                      task.phase === "submitted" && classes.yellowFilter
+                    }
+                    src={
+                      task.phase === "submitted"
+                        ? "/img/menu/submitTask.svg"
+                        : "/img/clientDashboard/taskIcon.svg"
+                    }
+                    height={20}
+                    alt={
+                      task.phase === "submitted"
+                        ? "Task Submitted"
+                        : "Task Delivered"
+                    }
+                  />
+                </Tooltip>
                 {task.title}
               </Group>
             </Title>
@@ -115,7 +127,11 @@ export default function Archive() {
       >
         <Input
           rightSection={
-            <ActionIcon size={"lg"} mr={10} className="actionBtn">
+            <ActionIcon
+              size={"lg"}
+              mr={10}
+              className="actionBtn actionBtnDimmed"
+            >
               <FaSearch />
             </ActionIcon>
           }
@@ -193,7 +209,7 @@ export default function Archive() {
               <Table
                 verticalSpacing={8}
                 withRowBorders={true}
-                borderColor="rgba(255, 255, 255, 0.2)"
+                borderColor="rgba(255, 255, 255, 0.1)"
                 my={5}
               >
                 <Table.Tbody>{rows}</Table.Tbody>

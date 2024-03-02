@@ -167,6 +167,10 @@ a {
   }
 }
 
+button.mantine-FileInput-input:active {
+  transform: scale(1);
+}
+
 .removeDetails {
   box-shadow: none !important;
   background: transparent !important;
@@ -193,10 +197,15 @@ a {
 }
 
 .actionBtn {
+  transition: all 150ms ease;
   background: linear-gradient(145deg, #3f70a8, #75acee) !important;
   box-shadow:
     rgba(50, 50, 93, 0.4) 0px 15px 30px -6px,
     rgba(0, 0, 0, 0.25) 0px 18px 18px -9px;
+
+  &:active {
+    transform: scale(0.9);
+  }
 }
 
 .infoDialog {
@@ -229,4 +238,9 @@ div.drawerTopBtns {
   &:hover {
     opacity: 1;
   }
+}
+
+.circle {
+  border-radius: 50%;
+  overflow: hidden;
 }

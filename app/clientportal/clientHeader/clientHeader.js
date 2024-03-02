@@ -27,17 +27,17 @@ export default function ClientHeader() {
   const panelLabel = (activePanel) => {
     switch (activePanel) {
       case 0:
-        return "Dashboard";
+        return "Task Dashboard";
       case 1:
-        return "Submit Task";
+        return "Task Submission Form";
       case 2:
-        return "Archive";
+        return "Task Archive";
       case 3:
         return "AI Image Generator";
       case 4:
         return "Account Settings";
       default:
-        return "Dashboard";
+        return "Task Dashboard";
     }
   };
 

@@ -21,8 +21,8 @@ import {
 import { useForm } from "@mantine/form";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { FaPlay } from "react-icons/fa";
-import { MdOutlineFileUpload } from "react-icons/md";
+import { FaPlay, FaPlus } from "react-icons/fa";
+import { RiArrowRightDoubleFill } from "react-icons/ri";
 import { TbHelpSmall, TbHelpSquareFilled } from "react-icons/tb";
 import { usePortalState, useSubissionData } from "../../portalStore";
 import ColorPanel from "../colorPanel/colorPanel";
@@ -149,20 +149,21 @@ export default function TaskForm(props) {
             <Image
               src={"/img/clientDashboard/submit/addTask.svg"}
               alt={"Task Type"}
-              height={25}
+              height={30}
               opacity={0.5}
             />
-            <Title order={4}>Add Details</Title>
+            <Title order={2}>Add Details</Title>
+            <RiArrowRightDoubleFill size={20} opacity={0.25} />
+            <Badge
+              className={classes.taskType}
+              color={typeColor}
+              c={taskType === "Web Dev" ? "#000" : "#fff"}
+              size="sm"
+              variant={"filled"}
+            >
+              {taskType}
+            </Badge>
           </Group>
-          <Badge
-            className={classes.taskType}
-            color={typeColor}
-            c={taskType === "Web Dev" ? "#000" : "#fff"}
-            size="md"
-            variant={"filled"}
-          >
-            {taskType}
-          </Badge>
         </Group>
         <Stack className="panel" w={800} gap={20}>
           <Grid>
@@ -261,11 +262,11 @@ export default function TaskForm(props) {
               rightSectionPointerEvents="all"
               rightSection={
                 <ActionIcon
-                  size={"lg"}
+                  w={40}
                   mr={10}
                   className={"actionBtn actionBtnDimmed"}
                 >
-                  <MdOutlineFileUpload />
+                  <FaPlus size={15} />
                 </ActionIcon>
               }
             />
