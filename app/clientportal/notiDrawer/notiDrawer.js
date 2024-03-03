@@ -1,7 +1,8 @@
 "use client";
 import {
+  ActionIcon,
+  Badge,
   Box,
-  Divider,
   Drawer,
   Group,
   Image,
@@ -11,24 +12,32 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { FaPlay } from "react-icons/fa";
-import { FaRegHandPointUp } from "react-icons/fa6";
 import { IoMdTime } from "react-icons/io";
+import { LiaEyeSolid } from "react-icons/lia";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { VscClearAll } from "react-icons/vsc";
 import { usePortalState } from "../portalStore";
 import classes from "./styles/notiDrawer.module.css";
 
 const alerts = [
   {
     id: 1,
+    unread: true,
+    type: "message",
     message: "Your task submission has been received.",
     time: new Date("2024-02-25T08:30:00"),
   },
   {
     id: 2,
+    type: "ready",
+    unread: false,
     message: "A designer has been assigned to your task.",
     time: new Date("2024-02-25T10:15:00"),
   },
   {
     id: 3,
+    unread: false,
+    type: "message",
     message: "Your task has been completed and is awaiting review.",
     time: new Date("2024-02-26T13:45:00"),
   },
@@ -37,21 +46,55 @@ const alerts = [
 export default function NotiDrawer() {
   const { notiDrawerOpen, setNotiDrawerOpen } = usePortalState();
 
+  const LedLight = (props) => {
+    const { unread } = props;
+    return (
+      <Box
+        className={`${classes.ledLightGlow} ${unread && classes.greenLight}`}
+      />
+    );
+  };
+
+  // TODO: Add logic to turn light yellow onClick
   const notiList = alerts.map((alert) => (
-    <List.Item
-      className={`altPanel ${classes.notiItem}`}
-      key={alert.id}
-      pt={17}
-      mb={15}
-    >
-      <List>
+    <List.Item className={`altPanel ${classes.notiItem}`} key={alert.id}>
+      <Badge
+        className={`altPanel ${classes.notiBadge}`}
+        leftSection={<LedLight unread={alert.unread} />}
+        variant="transparent"
+        color={alert.unread ? "#fff" : "rgba(255, 255, 255, 0.25)"}
+        size="xs"
+      >
+        {alert.type === "message" ? "New Task Message" : "Review Ready"}
+      </Badge>
+      <Group className={classes.notiActions} gap={3}>
+        <Tooltip label="View">
+          <ActionIcon
+            className={classes.notiActionBtn}
+            variant="transparent"
+            size={"xs"}
+          >
+            <LiaEyeSolid color={"#fff"} size={14} />
+          </ActionIcon>
+        </Tooltip>
+        <Tooltip label="Delete">
+          <ActionIcon
+            className={classes.notiActionBtn}
+            variant="transparent"
+            size={"xs"}
+          >
+            <RiDeleteBin6Line color={"#fff"} size={12} />
+          </ActionIcon>
+        </Tooltip>
+      </Group>
+      <List mt={2}>
         <List.Item icon={<FaPlay size={10} />}>
-          <Text c={"gray.0"} fw={600} fz={14} lh={1}>
+          <Text c={"gray.7"} fz={12} lh={1}>
             {alert.message}
           </Text>
         </List.Item>
         <List.Item icon={<IoMdTime size={14} />} ml={-2}>
-          <Text c={"deepblue.7"} mt={-2} ml={-2} size="xs">
+          <Text c={"gray.0"} mt={-4} ml={-2} size="xs">
             {alert.time.toLocaleString()}
           </Text>
         </List.Item>
@@ -83,27 +126,29 @@ export default function NotiDrawer() {
             />
           </Tooltip>
         </Box>
-        <Group gap={5} w={"100%"} justify="flex-end" mr={5}>
+        <Group gap={5} w={"100%"} ml={50} mt={-3} mb={20}>
+          <Title className={classes.notiTitle} tt={"uppercase"}>
+            Notifications
+          </Title>
           <Image
-            className={classes.notiImg}
+            className={`${classes.notiImg} ${
+              notiDrawerOpen ? classes.shakingBell : ""
+            }`}
             src="/img/menu/bell.svg"
             alt="Close"
           />
-          <Title tt={"uppercase"} opacity={0.5} order={3} mt={-3}>
-            Notifications
-          </Title>
         </Group>
-        <Divider
-          w={180}
-          ml={"auto"}
-          size={"md"}
-          opacity={0.1}
-          mt={-5}
-          mb={25}
-        />
-        <List spacing={0} icon={<FaRegHandPointUp opacity={0.3} size={25} />}>
+        <List listStyleType="none" spacing={0}>
           {notiList}
         </List>
+        <Group justify="flex-end" mt={-15}>
+          <Group className={classes.clearListBtn} gap={5}>
+            <VscClearAll color={"#fff"} size={15} />
+            <Text tt={"uppercase"} c={"gray.0"} fz={11} fw={700}>
+              Clear List
+            </Text>
+          </Group>
+        </Group>
       </Box>
     </Drawer>
   );

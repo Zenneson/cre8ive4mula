@@ -4,7 +4,6 @@ import {
   AspectRatio,
   Box,
   Button,
-  Divider,
   Group,
   Image,
   Input,
@@ -65,7 +64,7 @@ const imgGenOptions = [
 ];
 
 const EditAspectRatio = () => (
-  <Tooltip label="Edit Aspect Ratio" offset={15}>
+  <Tooltip label="Edit Aspect Ratio" offset={-8}>
     <Box pos={"absolute"} top={0} right={0} p={"10px 15px"}>
       <Popover trapFocus offset={15} withArrow>
         <Popover.Target>
@@ -111,7 +110,7 @@ export default function ImgGen() {
     const { label, icon } = props;
 
     return (
-      <Tooltip label={label}>
+      <Tooltip label={label} offset={-6}>
         <Button className={classes.imgGenOptionsBtns}>{icon}</Button>
       </Tooltip>
     );
@@ -136,7 +135,6 @@ export default function ImgGen() {
         <Group justify="space-between" mb={10}>
           <Group gap={7}>
             <Image
-              className={classes.imgGenIcon}
               src={"/img/clientDashboard/imgGen/imgGen.svg"}
               alt="AI Image Generator"
               height={27}
@@ -219,18 +217,17 @@ export default function ImgGen() {
       >
         {(styles) => (
           <Box style={styles}>
+            <Button.Group className={classes.imgGenOptionsBtnFrame}>
+              {options}
+            </Button.Group>
             <AspectRatio
               ratio={16 / 9}
               className={classes.imgGenAspectRatioFrame}
             >
-              <Box className={`altPanel ${classes.imgGenPreviewFrame}`}>
+              <Box className={classes.imgGenPreviewFrame}>
                 <CustomLoader mode={"imgGen"} />
               </Box>
             </AspectRatio>
-            <Button.Group className={classes.imgGenOptionsBtnFrame}>
-              {options}
-            </Button.Group>
-            <Divider w={"50%"} maw={1200} mx={"auto"} mt={20} opacity={0.15} />
             <Group className={classes.imgGenBottomBtnFrame} justify="flex-end">
               <Button size="xs" leftSection={<IoMdDownload size={15} />}>
                 Download
