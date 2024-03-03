@@ -54,6 +54,8 @@ export default function TaskForm(props) {
   const [showReviewBtn, setShowReviewBtn] = useState(false);
 
   useEffect(() => {
+    if (form?.values.length > 0) return;
+
     const isWebDevComplete =
       taskType === "Web Dev" &&
       form.values.title.length > 0 &&
@@ -145,20 +147,23 @@ export default function TaskForm(props) {
           mt={-100}
           justify="space-between"
         >
-          <Group gap="7">
+          <Group gap={5}>
             <Image
               src={"/img/clientDashboard/submit/addTask.svg"}
               alt={"Task Type"}
               height={30}
               opacity={0.5}
+              pb={3}
             />
-            <Title order={2}>Add Details</Title>
+            <Title mt={3} order={4}>
+              Add Details
+            </Title>
             <RiArrowRightDoubleFill size={20} opacity={0.25} />
             <Badge
               className={classes.taskType}
               color={typeColor}
               c={taskType === "Web Dev" ? "#000" : "#fff"}
-              size="sm"
+              size="xs"
               variant={"filled"}
             >
               {taskType}

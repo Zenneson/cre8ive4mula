@@ -11,18 +11,61 @@ import {
   Title,
   Tooltip,
 } from "@mantine/core";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { usePortalState } from "../portalStore";
 import classes from "./styles/clientHeader.module.css";
 
-export default function ClientHeader() {
-  const { activePanel, setNotiDrawerOpen } = usePortalState();
+const AccountStatus = (props) => {
+  const { lightOn } = props;
 
-  const animationProps = {
+  const accountStatusAnimation = {
     initial: { y: -100, opacity: 0 },
     animate: { y: 0, opacity: 1 },
-    transition: { duration: 1, delay: 0.5 },
+    exit: { y: 100, opacity: 0 },
+    transition: { duration: 0.5 },
   };
+
+  return (
+    <>
+      <AnimatePresence>
+        {!lightOn && (
+          <Title
+            className={classes.accountStatus}
+            component={motion.div}
+            {...accountStatusAnimation}
+            initial={{ y: 0, opacity: 1 }}
+            fz={12}
+            c={"#fff"}
+          >
+            Account Stauts
+          </Title>
+        )}
+        {lightOn && (
+          <Title
+            className={classes.accountStatus}
+            component={motion.div}
+            {...accountStatusAnimation}
+            fz={12}
+            c={"#fff"}
+          >
+            Pro
+          </Title>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
+
+export default function ClientHeader() {
+  const { activePanel, setNotiDrawerOpen } = usePortalState();
+  const [lightOn, setLightOn] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setLightOn(true);
+    }, 2500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const panelLabel = (activePanel) => {
     switch (activePanel) {
@@ -41,6 +84,18 @@ export default function ClientHeader() {
     }
   };
 
+  const animationProps = {
+    initial: { y: -100, opacity: 0 },
+    animate: { y: 0, opacity: 1 },
+    transition: { duration: 1, delay: 0.5 },
+  };
+
+  const LedLight = () => (
+    <Box
+      className={`${classes.ledLightGlow} ${lightOn && classes.greenLight}`}
+    />
+  );
+
   return (
     <motion.div {...animationProps}>
       <Group
@@ -56,7 +111,14 @@ export default function ClientHeader() {
             <Title className={classes.companyName}>
               Sheaperd&rsquo;s Valley, LLC
             </Title>
-            <Badge size="md">Pro</Badge>
+            <Badge
+              className={classes.accountStatusBadge}
+              leftSection={<LedLight />}
+              size="lg"
+              w={lightOn ? 68 : 161.4}
+            >
+              <AccountStatus lightOn={lightOn} />
+            </Badge>
           </Flex>
           <Text mt={-8} fw={700} fz={12} c={"#fff"} tt={"uppercase"}>
             <Text c={"gray.4"} fz={12} component="span">
@@ -75,8 +137,8 @@ export default function ClientHeader() {
           >
             <Badge
               className={classes.notificationsBadge}
+              variant="outline"
               color="#b9d5f6"
-              c={"cobaltblue.9"}
               size="md"
               mr={-5}
               circle
@@ -97,9 +159,9 @@ export default function ClientHeader() {
                 className={classes.topRightBtns}
               >
                 <Image
-                  src={`/img/menu/bell.svg`}
+                  src={`/img/menu/bellFull.svg`}
                   alt={"Notifications"}
-                  height={27}
+                  height={24}
                 />
               </ActionIcon>
             </Tooltip>

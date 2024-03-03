@@ -22,7 +22,7 @@ import classes from "./styles/detailsSection.module.css";
 
 export default function DetailsSection() {
   const { drawerState } = usePortalState();
-  const task = taskInfo[0];
+  const task = taskInfo[1];
   const typeColor = taskColor(task.type);
   const { ref, height } = useElementSize();
 

@@ -38,8 +38,14 @@ export default function TaskCard(props) {
   } = props;
   const [showDetails, setShowDetails] = useState(false);
   const [brightDetails, setBrightDetails] = useState(false);
-  const { allowReorder, loaded, setLoaded, drawerOpen, setDrawerOpen } =
-    usePortalState();
+  const {
+    allowReorder,
+    loaded,
+    setLoaded,
+    drawerOpen,
+    setDrawerOpen,
+    setNotiDrawerOpen,
+  } = usePortalState();
   const frameRef = useRef();
   const { ref, width } = useElementSize();
   const infoListWidth = width;
@@ -268,23 +274,18 @@ export default function TaskCard(props) {
                         12
                       </Badge>
                     </Group>
-                    {boardType === "Ready For Review" ? (
-                      <Button
-                        className={`${classes.viewTaskBtn} ${classes.reviewBtn}`}
-                        variant="light"
-                        onClick={() => setDrawerOpen(true)}
-                      >
-                        Review
-                      </Button>
-                    ) : (
-                      <Button
-                        className={classes.viewTaskBtn}
-                        onClick={() => setDrawerOpen(true)}
-                        variant="light"
-                      >
-                        Open
-                      </Button>
-                    )}
+                    <Button
+                      className={`${classes.viewTaskBtn} ${
+                        boardType === "Ready For Review" && classes.reviewBtn
+                      }`}
+                      variant="light"
+                      onClick={() => {
+                        setNotiDrawerOpen(false);
+                        setDrawerOpen(true);
+                      }}
+                    >
+                      {boardType === "Ready For Review" ? "Review" : "Open"}
+                    </Button>
                   </Group>
                 </Group>
               </Box>

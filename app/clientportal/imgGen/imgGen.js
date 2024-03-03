@@ -16,7 +16,7 @@ import {
   Transition,
 } from "@mantine/core";
 import { useFocusTrap } from "@mantine/hooks";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { CgFormatSlash } from "react-icons/cg";
 import { FaQuestion } from "react-icons/fa";
@@ -64,6 +64,45 @@ const imgGenOptions = [
   },
 ];
 
+const EditAspectRatio = () => (
+  <Tooltip label="Edit Aspect Ratio" offset={15}>
+    <Box pos={"absolute"} top={0} right={0} p={"10px 15px"}>
+      <Popover trapFocus offset={15} withArrow>
+        <Popover.Target>
+          <Title order={5}>16:9</Title>
+        </Popover.Target>
+        <Popover.Dropdown p={0}>
+          <Group c={"#000"} fw={700} gap={0}>
+            <Input
+              classNames={{
+                wrapper: classes.aspectRatioWrapper,
+                input: classes.aspectRatioInput,
+              }}
+              placeholder={"16"}
+            />
+            <CgFormatSlash
+              style={{
+                marginLeft: -20,
+                marginRight: -25,
+              }}
+              size={25}
+              stroke={2}
+            />
+            <Input
+              classNames={{
+                wrapper: classes.aspectRatioWrapper,
+                input: classes.aspectRatioInput,
+              }}
+              placeholder={"9"}
+            />
+          </Group>
+          <Button className={classes.applyRatioBtn}>Apply</Button>
+        </Popover.Dropdown>
+      </Popover>
+    </Box>
+  </Tooltip>
+);
+
 export default function ImgGen() {
   const focusTrapRef = useFocusTrap();
   const [imgRendered, setImgRendered] = useState(false);
@@ -84,15 +123,15 @@ export default function ImgGen() {
     );
   });
 
-  const helpAnimationProps = {
-    initial: { x: 50, opacity: 0 },
-    animate: { x: 0, opacity: 1 },
-    exit: { x: 50, opacity: 0 },
+  const topBtnsAnimationProps = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0 },
     transition: { duration: 1 },
   };
 
   return (
-    <>
+    <Box h={820}>
       <Box className={classes.imgPromptInputFrame} ref={focusTrapRef}>
         <Group justify="space-between" mb={10}>
           <Group gap={7}>
@@ -106,64 +145,34 @@ export default function ImgGen() {
               AI Image Generator
             </Title>
           </Group>
-          <Group className={`altPanel ${classes.imgGenTopBtns}`}>
-            {imgRendered && (
-              <motion.div {...helpAnimationProps}>
-                <Group>
-                  <Tooltip label="More Information">
-                    <Box className={classes.topBtnFrame}>
-                      <FaQuestion size={12} />
-                    </Box>
-                  </Tooltip>
-                  <Tooltip label="Reset">
-                    <Box
-                      className={classes.topBtnFrame}
-                      onClick={() => setImgRendered(false)}
-                      pos={"relative"}
-                      top={3}
-                    >
-                      <VscClearAll size={18} />
-                    </Box>
-                  </Tooltip>
-                </Group>
-              </motion.div>
-            )}
-            <Tooltip label="Edit Aspect Ratio" offset={15}>
-              <div>
-                <Popover trapFocus offset={15} withArrow>
-                  <Popover.Target>
-                    <Title order={5}>16:9</Title>
-                  </Popover.Target>
-                  <Popover.Dropdown p={0}>
-                    <Group c={"#000"} fw={700} gap={0}>
-                      <Input
-                        classNames={{
-                          wrapper: classes.aspectRatioWrapper,
-                          input: classes.aspectRatioInput,
-                        }}
-                        placeholder={"16"}
-                      />
-                      <CgFormatSlash
-                        style={{
-                          marginLeft: -20,
-                          marginRight: -25,
-                        }}
-                        size={25}
-                        stroke={2}
-                      />
-                      <Input
-                        classNames={{
-                          wrapper: classes.aspectRatioWrapper,
-                          input: classes.aspectRatioInput,
-                        }}
-                        placeholder={"9"}
-                      />
-                    </Group>
-                    <Button className={classes.applyRatioBtn}>Apply</Button>
-                  </Popover.Dropdown>
-                </Popover>
-              </div>
-            </Tooltip>
+          <Group
+            className={`altPanel ${classes.imgGenTopBtns}`}
+            w={imgRendered ? 135 : 62}
+          >
+            <AnimatePresence>
+              {imgRendered && (
+                <motion.div {...topBtnsAnimationProps}>
+                  <Group>
+                    <Tooltip label="More Information">
+                      <Box className={classes.topBtnFrame}>
+                        <FaQuestion size={12} />
+                      </Box>
+                    </Tooltip>
+                    <Tooltip label="Reset">
+                      <Box
+                        className={classes.topBtnFrame}
+                        onClick={() => setImgRendered(false)}
+                        pos={"relative"}
+                        top={3}
+                      >
+                        <VscClearAll size={18} />
+                      </Box>
+                    </Tooltip>
+                  </Group>
+                </motion.div>
+              )}
+            </AnimatePresence>
+            <EditAspectRatio />
           </Group>
         </Group>
         <Textarea
@@ -233,6 +242,6 @@ export default function ImgGen() {
           </Box>
         )}
       </Transition>
-    </>
+    </Box>
   );
 }

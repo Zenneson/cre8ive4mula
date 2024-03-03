@@ -21,7 +21,7 @@ const linkData = [
   { icon: "imgGen", label: "AI Image Generator" },
 ];
 
-const NavbarLink = ({ id, icon, label, activePanel, onClick }) => {
+const MenuBtn = ({ icon, label, activePanel, onClick }) => {
   return (
     <>
       <Divider
@@ -45,6 +45,7 @@ const NavbarLink = ({ id, icon, label, activePanel, onClick }) => {
             data-activepanel={activePanel || undefined}
           >
             <Image
+              className={icon === "userSettings" && classes.accountSettingsImg}
               src={`/img/menu/${icon}.svg`}
               style={{ width: rem(40), height: rem(40) }}
               alt={label}
@@ -94,7 +95,7 @@ export default function Navbar() {
 
     return (
       <motion.div key={link.label} {...btnAnimationProps}>
-        <NavbarLink
+        <MenuBtn
           {...link}
           activePanel={index === activePanel}
           onClick={() => {
@@ -118,15 +119,15 @@ export default function Navbar() {
           </Stack>
         </div>
         <Stack justify="center" gap={0}>
-          <NavbarLink
-            icon={"settings"}
+          <MenuBtn
+            label="Account Settings"
+            icon={"userSettings"}
             onClick={() => {
               setDrawerOpen(false);
               setActivePanel(4);
             }}
-            label="Account Settings"
           />
-          <NavbarLink icon={"logout"} label="Logout" />
+          <MenuBtn icon={"logout"} label="Logout" />
         </Stack>
       </nav>
     </motion.div>

@@ -82,11 +82,21 @@ export default function SignupForm() {
       });
   };
 
-  const animation = {
+  const formAnimation = {
     initial: { x: 100, opacity: 0 },
     animate: { x: 0, opacity: 1 },
     exit: { x: -100, opacity: 0 },
-    transition: { animationTimingFunction: "ease-in-out", duration: 1 },
+    transition: { animationTimingFunction: "ease-in-out", duration: 0.5 },
+  };
+
+  const iconAnimation = {
+    initial: { y: -100, opacity: 0 },
+    animate: { y: 0, opacity: 1 },
+    transition: {
+      animationTimingFunction: "ease-in-out",
+      delay: 0.5,
+      duration: 1,
+    },
   };
 
   return (
@@ -94,7 +104,7 @@ export default function SignupForm() {
       <Box className={`panel lightShadow ${classes.formPanel}`} p={"xl"}>
         <Box pos={"absolute"} top={0} right={0}>
           {paymentPanel === 0 && (
-            <motion.div {...animation}>
+            <motion.div {...iconAnimation}>
               <DotLottiePlayer
                 className={classes.subLottieIcon}
                 src={"/img/signup/subscribe.json"}
@@ -105,7 +115,7 @@ export default function SignupForm() {
             </motion.div>
           )}
           {paymentPanel === 1 && (
-            <motion.div {...animation}>
+            <motion.div {...iconAnimation}>
               <DotLottiePlayer
                 className={classes.fingerprintLlottieIcon}
                 src={"/img/signup/clientDetails.json"}
@@ -116,13 +126,14 @@ export default function SignupForm() {
             </motion.div>
           )}
           {paymentPanel === 2 && (
-            <motion.div {...animation}>
+            <motion.div {...iconAnimation}>
               <DotLottiePlayer
                 className={classes.detailsLottieIcon}
                 src={"/img/signup/addDetails.json"}
                 autoplay
                 loop={5}
-                speed={0.75}
+                intermission={2}
+                speed={0.35}
               />
             </motion.div>
           )}
@@ -134,7 +145,7 @@ export default function SignupForm() {
                 CRE8IVE 4MULA
               </Text>
               <Box className={classes.subtitle}>
-                <Group gap={5}>
+                <Group gap={3}>
                   <Text c="#fff" fz={"inherit"} fw={700}>
                     {premiereSignup ? "Premiere" : "Pro"} Account
                   </Text>
@@ -151,17 +162,17 @@ export default function SignupForm() {
         </Group>
         <form onSubmit={form.onSubmit(handleSignup)}>
           {paymentPanel === 0 && (
-            <motion.div {...animation}>
+            <motion.div {...formAnimation}>
               <Text>Stripe Payment Form</Text>
             </motion.div>
           )}
           {paymentPanel === 1 && (
-            <motion.div {...animation}>
+            <motion.div {...formAnimation}>
               <ClientInfo form={form} />
             </motion.div>
           )}
           {paymentPanel === 2 && (
-            <motion.div {...animation}>
+            <motion.div {...formAnimation}>
               <BrandInfo form={form} />
             </motion.div>
           )}

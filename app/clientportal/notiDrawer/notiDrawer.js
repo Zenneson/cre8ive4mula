@@ -38,15 +38,20 @@ export default function NotiDrawer() {
   const { notiDrawerOpen, setNotiDrawerOpen } = usePortalState();
 
   const notiList = alerts.map((alert) => (
-    <List.Item key={alert.id} mb={30}>
+    <List.Item
+      className={`altPanel ${classes.notiItem}`}
+      key={alert.id}
+      pt={17}
+      mb={15}
+    >
       <List>
         <List.Item icon={<FaPlay size={10} />}>
-          <Text c={"dark.9"} lh={1}>
+          <Text c={"gray.0"} fw={600} fz={14} lh={1}>
             {alert.message}
           </Text>
         </List.Item>
-        <List.Item icon={<IoMdTime size={12} />}>
-          <Text c={"deepblue.9"} size="xs">
+        <List.Item icon={<IoMdTime size={14} />} ml={-2}>
+          <Text c={"deepblue.7"} mt={-2} ml={-2} size="xs">
             {alert.time.toLocaleString()}
           </Text>
         </List.Item>
@@ -60,20 +65,15 @@ export default function NotiDrawer() {
         root: classes.notiDrawerRoot,
         content: classes.notiDrawerContent,
       }}
-      overlayProps={{
-        backgroundOpacity: 0,
-      }}
-      closeOnClickOutside={false}
+      withCloseButton={false}
+      withOverlay={false}
       opened={notiDrawerOpen}
       position="right"
       size={400}
       onClose={() => setNotiDrawerOpen(false)}
     >
       <Box className={`panel ${classes.notiDrawerBox}`}>
-        <Box
-          className={`altPanel drawerTopBtns ${classes.notiCloseBtn}`}
-          gap={10}
-        >
+        <Box className={`altPanel drawerTopBtns ${classes.notiCloseBtn}`}>
           <Tooltip label="Close">
             <Image
               className={classes.closeBtn}
@@ -83,18 +83,24 @@ export default function NotiDrawer() {
             />
           </Tooltip>
         </Box>
-        <Group gap={5} mt={-5}>
+        <Group gap={5} w={"100%"} justify="flex-end" mr={5}>
           <Image
             className={classes.notiImg}
             src="/img/menu/bell.svg"
             alt="Close"
-            onClick={() => setNotiDrawerOpen(false)}
           />
-          <Title tt={"uppercase"} opacity={0.5} order={3}>
+          <Title tt={"uppercase"} opacity={0.5} order={3} mt={-3}>
             Notifications
           </Title>
         </Group>
-        <Divider w={"83%"} opacity={0.15} mt={5} mb={25} />
+        <Divider
+          w={180}
+          ml={"auto"}
+          size={"md"}
+          opacity={0.1}
+          mt={-5}
+          mb={25}
+        />
         <List spacing={0} icon={<FaRegHandPointUp opacity={0.3} size={25} />}>
           {notiList}
         </List>

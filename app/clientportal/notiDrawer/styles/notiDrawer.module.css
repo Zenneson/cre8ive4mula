@@ -9,6 +9,7 @@ section.notiDrawerContent {
 }
 
 div.notiDrawerBox {
+  position: relative;
   height: calc(100vh - 32px);
 }
 
@@ -26,13 +27,17 @@ img.closeBtn {
 }
 
 img.notiImg {
-  width: 23px;
-  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(208deg)
-    brightness(102%) contrast(102%);
+  opacity: 0.5;
+  width: 25px;
 }
 
 div.notiCloseBtn {
   transform: scale(0.85);
-  top: 28px;
-  right: 28px;
+  top: 15px;
+  left: 20px;
+  right: auto;
+}
+
+.notiItem {
+  border-top: 1px solid rgba(184, 201, 224, 0.35);
 }

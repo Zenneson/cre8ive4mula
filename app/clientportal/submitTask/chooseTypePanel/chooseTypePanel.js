@@ -40,7 +40,7 @@ export default function ChooseTypePanel(props) {
   };
 
   return (
-    <Stack mih={"700px"} gap={5}>
+    <Stack mih={"700px"} gap={10}>
       <Group className={classes.chooseTypeTitleFrame} gap="7">
         <Image
           src={"/img/clientDashboard/submit/addTask.svg"}
@@ -48,7 +48,9 @@ export default function ChooseTypePanel(props) {
           height={25}
           opacity={0.5}
         />
-        <Title order={4}>Task Type</Title>
+        <Title mt={3} order={4}>
+          Task Type
+        </Title>
       </Group>
       <SimpleGrid cols={3} spacing={20}>
         <TypeBtns types={types} />
@@ -58,12 +60,14 @@ export default function ChooseTypePanel(props) {
           <Box style={styles}>
             <Grid className={`panel ${classes.typeDescFrame}`}>
               <Grid.Col span="content">
-                <Title tt={"uppercase"} order={2}>
+                <Title tt={"uppercase"} order={4}>
                   {taskType}
                 </Title>
               </Grid.Col>
               <Grid.Col span="auto">
-                <Text>{setupData?.desc}</Text>
+                <Text ta={"justify"} lh={1.4}>
+                  {setupData?.desc}
+                </Text>
               </Grid.Col>
             </Grid>
             <Group className={`panel ${classes.serviceBadgesFrame}`}>

@@ -46,7 +46,7 @@ const tasks = [
 
 export default function Archive() {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const { setDrawerOpen } = usePortalState();
+  const { setDrawerOpen, setNotiDrawerOpen } = usePortalState();
 
   const rows = tasks.map((task, index) => {
     const typeColor = taskColor(task.type);
@@ -104,7 +104,10 @@ export default function Archive() {
           <Grid.Col span="content">
             <Button
               className={classes.viewTaskBtn}
-              onClick={() => setDrawerOpen(true)}
+              onClick={() => {
+                setNotiDrawerOpen(false);
+                setDrawerOpen(true);
+              }}
               variant="light"
               mr={10}
             >

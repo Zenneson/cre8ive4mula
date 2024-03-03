@@ -5,7 +5,7 @@
 .taskFormTitle {
   margin-bottom: 10px;
 
-  h2 {
+  h4 {
     font-family: var(--font-montserrat);
     text-transform: uppercase;
   }

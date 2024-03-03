@@ -1,5 +1,5 @@
 "use client";
-import { Box, ScrollArea, Title } from "@mantine/core";
+import { Box, Center, ScrollArea, Title } from "@mantine/core";
 import { motion } from "framer-motion";
 import Archive from "../archive/archive";
 import Dashboard from "../dashboard/dashboard";
@@ -60,16 +60,17 @@ export default function Panels(props) {
       )}
       {activePanel === 3 && (
         <motion.div {...animation}>
-          <Box
+          <Center
             component={ScrollArea}
             type="hover"
             {...animation}
             className={classes.dashPanel}
+            h={"calc(100vh - 60px)"}
             pt={60}
             pl={125}
           >
             <ImgGen />
-          </Box>
+          </Center>
         </motion.div>
       )}{" "}
       {activePanel === 4 && (
