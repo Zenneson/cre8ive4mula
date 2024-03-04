@@ -10,7 +10,7 @@ export default function Dashboard(props) {
     <>
       <Flex
         className={classes.boardsFrame}
-        maw={2400}
+        maw={1792}
         pl={125}
         pt={75}
         py={0}

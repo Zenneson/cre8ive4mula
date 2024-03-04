@@ -5,9 +5,13 @@
   --divider-color: #444;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   background: linear-gradient(145deg, #67a2e6, #75acee);
-  height: 100vh;
   overflow: hidden;
   font-family: var(--font-assistant);
   color: #b9d5f6;
@@ -148,13 +152,13 @@ button.mantine-Button-root {
 button:hover,
 button.mantine-Button-root:hover {
   filter: brightness(1.03);
+  color: inherit;
 }
 
 button:active,
 button.mantine-Button-root:active {
-  filter: brightness(0.98);
+  filter: brightness(0.95);
   transform: scale(0.98);
-  color: #bbb;
 }
 
 a {

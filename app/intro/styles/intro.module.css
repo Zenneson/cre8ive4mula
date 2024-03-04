@@ -56,7 +56,7 @@ a.loginBtn {
   }
 
   &:after {
-    border-radius: 10px;
+    border-radius: 100px;
     position: absolute;
     content: "Client Portal";
     padding-top: 12px;
@@ -70,7 +70,6 @@ a.loginBtn {
     transform-origin: center bottom;
     transform: rotateX(0);
     transition: all 0.3s ease;
-    border-radius: 10px;
     box-shadow:
       inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
       7px 7px 20px 0px rgba(0, 0, 0, 0.1),

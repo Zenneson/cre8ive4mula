@@ -1,5 +1,6 @@
 div.chatPanel {
   transition: all 500ms ease-in-out;
+  flex-grow: 1;
   padding: 20px;
   box-shadow:
     10px 10px 15px rgba(82, 140, 206, 1),

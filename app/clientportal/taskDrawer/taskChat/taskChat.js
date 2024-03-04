@@ -152,19 +152,8 @@ export default function TaskChat() {
   };
 
   return (
-    <Box
-      className={`panel ${classes.chatPanel}`}
-      h={`${
-        drawerState === "init"
-          ? "calc(40vh - 30px)"
-          : drawerState === "showChat"
-            ? "calc(100vh - 148px)"
-            : "95px"
-      }`}
-      mt={20}
-      mr={5}
-    >
-      <Box className={classes.chat} pos={"relative"} h={"100%"}>
+    <Box className={`panel ${classes.chatPanel}`} mt={20} mr={5}>
+      <Box pos={"relative"} h={"100%"}>
         <AnimatePresence>
           <ChatMessages drawerState={drawerState} />
         </AnimatePresence>
@@ -182,7 +171,6 @@ export default function TaskChat() {
                     <motion.div {...animationProps}>
                       <Tooltip position="left" label="AI Assistant">
                         <Image
-                          className={classes.aiAltBtn}
                           src="/img/clientDashboard/drawer/aiBtn.svg"
                           alt="AI"
                           w={25}
@@ -215,7 +203,6 @@ export default function TaskChat() {
                       <motion.div {...animationProps}>
                         <Tooltip position="left" label="AI Assistant">
                           <Image
-                            className={classes.aiAltBtn}
                             src="/img/clientDashboard/drawer/aiBtn.svg"
                             alt="AI"
                             w={25}
@@ -312,6 +299,7 @@ export default function TaskChat() {
                     minRows={4}
                     data-autofocus
                     autosize
+                    mt={2}
                   />
                   <ActionIcon
                     className={"innerPanel sendBtn"}

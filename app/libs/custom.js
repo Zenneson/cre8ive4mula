@@ -1,3 +1,4 @@
+import { useViewportSize } from "@mantine/hooks";
 import dayjs from "dayjs";
 import AdvancedFormat from "dayjs/plugin/advancedFormat";
 
@@ -149,4 +150,10 @@ export const extractDomainAndPath = (url) => {
     console.error("Invalid URL provided:", error);
     return null; // Or handle the error as appropriate for your application
   }
+};
+
+// Returns the height of the viewport.
+export const useViewportHeight = () => {
+  const { height } = useViewportSize();
+  return height;
 };

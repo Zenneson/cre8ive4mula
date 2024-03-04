@@ -1,5 +1,5 @@
 "use client";
-import { Drawer, Group, Image, Tooltip } from "@mantine/core";
+import { Drawer, Flex, Group, Image, Tooltip } from "@mantine/core";
 import { usePortalState } from "../portalStore";
 import DetailsSection from "./detailsSection/detailsSection";
 import classes from "./styles/taskDrawer.module.css";
@@ -72,8 +72,10 @@ export default function TaskDrawer() {
           />
         </Tooltip>
       </Group>
-      <DetailsSection />
-      <TaskChat />
+      <Flex direction={"column"} h={"calc(100vh - 40px)"}>
+        <DetailsSection />
+        <TaskChat />
+      </Flex>
     </Drawer>
   );
 }

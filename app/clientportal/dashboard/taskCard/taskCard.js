@@ -21,7 +21,7 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { CgAttachment } from "react-icons/cg";
 import { FaRegComments } from "react-icons/fa";
-import { MdDragIndicator } from "react-icons/md";
+import { MdDragIndicator, MdOutlineFiberNew } from "react-icons/md";
 import { usePortalState } from "../../portalStore";
 import classes from "./styles/taskCard.module.css";
 
@@ -38,14 +38,8 @@ export default function TaskCard(props) {
   } = props;
   const [showDetails, setShowDetails] = useState(false);
   const [brightDetails, setBrightDetails] = useState(false);
-  const {
-    allowReorder,
-    loaded,
-    setLoaded,
-    drawerOpen,
-    setDrawerOpen,
-    setNotiDrawerOpen,
-  } = usePortalState();
+  const { allowReorder, loaded, setLoaded, setDrawerOpen, setNotiDrawerOpen } =
+    usePortalState();
   const frameRef = useRef();
   const { ref, width } = useElementSize();
   const infoListWidth = width;
@@ -144,19 +138,6 @@ export default function TaskCard(props) {
                     >
                       {taskData.type}
                     </Badge>
-                    {taskData.alerts && (
-                      <Badge
-                        className={classes.taskAlerts}
-                        size={"xs"}
-                        color="red.8"
-                        c={viewTask ? "#fff" : "gray.5"}
-                        circle={!viewTask}
-                        variant={viewTask ? "filled" : "light"}
-                        rightSection={viewTask && <FaRegComments size={12} />}
-                      >
-                        {taskData.alerts}
-                      </Badge>
-                    )}
                   </Group>
                   <Flex align={"center"} gap={0}>
                     <Text
@@ -263,7 +244,7 @@ export default function TaskCard(props) {
                     }`}
                     ref={ref}
                   >
-                    <Group gap={5} ml={5} opacity={1} c="#fff">
+                    <Group gap={2} ml={5}>
                       <Badge
                         className={classes.commentNum}
                         rightSection={<FaRegComments size={12} />}
@@ -273,6 +254,9 @@ export default function TaskCard(props) {
                       >
                         12
                       </Badge>
+                      {taskData.alerts && (
+                        <MdOutlineFiberNew color={"#CED4DA"} size={27} />
+                      )}
                     </Group>
                     <Button
                       className={`${classes.viewTaskBtn} ${

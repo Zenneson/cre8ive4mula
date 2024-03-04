@@ -53,10 +53,6 @@ h1.title {
   }
 }
 
-.taskAlerts {
-  cursor: pointer;
-}
-
 .taskAlertsNotViewwed,
 .taskService {
   background: transparent;

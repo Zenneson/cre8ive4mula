@@ -89,7 +89,7 @@ export default function NotiDrawer() {
       </Group>
       <List mt={2}>
         <List.Item icon={<FaPlay size={10} />}>
-          <Text c={"gray.7"} fz={12} lh={1}>
+          <Text c={"deepblue.9"} fw={600} fz={12} lh={1}>
             {alert.message}
           </Text>
         </List.Item>
@@ -117,7 +117,7 @@ export default function NotiDrawer() {
     >
       <Box className={`panel ${classes.notiDrawerBox}`}>
         <Box className={`altPanel drawerTopBtns ${classes.notiCloseBtn}`}>
-          <Tooltip label="Close">
+          <Tooltip position="left" label="Close" offset={15}>
             <Image
               className={classes.closeBtn}
               src="/img/clientDashboard/drawer/closeDrawer.svg"
@@ -141,13 +141,11 @@ export default function NotiDrawer() {
         <List listStyleType="none" spacing={0}>
           {notiList}
         </List>
-        <Group justify="flex-end" mt={-15}>
-          <Group className={classes.clearListBtn} gap={5}>
-            <VscClearAll color={"#fff"} size={15} />
-            <Text tt={"uppercase"} c={"gray.0"} fz={11} fw={700}>
-              Clear List
-            </Text>
-          </Group>
+        <Group className={classes.clearListBtn} mt={-15} gap={5}>
+          <VscClearAll color={"#fff"} size={15} />
+          <Text tt={"uppercase"} c={"gray.0"} fz={11} fw={700}>
+            Clear List
+          </Text>
         </Group>
       </Box>
     </Drawer>

@@ -55,8 +55,7 @@ h1.notiTitle {
 }
 
 .notiItem {
-  border-top: 1px solid rgba(184, 201, 224, 0.7);
-  border-right: 1px solid rgba(131, 182, 240, 0.2);
+  border: 1px solid rgba(131, 182, 240, 0.4);
   box-shadow: none;
   position: relative;
   padding-top: 27px;
@@ -66,7 +65,7 @@ h1.notiTitle {
 }
 
 div.ledLightGlow {
-  opacity: 0.75;
+  opacity: 0.25;
   transition: all 3s ease-in-out;
   margin: 0 auto;
   width: 10px;
@@ -97,7 +96,6 @@ div.greenLight {
   left: 0;
   padding: 12px;
   border-radius: 0 0 10px 0;
-  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
 }
 
 .notiActions {

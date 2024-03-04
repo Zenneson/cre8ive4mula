@@ -22,7 +22,7 @@ import classes from "./styles/detailsSection.module.css";
 
 export default function DetailsSection() {
   const { drawerState } = usePortalState();
-  const task = taskInfo[1];
+  const task = taskInfo[2];
   const typeColor = taskColor(task.type);
   const { ref, height } = useElementSize();
 
@@ -88,17 +88,18 @@ export default function DetailsSection() {
   return (
     <Box
       className={`panel ${classes.detailsSection}`}
-      h={`${
+      mah={`${
         drawerState === "init"
           ? "calc(60vh - 30px)"
           : drawerState === "showDetails"
             ? "calc(100vh - 155px)"
             : "88px"
       }`}
+      h={`${drawerState === "init" ? "auto" : "calc(100vh - 155px)"} `}
       mr={5}
     >
       <Box h={"100%"}>
-        <Stack className={classes.taskTitle} mb={20} ml={-7} gap={0}>
+        <Stack mb={20} ml={-7} gap={0}>
           <Group gap={5}>
             <Image
               src="/img/clientDashboard/taskIcon.svg"
@@ -108,12 +109,7 @@ export default function DetailsSection() {
             />
             <Stack gap={0} w={"calc(100% - 60px)"}>
               <Group gap={3}>
-                <Badge
-                  className={classes.taskType}
-                  color={typeColor}
-                  variant={"filled"}
-                  size="xs"
-                >
+                <Badge color={typeColor} variant={"filled"} size="xs">
                   {task.type}
                 </Badge>
                 <RiArrowRightDoubleFill opacity={0.25} />
@@ -141,7 +137,7 @@ export default function DetailsSection() {
               gap={20}
               mt={5}
             >
-              <Box pos={"relative"} className={classes.topDetails} ref={ref}>
+              <Box pos={"relative"} ref={ref}>
                 <Badge
                   className={classes.detailsBadge}
                   size="xs"
@@ -246,7 +242,13 @@ export default function DetailsSection() {
                 </Badge>
                 <Box
                   className={`${classes.textPanel} ${classes.taskDesc}`}
-                  h={"100%"}
+                  mih={91}
+                  mah={
+                    drawerState === "init"
+                      ? `calc(60vh - ${infoHeight + 60}px`
+                      : "calc(100vh - 155px)"
+                  }
+                  h={drawerState === "init" ? "100%" : "100%"}
                 >
                   <Text fz={14}>{task.desc}</Text>
                 </Box>
