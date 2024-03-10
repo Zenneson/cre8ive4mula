@@ -1,15 +1,8 @@
 "use client";
-import {
-  ActionIcon,
-  Divider,
-  Popover,
-  Stack,
-  TagsInput,
-  Text,
-  Title,
-} from "@mantine/core";
+import { ActionIcon, Popover, TagsInput, Text } from "@mantine/core";
 import { shallowEqual, useSetState } from "@mantine/hooks";
 import { useEffect, useRef, useState } from "react";
+import { FaPlus } from "react-icons/fa";
 import { TbHelpSquareFilled } from "react-icons/tb";
 import { usePortalState } from "../../portalStore";
 import classes from "./styles/taskFrom.module.css";
@@ -101,7 +94,6 @@ export default function AddTags(props) {
             input: `defaultInput ${classes.tagsInput}`,
             inputField: classes.tagsInputField,
             pillsList: classes.tagsPillsList,
-            pill: classes.tagsPill,
           }}
           ref={modeRef}
           tabIndex={tabIndex}
@@ -117,21 +109,27 @@ export default function AddTags(props) {
             },
           }}
           onKeyDown={handleKeyDown}
-          rightSectionWidth={50}
-          rightSectionPointerEvents="none"
+          rightSectionPointerEvents="all"
           rightSection={
-            modeVar.length > 0 && (
-              <Stack gap={0} align="center">
-                <Title c={"gray.6"} fz={12}>
-                  {modeVar.length}
-                </Title>
-                <Divider w={15} color={"gray.6"} />
-                <Title c={"gray.6"} fz={12}>
-                  {maxAllowed}
-                </Title>
-              </Stack>
-            )
+            <ActionIcon w={40} mr={10} className={"actionBtn actionBtnDimmed"}>
+              <FaPlus size={15} />
+            </ActionIcon>
           }
+          // rightSectionWidth={50}
+          // rightSectionPointerEvents="none"
+          // rightSection={
+          //   modeVar.length > 0 && (
+          //     <Stack gap={0} align="center">
+          //       <Title c={"gray.6"} fz={12}>
+          //         {modeVar.length}
+          //       </Title>
+          //       <Divider w={15} color={"gray.6"} />
+          //       <Title c={"gray.6"} fz={12}>
+          //         {maxAllowed}
+          //       </Title>
+          //     </Stack>
+          //   )
+          // }
           maxTags={maxAllowed}
           leftSectionWidth={50}
           leftSectionPointerEvents="all"

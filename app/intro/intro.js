@@ -2,7 +2,6 @@
 import ModelScene from "@libs/modelScene";
 import {
   Affix,
-  Box,
   Button,
   Center,
   Group,
@@ -106,17 +105,11 @@ export default function Intro() {
         left={leftFunc()}
       >
         <LoginBtn />
-        <Center
-          id="0"
-          className={classes.homePanel}
-          w={"100vw"}
-          h={"100vh"}
-          pos={"relative"}
-        >
+        <Center id="0" w={"100vw"} h={"100vh"} pos={"relative"}>
           <Stack direction={"column"} w={"100%"} align="center">
             <Logo />
             <TypedOut />
-            <Box w={"25%"} h={300} mb={50} bg={"rgba(255, 255, 255, 1)"} />
+            {/* <Box w={"25%"} h={300} mb={50} bg={"rgba(255, 255, 255, 1)"} /> */}
           </Stack>
         </Center>
         <Center id="1" w={"100vw"} h={"100vh"} pos={"relative"}>

@@ -87,7 +87,7 @@ export default function ColorPanel(props) {
 
   return (
     <Box>
-      <Grid gutter={20} className="innerPanel" p={20}>
+      <Grid gutter={20}>
         <Grid.Col span="3">
           <Popover
             disabled={colors.length === 10}
@@ -99,7 +99,6 @@ export default function ColorPanel(props) {
               <Button
                 h={40}
                 w={"100%"}
-                className={colors.length === 10 && classes.noPointerEvents}
                 leftSection={
                   colors.length === 0 ? (
                     <HiOutlineColorSwatch size={18} />

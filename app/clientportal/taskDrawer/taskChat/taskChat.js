@@ -192,9 +192,9 @@ export default function TaskChat() {
                           : "/img/clientDashboard/drawer/expand.svg"
                       }
                       alt="Expand Chat"
-                      my={3}
                       w={25}
                       h={25}
+                      my={5}
                       onClick={handleDrawerHeight}
                     />
                   </Tooltip>
@@ -299,14 +299,14 @@ export default function TaskChat() {
                     minRows={4}
                     data-autofocus
                     autosize
-                    mt={2}
+                    mt={3}
                   />
                   <ActionIcon
                     className={"innerPanel sendBtn"}
                     variant="transparent"
                     pos={"absolute"}
                     right={8}
-                    bottom={8}
+                    bottom={12}
                     size="xl"
                   >
                     <IoSend />

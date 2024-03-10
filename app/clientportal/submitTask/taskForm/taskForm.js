@@ -68,7 +68,12 @@ export default function TaskForm(props) {
       form.values.desc.length > 0 &&
       form.values.service.length > 0;
     setShowReviewBtn(isWebDevComplete || isOtherTaskComplete);
-  }, [form?.values, taskType]);
+  }, [form, taskType]);
+
+  useEffect(() => {
+    form.setFieldValue("type", taskType);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const enterBtnInfo = (subject) => (
     <>
@@ -144,8 +149,8 @@ export default function TaskForm(props) {
       <motion.div {...animation}>
         <Group
           className={classes.taskFormTitle}
-          mt={-100}
           justify="space-between"
+          mt={50}
         >
           <Group gap={5}>
             <Image
@@ -155,16 +160,13 @@ export default function TaskForm(props) {
               opacity={0.5}
               pb={3}
             />
-            <Title mt={3} order={4}>
-              Add Details
-            </Title>
+            <Title order={4}>Add Details</Title>
             <RiArrowRightDoubleFill size={20} opacity={0.25} />
             <Badge
               className={classes.taskType}
               color={typeColor}
-              c={taskType === "Web Dev" ? "#000" : "#fff"}
-              size="xs"
               variant={"filled"}
+              size="xs"
             >
               {taskType}
             </Badge>
@@ -206,9 +208,10 @@ export default function TaskForm(props) {
             maxRows={7}
             autosize
           />
+
           <Stack hidden={taskType !== "Design"} gap={20}>
             {taskType === "Design" && (
-              <>
+              <Group grow>
                 <AddTags
                   form={form}
                   placeholder="Style Defining Keywords..."
@@ -225,60 +228,62 @@ export default function TaskForm(props) {
                   setDeliverInfo={setDeliverInfo}
                   tabIndex={taskType === "Web Dev" ? 6 : 5}
                 />
-              </>
+              </Group>
             )}
-            <AddTags
-              form={form}
-              placeholder="Relevant Websites..."
-              mode={"websites"}
-              deliverInfo={deliverInfo}
-              setDeliverInfo={setDeliverInfo}
-              tabIndex={6}
-            />
-            <FileInput
-              {...form.getInputProps("files")}
-              name="Upload files"
-              placeholder="Upload Files..."
-              multiple
-              leftSectionWidth={50}
-              leftSectionPointerEvents="all"
-              leftSection={
-                <ActionIcon
-                  className={"actionBtnDimmed"}
-                  variant="transparent"
-                  color="#fff"
-                  onClick={() => {
-                    if (helpMode !== "files") {
-                      setHelpMode("files");
-                      setDeliverInfo(true);
-                    } else {
-                      setDeliverInfo(!deliverInfo);
-                      if (deliverInfo) {
-                        setTimeout(() => {
-                          setHelpMode("");
-                        }, 300);
+            <Group grow>
+              <AddTags
+                form={form}
+                placeholder="Relevant Websites..."
+                mode={"websites"}
+                deliverInfo={deliverInfo}
+                setDeliverInfo={setDeliverInfo}
+                tabIndex={6}
+              />
+              <FileInput
+                {...form.getInputProps("files")}
+                name="Upload files"
+                placeholder="Upload Files..."
+                multiple
+                leftSectionWidth={50}
+                leftSectionPointerEvents="all"
+                leftSection={
+                  <ActionIcon
+                    className={"actionBtnDimmed"}
+                    variant="transparent"
+                    color="#fff"
+                    onClick={() => {
+                      if (helpMode !== "files") {
+                        setHelpMode("files");
+                        setDeliverInfo(true);
+                      } else {
+                        setDeliverInfo(!deliverInfo);
+                        if (deliverInfo) {
+                          setTimeout(() => {
+                            setHelpMode("");
+                          }, 300);
+                        }
                       }
-                    }
-                  }}
-                >
-                  <TbHelpSquareFilled size={30} />
-                </ActionIcon>
-              }
-              rightSectionPointerEvents="all"
-              rightSection={
-                <ActionIcon
-                  w={40}
-                  mr={10}
-                  className={"actionBtn actionBtnDimmed"}
-                >
-                  <FaPlus size={15} />
-                </ActionIcon>
-              }
-            />
+                    }}
+                  >
+                    <TbHelpSquareFilled size={30} />
+                  </ActionIcon>
+                }
+                rightSectionPointerEvents="all"
+                rightSection={
+                  <ActionIcon
+                    w={40}
+                    mr={10}
+                    className={"actionBtn actionBtnDimmed"}
+                  >
+                    <FaPlus size={15} />
+                  </ActionIcon>
+                }
+              />
+            </Group>
           </Stack>
+          {taskType === "Design" && <ColorPanel form={form} />}
         </Stack>
         <Stack mt={20} gap={20}>
-          {taskType === "Design" && <ColorPanel form={form} />}
           <Group justify="flex-end" gap={5}>
             <Button
               className={classes.backBtn}

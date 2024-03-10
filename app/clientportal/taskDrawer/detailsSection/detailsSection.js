@@ -11,7 +11,6 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { useElementSize } from "@mantine/hooks";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { RiArrowRightDoubleFill } from "react-icons/ri";
@@ -24,13 +23,11 @@ export default function DetailsSection() {
   const { drawerState } = usePortalState();
   const task = taskInfo[2];
   const typeColor = taskColor(task.type);
-  const { ref, height } = useElementSize();
 
   const [colors, setColors] = useState([]);
   const [styleKeywords, setStyleKeywords] = useState([]);
   const [websites, setWebsites] = useState([]);
   const [files, setFiles] = useState([]);
-  const [infoHeight, setInfoHeight] = useState(0);
 
   useEffect(() => {
     setColors(task.colors || []);
@@ -38,11 +35,6 @@ export default function DetailsSection() {
     setWebsites(task.websites || []);
     setFiles(task.files || []);
   }, [task]);
-
-  useEffect(() => {
-    if (height === 0) return;
-    setInfoHeight(height + 105);
-  }, [height]);
 
   const animationProps = {
     initial: { opacity: 0 },
@@ -88,18 +80,17 @@ export default function DetailsSection() {
   return (
     <Box
       className={`panel ${classes.detailsSection}`}
-      mah={`${
+      h={`${
         drawerState === "init"
           ? "calc(60vh - 30px)"
           : drawerState === "showDetails"
             ? "calc(100vh - 155px)"
             : "88px"
       }`}
-      h={`${drawerState === "init" ? "auto" : "calc(100vh - 155px)"} `}
       mr={5}
     >
-      <Box h={"100%"}>
-        <Stack mb={20} ml={-7} gap={0}>
+      <Flex direction={"column"} mah={"calc(100% - 80px)"} h={"100%"}>
+        <Stack mb={15} ml={-7} gap={0}>
           <Group gap={5}>
             <Image
               src="/img/clientDashboard/taskIcon.svg"
@@ -130,16 +121,16 @@ export default function DetailsSection() {
         </Stack>
         <AnimatePresence>
           {drawerState !== "showChat" && (
-            <Stack
+            <Flex
               component={motion.div}
               {...animationProps}
-              h={"100%"}
+              direction={"column"}
               gap={20}
-              mt={5}
+              flex={1}
             >
-              <Box pos={"relative"} ref={ref}>
+              <Box pos={"relative"}>
                 <Badge
-                  className={classes.detailsBadge}
+                  className={`descBadge ${classes.detailsBadge}`}
                   size="xs"
                   variant="gradient"
                   gradient={{ from: "#8fbaeb", to: "#7fb1ea", deg: 180 }}
@@ -218,45 +209,36 @@ export default function DetailsSection() {
                 {task.type === "Web Dev" && (
                   <Box pos={"relative"}>
                     <Badge
-                      className={classes.descBadge}
+                      className="descBadge"
                       size="xs"
                       variant="gradient"
                       gradient={{ from: "#8fbaeb", to: "#7fb1ea", deg: 180 }}
                     >
                       Goal
                     </Badge>
-                    <Box className={classes.textPanel}>
+                    <Box className="textPanel" mih={55}>
                       <Text fz={14}>{task.goal}</Text>
                     </Box>
                   </Box>
                 )}
               </Box>
-              <Box pos={"relative"} h={`calc(100% - ${infoHeight}px`}>
+              <Box className="textBadgeFrame" flex={1}>
                 <Badge
-                  className={classes.descBadge}
+                  className="descBadge"
                   size="xs"
                   variant="gradient"
                   gradient={{ from: "#8fbaeb", to: "#7fb1ea", deg: 180 }}
                 >
                   Description
                 </Badge>
-                <Box
-                  className={`${classes.textPanel} ${classes.taskDesc}`}
-                  mih={91}
-                  mah={
-                    drawerState === "init"
-                      ? `calc(60vh - ${infoHeight + 60}px`
-                      : "calc(100vh - 155px)"
-                  }
-                  h={drawerState === "init" ? "100%" : "100%"}
-                >
+                <Box className={`textPanel ${classes.taskDesc}`} mih={91}>
                   <Text fz={14}>{task.desc}</Text>
                 </Box>
               </Box>
-            </Stack>
+            </Flex>
           )}
         </AnimatePresence>
-      </Box>
+      </Flex>
     </Box>
   );
 }

@@ -24,7 +24,3 @@ button.backBtn {
     opacity: 1;
   }
 }
-
-div.taskDescFrame {
-  white-space: pre-wrap;
-}
