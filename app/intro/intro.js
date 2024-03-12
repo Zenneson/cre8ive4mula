@@ -94,7 +94,14 @@ export default function Intro() {
   return (
     <>
       <Affix position={{ top: 20, left: 20 }}>
-        <Link href="/clientportal">Client Portal</Link>
+        <Link href="/clientportal">
+          <Text c={"#000"}>Client Portal</Text>
+        </Link>
+      </Affix>
+      <Affix position={{ top: 40, left: 20 }}>
+        <Link href="/signup">
+          <Text c={"#000"}>Sign Up</Text>
+        </Link>
       </Affix>
       <Group
         className={classes.centerFrame}
@@ -113,7 +120,7 @@ export default function Intro() {
           </Stack>
         </Center>
         <Center id="1" w={"100vw"} h={"100vh"} pos={"relative"}>
-          <Button className={classes.blank} component={Link} href="/blank">
+          <Button className={classes.blank} component={Link} href="/signup">
             Map Panel&apos;s Content Out
           </Button>
           <ModelScene />

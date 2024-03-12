@@ -12,15 +12,19 @@
   font-size: 32px;
 }
 
-.userBadge {
-  transition: opacity 150ms ease-in-out;
-  opacity: 0.3;
-  margin-top: 7px;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 1;
-  }
+.accountBadge {
+  transition: all 250ms ease-in-out;
+  font-family: var(--font-montserrat);
+  border-top: 1px solid rgb(110, 170, 234);
+  border-bottom: 2px solid rgb(4, 46, 90);
+  box-shadow:
+    rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset,
+    rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px,
+    rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 8px 8px;
 }
 
 .topRightBtns {
@@ -31,16 +35,6 @@
       opacity: 1;
     }
   }
-}
-
-.accountStatusBadge {
-  transition: all 250ms ease-in-out;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-  justify-content: flex-start;
-}
-
-.accountStatus {
-  font-weight: 900;
 }
 
 .notificationsBadge {

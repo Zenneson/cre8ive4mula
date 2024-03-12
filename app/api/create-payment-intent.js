@@ -1,5 +1,5 @@
 // This is your test secret API key.
-const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_SEC);
+const stripe = require("stripe")(process.env.NEXT_SECRET_STRIPE_KEY_TEST);
 
 const calculateOrderAmount = (items) => {
   // Replace this constant with a calculation of the order's amount

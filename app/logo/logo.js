@@ -30,8 +30,8 @@ export default function Logo() {
           initial="hidden"
           animate="visible"
           transition={{
-            default: { duration: 2, ease: "easeInOut" },
-            fill: { duration: 2, ease: [1, 0, 0.8, 1] },
+            default: { duration: 10, ease: "linear" },
+            fill: { duration: 15, ease: "linear" },
           }}
         />
       </motion.svg>

@@ -56,7 +56,14 @@ export default function ClientHeader() {
             <Title className={classes.companyName}>
               Sheaperd&rsquo;s Valley, LLC
             </Title>
-            <Badge size="md">Pro</Badge>
+            <Badge
+              className={classes.accountBadge}
+              size="lg"
+              variant="gradient"
+              gradient={{ from: "deepblue.3", to: "deepblue.9", deg: 180 }}
+            >
+              Pro
+            </Badge>
           </Flex>
           <Text mt={-8} fw={700} fz={12} c={"#fff"} tt={"uppercase"}>
             <Text c={"gray.4"} fz={12} component="span">

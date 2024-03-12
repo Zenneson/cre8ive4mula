@@ -10,7 +10,6 @@ import { doc, setDoc } from "firebase/firestore";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import { FaFlagCheckered, FaPlay } from "react-icons/fa";
 import { FaRegHandshake } from "react-icons/fa6";
 import { RiArrowRightDoubleFill } from "react-icons/ri";
@@ -21,21 +20,7 @@ import classes from "./styles/signup.module.css";
 
 export default function SignupForm() {
   const router = useRouter();
-  const [clientSecret, setClientSecret] = useState("");
   const { signupAccount, paymentPanel, setPaymentPanel } = useSignupForm();
-
-  useEffect(() => {
-    // Create a PaymentIntent as soon as the page loads
-    fetch("/app/api/create-payment-intent.js", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ items: [{ id: "pro-account" }] }),
-    })
-      .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
-  }, []);
 
   const form = useForm({
     initialValues: {
@@ -184,7 +169,7 @@ export default function SignupForm() {
         <form onSubmit={form.onSubmit(handleSignup)}>
           {paymentPanel === 0 && (
             <motion.div {...formAnimation}>
-              <StripeForm clientSecret={clientSecret} />
+              <StripeForm />
             </motion.div>
           )}
           {paymentPanel === 1 && (
