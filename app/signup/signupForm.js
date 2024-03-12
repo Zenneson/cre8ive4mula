@@ -2,7 +2,7 @@
 import { DotLottiePlayer } from "@dotlottie/react-player";
 import "@dotlottie/react-player/dist/index.css";
 import { auth, firestore } from "@libs/firebase";
-import { useJoinForm } from "@libs/store";
+import { useSignupForm } from "@libs/store";
 import { Box, Button, Group, Stack, Text } from "@mantine/core";
 import { isEmail, useForm } from "@mantine/form";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -10,16 +10,33 @@ import { doc, setDoc } from "firebase/firestore";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { FaFlagCheckered, FaPlay } from "react-icons/fa";
 import { FaRegHandshake } from "react-icons/fa6";
 import { RiArrowRightDoubleFill } from "react-icons/ri";
 import BrandInfo from "./brandInfo";
 import ClientInfo from "./clientInfo";
+import StripeForm from "./stripeForm.js/stripeForm";
 import classes from "./styles/signup.module.css";
 
 export default function SignupForm() {
   const router = useRouter();
-  const { premiereSignup, paymentPanel, setPaymentPanel } = useJoinForm();
+  const [clientSecret, setClientSecret] = useState("");
+  const { signupAccount, paymentPanel, setPaymentPanel } = useSignupForm();
+
+  useEffect(() => {
+    // Create a PaymentIntent as soon as the page loads
+    fetch("/app/api/create-payment-intent.js", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ items: [{ id: "pro-account" }] }),
+    })
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret));
+  }, []);
+
   const form = useForm({
     initialValues: {
       companyName: "",
@@ -100,7 +117,11 @@ export default function SignupForm() {
   };
 
   return (
-    <>
+    <Box
+      className={`${classes.formPanelFrame} ${
+        signupAccount !== "" && classes.formShowing
+      }`}
+    >
       <Box className={`panel lightShadow ${classes.formPanel}`} p={"xl"}>
         <Box pos={"absolute"} top={0} right={0}>
           {paymentPanel === 0 && (
@@ -110,7 +131,7 @@ export default function SignupForm() {
                 src={"/img/signup/subscribe.json"}
                 autoplay
                 loop
-                speed={0.4}
+                speed={0.5}
               />
             </motion.div>
           )}
@@ -147,7 +168,7 @@ export default function SignupForm() {
               <Box className={classes.subtitle}>
                 <Group gap={3}>
                   <Text c="#fff" fz={"inherit"} fw={700}>
-                    {premiereSignup ? "Premiere" : "Pro"} Account
+                    {signupAccount} Account
                   </Text>
                   <RiArrowRightDoubleFill opacity={0.25} />
                   <Text fz={12} opacity={0.5}>
@@ -163,7 +184,7 @@ export default function SignupForm() {
         <form onSubmit={form.onSubmit(handleSignup)}>
           {paymentPanel === 0 && (
             <motion.div {...formAnimation}>
-              <Text>Stripe Payment Form</Text>
+              <StripeForm clientSecret={clientSecret} />
             </motion.div>
           )}
           {paymentPanel === 1 && (
@@ -178,7 +199,7 @@ export default function SignupForm() {
           )}
         </form>
       </Box>
-      <Group justify="flex-end">
+      <Group justify="flex-end" mt={20}>
         {paymentPanel > 0 && (
           <Button
             className={`removeDetails ${classes.backBtn}`}
@@ -219,6 +240,6 @@ export default function SignupForm() {
               : "Share Details"}
         </Button>
       </Group>
-    </>
+    </Box>
   );
 }

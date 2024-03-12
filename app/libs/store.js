@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
 // Onboarding form state
-export const useJoinForm = create((set) => ({
-  paymentPanel: 0,
+export const useSignupForm = create((set) => ({
+  paymentPanel: -1,
   setPaymentPanel: (value) => set({ paymentPanel: value }),
   clientInfo: {},
   setClientInfo: (info) => set({ clientInfo: info }),
-  premiereSignup: false,
-  setpremiereSignup: (bool) => set({ premiereSignup: bool }),
+  signupAccount: "",
+  setSignupAccount: (value) => set({ signupAccount: value }),
 }));
