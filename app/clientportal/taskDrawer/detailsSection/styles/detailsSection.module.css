@@ -1,6 +1,7 @@
 div.detailsSection {
   transition: all 500ms ease-in-out;
   padding: 15px 20px;
+  padding-bottom: 23px;
   overflow: hidden;
   box-shadow:
     10px 10px 15px rgba(82, 140, 206, 1),
@@ -46,8 +47,12 @@ div.textFrame {
 
 div.taskDesc {
   transition: all 500ms ease-in-out;
+  overflow: hidden;
   overflow-y: scroll;
-  overflow-x: hidden;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
 
   &::-webkit-scrollbar {
     width: 5px;
@@ -67,4 +72,12 @@ div.taskDesc {
 
 .detailsBadge {
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+div.descFrame {
+  min-height: 91px;
+}
+
+p.desc {
+  box-sizing: border-box;
 }

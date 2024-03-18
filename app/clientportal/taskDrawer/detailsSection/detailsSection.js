@@ -43,6 +43,105 @@ export default function DetailsSection() {
     transition: { delay: 0.1, duration: 0.3 },
   };
 
+  const Details = () => {
+    return (
+      <Box pos={"relative"}>
+        <Badge
+          className={`descBadge ${classes.detailsBadge}`}
+          size="xs"
+          variant="gradient"
+          gradient={{ from: "#8fbaeb", to: "#7fb1ea", deg: 180 }}
+        >
+          Details
+        </Badge>
+        <Stack
+          className={`altPanel ${classes.detailsPanel}`}
+          mb={task.type === "Web Dev" ? 20 : 5}
+          gap={0}
+        >
+          <Group className={classes.dateRow} mt={5} mb={10}>
+            <Image
+              src="/img/clientDashboard/drawer/taskCalendar.svg"
+              alt={"Calendar"}
+              fit="contain"
+              opacity={0.25}
+              w={25}
+              ml={3.5}
+            />
+            <Text mr={10}>{task.date}</Text>
+            <Image
+              src="/img/clientDashboard/drawer/clock.svg"
+              alt={"Clock"}
+              fit="contain"
+              opacity={0.25}
+              w={23}
+              mr={-5}
+            />
+            <Text>{task.time}</Text>
+          </Group>
+          <Divider opacity={0.12} w={"98%"} mx={"auto"} />
+          <Box hidden={task.type !== "Design"}>
+            {colors && colors.length > 0 && (
+              <Group className={classes.detailsRow} my={5}>
+                <Image
+                  src="/img/clientDashboard/colorPalette.svg"
+                  alt={"Color Palette"}
+                  fit="contain"
+                  w={25}
+                />
+                <Flex
+                  justify={"flex-start"}
+                  align={"center"}
+                  gap={"20px"}
+                  pl={"3px"}
+                  mah={40}
+                >
+                  {colorRow}
+                </Flex>
+              </Group>
+            )}
+            {styleKeywords && styleKeywords.length > 0 && (
+              <DetailsRow
+                icon={"hashtag"}
+                alt={"Style Keywords"}
+                details={styleKeywords}
+              />
+            )}
+          </Box>
+          {websites && websites.length > 0 && (
+            <DetailsRow
+              icon={"website"}
+              alt={"Related Links"}
+              details={websites}
+            />
+          )}
+          {files && files.length > 0 && (
+            <DetailsRow
+              icon={"paperclip"}
+              alt={"Project Files"}
+              details={files}
+            />
+          )}
+        </Stack>
+        {task.type === "Web Dev" && (
+          <Box pos={"relative"}>
+            <Badge
+              className="descBadge"
+              gradient={{ from: "#8fbaeb", to: "#7fb1ea", deg: 180 }}
+              variant="gradient"
+              size="xs"
+            >
+              Goal
+            </Badge>
+            <Box className="textPanel" mih={55}>
+              <Text fz={14}>{task.goal}</Text>
+            </Box>
+          </Box>
+        )}
+      </Box>
+    );
+  };
+
   const DetailsRow = (props) => {
     const { icon, alt, details } = props;
     return (
@@ -80,16 +179,16 @@ export default function DetailsSection() {
   return (
     <Box
       className={`panel ${classes.detailsSection}`}
+      mr={5}
       h={`${
         drawerState === "init"
-          ? "calc(60vh - 30px)"
+          ? "calc(60% - 30px)"
           : drawerState === "showDetails"
-            ? "calc(100vh - 155px)"
+            ? "calc(100% - 120px)"
             : "88px"
       }`}
-      mr={5}
     >
-      <Flex direction={"column"} mah={"calc(100% - 80px)"} h={"100%"}>
+      <Flex direction={"column"} h={"100%"}>
         <Stack mb={15} ml={-7} gap={0}>
           <Group gap={5}>
             <Image
@@ -125,113 +224,24 @@ export default function DetailsSection() {
               component={motion.div}
               {...animationProps}
               direction={"column"}
+              h={"100%"}
               gap={20}
-              flex={1}
             >
-              <Box pos={"relative"}>
-                <Badge
-                  className={`descBadge ${classes.detailsBadge}`}
-                  size="xs"
-                  variant="gradient"
-                  gradient={{ from: "#8fbaeb", to: "#7fb1ea", deg: 180 }}
-                >
-                  Details
-                </Badge>
-                <Stack
-                  className={`altPanel ${classes.detailsPanel}`}
-                  mb={task.type === "Web Dev" ? 20 : 5}
-                  gap={0}
-                >
-                  <Group className={classes.dateRow} mt={5} mb={10}>
-                    <Image
-                      src="/img/clientDashboard/drawer/taskCalendar.svg"
-                      alt={"Calendar"}
-                      fit="contain"
-                      opacity={0.25}
-                      w={25}
-                      ml={3.5}
-                    />
-                    <Text mr={10}>{task.date}</Text>
-                    <Image
-                      src="/img/clientDashboard/drawer/clock.svg"
-                      alt={"Clock"}
-                      fit="contain"
-                      opacity={0.25}
-                      w={23}
-                      mr={-5}
-                    />
-                    <Text>{task.time}</Text>
-                  </Group>
-                  <Divider opacity={0.12} w={"98%"} mx={"auto"} />
-                  <Box hidden={task.type !== "Design"}>
-                    {colors && colors.length > 0 && (
-                      <Group className={classes.detailsRow} my={5}>
-                        <Image
-                          src="/img/clientDashboard/colorPalette.svg"
-                          alt={"Color Palette"}
-                          fit="contain"
-                          w={25}
-                        />
-                        <Flex
-                          justify={"flex-start"}
-                          align={"center"}
-                          gap={"20px"}
-                          pl={"3px"}
-                          mah={40}
-                        >
-                          {colorRow}
-                        </Flex>
-                      </Group>
-                    )}
-                    {styleKeywords && styleKeywords.length > 0 && (
-                      <DetailsRow
-                        icon={"hashtag"}
-                        alt={"Style Keywords"}
-                        details={styleKeywords}
-                      />
-                    )}
-                  </Box>
-                  {websites && websites.length > 0 && (
-                    <DetailsRow
-                      icon={"website"}
-                      alt={"Related Links"}
-                      details={websites}
-                    />
-                  )}
-                  {files && files.length > 0 && (
-                    <DetailsRow
-                      icon={"paperclip"}
-                      alt={"Project Files"}
-                      details={files}
-                    />
-                  )}
-                </Stack>
-                {task.type === "Web Dev" && (
-                  <Box pos={"relative"}>
-                    <Badge
-                      className="descBadge"
-                      size="xs"
-                      variant="gradient"
-                      gradient={{ from: "#8fbaeb", to: "#7fb1ea", deg: 180 }}
-                    >
-                      Goal
-                    </Badge>
-                    <Box className="textPanel" mih={55}>
-                      <Text fz={14}>{task.goal}</Text>
-                    </Box>
-                  </Box>
-                )}
-              </Box>
-              <Box className="textBadgeFrame" flex={1}>
+              <Details />
+              <Box
+                className={`textBadgeFrame ${classes.descFrame}`}
+                pos={"relative"}
+                flex={1}
+              >
                 <Badge
                   className="descBadge"
-                  size="xs"
-                  variant="gradient"
                   gradient={{ from: "#8fbaeb", to: "#7fb1ea", deg: 180 }}
+                  variant="gradient"
+                  size="xs"
                 >
                   Description
                 </Badge>
-                <Box className={`textPanel ${classes.taskDesc}`} mih={91}>
+                <Box className={`textPanel ${classes.taskDesc}`} h={"100%"}>
                   <Text fz={14}>{task.desc}</Text>
                 </Box>
               </Box>
