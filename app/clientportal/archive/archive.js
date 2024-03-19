@@ -53,68 +53,74 @@ export default function Archive() {
 
     return (
       <Table.Tr key={index}>
-        <Grid className={classes.archiveTaskGrid}>
-          <Grid.Col maw={"73px"} ta={"center"} ml={10}>
-            <Badge color={typeColor} variant="filled" size="xs">
-              {task.type}
-            </Badge>
-          </Grid.Col>
-          <Grid.Col span="auto">
-            <Title className={classes.archiveTaskTitle} order={4} lineClamp={1}>
-              <Group gap={10}>
-                <Tooltip
-                  label={
-                    task.phase === "submitted"
-                      ? "Task Submitted"
-                      : "Task Delivered"
-                  }
-                  position="top"
-                >
-                  <Image
-                    className={
-                      task.phase === "submitted" && classes.yellowFilter
-                    }
-                    src={
-                      task.phase === "submitted"
-                        ? "/img/menu/submitTask.svg"
-                        : "/img/clientDashboard/taskIcon.svg"
-                    }
-                    height={20}
-                    alt={
+        <Table.Td p={0}>
+          <Grid className={classes.archiveTaskGrid}>
+            <Grid.Col maw={"73px"} ta={"center"} ml={10}>
+              <Badge color={typeColor} variant="filled" size="xs">
+                {task.type}
+              </Badge>
+            </Grid.Col>
+            <Grid.Col span="auto">
+              <Title
+                className={classes.archiveTaskTitle}
+                order={4}
+                lineClamp={1}
+              >
+                <Group gap={10}>
+                  <Tooltip
+                    label={
                       task.phase === "submitted"
                         ? "Task Submitted"
                         : "Task Delivered"
                     }
-                  />
-                </Tooltip>
-                {task.title}
-              </Group>
-            </Title>
-          </Grid.Col>
-          <Grid.Col span="content">
-            <Badge
-              rightSection={<FaRegComments size={12} />}
-              color="gray.4"
-              variant="outline"
-              size="sm"
-            >
-              {task.comments}
-            </Badge>
-          </Grid.Col>
-          <Grid.Col span="content">
-            <Button
-              className={classes.viewTaskBtn}
-              onClick={() => {
-                setNotiDrawerOpen(false);
-                setDrawerOpen(true);
-              }}
-              variant="light"
-              mr={10}
-            >
-              Open
-            </Button>
-          </Grid.Col>
-        </Grid>
+                    position="top"
+                  >
+                    <Image
+                      className={
+                        task.phase === "submitted" && classes.yellowFilter
+                      }
+                      src={
+                        task.phase === "submitted"
+                          ? "/img/menu/submitTask.svg"
+                          : "/img/clientDashboard/taskIcon.svg"
+                      }
+                      height={20}
+                      alt={
+                        task.phase === "submitted"
+                          ? "Task Submitted"
+                          : "Task Delivered"
+                      }
+                    />
+                  </Tooltip>
+                  {task.title}
+                </Group>
+              </Title>
+            </Grid.Col>
+            <Grid.Col span="content">
+              <Badge
+                rightSection={<FaRegComments size={12} />}
+                color="gray.4"
+                variant="outline"
+                size="sm"
+              >
+                {task.comments}
+              </Badge>
+            </Grid.Col>
+            <Grid.Col span="content">
+              <Button
+                className={classes.viewTaskBtn}
+                onClick={() => {
+                  setNotiDrawerOpen(false);
+                  setDrawerOpen(true);
+                }}
+                variant="light"
+                mr={10}
+              >
+                Open
+              </Button>
+            </Grid.Col>
+          </Grid>
+        </Table.Td>
       </Table.Tr>
     );
   });

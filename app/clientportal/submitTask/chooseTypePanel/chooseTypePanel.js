@@ -22,13 +22,7 @@ export default function ChooseTypePanel(props) {
   const serviceList = setupData?.services;
   const serviceBadges = serviceList?.map((service, i) => {
     return (
-      <Badge
-        key={i}
-        className={classes.serviceBadges}
-        color={setupData.color}
-        size={"xs"}
-        variant="filled"
-      >
+      <Badge key={i} color={setupData.color} size={"xs"} variant="filled">
         {service}
       </Badge>
     );

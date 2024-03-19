@@ -112,24 +112,9 @@ export default function AddTags(props) {
           rightSectionPointerEvents="all"
           rightSection={
             <ActionIcon w={40} mr={10} className={"actionBtn actionBtnDimmed"}>
-              <FaPlus size={15} />
+              <FaPlus size={12} />
             </ActionIcon>
           }
-          // rightSectionWidth={50}
-          // rightSectionPointerEvents="none"
-          // rightSection={
-          //   modeVar.length > 0 && (
-          //     <Stack gap={0} align="center">
-          //       <Title c={"gray.6"} fz={12}>
-          //         {modeVar.length}
-          //       </Title>
-          //       <Divider w={15} color={"gray.6"} />
-          //       <Title c={"gray.6"} fz={12}>
-          //         {maxAllowed}
-          //       </Title>
-          //     </Stack>
-          //   )
-          // }
           maxTags={maxAllowed}
           leftSectionWidth={50}
           leftSectionPointerEvents="all"

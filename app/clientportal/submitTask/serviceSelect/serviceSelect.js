@@ -1,4 +1,5 @@
 import {
+  ActionIcon,
   CloseButton,
   Combobox,
   InputBase,
@@ -74,7 +75,7 @@ export default function ServiceSelect(props) {
       <Combobox.Target>
         <InputBase
           {...form.getInputProps("service")}
-          value={form.values.service || search}
+          value={form.values.service || search || ""}
           tabIndex={tabIndex}
           onChange={(event) => {
             combobox.openDropdown();
@@ -103,7 +104,13 @@ export default function ServiceSelect(props) {
                 }}
               />
             ) : (
-              <FiChevronsDown size={17} />
+              <ActionIcon
+                w={40}
+                mr={10}
+                className={"actionBtn actionBtnDimmed"}
+              >
+                <FiChevronsDown size={15} />
+              </ActionIcon>
             )
           }
         />

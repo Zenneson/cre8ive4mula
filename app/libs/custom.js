@@ -157,3 +157,22 @@ export const useViewportHeight = () => {
   const { height } = useViewportSize();
   return height;
 };
+
+// Determines if an object is empty.
+export const isEmpty = (obj) => {
+  for (const key in obj) {
+    if (Object.hasOwnProperty.call(obj, key)) {
+      const value = obj[key];
+
+      if (typeof value === "string" && value.trim() !== "") {
+        return false;
+      }
+
+      if (Array.isArray(value) && value.length > 0) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+};

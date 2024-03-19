@@ -1,4 +1,5 @@
 "use client";
+import { isEmpty } from "@libs/custom";
 import {
   ActionIcon,
   Badge,
@@ -52,8 +53,10 @@ export default function TaskForm(props) {
   };
 
   const form = useForm({ initialValues });
+
   const [selectedService, setSelectedService] = useState(formData.service);
   const [searchService, setSearchService] = useState("");
+
   const [showReviewBtn, setShowReviewBtn] = useState(false);
 
   useEffect(() => {
@@ -74,11 +77,10 @@ export default function TaskForm(props) {
   }, [form, taskType]);
 
   useEffect(() => {
-    form.setFieldValue("type", taskType);
-    const isDirty = form.isDirty();
+    if (form.values.type !== taskType) form.setFieldValue("type", taskType);
 
     return () => {
-      if (!isDirty) {
+      if (isEmpty(form.values)) {
         setTimeout(() => {
           setSubmissionPanel(0);
           setTaskType("");
@@ -158,7 +160,7 @@ export default function TaskForm(props) {
   };
 
   return (
-    <form onSubmit={() => setFormData(form.values)}>
+    <form onSubmit={() => console.log("Form submitted:", form.values)}>
       <motion.div {...animation}>
         <Group
           className={classes.taskFormTitle}
@@ -294,7 +296,7 @@ export default function TaskForm(props) {
                     mr={10}
                     className={"actionBtn actionBtnDimmed"}
                   >
-                    <FaPlus size={15} />
+                    <FaPlus size={12} />
                   </ActionIcon>
                 }
               />
@@ -302,9 +304,9 @@ export default function TaskForm(props) {
           </Stack>
           {taskType === "Design" && (
             <ColorPanel
+              form={form}
               colors={form.values.colors}
               setColors={form.setFieldValue}
-              form={form}
             />
           )}
         </Stack>
@@ -341,7 +343,10 @@ export default function TaskForm(props) {
                 <Button
                   className={classes.reviewBtn}
                   rightSection={<FaPlay size={8} />}
-                  onClick={() => setSubmissionPanel(2)}
+                  onClick={() => {
+                    setSubmissionPanel(2);
+                    setFormData(form.values);
+                  }}
                 >
                   Review
                 </Button>

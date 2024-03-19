@@ -67,7 +67,7 @@ export default function ColorPanel(props) {
     }
   };
 
-  const colorRow = form.values.colors.map((color, index) => {
+  const colorRow = form.values.colors?.map((color, index) => {
     const rgb = hexToRgb(color);
     const removeColor = (colorToRemove) => {
       setColors(
@@ -90,16 +90,16 @@ export default function ColorPanel(props) {
   return (
     <Box>
       <Grid gutter={20}>
-        <Grid.Col span="3">
+        <Grid.Col span="2.6">
           <Popover
             disabled={colors.length === 10}
             position="top"
-            width="target"
+            width="200px"
             py={10}
           >
             <Popover.Target>
               <Button
-                h={40}
+                h={45}
                 w={"100%"}
                 leftSection={
                   colors.length === 0 ? (
@@ -159,11 +159,11 @@ export default function ColorPanel(props) {
         <Grid.Col span="auto">
           <Flex
             className="altPanel"
-            justify={"flex-start"}
+            justify={colors.length < 10 ? "flex-start" : "space-between"}
             align={"center"}
             gap={"6.2%"}
-            mah={40}
-            pl={"20px"}
+            h={45}
+            py={15}
           >
             {colorRow}
             {colorRow.length < 8 && (

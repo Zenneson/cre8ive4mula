@@ -101,7 +101,13 @@ export default function BrandInfo(props) {
                 </Title>
               </Stack>
             ) : (
-              <FiChevronsDown size={17} />
+              <ActionIcon
+                w={40}
+                mr={10}
+                className={"actionBtn actionBtnDimmed"}
+              >
+                <FiChevronsDown size={15} />
+              </ActionIcon>
             )
           }
           value={form.values.desiredServices}
@@ -142,7 +148,7 @@ export default function BrandInfo(props) {
                 mr={10}
                 className={"actionBtn actionBtnDimmed"}
               >
-                <FaPlus size={15} />
+                <FaPlus size={12} />
               </ActionIcon>
             }
           />

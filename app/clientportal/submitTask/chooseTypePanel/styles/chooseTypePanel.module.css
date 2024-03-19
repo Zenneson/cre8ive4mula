@@ -4,6 +4,7 @@
   animation: fadeIn 1s ease;
   animation-delay: 750ms;
   animation-fill-mode: forwards;
+  margin-bottom: -5px;
   opacity: 0;
 
   h4 {

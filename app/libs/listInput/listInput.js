@@ -29,7 +29,7 @@ export default function ListInput(props) {
           rightSectionWidth={40}
           rightSection={
             <ActionIcon w={40} mr={10} className={"actionBtn actionBtnDimmed"}>
-              <FaPlus size={15} />
+              <FaPlus size={12} />
             </ActionIcon>
           }
         />
