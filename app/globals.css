@@ -57,7 +57,7 @@ p {
   border: 1px solid rgba(122, 174, 238, 0.5);
   box-shadow:
     10px 10px 15px #528cce,
-    -10px -10px 15px #67a2e6;
+    -10px -10px 15px rgba(103, 162, 230, 0.4);
 }
 
 .innerPanel {

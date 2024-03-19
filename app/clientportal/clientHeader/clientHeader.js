@@ -12,11 +12,13 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { usePortalState } from "../portalStore";
 import classes from "./styles/clientHeader.module.css";
 
 export default function ClientHeader() {
   const { activePanel, setNotiDrawerOpen } = usePortalState();
+  const [companyName, setCompanyName] = useState("Welcome to Cre8ive 4mula");
 
   const animationProps = {
     initial: { y: -100, opacity: 0 },
@@ -53,9 +55,7 @@ export default function ClientHeader() {
       >
         <Stack gap={0}>
           <Flex align={"center"} gap={10}>
-            <Title className={classes.companyName}>
-              Sheaperd&rsquo;s Valley, LLC
-            </Title>
+            <Title className={classes.companyName}>{companyName}</Title>
             <Badge
               className={classes.accountBadge}
               size="lg"

@@ -8,17 +8,18 @@ import {
 import { shallowEqual } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 import { FiChevronsDown } from "react-icons/fi";
+import { useSubissionData } from "../../portalStore";
 import classes from "./styles/serviceSelect.module.css";
 
 export default function ServiceSelect(props) {
-  const { form, typeServices, tabIndex } = props;
+  const { form, typeServices, tabIndex, value, setValue, search, setSearch } =
+    props;
+  const { formData, setFormData } = useSubissionData();
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
 
   const [data, setData] = useState([]);
-  const [value, setValue] = useState(form.values.service || null);
-  const [search, setSearch] = useState("");
 
   useEffect(() => {
     if (typeServices && typeServices.length > 0 && data.length === 0) {
@@ -60,9 +61,11 @@ export default function ServiceSelect(props) {
         if (val === "$create") {
           setData((current) => [...current, search]);
           setValue(search);
+          setFormData({ ...formData, service: search });
         } else {
           setValue(val);
           setSearch(val);
+          setFormData({ ...formData, service: val });
         }
 
         combobox.closeDropdown();

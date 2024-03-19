@@ -32,6 +32,7 @@
   box-shadow: inset 0px 1px 3px 0px rgba(83, 140, 205, 0.25);
 }
 
+button.resetBtn,
 button.backBtn {
   background: none !important;
   box-shadow: none !important;
@@ -41,6 +42,10 @@ button.backBtn {
   &:hover {
     opacity: 1;
   }
+}
+
+button.resetBtn {
+  margin-left: -20px;
 }
 
 button.reviewBtn {

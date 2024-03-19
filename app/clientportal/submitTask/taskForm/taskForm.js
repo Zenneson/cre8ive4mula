@@ -24,6 +24,7 @@ import { useEffect, useState } from "react";
 import { FaPlay, FaPlus } from "react-icons/fa";
 import { RiArrowRightDoubleFill } from "react-icons/ri";
 import { TbHelpSmall, TbHelpSquareFilled } from "react-icons/tb";
+import { VscClearAll } from "react-icons/vsc";
 import { usePortalState, useSubissionData } from "../../portalStore";
 import ColorPanel from "../colorPanel/colorPanel";
 import ServiceSelect from "../serviceSelect/serviceSelect";
@@ -32,25 +33,27 @@ import classes from "./styles/taskFrom.module.css";
 
 export default function TaskForm(props) {
   const { typeColor, typeServices, titleRef } = props;
-  const { taskType, setFormData, setSubmissionPanel } = useSubissionData();
+  const { taskType, formData, setFormData, setSubmissionPanel, setTaskType } =
+    useSubissionData();
   const { helpMode, setHelpMode, deliverInfo, setDeliverInfo } =
     usePortalState();
 
-  const form = useForm({
-    initialValues: {
-      type: "",
-      title: "",
-      service: "",
-      goal: "",
-      desc: "",
-      styleKeywords: [],
-      deliveryFormats: [],
-      websites: [],
-      colors: [],
-      files: [],
-    },
-  });
+  const initialValues = {
+    type: "",
+    title: "",
+    service: "",
+    goal: "",
+    desc: "",
+    styleKeywords: [],
+    deliveryFormats: [],
+    websites: [],
+    colors: [],
+    files: [],
+  };
 
+  const form = useForm({ initialValues });
+  const [selectedService, setSelectedService] = useState(formData.service);
+  const [searchService, setSearchService] = useState("");
   const [showReviewBtn, setShowReviewBtn] = useState(false);
 
   useEffect(() => {
@@ -66,12 +69,22 @@ export default function TaskForm(props) {
       taskType !== "Web Dev" &&
       form.values.title.length > 0 &&
       form.values.desc.length > 0 &&
-      form.values.service.length > 0;
+      form.values.service?.length > 0;
     setShowReviewBtn(isWebDevComplete || isOtherTaskComplete);
   }, [form, taskType]);
 
   useEffect(() => {
     form.setFieldValue("type", taskType);
+    const isDirty = form.isDirty();
+
+    return () => {
+      if (!isDirty) {
+        setTimeout(() => {
+          setSubmissionPanel(0);
+          setTaskType("");
+        }, 500);
+      }
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -145,12 +158,12 @@ export default function TaskForm(props) {
   };
 
   return (
-    <form onSubmit={() => console.log(form.values)}>
+    <form onSubmit={() => setFormData(form.values)}>
       <motion.div {...animation}>
         <Group
           className={classes.taskFormTitle}
           justify="space-between"
-          mt={50}
+          mt={-100}
         >
           <Group gap={5}>
             <Image
@@ -181,13 +194,18 @@ export default function TaskForm(props) {
                 autoFocus={true}
                 placeholder="Title..."
                 tabIndex={1}
+                onBlur={() => setFormData(form.values)}
               />
             </Grid.Col>
             <Grid.Col span="content">
               <ServiceSelect
                 form={form}
-                typeServices={typeServices}
                 tabIndex={2}
+                typeServices={typeServices}
+                value={selectedService}
+                setValue={setSelectedService}
+                search={searchService}
+                setSearch={setSearchService}
               />
             </Grid.Col>
           </Grid>
@@ -198,17 +216,18 @@ export default function TaskForm(props) {
               minRows={2}
               tabIndex={taskType === "Web Dev" ? 3 : "NaN"}
               placeholder="Intended Goal..."
+              onBlur={() => setFormData(form.values)}
             />
           </Box>
           <Textarea
             {...form.getInputProps("desc")}
             placeholder="Description..."
             tabIndex={taskType === "Web Dev" ? 4 : 3}
+            onBlur={() => setFormData(form.values)}
             minRows={7}
             maxRows={7}
             autosize
           />
-
           <Stack hidden={taskType !== "Design"} gap={20}>
             {taskType === "Design" && (
               <Group grow>
@@ -281,54 +300,71 @@ export default function TaskForm(props) {
               />
             </Group>
           </Stack>
-          {taskType === "Design" && <ColorPanel form={form} />}
+          {taskType === "Design" && (
+            <ColorPanel
+              colors={form.values.colors}
+              setColors={form.setFieldValue}
+              form={form}
+            />
+          )}
         </Stack>
         <Stack mt={20} gap={20}>
-          <Group justify="flex-end" gap={5}>
+          <Group justify="space-between">
             <Button
-              className={classes.backBtn}
-              onClick={() => setSubmissionPanel(0)}
-              leftSection={
-                <FaPlay
-                  size={10}
-                  style={{
-                    transform: "rotate(180deg)",
-                  }}
-                />
-              }
+              className={classes.resetBtn}
+              leftSection={<VscClearAll size={18} />}
+              onClick={() => {
+                form.reset();
+                setSelectedService(null);
+                setSearchService("");
+                titleRef.current.focus();
+              }}
             >
-              Back
+              Clear Form
             </Button>
-            {showReviewBtn ? (
+            <Group justify="flex-end" gap={5}>
               <Button
-                className={classes.reviewBtn}
-                rightSection={<FaPlay size={8} />}
-                onClick={() => {
-                  setFormData(form.values);
-                  setSubmissionPanel(2);
-                }}
-              >
-                Review
-              </Button>
-            ) : (
-              <HoverCard shadow="md" position="bottom" withArrow>
-                <HoverCard.Target>
-                  <Image
-                    className={classes.helpIcon}
-                    src={"/img/clientDashboard/submit/help.svg"}
-                    alt={"Help Notice"}
-                    height={25}
+                className={classes.backBtn}
+                onClick={() => setSubmissionPanel(0)}
+                leftSection={
+                  <FaPlay
+                    size={10}
+                    style={{
+                      transform: "rotate(180deg)",
+                    }}
                   />
-                </HoverCard.Target>
-                <HoverCard.Dropdown>
-                  <Text c={"#000"} fz={12}>
-                    Add a title, description and
-                    <br />
-                    select a service to continue.
-                  </Text>
-                </HoverCard.Dropdown>
-              </HoverCard>
-            )}
+                }
+              >
+                Back
+              </Button>
+              {showReviewBtn ? (
+                <Button
+                  className={classes.reviewBtn}
+                  rightSection={<FaPlay size={8} />}
+                  onClick={() => setSubmissionPanel(2)}
+                >
+                  Review
+                </Button>
+              ) : (
+                <HoverCard shadow="md" position="bottom" withArrow>
+                  <HoverCard.Target>
+                    <Image
+                      className={classes.helpIcon}
+                      src={"/img/clientDashboard/submit/help.svg"}
+                      alt={"Help Notice"}
+                      height={25}
+                    />
+                  </HoverCard.Target>
+                  <HoverCard.Dropdown>
+                    <Text c={"#000"} fz={12}>
+                      Add a title, description and
+                      <br />
+                      select a service to continue.
+                    </Text>
+                  </HoverCard.Dropdown>
+                </HoverCard>
+              )}
+            </Group>
           </Group>
         </Stack>
         <Dialog

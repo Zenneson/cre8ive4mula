@@ -3,4 +3,9 @@ div.boardsFrame {
   align-content: flex-start;
   padding: 20px;
   padding-left: 125px;
+  max-width: 1800px;
+  min-width: 1150px;
+  padding-left: 125px;
+  padding-top: 75px;
+  padding-bottom: 0;
 }

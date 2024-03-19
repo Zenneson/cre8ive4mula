@@ -28,7 +28,7 @@ export default function Panels(props) {
             {...animation}
             className={classes.dashPanel}
           >
-            <Dashboard taskData={taskData} />
+            <Dashboard taskData={[]} />
           </Box>
         </motion.div>
       )}

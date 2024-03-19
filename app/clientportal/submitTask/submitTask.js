@@ -80,6 +80,7 @@ export default function SubmitTask() {
       };
     }
   };
+
   const setupData = setup();
   useEffect(() => {
     if (setupData && setupData.services) {

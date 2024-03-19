@@ -14,15 +14,15 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { RiArrowRightDoubleFill } from "react-icons/ri";
-import { taskInfo } from "../../../../public/data/taskData";
 import ColorPuck from "../../colorPuck/colorPuck";
 import { usePortalState } from "../../portalStore";
 import classes from "./styles/detailsSection.module.css";
 
-export default function DetailsSection() {
+export default function DetailsSection(props) {
+  const { taskInfo } = props;
   const { drawerState } = usePortalState();
   const task = taskInfo[2];
-  const typeColor = taskColor(task.type);
+  const typeColor = taskColor(task?.type);
 
   const [colors, setColors] = useState([]);
   const [styleKeywords, setStyleKeywords] = useState([]);
@@ -30,10 +30,10 @@ export default function DetailsSection() {
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
-    setColors(task.colors || []);
-    setStyleKeywords(task.styleKeywords || []);
-    setWebsites(task.websites || []);
-    setFiles(task.files || []);
+    setColors(task?.colors || []);
+    setStyleKeywords(task?.styleKeywords || []);
+    setWebsites(task?.websites || []);
+    setFiles(task?.files || []);
   }, [task]);
 
   const animationProps = {
@@ -56,7 +56,7 @@ export default function DetailsSection() {
         </Badge>
         <Stack
           className={`altPanel ${classes.detailsPanel}`}
-          mb={task.type === "Web Dev" ? 20 : 5}
+          mb={task?.type === "Web Dev" ? 20 : 5}
           gap={0}
         >
           <Group className={classes.dateRow} mt={5} mb={10}>
@@ -68,7 +68,7 @@ export default function DetailsSection() {
               w={25}
               ml={3.5}
             />
-            <Text mr={10}>{task.date}</Text>
+            <Text mr={10}>{task?.date}</Text>
             <Image
               src="/img/clientDashboard/drawer/clock.svg"
               alt={"Clock"}
@@ -77,10 +77,10 @@ export default function DetailsSection() {
               w={23}
               mr={-5}
             />
-            <Text>{task.time}</Text>
+            <Text>{task?.time}</Text>
           </Group>
           <Divider opacity={0.12} w={"98%"} mx={"auto"} />
-          <Box hidden={task.type !== "Design"}>
+          <Box hidden={task?.type !== "Design"}>
             {colors && colors.length > 0 && (
               <Group className={classes.detailsRow} my={5}>
                 <Image
@@ -123,7 +123,7 @@ export default function DetailsSection() {
             />
           )}
         </Stack>
-        {task.type === "Web Dev" && (
+        {task?.type === "Web Dev" && (
           <Box pos={"relative"}>
             <Badge
               className="descBadge"
@@ -134,7 +134,7 @@ export default function DetailsSection() {
               Goal
             </Badge>
             <Box className="textPanel" mih={55}>
-              <Text fz={14}>{task.goal}</Text>
+              <Text fz={14}>{task?.goal}</Text>
             </Box>
           </Box>
         )}
@@ -200,11 +200,11 @@ export default function DetailsSection() {
             <Stack gap={0} w={"calc(100% - 60px)"}>
               <Group gap={3}>
                 <Badge color={typeColor} variant={"filled"} size="xs">
-                  {task.type}
+                  {task?.type}
                 </Badge>
                 <RiArrowRightDoubleFill opacity={0.25} />
                 <Text tt={"uppercase"} fz={14} fw={600}>
-                  {task.service}
+                  {task?.service}
                 </Text>
               </Group>
               <Title
@@ -213,7 +213,7 @@ export default function DetailsSection() {
                 lineClamp={1}
                 order={3}
               >
-                {task.title}
+                {task?.title}
               </Title>
             </Stack>
           </Group>
@@ -242,7 +242,7 @@ export default function DetailsSection() {
                   Description
                 </Badge>
                 <Box className={`textPanel ${classes.taskDesc}`} h={"100%"}>
-                  <Text fz={14}>{task.desc}</Text>
+                  <Text fz={14}>{task?.desc}</Text>
                 </Box>
               </Box>
             </Flex>

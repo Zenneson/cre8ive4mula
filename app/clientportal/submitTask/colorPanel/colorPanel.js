@@ -22,9 +22,8 @@ import ColorPuck from "../../colorPuck/colorPuck";
 import classes from "./styles/colorPanel.module.css";
 
 export default function ColorPanel(props) {
-  const { form } = props;
+  const { form, colors, setColors } = props;
   const [selectedColor, setSelectedColor] = useState("#FF0000");
-  const [colors, setColors] = useState([]);
 
   useDidUpdate(() => {
     form.setFieldValue("colors", colors);
@@ -41,7 +40,7 @@ export default function ColorPanel(props) {
             </Text>
           </Group>
         ),
-        message: "Thex hex value given is invalid.",
+        message: "The hex value given is invalid.",
         color: "red",
       });
     }
@@ -64,14 +63,17 @@ export default function ColorPanel(props) {
         colors.length === 0
           ? [...form.values.colors, selectedColor]
           : [...colors, selectedColor];
-      setColors(newColors);
+      setColors("colors", newColors);
     }
   };
 
   const colorRow = form.values.colors.map((color, index) => {
     const rgb = hexToRgb(color);
     const removeColor = (colorToRemove) => {
-      setColors(colors.filter((color) => color !== colorToRemove));
+      setColors(
+        "colors",
+        colors.filter((color) => color !== colorToRemove)
+      );
     };
 
     return (

@@ -1,5 +1,8 @@
 "use client";
+import CustomLoader from "@libs/loader/customLoader";
 import { Drawer, Flex, Group, Image, Tooltip } from "@mantine/core";
+import { useEffect, useState } from "react";
+// import { taskInfo } from "../../../public/data/taskData";
 import { usePortalState } from "../portalStore";
 import DetailsSection from "./detailsSection/detailsSection";
 import classes from "./styles/taskDrawer.module.css";
@@ -8,6 +11,21 @@ import TaskChat from "./taskChat/taskChat";
 export default function TaskDrawer() {
   const { drawerOpen, setDrawerOpen, drawerState, setDrawerState } =
     usePortalState();
+
+  const taskInfo = [];
+  const [taskData, setTaskData] = useState(taskInfo || []);
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+  useEffect(() => {
+    if (taskInfo && taskInfo.length > 0) {
+      setTaskData(taskInfo);
+      setDrawerState("init");
+    } else {
+      setDataLoaded(true);
+      setDrawerState("showDetails");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleDrawerHeight = () => {
     const action = drawerState !== "showDetails" ? "showDetails" : "init";
@@ -72,9 +90,23 @@ export default function TaskDrawer() {
           />
         </Tooltip>
       </Group>
-      <Flex direction={"column"} h={"calc(100vh - 40px)"}>
-        <DetailsSection />
-        <TaskChat />
+      <Flex
+        direction={"column"}
+        h={"calc(100vh - 40px)"}
+        className={
+          !taskData || taskData.length === 0
+            ? classes.taskDrawerContentWrapper
+            : ""
+        }
+      >
+        {dataLoaded ? (
+          <CustomLoader mode={"default"} />
+        ) : (
+          <>
+            <DetailsSection taskInfo={taskData} />
+            <TaskChat />
+          </>
+        )}
       </Flex>
     </Drawer>
   );

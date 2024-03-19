@@ -35,3 +35,12 @@ section.taskDrawerContent {
   max-width: 1000px;
   min-width: 625px;
 }
+
+div.taskDrawerContentWrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow:
+    10px 10px 15px #528cce,
+    -10px -10px 15px rgba(103, 162, 230, 0.4);
+}

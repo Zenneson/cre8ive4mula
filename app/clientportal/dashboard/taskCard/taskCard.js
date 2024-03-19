@@ -30,13 +30,14 @@ export default function TaskCard(props) {
     num,
     viewTask,
     setViewTask,
+    showDetails,
+    setShowDetails,
     taskData,
     boardType,
     index,
     draggableId,
     scrollToElement,
   } = props;
-  const [showDetails, setShowDetails] = useState(false);
   const [brightDetails, setBrightDetails] = useState(false);
   const { allowReorder, loaded, setLoaded, setDrawerOpen, setNotiDrawerOpen } =
     usePortalState();
@@ -70,18 +71,18 @@ export default function TaskCard(props) {
     },
   };
 
-  const colorWay = taskData.colors?.map((color, index) => (
+  const colorWay = taskData?.colors?.map((color, index) => (
     <Avatar key={index} size={16} className={classes.colorSwatch}>
       <ColorSwatch color={color} />
     </Avatar>
   ));
 
-  const tagsList = taskData.tags?.map((tag, index) =>
-    index < taskData.tags.length - 1 ? `${tag}, ` : tag
+  const tagsList = taskData?.tags?.map((tag, index) =>
+    index < taskData?.tags.length - 1 ? `${tag}, ` : tag
   );
 
-  const websitesList = taskData.websites?.map((site, index) =>
-    index < taskData.websites.length - 1 ? `${site}, ` : site
+  const websitesList = taskData?.websites?.map((site, index) =>
+    index < taskData?.websites.length - 1 ? `${site}, ` : site
   );
 
   return (
@@ -130,13 +131,13 @@ export default function TaskCard(props) {
                   <Group gap={viewTask ? 5 : 0}>
                     <Badge
                       className={classes.taskType}
-                      color={taskColor(taskData.type)}
-                      bg={viewTask ? taskColor(taskData.type) : "transparent"}
+                      color={taskColor(taskData?.type)}
+                      bg={viewTask ? taskColor(taskData?.type) : "transparent"}
                       variant={viewTask ? "filled" : "light"}
                       size={viewTask ? "xs" : "sm"}
                       ml={viewTask ? -7 : -9}
                     >
-                      {taskData.type}
+                      {taskData?.type}
                     </Badge>
                   </Group>
                   <Flex align={"center"} gap={0}>
@@ -144,7 +145,7 @@ export default function TaskCard(props) {
                       className={classes.taskDate}
                       opacity={viewTask ? 1 : 0.25}
                     >
-                      {taskData.date}
+                      {taskData?.date}
                     </Text>
                     <Tooltip
                       label="Close"
@@ -169,7 +170,7 @@ export default function TaskCard(props) {
                   </Flex>
                 </Group>
                 <Title className={classes.title} truncate="end" lineClamp={2}>
-                  {taskData.title}
+                  {taskData?.title}
                 </Title>
                 <Group
                   gap={0}
@@ -178,12 +179,12 @@ export default function TaskCard(props) {
                 >
                   <Badge
                     className={classes.taskService}
-                    color={taskColor(taskData.type)}
+                    color={taskColor(taskData?.type)}
                     variant="dot"
                     c={"#fff"}
                     size="sm"
                   >
-                    {taskData.service}
+                    {taskData?.service}
                   </Badge>
                   <Badge
                     className={classes.filesAttached}
@@ -193,7 +194,7 @@ export default function TaskCard(props) {
                     c={"#fff"}
                     mr={5}
                   >
-                    {taskData.files.length}
+                    {taskData?.files.length}
                   </Badge>
                   <Avatar.Group>{colorWay}</Avatar.Group>
                 </Group>
@@ -211,7 +212,7 @@ export default function TaskCard(props) {
                     w={infoListWidth}
                     gap={0}
                   >
-                    {taskData.tags && taskData.tags.length > 0 && (
+                    {taskData?.tags && taskData?.tags.length > 0 && (
                       <Flex className={classes.addedTags} gap={5}>
                         <Image
                           src="/img/clientDashboard/hashtag.svg"
@@ -223,7 +224,7 @@ export default function TaskCard(props) {
                         <Text className={classes.tagsList}>{tagsList}</Text>
                       </Flex>
                     )}
-                    {taskData.websites && taskData.websites.length > 0 && (
+                    {taskData?.websites && taskData?.websites.length > 0 && (
                       <Flex className={classes.addedWebsites} gap={5}>
                         <Image
                           src="/img/clientDashboard/website.svg"
@@ -254,7 +255,7 @@ export default function TaskCard(props) {
                       >
                         12
                       </Badge>
-                      {taskData.alerts && (
+                      {taskData?.alerts && (
                         <MdOutlineFiberNew color={"#CED4DA"} size={27} />
                       )}
                     </Group>

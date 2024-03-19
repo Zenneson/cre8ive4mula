@@ -18,13 +18,16 @@ import {
 import { useResizeObserver } from "@mantine/hooks";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { RxShadowNone } from "react-icons/rx";
 import { usePortalState } from "../../portalStore";
 import TaskCard from "../taskCard/taskCard";
 import classes from "./styles/board.module.css";
 
-export default function Board({ taskData, boardType, num }) {
-  const [tasks, setTasks] = useState(taskData);
+export default function Board(props) {
+  const { num, taskData, boardType } = props;
+  const [tasks, setTasks] = useState(taskData || []);
   const [taskVisibility, setTaskVisibility] = useState({});
+  const [detailsVisibility, setDetailsVisibility] = useState({});
   const [removeHeight, setRemoveHeight] = useState(false);
   const { loaded, allowReorder, setAllowReorder } = usePortalState();
   const frameRef = useRef();
@@ -103,11 +106,12 @@ export default function Board({ taskData, boardType, num }) {
   const closeCards = () => {
     if (cardsAreClosed) return;
     setTaskVisibility({});
+    setDetailsVisibility({});
   };
 
   const getHeight = () => {
-    const init = 165.2;
-    const num = tasks.length - 1;
+    const init = 155.2;
+    const num = tasks?.length - 1;
     const taskH = 108.1;
     const add = num * taskH;
 
@@ -119,23 +123,31 @@ export default function Board({ taskData, boardType, num }) {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Stack
+        ref={ref}
         component={motion.div}
         {...animationProps}
         className={`panel ${classes.boards}`}
         onAnimationComplete={() => setRemoveHeight(true)}
         h={!removeHeight && initHeight}
-        w="33%"
         mih={initHeight}
         mah={"calc(100vh - 100px)"}
+        w="33%"
         gap={0}
         p={0}
-        ref={ref}
       >
-        <Group className={classes.boardsHeader} justify="space-between" mb={-3}>
-          <Group gap={8}>
-            <Title order={4} fw={900}>
-              {tasks.length}
-            </Title>
+        <Group
+          className={classes.boardsHeader}
+          justify="space-between"
+          mb={tasks.length > 0 ? -10 : 0}
+        >
+          <Group gap={5}>
+            {tasks && tasks?.length > 0 ? (
+              <Title order={5} fw={700}>
+                {tasks.length}
+              </Title>
+            ) : (
+              <RxShadowNone style={{ marginBottom: 2, opacity: 0.35 }} />
+            )}
             <Title order={6} fw={400}>
               {boardType}
             </Title>
@@ -176,9 +188,8 @@ export default function Board({ taskData, boardType, num }) {
           component={ScrollArea.Autosize}
           onScrollPositionChange={handleScroll}
           p={0}
-          pb={7}
           mx={5}
-          mb={5}
+          mb={0}
         >
           <Box className={scrollClass} />
           <Box
@@ -206,24 +217,32 @@ export default function Board({ taskData, boardType, num }) {
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 <AnimatePresence>
-                  {tasks.map((task, i) => (
-                    <TaskCard
-                      num={i}
-                      index={task.id}
-                      draggableId={task.id}
-                      key={task.id}
-                      taskData={task}
-                      boardType={boardType}
-                      scrollToElement={scrollToElement}
-                      viewTask={taskVisibility[task.id] || false}
-                      setViewTask={(viewTask) =>
-                        setTaskVisibility((prev) => ({
-                          ...prev,
-                          [task.id]: viewTask,
-                        }))
-                      }
-                    />
-                  ))}
+                  {tasks.length > 0 &&
+                    tasks?.map((task, i) => (
+                      <TaskCard
+                        num={i}
+                        index={task?.id}
+                        draggableId={task?.id}
+                        key={task?.id}
+                        taskData={task}
+                        boardType={boardType}
+                        scrollToElement={scrollToElement}
+                        viewTask={taskVisibility[task?.id] || false}
+                        setViewTask={(viewTask) => {
+                          setTaskVisibility((prev) => ({
+                            ...prev,
+                            [task?.id]: viewTask,
+                          }));
+                        }}
+                        showDetails={detailsVisibility[task?.id] || false}
+                        setShowDetails={(showDetails) => {
+                          setDetailsVisibility((prev) => ({
+                            ...prev,
+                            [task?.id]: showDetails,
+                          }));
+                        }}
+                      />
+                    ))}
                   <Space h={8} />
                 </AnimatePresence>
                 {provided.placeholder}

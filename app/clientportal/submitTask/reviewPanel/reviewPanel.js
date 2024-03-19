@@ -92,18 +92,20 @@ export default function ReviewPanel() {
             <Badge
               className={classes.taskType}
               color={typeColor}
-              size="md"
               variant={"filled"}
+              size="md"
             >
               {taskType}
             </Badge>
             <RiArrowRightDoubleFill size={20} opacity={0.25} />
-            <Text>{formData.service}</Text>
+            <Text tt={"uppercase"} fz={14}>
+              {formData.service}
+            </Text>
           </Group>
         </Stack>
         <Stack gap={20}>
           <Stack className="panel" gap={20} p={20}>
-            {formData.type === "Web Dev" && (
+            {taskType === "Web Dev" && (
               <Box pos={"relative"}>
                 <Badge
                   className={"descBadge"}
