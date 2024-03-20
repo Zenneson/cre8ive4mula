@@ -52,6 +52,9 @@ export default function ChooseTypePanel(props) {
       <Transition mounted={taskType} transition="scale-y" timingFunction="ease">
         {(styles) => (
           <Box style={styles}>
+            <Group className={`panel ${classes.serviceBadgesFrame}`}>
+              {serviceBadges}
+            </Group>
             <Grid className={`panel ${classes.typeDescFrame}`}>
               <Grid.Col span="content">
                 <Title tt={"uppercase"} order={4}>
@@ -64,9 +67,6 @@ export default function ChooseTypePanel(props) {
                 </Text>
               </Grid.Col>
             </Grid>
-            <Group className={`panel ${classes.serviceBadgesFrame}`}>
-              {serviceBadges}
-            </Group>
             <Group justify="flex-end" mt={20}>
               <Button rightSection={<FaPlay size={8} />} onClick={goToForm}>
                 Continue

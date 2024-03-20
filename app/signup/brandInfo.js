@@ -79,6 +79,13 @@ export default function BrandInfo(props) {
         />
         <Divider opacity={0.2} />
         <MultiSelect
+          classNames={{
+            wrapper: "inputWrapper",
+            input: `defaultInput ${classes.desiredServicesInput}`,
+            option: classes.desiredServicesOption,
+            pill: classes.desiredServicesPill,
+            dropdown: "selectDropdown",
+          }}
           name="desiredServices"
           placeholder={
             form.values.desiredServices.length < 4
@@ -112,12 +119,6 @@ export default function BrandInfo(props) {
           }
           value={form.values.desiredServices}
           onChange={(value) => form.setFieldValue("desiredServices", value)}
-          classNames={{
-            wrapper: "inputWrapper",
-            input: `defaultInput ${classes.desiredServicesInput}`,
-            option: classes.desiredServicesOption,
-            pill: classes.desiredServicesPill,
-          }}
         />
         <Group grow gap={20}>
           <ListInput placeholder={"Relevant Websites..."} />

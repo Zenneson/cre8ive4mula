@@ -36,10 +36,10 @@ export default function ColorPuck(props) {
             bg={color}
           />
           <Stack className={classes.hoverCardInfo} c={"#000"} gap={0}>
-            <Text fz={13} tt={"uppercase"}>
+            <Text fw={700} fz={15} tt={"uppercase"}>
               {color}
             </Text>
-            <Text fz={13}>
+            <Text fz={12}>
               RGB ( {rgb.r}, {rgb.g}, {rgb.b} )
             </Text>
             {isTaskFrom && (
@@ -47,13 +47,15 @@ export default function ColorPuck(props) {
                 className={classes.removeColorBtn}
                 fullWidth
                 variant="filled"
-                color="red.7"
-                c={"#fff"}
+                c="red.7"
                 mt={3}
                 onClick={() => removeColor(color)}
               >
                 <Group gap={5} align="center">
-                  <FaCut /> Remove
+                  <FaCut />{" "}
+                  <Text fw={700} fz={11}>
+                    Remove
+                  </Text>
                 </Group>
               </Badge>
             )}

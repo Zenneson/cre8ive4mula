@@ -93,3 +93,10 @@ img.iconImage {
   filter: invert(46%) sepia(7%) saturate(14%) hue-rotate(27deg) brightness(98%)
     contrast(89%);
 }
+
+.popoverDropdown {
+  background: linear-gradient(0deg, #d6d6d6, #ffffff) !important;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: none;
+  color: #000;
+}

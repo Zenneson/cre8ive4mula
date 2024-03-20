@@ -1,6 +1,11 @@
 "use client";
-import { ActionIcon, Popover, TagsInput } from "@mantine/core";
-import { shallowEqual, useSetState } from "@mantine/hooks";
+import { ActionIcon, Input, Popover } from "@mantine/core";
+import {
+  shallowEqual,
+  useClickOutside,
+  useFocusWithin,
+  useSetState,
+} from "@mantine/hooks";
 import { useEffect, useRef, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { TbHelpSquareFilled } from "react-icons/tb";
@@ -8,9 +13,10 @@ import { usePortalState } from "../../portalStore";
 import classes from "./styles/taskFrom.module.css";
 
 export default function AddTags(props) {
-  const { form, placeholder, mode, tabIndex, icon } = props;
+  const { form, placeholder, mode, tabIndex } = props;
   const { helpMode, setHelpMode, deliverInfo, setDeliverInfo } =
     usePortalState();
+
   const [styleKeywords, setStyleKeywords] = useState([]);
   const [deliveryFormats, setDeliveryFormats] = useState([]);
   const [websites, setWebsites] = useSetState({
@@ -18,6 +24,10 @@ export default function AddTags(props) {
     isValid: true,
     invalidValue: "",
   });
+
+  const { ref, focused } = useFocusWithin();
+  const popoverDropdownRef = useClickOutside(() => setHoveringPopover(false));
+  const [hoveringPopover, setHoveringPopover] = useState(false);
 
   const styleKeywordsRef = useRef(null);
   const deliveryFormatsRef = useRef(null);
@@ -62,17 +72,8 @@ export default function AddTags(props) {
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      event.preventDefault();
-      setTimeout(() => {
-        modeRef.current?.focus();
-      }, 100);
+      // TODO: Add to the list of on Enter
     }
-  };
-
-  const pillWidth = () => {
-    if (mode === "styleKeywords") return 57.5;
-    if (mode === "deliveryFormats") return 123;
-    if (mode === "websites") return 85.5;
   };
 
   useEffect(() => {
@@ -83,67 +84,64 @@ export default function AddTags(props) {
 
   return (
     <Popover
-      position="bottom"
-      opened={modeRef.current?.focused}
-      offset={{ crossAxis: -8, mainAxis: 20 }}
-      width={371}
+      opened={focused || hoveringPopover}
+      position="top"
+      width={"target"}
+      closeOnClickOutside={false}
     >
       <Popover.Target>
-        <TagsInput
-          classNames={{
-            wrapper: `inputWrapper ${classes.wrapperInput}`,
-            input: `defaultInput ${classes.tagsInput}`,
-            inputField: classes.tagsInputField,
-            pillsList: classes.tagsPillsList,
-          }}
-          ref={modeRef}
-          tabIndex={tabIndex}
-          value={modeVar || form.values[mode]}
-          onChange={modeSetter}
-          placeholder={modeVar.length < maxAllowed - 2 ? placeholder : ""}
-          mah={50}
-          styles={{
-            pill: {
-              minWidth: pillWidth(),
-              maxWidth: pillWidth(),
-              justifyContent: "space-between",
-            },
-          }}
-          onKeyDown={handleKeyDown}
-          rightSectionPointerEvents="all"
-          rightSection={
-            <ActionIcon w={40} mr={10} className={"actionBtn actionBtnDimmed"}>
-              <FaPlus size={12} />
-            </ActionIcon>
-          }
-          maxTags={maxAllowed}
-          leftSectionWidth={50}
-          leftSectionPointerEvents="all"
-          leftSection={
-            <ActionIcon
-              className={"actionBtnDimmed"}
-              variant="transparent"
-              color="#777"
-              onClick={() => {
-                if (helpMode !== mode || !deliverInfo) {
-                  setHelpMode(mode);
-                  setDeliverInfo(true);
-                } else {
-                  setDeliverInfo(!deliverInfo);
-                  if (deliverInfo) {
-                    setTimeout(() => {
-                      setHelpMode("");
-                    }, 300);
+        <Input.Wrapper ref={ref}>
+          <Input
+            ref={modeRef}
+            className="inputWrapper"
+            tabIndex={tabIndex}
+            value={modeVar || form.values[mode]}
+            onChange={modeSetter}
+            mah={50}
+            onKeyDown={handleKeyDown}
+            placeholder={modeVar.length < maxAllowed - 2 ? placeholder : ""}
+            leftSectionWidth={50}
+            leftSectionPointerEvents="all"
+            leftSection={
+              <ActionIcon
+                className={"actionBtnDimmed"}
+                variant="transparent"
+                color="#777"
+                onClick={() => {
+                  if (helpMode !== mode || !deliverInfo) {
+                    setHelpMode(mode);
+                    setDeliverInfo(true);
+                  } else {
+                    setDeliverInfo(!deliverInfo);
+                    if (deliverInfo) {
+                      setTimeout(() => {
+                        setHelpMode("");
+                      }, 300);
+                    }
                   }
-                }
-              }}
-            >
-              <TbHelpSquareFilled className={classes.tagsInput} size={30} />
-            </ActionIcon>
-          }
-        />
+                }}
+              >
+                <TbHelpSquareFilled className={classes.tagsInput} size={30} />
+              </ActionIcon>
+            }
+            rightSectionPointerEvents="all"
+            rightSection={
+              <ActionIcon
+                className={"actionBtn actionBtnDimmed"}
+                w={40}
+                mr={10}
+              >
+                <FaPlus size={12} />
+              </ActionIcon>
+            }
+          />
+        </Input.Wrapper>
       </Popover.Target>
-      <Popover.Dropdown with ta={"center"}>
+      <Popover.Dropdown
+        ref={popoverDropdownRef}
+        className="selectDropdown"
+        onMouseEnter={() => setHoveringPopover(true)}
+      >
         Huh
       </Popover.Dropdown>
     </Popover>

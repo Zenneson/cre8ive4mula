@@ -9,31 +9,31 @@ import ReviewPanel from "./reviewPanel/reviewPanel";
 import classes from "./styles/submitTask.module.css";
 import TaskForm from "./taskForm/taskForm";
 
-export default function SubmitTask() {
-  const types = [
-    {
-      text: "Design",
-      color: "deeporange.5",
-      svg1: "/img/clientDashboard/submit/psd.json",
-      svg2: "/img/clientDashboard/submit/ai.json",
-      desc: "Design services encompass all aspects of graphic and web design. This includes the creation of visual elements, website layout design, and other design-related tasks, ensuring a cohesive and aesthetically pleasing visual identity.",
-    },
-    {
-      text: "Content",
-      color: "deepred.6",
-      svg1: "/img/clientDashboard/submit/docx.json",
-      svg2: "/img/clientDashboard/submit/pdf.json",
-      desc: "Content services involve SEO, editing, and management of digital content. The focus is on optimizing content for search engines, refining the clarity and effectiveness of the text, and managing content to align with strategic goals.",
-    },
-    {
-      text: "Web Dev",
-      color: "#ffd941",
-      svg1: "/img/clientDashboard/submit/css.json",
-      svg2: "/img/clientDashboard/submit/js.json",
-      desc: "Web Development services cover the addition of new features, maintenance, and overall management of websites. This includes ensuring website functionality, responsiveness, and security, as well as implementing updates and improvements.",
-    },
-  ];
+const types = [
+  {
+    text: "Design",
+    color: "deeporange.5",
+    svg1: "/img/clientDashboard/submit/psd.json",
+    svg2: "/img/clientDashboard/submit/ai.json",
+    desc: "Design services encompass all aspects of graphic and web design. This includes the creation of visual elements, website layout design, and other design-related tasks, ensuring a cohesive and aesthetically pleasing visual identity.",
+  },
+  {
+    text: "Content",
+    color: "deepred.6",
+    svg1: "/img/clientDashboard/submit/docx.json",
+    svg2: "/img/clientDashboard/submit/pdf.json",
+    desc: "Content services involve SEO, editing, and management of digital content. The focus is on optimizing content for search engines, refining the clarity and effectiveness of the text, and managing content to align with strategic goals.",
+  },
+  {
+    text: "Web Dev",
+    color: "#ffd941",
+    svg1: "/img/clientDashboard/submit/css.json",
+    svg2: "/img/clientDashboard/submit/js.json",
+    desc: "Web Development services cover the addition of new features, maintenance, and overall management of websites. This includes ensuring website functionality, responsiveness, and security, as well as implementing updates and improvements.",
+  },
+];
 
+export default function SubmitTask() {
   const titleRef = useRef();
   const { taskType, submissionPanel, setSubmissionPanel } = useSubissionData();
   const [typeServices, setTypeServices] = useState();
@@ -87,6 +87,24 @@ export default function SubmitTask() {
       setTypeServices(setupData.services);
     }
   }, [setupData]);
+
+  const preloadLottieFile = (fileUrl) => {
+    const img = new Image();
+    img.src = fileUrl;
+  };
+
+  useEffect(() => {
+    const lottieFiles = [
+      "/img/clientDashboard/submit/psd.json",
+      "/img/clientDashboard/submit/ai.json",
+      "/img/clientDashboard/submit/docx.json",
+      "/img/clientDashboard/submit/pdf.json",
+      "/img/clientDashboard/submit/css.json",
+      "/img/clientDashboard/submit/js.json",
+    ];
+
+    lottieFiles.forEach(preloadLottieFile);
+  }, []);
 
   return (
     <Group className={classes.centerFrame} left={submitPage()} gap={"0px"}>

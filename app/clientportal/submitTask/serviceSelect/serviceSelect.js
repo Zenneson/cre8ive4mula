@@ -53,9 +53,10 @@ export default function ServiceSelect(props) {
       w={245}
       store={combobox}
       withinPortal={false}
+      p={0}
       classNames={{
-        dropdown: classes.selectDropdown,
-        options: classes.options,
+        dropdown: "selectDropdown",
+        options: classes.selectOptions,
         option: classes.selectOption,
       }}
       onOptionSubmit={(val) => {

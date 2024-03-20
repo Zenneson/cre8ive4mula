@@ -4,19 +4,31 @@ div.hoverCardInfo {
 
 div.hoverCardColor {
   border-radius: 25px;
-  width: 8px;
-  box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.15);
+  width: 10px;
+  box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.2);
 }
 
 .removeColorBtn {
+  background: transparent;
   transition: all 250ms ease-in-out;
+  border: 1px solid var(--mantine-color-red-7);
+  border-radius: 5px;
   cursor: pointer;
   opacity: 0.4;
 
   &:hover {
+    background: var(--mantine-color-red-7);
     opacity: 1;
+
+    svg {
+      fill: #fff;
+    }
+    p {
+      color: #fff;
+    }
   }
 }
+
 .colorCircle {
   transition: all 250ms ease-in-out;
   filter: drop-shadow(0 2px 1px rgba(0, 0, 0, 0.4));

@@ -15,32 +15,33 @@ import { FaPlay } from "react-icons/fa";
 import { IoMdTime } from "react-icons/io";
 import { LiaEyeSolid } from "react-icons/lia";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { RxShadowNone } from "react-icons/rx";
 import { VscClearAll } from "react-icons/vsc";
 import { usePortalState } from "../portalStore";
 import classes from "./styles/notiDrawer.module.css";
 
 const alerts = [
-  {
-    id: 1,
-    unread: true,
-    type: "message",
-    message: "Your task submission has been received.",
-    time: new Date("2024-02-25T08:30:00"),
-  },
-  {
-    id: 2,
-    type: "ready",
-    unread: false,
-    message: "A designer has been assigned to your task.",
-    time: new Date("2024-02-25T10:15:00"),
-  },
-  {
-    id: 3,
-    unread: false,
-    type: "message",
-    message: "Your task has been completed and is awaiting review.",
-    time: new Date("2024-02-26T13:45:00"),
-  },
+  // {
+  //   id: 1,
+  //   unread: true,
+  //   type: "message",
+  //   message: "Your task submission has been received.",
+  //   time: new Date("2024-02-25T08:30:00"),
+  // },
+  // {
+  //   id: 2,
+  //   type: "ready",
+  //   unread: false,
+  //   message: "A designer has been assigned to your task.",
+  //   time: new Date("2024-02-25T10:15:00"),
+  // },
+  // {
+  //   id: 3,
+  //   unread: false,
+  //   type: "message",
+  //   message: "Your task has been completed and is awaiting review.",
+  //   time: new Date("2024-02-26T13:45:00"),
+  // },
 ];
 
 export default function NotiDrawer() {
@@ -59,7 +60,7 @@ export default function NotiDrawer() {
   const notiList = alerts.map((alert) => (
     <List.Item className={`altPanel ${classes.notiItem}`} key={alert.id}>
       <Badge
-        className={`altPanel ${classes.notiBadge}`}
+        className={classes.notiBadge}
         leftSection={<LedLight unread={alert.unread} />}
         variant="transparent"
         color={alert.unread ? "#fff" : "rgba(255, 255, 255, 0.25)"}
@@ -89,7 +90,7 @@ export default function NotiDrawer() {
       </Group>
       <List mt={2}>
         <List.Item icon={<FaPlay size={10} />}>
-          <Text c={"deepblue.9"} fw={600} fz={12} lh={1}>
+          <Text c={"gray.7"} fw={600} fz={12} lh={1}>
             {alert.message}
           </Text>
         </List.Item>
@@ -112,11 +113,11 @@ export default function NotiDrawer() {
       withOverlay={false}
       opened={notiDrawerOpen}
       position="right"
-      size={400}
+      size={410}
       onClose={() => setNotiDrawerOpen(false)}
     >
       <Box className={`panel ${classes.notiDrawerBox}`}>
-        <Box className={`altPanel drawerTopBtns ${classes.notiCloseBtn}`}>
+        <Box className={`drawerTopBtns ${classes.notiCloseBtn}`}>
           <Tooltip position="left" label="Close" offset={15}>
             <Image
               className={classes.closeBtn}
@@ -126,7 +127,7 @@ export default function NotiDrawer() {
             />
           </Tooltip>
         </Box>
-        <Group gap={5} w={"100%"} ml={50} mt={-3} mb={20}>
+        <Group gap={5} w={"100%"} ml={40} mt={-3} mb={20}>
           <Title className={classes.notiTitle} tt={"uppercase"}>
             Notifications
           </Title>
@@ -138,15 +139,24 @@ export default function NotiDrawer() {
             alt="Close"
           />
         </Group>
-        <List listStyleType="none" spacing={0}>
-          {notiList}
-        </List>
-        <Group className={classes.clearListBtn} mt={-15} gap={5}>
-          <VscClearAll color={"#fff"} size={15} />
-          <Text tt={"uppercase"} c={"gray.0"} fz={11} fw={700}>
-            Clear List
-          </Text>
-        </Group>
+        {alerts.length === 0 ? (
+          <Group ta={"center"} justify="center" gap={5} w={"100%"}>
+            <RxShadowNone size={20} style={{ opacity: 0.35 }} />
+            <Text className={classes.noNotiText}>No Notifications</Text>
+          </Group>
+        ) : (
+          <>
+            <List listStyleType="none" spacing={0}>
+              {notiList}
+            </List>
+            <Group className={classes.clearListBtn} mt={-15} gap={5}>
+              <VscClearAll color={"#fff"} size={15} />
+              <Text tt={"uppercase"} c={"gray.0"} fz={11} fw={700}>
+                Clear List
+              </Text>
+            </Group>
+          </>
+        )}
       </Box>
     </Drawer>
   );
