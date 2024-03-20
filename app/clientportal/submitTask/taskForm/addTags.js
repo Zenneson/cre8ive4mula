@@ -1,5 +1,5 @@
 "use client";
-import { ActionIcon, Popover, TagsInput, Text } from "@mantine/core";
+import { ActionIcon, Popover, TagsInput } from "@mantine/core";
 import { shallowEqual, useSetState } from "@mantine/hooks";
 import { useEffect, useRef, useState } from "react";
 import { FaPlus } from "react-icons/fa";
@@ -8,7 +8,7 @@ import { usePortalState } from "../../portalStore";
 import classes from "./styles/taskFrom.module.css";
 
 export default function AddTags(props) {
-  const { form, placeholder, mode, tabIndex } = props;
+  const { form, placeholder, mode, tabIndex, icon } = props;
   const { helpMode, setHelpMode, deliverInfo, setDeliverInfo } =
     usePortalState();
   const [styleKeywords, setStyleKeywords] = useState([]);
@@ -83,9 +83,10 @@ export default function AddTags(props) {
 
   return (
     <Popover
-      position="bottom-start"
-      opened={!websites.isValid && mode === "websites"}
-      offset={{ mainAxis: 20, crossAxis: -123 }}
+      position="bottom"
+      opened={modeRef.current?.focused}
+      offset={{ crossAxis: -8, mainAxis: 20 }}
+      width={371}
     >
       <Popover.Target>
         <TagsInput
@@ -142,14 +143,8 @@ export default function AddTags(props) {
           }
         />
       </Popover.Target>
-      <Popover.Dropdown ta={"center"}>
-        <Text fz={13} c={"#777"}>
-          <Text component="span" fw={700}>
-            &quot;{websites.invalidValue[websites.invalidValue.length - 1]}
-            &quot;
-          </Text>{" "}
-          is not valid web address (e.g. .com, .net, .org)
-        </Text>
+      <Popover.Dropdown with ta={"center"}>
+        Huh
       </Popover.Dropdown>
     </Popover>
   );

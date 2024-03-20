@@ -53,7 +53,7 @@ const MenuBtn = (props) => {
         setTaskType(button.text);
       }}
     >
-      <Stack gap={0} justify="center" align="center">
+      <Stack gap={0} justify="center" align="center" pt={10}>
         <Group pos={"relative"} w={"87%"} gap={5} mb={-10}>
           <ColorSwatch className={classes.typeColor} size={10} color={color} />
           <Title order={5} ta={"left"}>

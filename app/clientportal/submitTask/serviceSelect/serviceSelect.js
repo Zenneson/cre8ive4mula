@@ -75,7 +75,7 @@ export default function ServiceSelect(props) {
       <Combobox.Target>
         <InputBase
           {...form.getInputProps("service")}
-          value={form.values.service || search || ""}
+          value={search || ""}
           tabIndex={tabIndex}
           onChange={(event) => {
             combobox.openDropdown();
@@ -92,7 +92,7 @@ export default function ServiceSelect(props) {
           rightSectionPointerEvents={value === null ? "none" : "all"}
           rightSectionWidth={35}
           rightSection={
-            value !== null ? (
+            search !== "" ? (
               <CloseButton
                 size="sm"
                 variant="transparent"

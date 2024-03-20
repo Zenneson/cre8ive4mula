@@ -77,17 +77,16 @@ export default function ReviewPanel() {
   const DetailsRow = (props) => {
     const { icon, alt, details } = props;
     return (
-      <Group mb={10} className={`altPanel ${classes.detailsFrame}`}>
-        <Group gap={7} w={135}>
+      <Group mb={5} className={classes.detailsFrame}>
+        <Group gap={10} w={135}>
           <Image
-            className={classes.reviewIcon}
             src={`/img/clientDashboard/${icon}.svg`}
             alt={alt}
             fit="contain"
-            mt={4}
+            mt={5}
             w={25}
           />
-          <Title order={1} fz={10} mt={3} tt={"uppercase"}>
+          <Title order={1} fz={10} mt={5} tt={"uppercase"}>
             {alt}
           </Title>
         </Group>
@@ -138,14 +137,14 @@ export default function ReviewPanel() {
           </Group>
         </Stack>
         <Stack gap={20}>
-          <Stack className="panel" gap={20} p={20}>
+          <Stack className="panel" gap={20} p={20} pr={18}>
             {taskType === "Web Dev" && (
               <Box pos={"relative"}>
                 <Badge
                   className={"descBadge"}
-                  size="xs"
-                  variant="gradient"
                   gradient={{ from: "#8fbaeb", to: "#7fb1ea", deg: 180 }}
+                  variant="gradient"
+                  size="xs"
                 >
                   Goal
                 </Badge>
@@ -161,12 +160,14 @@ export default function ReviewPanel() {
               >
                 Description
               </Badge>
-              <Box className={"textPanel"} mih={91}>
+              <Box className={"textPanel"} mih={90}>
                 {formData.desc}
               </Box>
             </Box>
           </Stack>
-          <Stack className="panel" gap={5}>
+
+          {/* Bottom Panel  */}
+          <Stack className="panel" gap={5} pb={15}>
             {websites && websites.length > 0 && (
               <DetailsRow
                 icon={"website"}
@@ -181,43 +182,47 @@ export default function ReviewPanel() {
                 details={files}
               />
             )}
-            {styleKeywords && styleKeywords.length > 0 && (
-              <DetailsRow
-                icon={"hashtag"}
-                alt={"Style Keywords"}
-                details={styleKeywords}
-              />
-            )}
-            {formData && formData.colors.length > 0 && (
-              <Group className={`altPanel ${classes.detailsFrame}`} my={5}>
-                <Group gap={7} pr={12.5}>
-                  <Image
-                    className={classes.reviewIcon}
-                    src="/img/clientDashboard/colorPalette.svg"
-                    alt={"Color Palette"}
-                    fit="contain"
-                    my={4}
-                    w={25}
+            {formData.type === "Design" && (
+              <>
+                {styleKeywords && styleKeywords.length > 0 && (
+                  <DetailsRow
+                    icon={"hashtag"}
+                    alt={"Style Keywords"}
+                    details={styleKeywords}
                   />
-                  <Title order={1} fz={10} mt={1} tt={"uppercase"}>
-                    Colors:
-                  </Title>
-                </Group>
-                <Flex
-                  justify={"flex-start"}
-                  align={"center"}
-                  gap={"17.6%"}
-                  pl={"3px"}
-                  mah={40}
-                >
-                  {colorRow}
-                </Flex>
-              </Group>
+                )}
+                {formData.colors && formData.colors.length > 0 && (
+                  <Group className={classes.detailsFrame} mt={5}>
+                    <Group gap={10} pr={12.5}>
+                      <Image
+                        src="/img/clientDashboard/colorPalette.svg"
+                        alt={"Color Palette"}
+                        fit="contain"
+                        my={4}
+                        w={25}
+                      />
+                      <Title order={1} fz={10} mt={1} tt={"uppercase"}>
+                        Colors
+                      </Title>
+                    </Group>
+                    <Flex
+                      justify={"flex-start"}
+                      align={"center"}
+                      gap={"17.6%"}
+                      pl={"3px"}
+                      mah={40}
+                    >
+                      {colorRow}
+                    </Flex>
+                  </Group>
+                )}
+              </>
             )}
           </Stack>
-          <Group justify="flex-end">
+          <Group justify="flex-end" gap={5}>
             <Button
               className={classes.backBtn}
+              onClick={() => setSubmissionPanel(1)}
               leftSection={
                 <FaPlay
                   size={8}
@@ -226,14 +231,12 @@ export default function ReviewPanel() {
                   }}
                 />
               }
-              onClick={() => setSubmissionPanel(1)}
             >
               Back
             </Button>
             <Button
               rightSection={<FaFlagCheckered size={15} />}
               onClick={() => setActivePanel(0)}
-              fz={15}
             >
               Submit Task
             </Button>

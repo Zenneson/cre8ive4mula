@@ -34,8 +34,14 @@ import classes from "./styles/taskFrom.module.css";
 
 export default function TaskForm(props) {
   const { typeColor, typeServices, titleRef } = props;
-  const { taskType, formData, setFormData, setSubmissionPanel, setTaskType } =
-    useSubissionData();
+  const {
+    taskType,
+    formData,
+    setFormData,
+    submissionPanel,
+    setSubmissionPanel,
+    setTaskType,
+  } = useSubissionData();
   const { helpMode, setHelpMode, deliverInfo, setDeliverInfo } =
     usePortalState();
 
@@ -78,11 +84,14 @@ export default function TaskForm(props) {
 
   useEffect(() => {
     if (form.values.type !== taskType) form.setFieldValue("type", taskType);
+  }, [form, taskType]);
 
+  useEffect(() => {
     return () => {
       if (isEmpty(form.values)) {
         setTimeout(() => {
           setSubmissionPanel(0);
+          form.setFieldValue("type", "");
           setTaskType("");
         }, 500);
       }
@@ -159,8 +168,15 @@ export default function TaskForm(props) {
     transition: { delay: 1 },
   };
 
+  const closeHelp = () => {
+    setTimeout(() => {
+      setHelpMode("");
+      setDeliverInfo(false);
+    }, 300);
+  };
+
   return (
-    <form onSubmit={() => console.log("Form submitted:", form.values)}>
+    <form>
       <motion.div {...animation}>
         <Group
           className={classes.taskFormTitle}
@@ -235,6 +251,7 @@ export default function TaskForm(props) {
               <Group grow>
                 <AddTags
                   form={form}
+                  icon={"hashtag"}
                   placeholder="Style Defining Keywords..."
                   mode={"styleKeywords"}
                   deliverInfo={deliverInfo}
@@ -243,6 +260,7 @@ export default function TaskForm(props) {
                 />
                 <AddTags
                   form={form}
+                  icon={"paperclip"}
                   placeholder="Delivery File Formats..."
                   mode={"deliveryFormats"}
                   deliverInfo={deliverInfo}
@@ -254,6 +272,7 @@ export default function TaskForm(props) {
             <Group grow>
               <AddTags
                 form={form}
+                icon={"website"}
                 placeholder="Relevant Websites..."
                 mode={"websites"}
                 deliverInfo={deliverInfo}
@@ -271,7 +290,7 @@ export default function TaskForm(props) {
                   <ActionIcon
                     className={"actionBtnDimmed"}
                     variant="transparent"
-                    color="#fff"
+                    color="#777"
                     onClick={() => {
                       if (helpMode !== "files") {
                         setHelpMode("files");
@@ -286,7 +305,10 @@ export default function TaskForm(props) {
                       }
                     }}
                   >
-                    <TbHelpSquareFilled size={30} />
+                    <TbHelpSquareFilled
+                      className={classes.tagsInput}
+                      size={30}
+                    />
                   </ActionIcon>
                 }
                 rightSectionPointerEvents="all"
@@ -327,7 +349,10 @@ export default function TaskForm(props) {
             <Group justify="flex-end" gap={5}>
               <Button
                 className={classes.backBtn}
-                onClick={() => setSubmissionPanel(0)}
+                onClick={() => {
+                  setSubmissionPanel(0);
+                  closeHelp();
+                }}
                 leftSection={
                   <FaPlay
                     size={10}
@@ -346,6 +371,7 @@ export default function TaskForm(props) {
                   onClick={() => {
                     setSubmissionPanel(2);
                     setFormData(form.values);
+                    closeHelp();
                   }}
                 >
                   Review
@@ -374,7 +400,7 @@ export default function TaskForm(props) {
         </Stack>
         <Dialog
           className="infoDialog"
-          opened={deliverInfo}
+          opened={deliverInfo && submissionPanel === 1}
           withCloseButton
           size={340}
           p={"20px 25px"}
@@ -382,12 +408,7 @@ export default function TaskForm(props) {
             transition: "slide-left",
             duration: 300,
           }}
-          onClose={() => {
-            setTimeout(() => {
-              setHelpMode("");
-              setDeliverInfo(false);
-            }, 300);
-          }}
+          onClose={closeHelp}
         >
           <Center className="dialogIcon">
             <TbHelpSmall size={30} />

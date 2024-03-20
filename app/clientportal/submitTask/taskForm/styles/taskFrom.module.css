@@ -85,3 +85,11 @@ div.tagsPillsList {
   max-height: 50px !important;
   width: 100%;
 }
+
+img.iconImage {
+  box-shadow:
+    rgba(50, 50, 93, 0.7) 0px 15px 30px -6px,
+    rgba(0, 0, 0, 0.4) 0px 18px 18px -9px;
+  filter: invert(46%) sepia(7%) saturate(14%) hue-rotate(27deg) brightness(98%)
+    contrast(89%);
+}

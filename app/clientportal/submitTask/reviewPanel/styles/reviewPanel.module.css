@@ -11,10 +11,6 @@
   box-shadow: 0px 2px 3px -1px rgba(110, 110, 110, 0.7);
 }
 
-.reviewIcon {
-  opacity: 0.3;
-}
-
 button.backBtn {
   background: none !important;
   box-shadow: none !important;
@@ -25,7 +21,10 @@ button.backBtn {
   }
 }
 
-.detailsFrame {
+div.detailsFrame {
   border: none;
+  border-radius: 10px 10px 0 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  box-shadow: inset 0px 2px 3px -1px rgba(110, 110, 110, 0.25);
 }
