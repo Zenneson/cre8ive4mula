@@ -1,5 +1,13 @@
 "use client";
-import { ActionIcon, Input, Popover } from "@mantine/core";
+import {
+  ActionIcon,
+  Divider,
+  Group,
+  Input,
+  Popover,
+  Text,
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
 import {
   shallowEqual,
   useClickOutside,
@@ -7,7 +15,7 @@ import {
   useSetState,
 } from "@mantine/hooks";
 import { useEffect, useRef, useState } from "react";
-import { FaPlus } from "react-icons/fa";
+import { FaCut, FaPlus } from "react-icons/fa";
 import { TbHelpSquareFilled } from "react-icons/tb";
 import { usePortalState } from "../../portalStore";
 import classes from "./styles/taskFrom.module.css";
@@ -17,6 +25,7 @@ export default function AddTags(props) {
   const { helpMode, setHelpMode, deliverInfo, setDeliverInfo } =
     usePortalState();
 
+  const [inputValue, setInputValue] = useState("");
   const [styleKeywords, setStyleKeywords] = useState([]);
   const [deliveryFormats, setDeliveryFormats] = useState([]);
   const [websites, setWebsites] = useSetState({
@@ -37,42 +46,30 @@ export default function AddTags(props) {
     let handler = {};
     if (mode === "styleKeywords") {
       handler.var = styleKeywords;
-      handler.setter = setStyleKeywords;
       handler.ref = styleKeywordsRef;
       return handler;
     }
     if (mode === "deliveryFormats") {
       handler.var = deliveryFormats;
-      handler.setter = setDeliveryFormats;
       handler.ref = deliveryFormatsRef;
       return handler;
     }
     if (mode === "websites") {
       handler.var = websites.value;
       handler.ref = websitesRef;
-      handler.setter = (newValue) => {
-        const isValid = newValue.every((v) =>
-          v.match(
-            /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/
-          )
-        );
-        if (isValid) {
-          setWebsites({ value: newValue, isValid: true, invalidValue: "" });
-        } else {
-          setWebsites({ isValid: false, invalidValue: newValue });
-        }
-      };
       return handler;
     }
   };
-  const { var: modeVar, setter: modeSetter, ref: modeRef } = valueMode(mode);
+  const { var: modeVar, ref: modeRef } = valueMode(mode);
 
-  const maxAllowed =
-    mode === "deliveryFormats" ? 5 : mode === "websites" ? 7 : 10;
+  const handleList = () => {
+    tagsList.insertListItem("tags", inputValue);
+    setInputValue("");
+  };
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      // TODO: Add to the list of on Enter
+      handleList();
     }
   };
 
@@ -82,9 +79,36 @@ export default function AddTags(props) {
     form.setFieldValue(mode, modeVar);
   }, [mode, modeVar, form]);
 
+  const tagsList = useForm({
+    initialValues: {
+      tags: [],
+    },
+  });
+
+  const tags = tagsList.values.tags.map((tag, index) => (
+    <Group justify="space-between" key={index}>
+      <Group gap={7}>
+        <Text opacity={0.25} fw={700} fz={14}>
+          {index + 1}
+          {" )"}
+        </Text>
+        <Text fz={14}>{tag}</Text>
+      </Group>
+      <ActionIcon
+        className={classes.deleteBtn}
+        onClick={() => tagsList.removeListItem("tags", index)}
+        variant="transparent"
+        mr={-8}
+        color="red"
+      >
+        <FaCut size={12} />
+      </ActionIcon>
+    </Group>
+  ));
+
   return (
     <Popover
-      opened={focused || hoveringPopover}
+      opened={(focused || hoveringPopover) && tagsList.values.tags.length > 0}
       position="top"
       width={"target"}
       closeOnClickOutside={false}
@@ -95,11 +119,11 @@ export default function AddTags(props) {
             ref={modeRef}
             className="inputWrapper"
             tabIndex={tabIndex}
-            value={modeVar || form.values[mode]}
-            onChange={modeSetter}
+            value={inputValue}
+            onChange={(event) => setInputValue(event.target.value)}
             mah={50}
             onKeyDown={handleKeyDown}
-            placeholder={modeVar.length < maxAllowed - 2 ? placeholder : ""}
+            placeholder={placeholder + "..."}
             leftSectionWidth={50}
             leftSectionPointerEvents="all"
             leftSection={
@@ -130,6 +154,7 @@ export default function AddTags(props) {
                 className={"actionBtn actionBtnDimmed"}
                 w={40}
                 mr={10}
+                onClick={handleList}
               >
                 <FaPlus size={12} />
               </ActionIcon>
@@ -142,7 +167,16 @@ export default function AddTags(props) {
         className="selectDropdown"
         onMouseEnter={() => setHoveringPopover(true)}
       >
-        Huh
+        <Divider
+          color="gray.4"
+          labelPosition="right"
+          label={
+            <Text tt={"uppercase"} c="gray.4" fw={700} fz={12}>
+              {"// " + placeholder}
+            </Text>
+          }
+        />
+        {tags}
       </Popover.Dropdown>
     </Popover>
   );

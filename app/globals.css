@@ -11,9 +11,9 @@ body {
 }
 
 body {
-  background: linear-gradient(145deg, #67a2e6, #75acee);
-  overflow: hidden;
+  background: $custom-bg;
   font-family: var(--font-assistant);
+  overflow: hidden;
   color: #b9d5f6;
 }
 
@@ -50,6 +50,7 @@ p {
 }
 
 .panel {
+  background: $custom-bg;
   border-radius: 10px;
   padding: 20px;
   overflow: hidden;

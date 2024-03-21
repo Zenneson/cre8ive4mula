@@ -140,6 +140,7 @@ export default function Archive() {
             size="xl"
             allowDeselect
             firstDayOfWeek={0}
+            maxDate={new Date()}
             value={selectedDate}
             onChange={setSelectedDate}
             styles={{
@@ -159,7 +160,7 @@ export default function Archive() {
           />
         </Center>
         <Box w={500}>
-          <Group justify="flex-end" mx={12} mb={-8}>
+          <Group justify="flex-end">
             <Group gap={5}>
               <Image
                 className={classes.yellowFilter}
@@ -184,7 +185,7 @@ export default function Archive() {
             p={0}
           >
             {tasks.length === 0 && (
-              <Group ta={"center"} justify="center" pt={10} gap={5} w={"100%"}>
+              <Group ta={"center"} justify="center" mt={10} gap={5} w={"100%"}>
                 <RxShadowNone size={20} style={{ opacity: 0.35 }} />
                 <Text className={classes.noTasksText}>
                   No Task Conveyance On

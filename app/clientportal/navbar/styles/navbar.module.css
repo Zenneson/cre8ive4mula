@@ -7,6 +7,7 @@
 }
 
 .navbar {
+  background: $custom-bg;
   position: fixed;
   z-index: 900;
   top: 0;
@@ -15,7 +16,6 @@
   height: 100vh;
   width: rem(110px);
   padding: var(--mantine-spacing-md);
-  background: linear-gradient(145deg, #67a2e6, #75acee);
   flex-direction: column;
   box-shadow: 5px 0px 15px #528cce;
 

@@ -252,7 +252,7 @@ export default function TaskForm(props) {
                 <AddTags
                   form={form}
                   icon={"hashtag"}
-                  placeholder="Style Defining Keywords..."
+                  placeholder="Style Defining Keywords"
                   mode={"styleKeywords"}
                   deliverInfo={deliverInfo}
                   setDeliverInfo={setDeliverInfo}
@@ -261,7 +261,7 @@ export default function TaskForm(props) {
                 <AddTags
                   form={form}
                   icon={"paperclip"}
-                  placeholder="Delivery File Formats..."
+                  placeholder="Delivery File Formats"
                   mode={"deliveryFormats"}
                   deliverInfo={deliverInfo}
                   setDeliverInfo={setDeliverInfo}
@@ -273,7 +273,7 @@ export default function TaskForm(props) {
               <AddTags
                 form={form}
                 icon={"website"}
-                placeholder="Relevant Websites..."
+                placeholder="Relevant Websites"
                 mode={"websites"}
                 deliverInfo={deliverInfo}
                 setDeliverInfo={setDeliverInfo}
@@ -282,7 +282,7 @@ export default function TaskForm(props) {
               <FileInput
                 {...form.getInputProps("files")}
                 name="Upload files"
-                placeholder="Upload Files..."
+                placeholder="Upload Files"
                 multiple
                 leftSectionWidth={50}
                 leftSectionPointerEvents="all"

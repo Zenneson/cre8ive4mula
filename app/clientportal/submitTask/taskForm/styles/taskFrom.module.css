@@ -100,3 +100,11 @@ img.iconImage {
   border: none;
   color: #000;
 }
+
+button.deleteBtn {
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+  }
+}

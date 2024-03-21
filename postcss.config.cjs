@@ -8,6 +8,7 @@ module.exports = {
         "mantine-breakpoint-md": "62em",
         "mantine-breakpoint-lg": "75em",
         "mantine-breakpoint-xl": "88em",
+        "custom-bg": "linear-gradient(145deg, #6292C9, #71b1ff)",
       },
     },
   },
