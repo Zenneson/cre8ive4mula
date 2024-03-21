@@ -13,35 +13,35 @@ import {
   Stack,
   Table,
   Text,
-  Title,
   Tooltip,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import "@mantine/dates/styles.css";
 import { useState } from "react";
 import { FaRegComments, FaSearch } from "react-icons/fa";
+import { RxShadowNone } from "react-icons/rx";
 import { usePortalState } from "../portalStore";
 import classes from "./styles/archive.module.css";
 
 const tasks = [
-  {
-    type: "Design",
-    title: "Drawing for the March Event",
-    comments: 5,
-    phase: "submitted",
-  },
-  {
-    type: "Content",
-    title: "Changing Page Content",
-    comments: 12,
-    phase: "submitted",
-  },
-  {
-    type: "Web Dev",
-    title: "Add Feature",
-    comments: 8,
-    phase: "delivered",
-  },
+  // {
+  //   type: "Design",
+  //   title: "Drawing for the March Event",
+  //   comments: 5,
+  //   phase: "submitted",
+  // },
+  // {
+  //   type: "Content",
+  //   title: "Changing Page Content",
+  //   comments: 12,
+  //   phase: "submitted",
+  // },
+  // {
+  //   type: "Web Dev",
+  //   title: "Add Feature",
+  //   comments: 8,
+  //   phase: "delivered",
+  // },
 ];
 
 export default function Archive() {
@@ -60,47 +60,33 @@ export default function Archive() {
                 {task.type}
               </Badge>
             </Grid.Col>
-            <Grid.Col span="auto">
-              <Title
-                className={classes.archiveTaskTitle}
-                order={4}
-                lineClamp={1}
+            <Grid.Col span="content">
+              <Tooltip
+                label={task.phase === "submitted" ? "Submitted" : "Delivered"}
+                position="top"
               >
-                <Group gap={10}>
-                  <Tooltip
-                    label={
-                      task.phase === "submitted"
-                        ? "Task Submitted"
-                        : "Task Delivered"
-                    }
-                    position="top"
-                  >
-                    <Image
-                      className={
-                        task.phase === "submitted" && classes.yellowFilter
-                      }
-                      src={
-                        task.phase === "submitted"
-                          ? "/img/menu/submitTask.svg"
-                          : "/img/clientDashboard/taskIcon.svg"
-                      }
-                      height={20}
-                      alt={
-                        task.phase === "submitted"
-                          ? "Task Submitted"
-                          : "Task Delivered"
-                      }
-                    />
-                  </Tooltip>
-                  {task.title}
-                </Group>
-              </Title>
+                <Image
+                  className={task.phase === "submitted" && classes.yellowFilter}
+                  src={
+                    task.phase === "submitted"
+                      ? "/img/menu/submitTask.svg"
+                      : "/img/clientDashboard/taskIcon.svg"
+                  }
+                  height={20}
+                  alt={task.phase === "submitted" ? "Submitted" : "Delivered"}
+                />
+              </Tooltip>
+            </Grid.Col>
+            <Grid.Col span={"auto"} w={230} pl={0}>
+              <Text className={classes.archiveTaskTitle} truncate="end">
+                {task.title}
+              </Text>
             </Grid.Col>
             <Grid.Col span="content">
               <Badge
                 rightSection={<FaRegComments size={12} />}
+                variant="transparent"
                 color="gray.4"
-                variant="outline"
                 size="sm"
               >
                 {task.comments}
@@ -146,9 +132,9 @@ export default function Archive() {
           }
           rightSectionPointerEvents="all"
           placeholder="Search Tasks..."
-          w={"65%"}
+          w={500}
         />
-        <Box className={`altPanel ${classes.calendarFrame}`}>
+        <Center className={`altPanel ${classes.calendarFrame}`}>
           <DatePicker
             className={classes.archiveCalendar}
             size="xl"
@@ -171,23 +157,9 @@ export default function Archive() {
               },
             }}
           />
-        </Box>
-        <Box w={"638.4px"}>
-          <Group justify="space-between" mx={12} mb={-8}>
-            <Group gap={5}>
-              <Image
-                src="/img/clientDashboard/archive/calendar.svg"
-                alt="Current Date"
-                width={18}
-                height={18}
-                opacity={0.25}
-              />
-              <Title tt={"uppercase"} order={6}>
-                {selectedDate === null
-                  ? "Select a Date"
-                  : convertDateFormat(selectedDate)}
-              </Title>
-            </Group>
+        </Center>
+        <Box w={500}>
+          <Group justify="flex-end" mx={12} mb={-8}>
             <Group gap={5}>
               <Image
                 className={classes.yellowFilter}
@@ -195,24 +167,33 @@ export default function Archive() {
                 height={17}
                 alt={"Task Submitted"}
               />
-              <Text fz={12}>Task Submitted</Text>
+              <Text fz={12}>Submitted</Text>
               <Image
                 src={"/img/clientDashboard/taskIcon.svg"}
                 height={17}
                 alt={"Task Delivered"}
               />
-              <Text fz={12}>Task Delivered</Text>
+              <Text fz={12}>Delivered</Text>
             </Group>
           </Group>
           <Box
-            className={`altPanel ${classes.tableFrame}`}
+            className={`${tasks.length > 0 && "altPanel"} ${
+              classes.tableFrame
+            }`}
             component={ScrollArea.Autosize}
             p={0}
           >
             {tasks.length === 0 && (
-              <Text pt={10} fz={14} c={"#fff"} ta={"center"}>
-                No Tasks Submitted or Delivered on this Date
-              </Text>
+              <Group ta={"center"} justify="center" pt={10} gap={5} w={"100%"}>
+                <RxShadowNone size={20} style={{ opacity: 0.35 }} />
+                <Text className={classes.noTasksText}>
+                  No Task Conveyance On
+                  <Text component="span" fw={700} fz={12}>
+                    {" "}
+                    {convertDateFormat(selectedDate)}
+                  </Text>
+                </Text>
+              </Group>
             )}
             {tasks.length > 0 && (
               <Table
