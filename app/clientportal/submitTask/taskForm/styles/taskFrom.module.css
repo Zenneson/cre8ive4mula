@@ -19,19 +19,6 @@
   border-radius: 100px;
 }
 
-.dialogInfoEnter {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 7px;
-  padding: 10px 0;
-  margin-top: 5px;
-  margin-left: 15%;
-  width: 70%;
-  text-align: center;
-  font-weight: 700;
-  font-size: 10px;
-  box-shadow: inset 0px 1px 3px 0px rgba(83, 140, 205, 0.25);
-}
-
 button.resetBtn,
 button.backBtn {
   background: none !important;
@@ -102,9 +89,28 @@ img.iconImage {
 }
 
 button.deleteBtn {
+  opacity: 0.25;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.tagIcon {
+  filter: invert(100%) sepia(16%) saturate(7273%) hue-rotate(177deg)
+    brightness(108%) contrast(71%);
+}
+
+.closeBtn {
   opacity: 0.5;
 
   &:hover {
     opacity: 1;
   }
+}
+
+div.tagsListFrame {
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+  border-radius: 10px;
+  padding: 5px 5px 5px 10px;
 }

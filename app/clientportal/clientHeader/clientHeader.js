@@ -3,9 +3,12 @@ import {
   ActionIcon,
   Badge,
   Box,
+  Center,
+  Dialog,
   Flex,
   Group,
   Image,
+  Kbd,
   Stack,
   Text,
   Title,
@@ -13,11 +16,20 @@ import {
 } from "@mantine/core";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { usePortalState } from "../portalStore";
+import { TbHelpSmall } from "react-icons/tb";
+import { usePortalState, useSubissionData } from "../portalStore";
 import classes from "./styles/clientHeader.module.css";
 
 export default function ClientHeader() {
-  const { activePanel, setNotiDrawerOpen } = usePortalState();
+  const {
+    activePanel,
+    deliverInfo,
+    setDeliverInfo,
+    helpMode,
+    setHelpMode,
+    setNotiDrawerOpen,
+  } = usePortalState();
+  const { submissionPanel } = useSubissionData();
   const [companyName, setCompanyName] = useState("Welcome to Cre8ive 4mula");
 
   const animationProps = {
@@ -43,8 +55,140 @@ export default function ClientHeader() {
     }
   };
 
+  const enterBtnInfo = (subject) => (
+    <>
+      <Text className={classes.dialogInfoEnter}>
+        Press <Kbd size="xs">Enter</Kbd> to add the {subject} to the list.
+      </Text>
+    </>
+  );
+
+  const HelpInfo = () => {
+    if (helpMode === "styleKeywords") {
+      return (
+        <>
+          <Text fz={13} ta={"center"}>
+            Add keywords that define the style
+            <br />
+            you want for this task.
+          </Text>
+          {enterBtnInfo("keyword")}
+        </>
+      );
+    }
+    if (helpMode === "deliveryFormats") {
+      return (
+        <>
+          <Text fz={13} ta={"center"}>
+            Add your perfered file types, such as <br />
+            <Text component="span" fw={700} opacity={0.5} fz={17}>
+              JPG, PNG, SVG, EPS, PDF, PSD,
+            </Text>
+            <br />
+            or any other formats relevant to your needs.
+          </Text>
+          {enterBtnInfo("file type")}
+        </>
+      );
+    }
+    if (helpMode === "websites") {
+      return (
+        <>
+          <Text fz={13} ta={"center"}>
+            Add all the websites you want to use
+            <br />
+            as a reference for your task.
+          </Text>
+          {enterBtnInfo("site")}
+        </>
+      );
+    }
+    if (helpMode === "files") {
+      return (
+        <>
+          <Text fz={13} ta={"center"}>
+            Upload any files that are relevant to
+            <br />
+            completing this task.
+          </Text>
+          {enterBtnInfo("file")}
+        </>
+      );
+    }
+  };
+
+  const closeHelp = () => {
+    setTimeout(() => {
+      setHelpMode("");
+      setDeliverInfo(false);
+    }, 300);
+  };
+
   return (
     <motion.div {...animationProps}>
+      <Group
+        className={classes.topRightBtnsFrame}
+        gap={0}
+        onClick={() => setNotiDrawerOpen(true)}
+      >
+        <Tooltip
+          position={"bottom"}
+          withArrow
+          label={"Notifications"}
+          offset={5}
+        >
+          <Badge
+            className={classes.notificationsBadge}
+            variant="outline"
+            color="#b9d5f6"
+            size="md"
+            mr={-5}
+            circle
+          >
+            3
+          </Badge>
+        </Tooltip>
+        <Box>
+          <Tooltip
+            position={"bottom"}
+            withArrow
+            label={"Notifications"}
+            offset={-3}
+          >
+            <ActionIcon
+              size="xl"
+              variant="transparent"
+              className={classes.topRightBtns}
+            >
+              <Image
+                src={`/img/menu/bellFull.svg`}
+                alt={"Notifications"}
+                height={25}
+              />
+            </ActionIcon>
+          </Tooltip>
+        </Box>
+      </Group>
+      <Dialog
+        zIndex={1000}
+        className="infoDialog"
+        opened={deliverInfo && submissionPanel === 1}
+        withCloseButton
+        size={340}
+        p={"20px 25px"}
+        transitionProps={{
+          transition: "slide-left",
+          duration: 300,
+        }}
+        onClose={closeHelp}
+      >
+        <Center className="dialogIcon">
+          <TbHelpSmall size={30} />
+        </Center>
+        <Box w={375} pr={55}>
+          <HelpInfo />
+        </Box>
+      </Dialog>
       <Group
         className={classes.headerFrame}
         justify="space-between"
@@ -72,46 +216,6 @@ export default function ClientHeader() {
             {panelLabel(activePanel)}
           </Text>
         </Stack>
-
-        <Group gap={0} onClick={() => setNotiDrawerOpen(true)}>
-          <Tooltip
-            position={"bottom"}
-            withArrow
-            label={"Notifications"}
-            offset={5}
-          >
-            <Badge
-              className={classes.notificationsBadge}
-              variant="outline"
-              color="#b9d5f6"
-              size="md"
-              mr={-5}
-              circle
-            >
-              3
-            </Badge>
-          </Tooltip>
-          <Box>
-            <Tooltip
-              position={"bottom"}
-              withArrow
-              label={"Notifications"}
-              offset={-3}
-            >
-              <ActionIcon
-                size="xl"
-                variant="transparent"
-                className={classes.topRightBtns}
-              >
-                <Image
-                  src={`/img/menu/bellFull.svg`}
-                  alt={"Notifications"}
-                  height={25}
-                />
-              </ActionIcon>
-            </Tooltip>
-          </Box>
-        </Group>
       </Group>
     </motion.div>
   );

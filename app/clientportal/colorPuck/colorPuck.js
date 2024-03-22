@@ -32,7 +32,7 @@ export default function ColorPuck(props) {
         <Group gap={0}>
           <Box
             className={classes.hoverCardColor}
-            h={isTaskFrom ? 60 : 40}
+            h={isTaskFrom ? 65 : 40}
             bg={color}
           />
           <Stack className={classes.hoverCardInfo} c={"#000"} gap={0}>
@@ -48,7 +48,7 @@ export default function ColorPuck(props) {
                 fullWidth
                 variant="filled"
                 c="red.7"
-                mt={3}
+                mt={5}
                 onClick={() => removeColor(color)}
               >
                 <Group gap={5} align="center">

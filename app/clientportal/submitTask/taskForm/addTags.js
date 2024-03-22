@@ -1,41 +1,40 @@
 "use client";
 import {
   ActionIcon,
-  Divider,
+  Box,
+  CloseButton,
   Group,
+  Image,
   Input,
   Popover,
+  Stack,
   Text,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import {
-  shallowEqual,
-  useClickOutside,
-  useFocusWithin,
-  useSetState,
-} from "@mantine/hooks";
+import { shallowEqual, useClickOutside, useFocusWithin } from "@mantine/hooks";
+import { notifications } from "@mantine/notifications";
 import { useEffect, useRef, useState } from "react";
 import { FaCut, FaPlus } from "react-icons/fa";
 import { TbHelpSquareFilled } from "react-icons/tb";
-import { usePortalState } from "../../portalStore";
+import { usePortalState, useSubissionData } from "../../portalStore";
 import classes from "./styles/taskFrom.module.css";
 
 export default function AddTags(props) {
-  const { form, placeholder, mode, tabIndex } = props;
+  const { placeholder, mode, tabIndex, icon } = props;
   const { helpMode, setHelpMode, deliverInfo, setDeliverInfo } =
     usePortalState();
-
-  const [inputValue, setInputValue] = useState("");
-  const [styleKeywords, setStyleKeywords] = useState([]);
-  const [deliveryFormats, setDeliveryFormats] = useState([]);
-  const [websites, setWebsites] = useSetState({
-    value: [],
-    isValid: true,
-    invalidValue: "",
-  });
+  const {
+    styleKeywords,
+    setStyleKeywords,
+    deliveryFormats,
+    setDeliveryFormats,
+    websites,
+    setWebsites,
+  } = useSubissionData();
 
   const { ref, focused } = useFocusWithin();
   const popoverDropdownRef = useClickOutside(() => setHoveringPopover(false));
+  const [inputValue, setInputValue] = useState("");
   const [hoveringPopover, setHoveringPopover] = useState(false);
 
   const styleKeywordsRef = useRef(null);
@@ -46,23 +45,48 @@ export default function AddTags(props) {
     let handler = {};
     if (mode === "styleKeywords") {
       handler.var = styleKeywords;
+      handler.setter = setStyleKeywords;
       handler.ref = styleKeywordsRef;
       return handler;
     }
     if (mode === "deliveryFormats") {
       handler.var = deliveryFormats;
+      handler.setter = setDeliveryFormats;
       handler.ref = deliveryFormatsRef;
       return handler;
     }
     if (mode === "websites") {
       handler.var = websites.value;
+      handler.setter = setWebsites;
       handler.ref = websitesRef;
       return handler;
     }
   };
-  const { var: modeVar, ref: modeRef } = valueMode(mode);
+  const { var: modeVar, setter: modeSetter, ref: modeRef } = valueMode(mode);
+
+  const tagsList = useForm({
+    initialValues: {
+      tags: [],
+    },
+  });
 
   const handleList = () => {
+    if (tagsList.values.tags.length === 10) return;
+    if (tagsList.values.tags.includes(inputValue)) {
+      notifications.show({
+        title: "Already Included...",
+        message: '"' + inputValue + '"' + " was already added.",
+      });
+      setInputValue("");
+      return;
+    }
+    if (inputValue === "") {
+      notifications.show({
+        title: "Empty Field...",
+        message: "Please enter a value.",
+      });
+      return;
+    }
     tagsList.insertListItem("tags", inputValue);
     setInputValue("");
   };
@@ -74,16 +98,11 @@ export default function AddTags(props) {
   };
 
   useEffect(() => {
-    const equal = shallowEqual(modeVar, form.values[mode]);
-    if (equal || modeVar.length === 0) return;
-    form.setFieldValue(mode, modeVar);
-  }, [mode, modeVar, form]);
-
-  const tagsList = useForm({
-    initialValues: {
-      tags: [],
-    },
-  });
+    const equal = shallowEqual(modeVar, tagsList.values.tags);
+    if (!equal) {
+      modeSetter(tagsList.values.tags);
+    }
+  }, [tagsList.values.tags, modeSetter, modeVar]);
 
   const tags = tagsList.values.tags.map((tag, index) => (
     <Group justify="space-between" key={index}>
@@ -98,7 +117,6 @@ export default function AddTags(props) {
         className={classes.deleteBtn}
         onClick={() => tagsList.removeListItem("tags", index)}
         variant="transparent"
-        mr={-8}
         color="red"
       >
         <FaCut size={12} />
@@ -120,10 +138,17 @@ export default function AddTags(props) {
             className="inputWrapper"
             tabIndex={tabIndex}
             value={inputValue}
-            onChange={(event) => setInputValue(event.target.value)}
-            mah={50}
+            onChange={(event) => {
+              if (tagsList.values.tags.length < 10) {
+                setInputValue(event.target.value);
+              }
+            }}
             onKeyDown={handleKeyDown}
-            placeholder={placeholder + "..."}
+            placeholder={
+              placeholder +
+              (tagsList.values.tags.length === 10 ? " | Max Reached" : "...")
+            }
+            mah={50}
             leftSectionWidth={50}
             leftSectionPointerEvents="all"
             leftSection={
@@ -167,16 +192,34 @@ export default function AddTags(props) {
         className="selectDropdown"
         onMouseEnter={() => setHoveringPopover(true)}
       >
-        <Divider
-          color="gray.4"
-          labelPosition="right"
-          label={
-            <Text tt={"uppercase"} c="gray.4" fw={700} fz={12}>
-              {"// " + placeholder}
-            </Text>
-          }
-        />
-        {tags}
+        <Group justify="space-between" mb={10}>
+          <Group gap={7}>
+            <Image
+              className={classes.tagIcon}
+              opacity={0.25}
+              src={`/img/clientDashboard/${icon}.svg`}
+              alt={icon}
+              fit="contain"
+              w={30}
+            />
+            <Stack gap={0}>
+              <Text tt={"uppercase"} opacity={0.25} c="dark.9" fw={700} fz={12}>
+                {placeholder}
+              </Text>
+              <Text tt={"uppercase"} c="dark.9" fw={100} fz={12} mr={8} mt={-6}>
+                {tags.length === 10 ? "Max Reached" : tags.length + " / 10"}
+              </Text>
+            </Stack>
+          </Group>
+          <Group gap={5}>
+            <CloseButton
+              className={classes.closeBtn}
+              variant="transparent"
+              onClick={() => setHoveringPopover(false)}
+            />
+          </Group>
+        </Group>
+        <Box className={classes.tagsListFrame}>{tags}</Box>
       </Popover.Dropdown>
     </Popover>
   );

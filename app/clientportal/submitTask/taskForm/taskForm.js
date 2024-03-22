@@ -5,14 +5,11 @@ import {
   Badge,
   Box,
   Button,
-  Center,
-  Dialog,
   FileInput,
   Grid,
   Group,
   HoverCard,
   Image,
-  Kbd,
   Stack,
   Text,
   TextInput,
@@ -24,7 +21,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { FaPlay, FaPlus } from "react-icons/fa";
 import { RiArrowRightDoubleFill } from "react-icons/ri";
-import { TbHelpSmall, TbHelpSquareFilled } from "react-icons/tb";
+import { TbHelpSquareFilled } from "react-icons/tb";
 import { VscClearAll } from "react-icons/vsc";
 import { usePortalState, useSubissionData } from "../../portalStore";
 import ColorPanel from "../colorPanel/colorPanel";
@@ -38,9 +35,11 @@ export default function TaskForm(props) {
     taskType,
     formData,
     setFormData,
-    submissionPanel,
     setSubmissionPanel,
     setTaskType,
+    styleKeywords,
+    deliveryFormats,
+    websites,
   } = useSubissionData();
   const { helpMode, setHelpMode, deliverInfo, setDeliverInfo } =
     usePortalState();
@@ -59,10 +58,8 @@ export default function TaskForm(props) {
   };
 
   const form = useForm({ initialValues });
-
   const [selectedService, setSelectedService] = useState(formData.service);
   const [searchService, setSearchService] = useState("");
-
   const [showReviewBtn, setShowReviewBtn] = useState(false);
 
   useEffect(() => {
@@ -98,68 +95,6 @@ export default function TaskForm(props) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const enterBtnInfo = (subject) => (
-    <>
-      <Text className={classes.dialogInfoEnter}>
-        Press <Kbd size="xs">Enter</Kbd> to add the {subject} to the list.
-      </Text>
-    </>
-  );
-
-  const HelpInfo = () => {
-    if (helpMode === "styleKeywords") {
-      return (
-        <>
-          <Text fz={13} ta={"center"}>
-            Add keywords that define the style
-            <br />
-            you want for this task.
-          </Text>
-          {enterBtnInfo("keyword")}
-        </>
-      );
-    }
-    if (helpMode === "deliveryFormats") {
-      return (
-        <>
-          <Text fz={13} ta={"center"}>
-            Add your perfered file types, such as <br />
-            <Text component="span" fw={700} opacity={0.5} fz={17}>
-              JPG, PNG, SVG, EPS, PDF, PSD,
-            </Text>
-            <br />
-            or any other formats relevant to your needs.
-          </Text>
-          {enterBtnInfo("file type")}
-        </>
-      );
-    }
-    if (helpMode === "websites") {
-      return (
-        <>
-          <Text fz={13} ta={"center"}>
-            Add all the websites you want to use
-            <br />
-            as a reference for your task.
-          </Text>
-          {enterBtnInfo("site")}
-        </>
-      );
-    }
-    if (helpMode === "files") {
-      return (
-        <>
-          <Text fz={13} ta={"center"}>
-            Upload any files that are relevant to
-            <br />
-            completing this task.
-          </Text>
-          {enterBtnInfo("file")}
-        </>
-      );
-    }
-  };
 
   const animation = {
     initial: { opacity: 0 },
@@ -260,7 +195,7 @@ export default function TaskForm(props) {
                 />
                 <AddTags
                   form={form}
-                  icon={"paperclip"}
+                  icon={"files"}
                   placeholder="Delivery File Formats"
                   mode={"deliveryFormats"}
                   deliverInfo={deliverInfo}
@@ -369,9 +304,14 @@ export default function TaskForm(props) {
                   className={classes.reviewBtn}
                   rightSection={<FaPlay size={8} />}
                   onClick={() => {
-                    setSubmissionPanel(2);
-                    setFormData(form.values);
                     closeHelp();
+                    setSubmissionPanel(2);
+                    setFormData({
+                      ...form.values,
+                      styleKeywords,
+                      deliveryFormats,
+                      websites,
+                    });
                   }}
                 >
                   Review
@@ -387,10 +327,11 @@ export default function TaskForm(props) {
                     />
                   </HoverCard.Target>
                   <HoverCard.Dropdown>
-                    <Text c={"#000"} fz={12}>
-                      Add a title, description and
+                    <Text c={"#000"} ta={"center"} fz={12}>
+                      Add the title, service,
+                      {taskType === "Web Dev" ? " intended goal, " : " "}
                       <br />
-                      select a service to continue.
+                      and description to continue.
                     </Text>
                   </HoverCard.Dropdown>
                 </HoverCard>
@@ -398,25 +339,6 @@ export default function TaskForm(props) {
             </Group>
           </Group>
         </Stack>
-        <Dialog
-          className="infoDialog"
-          opened={deliverInfo && submissionPanel === 1}
-          withCloseButton
-          size={340}
-          p={"20px 25px"}
-          transitionProps={{
-            transition: "slide-left",
-            duration: 300,
-          }}
-          onClose={closeHelp}
-        >
-          <Center className="dialogIcon">
-            <TbHelpSmall size={30} />
-          </Center>
-          <Box w={375} pr={55}>
-            <HelpInfo />
-          </Box>
-        </Dialog>
       </motion.div>
     </form>
   );

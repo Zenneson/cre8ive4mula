@@ -18,7 +18,8 @@ import { usePortalState, useSubissionData } from "../../portalStore";
 import classes from "./styles/reviewPanel.module.css";
 
 export default function ReviewPanel() {
-  const { taskType, formData, setSubmissionPanel } = useSubissionData();
+  const { taskType, formData, setSubmissionPanel, styleKeywords, websites } =
+    useSubissionData();
   const { setActivePanel } = usePortalState();
   const typeColor = taskColor(taskType);
 
@@ -34,33 +35,7 @@ export default function ReviewPanel() {
     return <ColorPuck key={index} color={color} isTaskFrom={false} rgb={rgb} />;
   });
 
-  // const styleKeywords = formData.styleKeywords;
-  // const websites = formData.websites;
   // const files = formData.files;
-  const styleKeywords = [
-    "Modern",
-    "Minimal",
-    "Clean",
-    "Simple",
-    "Elegant",
-    "Modern",
-    "Minimal",
-    "Clean",
-    "Simple",
-    "Elegant",
-  ];
-  const websites = [
-    "example.com",
-    "example.com",
-    "example.com",
-    "example.com",
-    "example.com",
-    "example.com",
-    "example.com",
-    "example.com",
-    "example.com",
-    "example.com",
-  ];
   const files = [
     "file1.jpg",
     "file2.jpg",
