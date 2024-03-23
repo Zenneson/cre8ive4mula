@@ -15,6 +15,7 @@ import { shallowEqual, useClickOutside, useFocusWithin } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { useEffect, useRef, useState } from "react";
 import { FaCut, FaPlus } from "react-icons/fa";
+import { LuPanelBottomClose } from "react-icons/lu";
 import { TbHelpSquareFilled } from "react-icons/tb";
 import { usePortalState, useSubissionData } from "../../portalStore";
 import classes from "./styles/taskFrom.module.css";
@@ -215,6 +216,8 @@ export default function AddTags(props) {
             <CloseButton
               className={classes.closeBtn}
               variant="transparent"
+              size="sm"
+              icon={<LuPanelBottomClose />}
               onClick={() => setHoveringPopover(false)}
             />
           </Group>

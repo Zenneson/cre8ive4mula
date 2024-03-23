@@ -3,6 +3,7 @@ import {
   Drawer,
   Indicator,
   Input,
+  Loader,
   NumberInput,
   PasswordInput,
   ScrollArea,
@@ -79,6 +80,11 @@ export const tourTheme = createTheme({
       defaultProps: {
         withCloseButton: false,
         transitionProps: { duration: 300, timingFunction: "ease" },
+      },
+    }),
+    Loader: Loader.extend({
+      defaultProps: {
+        type: "dots",
       },
     }),
     PasswordInput: PasswordInput.extend({

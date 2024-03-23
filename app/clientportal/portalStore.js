@@ -45,6 +45,8 @@ export const useSubissionData = create(
       setDeliveryFormats: (value) => set({ deliveryFormats: value }),
       websites: [],
       setWebsites: (value) => set({ websites: value }),
+      files: [],
+      setFiles: (value) => set({ files: value }),
       formData: [],
       setFormData: (value) => set({ formData: value }),
     }),

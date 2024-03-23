@@ -34,7 +34,7 @@ export default function ChooseTypePanel(props) {
   };
 
   return (
-    <Stack mih={"700px"} gap={10}>
+    <Stack mih={"700px"} mt={100} gap={10}>
       <Group className={classes.chooseTypeTitleFrame} gap="7">
         <Image
           src={"/img/clientDashboard/submit/addTask.svg"}

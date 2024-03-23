@@ -1,6 +1,5 @@
 import { convertDateFormat, taskColor } from "@libs/custom";
 import {
-  ActionIcon,
   Badge,
   Box,
   Button,
@@ -8,7 +7,6 @@ import {
   Grid,
   Group,
   Image,
-  Input,
   ScrollArea,
   Stack,
   Table,
@@ -18,9 +16,10 @@ import {
 import { DatePicker } from "@mantine/dates";
 import "@mantine/dates/styles.css";
 import { useState } from "react";
-import { FaRegComments, FaSearch } from "react-icons/fa";
+import { FaRegComments } from "react-icons/fa";
 import { RxShadowNone } from "react-icons/rx";
 import { usePortalState } from "../portalStore";
+import ArchiveSearch from "./archiveSearch";
 import classes from "./styles/archive.module.css";
 
 const tasks = [
@@ -112,7 +111,12 @@ export default function Archive() {
   });
 
   return (
-    <Center w={"100%"} pt={100}>
+    <Center
+      className={classes.archiveWrapper}
+      h={"calc(100vh - 100px)"}
+      w={"100%"}
+      pt={100}
+    >
       <Stack
         className={`panel ${classes.archiveFrame}`}
         gap={30}
@@ -120,24 +124,11 @@ export default function Archive() {
         align="center"
         pos={"relative"}
       >
-        <Input
-          rightSection={
-            <ActionIcon
-              size={"lg"}
-              mr={10}
-              className="actionBtn actionBtnDimmed"
-            >
-              <FaSearch />
-            </ActionIcon>
-          }
-          rightSectionPointerEvents="all"
-          placeholder="Search Tasks..."
-          w={500}
-        />
-        <Center className={`altPanel ${classes.calendarFrame}`}>
+        <ArchiveSearch />
+        <Center className={` ${classes.calendarFrame}`}>
           <DatePicker
             className={classes.archiveCalendar}
-            size="xl"
+            size="md"
             allowDeselect
             firstDayOfWeek={0}
             maxDate={new Date()}

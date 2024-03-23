@@ -5,11 +5,13 @@ import {
   Badge,
   Box,
   Button,
+  CloseButton,
   FileInput,
   Grid,
   Group,
   HoverCard,
   Image,
+  Popover,
   Stack,
   Text,
   TextInput,
@@ -17,9 +19,11 @@ import {
   Title,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { useClickOutside } from "@mantine/hooks";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { FaPlay, FaPlus } from "react-icons/fa";
+import { LuPanelBottomClose } from "react-icons/lu";
 import { RiArrowRightDoubleFill } from "react-icons/ri";
 import { TbHelpSquareFilled } from "react-icons/tb";
 import { VscClearAll } from "react-icons/vsc";
@@ -40,6 +44,8 @@ export default function TaskForm(props) {
     styleKeywords,
     deliveryFormats,
     websites,
+    files,
+    setFiles,
   } = useSubissionData();
   const { helpMode, setHelpMode, deliverInfo, setDeliverInfo } =
     usePortalState();
@@ -61,6 +67,8 @@ export default function TaskForm(props) {
   const [selectedService, setSelectedService] = useState(formData.service);
   const [searchService, setSearchService] = useState("");
   const [showReviewBtn, setShowReviewBtn] = useState(false);
+  const [hoveringPopover, setHoveringPopover] = useState(false);
+  const popoverDropdownRef = useClickOutside(() => setHoveringPopover(false));
 
   useEffect(() => {
     if (form?.values.length > 0) return;
@@ -113,11 +121,7 @@ export default function TaskForm(props) {
   return (
     <form>
       <motion.div {...animation}>
-        <Group
-          className={classes.taskFormTitle}
-          justify="space-between"
-          mt={-100}
-        >
+        <Group className={classes.taskFormTitle} justify="space-between">
           <Group gap={5}>
             <Image
               src={"/img/clientDashboard/submit/addTask.svg"}
@@ -214,49 +218,109 @@ export default function TaskForm(props) {
                 setDeliverInfo={setDeliverInfo}
                 tabIndex={6}
               />
-              <FileInput
-                {...form.getInputProps("files")}
-                name="Upload files"
-                placeholder="Upload Files"
-                multiple
-                leftSectionWidth={50}
-                leftSectionPointerEvents="all"
-                leftSection={
-                  <ActionIcon
-                    className={"actionBtnDimmed"}
-                    variant="transparent"
-                    color="#777"
-                    onClick={() => {
-                      if (helpMode !== "files") {
-                        setHelpMode("files");
-                        setDeliverInfo(true);
-                      } else {
-                        setDeliverInfo(!deliverInfo);
-                        if (deliverInfo) {
-                          setTimeout(() => {
-                            setHelpMode("");
-                          }, 300);
-                        }
-                      }
-                    }}
-                  >
-                    <TbHelpSquareFilled
-                      className={classes.tagsInput}
-                      size={30}
-                    />
-                  </ActionIcon>
-                }
-                rightSectionPointerEvents="all"
-                rightSection={
-                  <ActionIcon
-                    w={40}
-                    mr={10}
-                    className={"actionBtn actionBtnDimmed"}
-                  >
-                    <FaPlus size={12} />
-                  </ActionIcon>
-                }
-              />
+              <Popover
+                opened={hoveringPopover && tagsList.values.tags.length > 0}
+                position="top"
+                width={"target"}
+                closeOnClickOutside={false}
+              >
+                <Popover.Target>
+                  <FileInput
+                    {...form.getInputProps("files")}
+                    name="Upload files"
+                    placeholder="Upload Files"
+                    multiple
+                    leftSectionWidth={50}
+                    leftSectionPointerEvents="all"
+                    leftSection={
+                      <ActionIcon
+                        className={"actionBtnDimmed"}
+                        variant="transparent"
+                        color="#777"
+                        onClick={() => {
+                          if (helpMode !== "files") {
+                            setHelpMode("files");
+                            setDeliverInfo(true);
+                          } else {
+                            setDeliverInfo(!deliverInfo);
+                            if (deliverInfo) {
+                              setTimeout(() => {
+                                setHelpMode("");
+                              }, 300);
+                            }
+                          }
+                        }}
+                      >
+                        <TbHelpSquareFilled
+                          className={classes.tagsInput}
+                          size={30}
+                        />
+                      </ActionIcon>
+                    }
+                    rightSectionPointerEvents="all"
+                    rightSection={
+                      <ActionIcon
+                        w={40}
+                        mr={10}
+                        className={"actionBtn actionBtnDimmed"}
+                      >
+                        <FaPlus size={12} />
+                      </ActionIcon>
+                    }
+                  />
+                </Popover.Target>
+                <Popover.Dropdown
+                  ref={popoverDropdownRef}
+                  className="selectDropdown"
+                  onMouseEnter={() => setHoveringPopover(true)}
+                >
+                  <Group justify="space-between" mb={10}>
+                    <Group gap={7}>
+                      <Image
+                        className={classes.tagIcon}
+                        opacity={0.25}
+                        src={`/img/clientDashboard/paperclip.svg`}
+                        alt={"Paperclip Icon | Attach Files"}
+                        fit="contain"
+                        w={30}
+                      />
+                      <Stack gap={0}>
+                        <Text
+                          tt={"uppercase"}
+                          opacity={0.25}
+                          c="dark.9"
+                          fw={700}
+                          fz={12}
+                        >
+                          Related Files
+                        </Text>
+                        <Text
+                          tt={"uppercase"}
+                          c="dark.9"
+                          fw={100}
+                          fz={12}
+                          mr={8}
+                          mt={-6}
+                        >
+                          {files.length === 10
+                            ? "Max Reached"
+                            : files.length + " / 10"}
+                        </Text>
+                      </Stack>
+                    </Group>
+                    <Group gap={5}>
+                      <CloseButton
+                        className={classes.closeBtn}
+                        variant="transparent"
+                        size="sm"
+                        icon={<LuPanelBottomClose />}
+                        onClick={() => setHoveringPopover(false)}
+                      />
+                    </Group>
+                  </Group>
+                  <Box className={classes.tagsListFrame}>{files}</Box>
+                </Popover.Dropdown>
+              </Popover>
             </Group>
           </Stack>
           {taskType === "Design" && (
