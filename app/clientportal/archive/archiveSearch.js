@@ -1,4 +1,10 @@
-import { ActionIcon, Combobox, TextInput, useCombobox } from "@mantine/core";
+import {
+  ActionIcon,
+  Combobox,
+  Loader,
+  TextInput,
+  useCombobox,
+} from "@mantine/core";
 import { useRef, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
@@ -87,13 +93,17 @@ export default function ArchiveSearch() {
           rightSectionWidth={40}
           rightSectionPointerEvents="all"
           rightSection={
-            <ActionIcon
-              size={"lg"}
-              mr={10}
-              className="actionBtn actionBtnDimmed"
-            >
-              <FaSearch />
-            </ActionIcon>
+            loading ? (
+              <Loader size={20} />
+            ) : (
+              <ActionIcon
+                size={"lg"}
+                mr={10}
+                className="actionBtn actionBtnDimmed"
+              >
+                <FaSearch />
+              </ActionIcon>
+            )
           }
         />
       </Combobox.Target>

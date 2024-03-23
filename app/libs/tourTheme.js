@@ -84,7 +84,7 @@ export const tourTheme = createTheme({
     }),
     Loader: Loader.extend({
       defaultProps: {
-        type: "dots",
+        type: "oval",
       },
     }),
     PasswordInput: PasswordInput.extend({
