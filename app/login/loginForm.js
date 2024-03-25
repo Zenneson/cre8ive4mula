@@ -2,9 +2,11 @@
 import { auth } from "@libs/firebase";
 import { Box, Button, Divider, Group, Input, Stack, Text } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { useHotkeys } from "@mantine/hooks";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { IoIosHelpBuoy } from "react-icons/io";
 import { LuFingerprint, LuKeyRound } from "react-icons/lu";
 import { MdAlternateEmail } from "react-icons/md";
@@ -23,19 +25,24 @@ export default function LoginForm() {
     },
   });
 
-  const handleLogin = () => {
-    signInWithEmailAndPassword(auth, form.values.email, form.values.password)
+  const handleLogin = (values) => {
+    signInWithEmailAndPassword(auth, values.email, values.password)
       .then(() => {
-        console.log(`Signed in as ${form.values.email}`);
         router.push("/clientportal");
       })
       .catch((error) => {
-        console.error("Error signing in with password and email", error);
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode, errorMessage);
       });
   };
 
+  const [email, setEmail] = useState(form.values.email || "");
+  const [password, setPassword] = useState(form.values.password || "");
+  useHotkeys([["Enter", () => handleLogin({ email, password })]], []);
+
   return (
-    <form onSubmit={form.onSubmit(handleLogin)}>
+    <form>
       <Stack gap={20}>
         <Divider
           opacity={0.2}
@@ -52,11 +59,9 @@ export default function LoginForm() {
               <MdAlternateEmail size={23} />
             </Box>
           }
-          value={form.values.email}
-          onChange={(event) =>
-            form.setFieldValue("email", event.currentTarget.value)
-          }
-          error={form.errors.email && "Invalid email"}
+          value={email}
+          onChange={(event) => setEmail(event.currentTarget.value)}
+          onBlur={() => form.setFieldValue("email", email)}
         />
         <Input
           required
@@ -70,14 +75,9 @@ export default function LoginForm() {
               <LuFingerprint size={21} />
             </Box>
           }
-          value={form.values.password}
-          onChange={(event) =>
-            form.setFieldValue("password", event.currentTarget.value)
-          }
-          error={
-            form.errors.password &&
-            "Password must be at least 6 characters long"
-          }
+          value={password}
+          onChange={(event) => setPassword(event.currentTarget.value)}
+          onBlur={() => form.setFieldValue("password", password)}
         />
         <Group justify="space-between">
           <Link className={classes.forgotPassword} href="#">
@@ -86,7 +86,11 @@ export default function LoginForm() {
               <Text fz={12}>Forgot Password?</Text>
             </Group>
           </Link>
-          <Button className={classes.loginBtn} w={"30%"}>
+          <Button
+            className={classes.loginBtn}
+            w={"30%"}
+            onClick={() => handleLogin(form.values)}
+          >
             Login
           </Button>
         </Group>

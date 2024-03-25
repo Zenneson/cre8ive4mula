@@ -1,8 +1,10 @@
 import Cryptr from "cryptr";
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
+import { NextResponse, userAgent } from "next/server";
 
 export function middleware(request) {
+  const { device, browser, isBot } = userAgent(req);
+
   const user = getUserFromRequest(request);
 
   if (user === "none") {

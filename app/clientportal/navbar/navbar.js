@@ -1,4 +1,5 @@
 "use client";
+import { auth } from "@libs/firebase";
 import {
   Center,
   Divider,
@@ -9,6 +10,7 @@ import {
   UnstyledButton,
   rem,
 } from "@mantine/core";
+import { signOut } from "firebase/auth";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { usePortalState } from "../portalStore";
@@ -41,7 +43,7 @@ const MenuBtn = ({ icon, label, activePanel, onClick }) => {
         >
           <UnstyledButton
             onClick={onClick}
-            className={`${classes.link} ${activePanel && classes.linkActive}`}
+            className={classes.link}
             data-activepanel={activePanel || undefined}
           >
             <Image
@@ -79,6 +81,7 @@ const MainLogo = () => {
 
 export default function Navbar() {
   const { activePanel, setActivePanel, setDrawerOpen } = usePortalState();
+  const router = useRouter();
 
   const animationProps = {
     initial: { x: -50, opacity: 0 },
@@ -107,6 +110,17 @@ export default function Navbar() {
     );
   });
 
+  const handleLogout = async () => {
+    if (auth.currentUser) {
+      try {
+        await signOut(auth);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    router.push("/login");
+  };
+
   return (
     <motion.div {...animationProps}>
       <nav className={classes.navbar}>
@@ -127,7 +141,11 @@ export default function Navbar() {
               setActivePanel(4);
             }}
           />
-          <MenuBtn icon={"logout"} label="Logout" />
+          <MenuBtn
+            icon={"logout"}
+            label="Logout"
+            onClick={() => handleLogout()}
+          />
         </Stack>
       </nav>
     </motion.div>

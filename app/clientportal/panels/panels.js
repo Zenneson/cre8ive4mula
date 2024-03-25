@@ -1,4 +1,5 @@
 "use client";
+import { useUser } from "@libs/userContext";
 import { Box, Center, ScrollArea, Title } from "@mantine/core";
 import { motion } from "framer-motion";
 import Archive from "../archive/archive";
@@ -16,7 +17,11 @@ const animation = {
 
 export default function Panels(props) {
   const { taskData } = props;
+  const user = useUser();
+
   const { activePanel } = usePortalState();
+
+  console.log("🚀 ~ Panels ~ user:", user);
 
   return (
     <>

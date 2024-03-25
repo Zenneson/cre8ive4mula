@@ -1,52 +1,30 @@
 "use client";
-import { doc, onSnapshot } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
-import { auth, firestore } from "./firebase";
+import { auth } from "./firebase";
 
 // User context
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(auth.currentUser);
+
+  console.log("🚀 ~ UserProvider ~ user:", user);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
-      setLoading(false);
-
-      if (userAuth?.email) {
-        const docRef = doc(firestore, "users", userAuth.email);
-
-        const unsubscribeFirestore = onSnapshot(
-          docRef,
-          (docSnap) => {
-            if (docSnap.exists()) {
-              const userData = docSnap.data();
-              setUser({ ...userAuth, ...userData });
-            } else {
-              setUser("none");
-              console.log("No such document!");
-            }
-          },
-          (error) => {
-            setUser("none");
-            console.error("Error getting document:", error);
-          }
-        );
-
-        return () => unsubscribeFirestore();
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
       } else {
-        setUser("none");
+        setUser(null);
       }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [setUser]);
 
   return (
-    <UserContext.Provider value={{ user, loading }}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
   );
 };
 
